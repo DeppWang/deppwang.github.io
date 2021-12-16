@@ -110,7 +110,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074258.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074549.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-18-111026.png">
-<meta property="og:updated_time" content="2021-12-13T02:46:22.702Z">
+<meta property="og:updated_time" content="2021-12-16T15:28:35.841Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="造轮子：实现一个简易的 Spring IoC 容器">
 <meta name="twitter:description" content="作者：DeppWang、原文地址   我通过实现一个简易的 Spring IoC 容器，算是真正入门了 Spring 框架。本文是对实现过程的一个总结提炼，需要配合源码阅读，源码地址。 结合本文和源码，你应该可以学到：Spring 的原理和 Spring Boot 的原理。 Spring 框架是 Java 开发的，Java 是面向对象的语言，所以 Spring 框架本身有大量的抽象、继承、多态。">
@@ -437,7 +437,7 @@
 <p>有个叫 <a href="https://en.wikipedia.org/wiki/Rod_Johnson_(programmer)" target="_blank" rel="noopener">Rod Johnson</a> 老哥对此很不爽，就开发了一个叫 <a href="https://spring.io/" target="_blank" rel="noopener">Spring</a> 的框架，就是为了干掉 new 关键字（哈哈，我杜撰的，只是为了说明 Spring 的作用）。</p>
 <p>有了 Spring 框架，<strong>由框架来新建对象，管理对象，并处理对象之间的依赖</strong>，我们程序员就可以专注于业务逻辑（专心搬砖），不用关心对象的创建了。我们来看看 Spring 框架是如何实现的吧。</p>
 <p>注：以下 Spring 框架简写为 Spring</p>
-<p>本节源码对应：<strong>v0</strong></p>
+<p>本节源码对应：<a href="https://github.com/DeppWang/litespring/tree/master/src/test/java/org/deppwang/litespring/v0" target="_blank" rel="noopener">v0</a></p>
 <h2 id="一、实现「实例化-Bean-」"><a href="#一、实现「实例化-Bean-」" class="headerlink" title="一、实现「实例化 Bean 」"></a>一、实现「实例化 Bean 」</h2><p>首先，我们需要标记哪些类交给 Spring 管理，可以借助 xml 标记，将其标记为 <code>&lt;bean&gt;</code>：</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--petstore-v1.xml--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"petStore"</span> <span class="attr">class</span>=<span class="string">"org.deppwang.litespring.v1.service.PetStoreService"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"accountDao"</span> <span class="attr">class</span>=<span class="string">"org.deppwang.litespring.v1.dao.AccountDao"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
@@ -459,7 +459,7 @@
 </li>
 </ol>
 <p>关于类加载和反射，前者可以看看<a href="https://book.douban.com/subject/34907497/" target="_blank" rel="noopener">《深入理解 Java 虚拟机》</a>第 7 章，后者可以看看 <a href="https://depp.wang/2020/04/29/reflection-in-spring-and-reflection-principle/">Spring 中的反射与反射的原理</a>。本文只学习 Spring，这两个知识点不做深入讨论。</p>
-<p>本节源码对应：<strong>v1</strong></p>
+<p>本节源码对应：<strong>v1</strong>（<a href="https://github.com/DeppWang/litespring/tree/master/src/main/java/org/deppwang/litespring/v1" target="_blank" rel="noopener">main</a>、<a href="https://github.com/DeppWang/litespring/tree/master/src/test/java/org/deppwang/litespring/v1" target="_blank" rel="noopener">test</a>）</p>
 <h2 id="二、实现「填充属性（依赖注入）」"><a href="#二、实现「填充属性（依赖注入）」" class="headerlink" title="二、实现「填充属性（依赖注入）」"></a>二、实现「填充属性（依赖注入）」</h2><!--使用 Spring 时，我们希望只需要声明一下就能使用-->
 
 <!--直接 new 改为依赖注入-->
@@ -502,7 +502,7 @@
 <p>基于 Setter() 方法实现依赖注入的方式跟构造方法差不多，源码中有实现，请看源码。</p>
 <p>实际上，Spring 默认先尝试使用构造函数注入依赖，当没有配置 <code>&lt;constructor-arg&gt;</code> 时，使用 <code>&lt;property&gt;</code>。</p>
 <p>因为 Spring 实现了依赖注入，所以我们程序员没有了创建对象的控制权，所以也被称为控制反转（<strong>I</strong>nversion <strong>o</strong>f <strong>C</strong>ontrol，简称  IoC）。因为 Spring 使用 Map 管理 BeanDefinition，我们也可以将 Spring 称为 IoC 容器。</p>
-<p>本节源码对应：<strong>v2</strong></p>
+<p>本节源码对应：<strong>v2</strong>（<a href="https://github.com/DeppWang/litespring/tree/master/src/main/java/org/deppwang/litespring/v2" target="_blank" rel="noopener">main</a>、<a href="https://github.com/DeppWang/litespring/tree/master/src/test/java/org/deppwang/litespring/v2" target="_blank" rel="noopener">test</a>）</p>
 <h2 id="三、使用「单例模式、工厂方法模式」"><a href="#三、使用「单例模式、工厂方法模式」" class="headerlink" title="三、使用「单例模式、工厂方法模式」"></a>三、使用「单例模式、工厂方法模式」</h2><p>前面两步实现了获取 Bean 实例时创建 Bean 实例，但 Bean 实例经常使用，不能每次都新创建。其实在 Spring 中，一个 Bean 只对应一个 Bean 实例，这需要使用单例模式。</p>
 <blockquote>
 <p>单例模式：一个类有且只有一个实例</p>
@@ -527,7 +527,7 @@
 
 <p>实现：将 BeanIocContainer 修改为 BeanFactory 接口，只提供 getBean() 方法。实现不同的子类对应不同的方式实例化 Bean。</p>
 <p>Spring 使用 <strong>getBean()</strong> 作为工厂方法。getBean() 包含创建对象的方法。</p>
-<p>本节源码对应：<strong>v3</strong></p>
+<p>本节源码对应：<strong>v3</strong>（<a href="https://github.com/DeppWang/litespring/tree/master/src/main/java/org/deppwang/litespring/v3" target="_blank" rel="noopener">main</a>、<a href="https://github.com/DeppWang/litespring/tree/master/src/test/java/org/deppwang/litespring/v3" target="_blank" rel="noopener">test</a>）</p>
 <h2 id="四、实现「注解」"><a href="#四、实现「注解」" class="headerlink" title="四、实现「注解」"></a>四、实现「注解」</h2><p>在业务开发中，如果每个业务类均设置构造函数，并且需要在 xml 中配置，那么就太繁琐，还容易出错。Spring 从 2.5<sup><a href="https://www.tutorialspoint.com/spring/spring_annotation_based_configuration.htm" target="_blank" rel="noopener">ref</a></sup> 开始，新增了注解，可以使用注解来替代业务类的 xml 配置和构造函数。</p>
 <ul>
 <li>使用 @Component 注解代替 <code>&lt;bean&gt;</code></li>
@@ -573,7 +573,7 @@
 <li>Component：组件</li>
 <li>Autowired：自动装配</li>
 </ul>
-<p>本节源码对应：<strong>v4</strong></p>
+<p>本节源码对应：<strong>v4</strong>（<a href="https://github.com/DeppWang/litespring/tree/master/src/main/java/org/deppwang/litespring/v4" target="_blank" rel="noopener">main</a>、<a href="https://github.com/DeppWang/litespring/tree/master/src/test/java/org/deppwang/litespring/v4" target="_blank" rel="noopener">test</a>）</p>
 <h2 id="五、注解-Bean"><a href="#五、注解-Bean" class="headerlink" title="五、注解 @Bean"></a>五、注解 @Bean</h2><p>只要类是一个 Bean，就可以由 Spring 管理。</p>
 <p>业务类为了减少配置，可使用 @Component + @Autowired 实现依赖注入。</p>
 <p>将其他 Bean 注入容器时，虽然可以通过 xml 实现，但仍然比较麻烦，Spring 提供了一个注解 @Bean，当一个方法标记为 @Bean 时，它的返回值将被注入容器。</p>
@@ -584,7 +584,7 @@
 <!--如果 Bean 没有构造函数或者 Setter 方法，需要引用 @Autowired-->
 
 <p>注意：@Bean 需要和 @Configuration 一起使用</p>
-<p>本节源码对应：<strong>v5</strong></p>
+<p>本节源码对应：<strong>v5</strong>（<a href="https://github.com/DeppWang/litespring/tree/master/src/main/java/org/deppwang/litespring/v5" target="_blank" rel="noopener">main</a>、<a href="https://github.com/DeppWang/litespring/tree/master/src/test/java/org/deppwang/litespring/v5" target="_blank" rel="noopener">test</a>）</p>
 <!--如果一个标记为 @Bean 的函数需要使用另一个类，那么另一个类也要注入容器？除非它本身也作为 Bean-->
 
 <h2 id="六、Spring-Boot-原理"><a href="#六、Spring-Boot-原理" class="headerlink" title="六、Spring Boot 原理"></a>六、Spring Boot 原理</h2><p>前面说到了 @Configuration 和 @ComponentScan，这就不得不提 Spring Boot。因为 Spring Boot 就使用了  @Configuration 和 @ComponentScan，你可以点开 @SpringBootApplication 看到。</p>
