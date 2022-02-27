@@ -100,7 +100,7 @@
 <meta property="og:description" content="主键选取主键的一个基本原则是：不使用任何业务相关的字段（id）作为主键。修改了主键，会造成一系列的影响 类型：  自增整数类型（id）：BIGINT NOT NULL AUTO_INCREMENT。 全局唯一 GUID 类型  注意：如果使用 INT 自增类型，那么当一张表的记录数超过 2147483647（约21亿）时，会达到上限而出错。使用 BIGINT自增类型则可以最多约 922 亿亿条记录">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135809.jpg">
-<meta property="og:updated_time" content="2021-12-22T03:52:21.089Z">
+<meta property="og:updated_time" content="2022-02-27T08:34:06.777Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL 的 SQL 笔记">
 <meta name="twitter:description" content="主键选取主键的一个基本原则是：不使用任何业务相关的字段（id）作为主键。修改了主键，会造成一系列的影响 类型：  自增整数类型（id）：BIGINT NOT NULL AUTO_INCREMENT。 全局唯一 GUID 类型  注意：如果使用 INT 自增类型，那么当一张表的记录数超过 2147483647（约21亿）时，会达到上限而出错。使用 BIGINT自增类型则可以最多约 922 亿亿条记录">
@@ -629,7 +629,7 @@
 <p>默认测试数据库</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from students;</span><br><span class="line">+<span class="comment">----+-------+</span></span><br><span class="line">| id | name  |</span><br><span class="line">+<span class="comment">----+-------+</span></span><br><span class="line">|  1 | Alice |</span><br><span class="line">+<span class="comment">----+-------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> students(<span class="keyword">id</span>, <span class="keyword">name</span>) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">'Alice'</span>);</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> @@session.transaction_isolation <span class="comment"># 查看隔离级别</span></span><br><span class="line"><span class="keyword">SET</span> @@session.transaction_isolation = <span class="string">'READ-UNCOMMITTED'</span>; <span class="comment"># 切换隔离级别读为提交</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> @@session.transaction_isolation; <span class="comment"># 查看隔离级别</span></span><br><span class="line"><span class="keyword">SELECT</span> @@TX_ISOLATION; <span class="comment"># 查看隔离级别</span></span><br><span class="line"><span class="keyword">SET</span> @@session.transaction_isolation = <span class="string">'READ-UNCOMMITTED'</span>; <span class="comment"># 切换隔离级别读为提交</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="Read-Uncommitted（读未提交）"><a href="#Read-Uncommitted（读未提交）" class="headerlink" title="Read Uncommitted（读未提交）"></a>Read Uncommitted（读未提交）</h3><p>一个事务可以读到另一个事务更新，但未提交的数据。如果另一个事务回滚，当前读取的值就是脏数据，称为脏读。</p>
 <table>
@@ -800,9 +800,7 @@
 </tr>
 </tbody></table>
 <p>上面三种情况均会报错。</p>
-<h3 id="设置隔离级别"><a href="#设置隔离级别" class="headerlink" title="设置隔离级别"></a>设置隔离级别</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<hr>
+<h2 id="MVVC"><a href="#MVVC" class="headerlink" title="MVVC"></a>MVVC</h2><hr>
 <p>数据库语句顺序</p>
 <ul>
 <li>写的顺序：select … from… where…. group by… having… order by.. limit [offset,] (rows)</li>
@@ -975,7 +973,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-count">82</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -997,7 +995,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">95</span>
+                <span class="site-state-item-count">96</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1085,7 +1083,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主键"><span class="nav-number">1.</span> <span class="nav-text">主键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引"><span class="nav-number">2.</span> <span class="nav-text">索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询数据"><span class="nav-number">3.</span> <span class="nav-text">查询数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改数据"><span class="nav-number">4.</span> <span class="nav-text">修改数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#库-表-列-SQL"><span class="nav-number">5.</span> <span class="nav-text">库/表/列 SQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实用-SQL"><span class="nav-number">6.</span> <span class="nav-text">实用 SQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务"><span class="nav-number">7.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Read-Uncommitted（读未提交）"><span class="nav-number">7.1.</span> <span class="nav-text">Read Uncommitted（读未提交）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Read-Commited（读已提交）"><span class="nav-number">7.2.</span> <span class="nav-text">Read Commited（读已提交）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Repeatable-Commited（可重复读）"><span class="nav-number">7.3.</span> <span class="nav-text">Repeatable Commited（可重复读）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Serializable（串行化）"><span class="nav-number">7.4.</span> <span class="nav-text">Serializable（串行化）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置隔离级别"><span class="nav-number">7.5.</span> <span class="nav-text">设置隔离级别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延伸阅读"><span class="nav-number">8.</span> <span class="nav-text">延伸阅读</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主键"><span class="nav-number">1.</span> <span class="nav-text">主键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引"><span class="nav-number">2.</span> <span class="nav-text">索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询数据"><span class="nav-number">3.</span> <span class="nav-text">查询数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改数据"><span class="nav-number">4.</span> <span class="nav-text">修改数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#库-表-列-SQL"><span class="nav-number">5.</span> <span class="nav-text">库/表/列 SQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实用-SQL"><span class="nav-number">6.</span> <span class="nav-text">实用 SQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务"><span class="nav-number">7.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Read-Uncommitted（读未提交）"><span class="nav-number">7.1.</span> <span class="nav-text">Read Uncommitted（读未提交）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Read-Commited（读已提交）"><span class="nav-number">7.2.</span> <span class="nav-text">Read Commited（读已提交）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Repeatable-Commited（可重复读）"><span class="nav-number">7.3.</span> <span class="nav-text">Repeatable Commited（可重复读）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Serializable（串行化）"><span class="nav-number">7.4.</span> <span class="nav-text">Serializable（串行化）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVVC"><span class="nav-number">8.</span> <span class="nav-text">MVVC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延伸阅读"><span class="nav-number">9.</span> <span class="nav-text">延伸阅读</span></a></li></ol></div>
             
 
           </div>
@@ -1108,7 +1106,7 @@
         <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

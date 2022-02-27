@@ -301,6 +301,177 @@
   
 
   <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2017/11/12/deploy-hexo-blog/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Depp Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Depp Wang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/12/deploy-hexo-blog/" itemprop="url">换了电脑怎么更新 hexo 博客？</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-12T21:20:40+00:00">
+                2017-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/12/deploy-hexo-blog/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/11/12/deploy-hexo-blog/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/11/12/deploy-hexo-blog/" class="leancloud_visitors" data-flag-title="换了电脑怎么更新 hexo 博客？">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>差不多有两个月没更新 blog 了，写博客就像买东西，东西可以什么都买，也可以什么不买，博客也一样，可以什么都写，也可以什么都不写，现在回首看看以前的博客，虽然写得一般，但是重在坚持，还是稍稍有点成就感的。所以还是继续多写写一般般的博客吧  : )。</p>
+<p>原来的我的 Hexo 博客网站源文件一直存放在自己笔记本上，现在入职了新公司，公司配了新的笔记本，想在公司笔记本上也能发布博文，所以想找个好方法实现多终端更新博客。我在知乎上发现一个<strong>利用分支</strong>托管源文件的 <a href="https://www.zhihu.com/question/21193762" target="_blank" rel="noopener">好答案</a>。</p>
+<h2 id="出师不利"><a href="#出师不利" class="headerlink" title="出师不利"></a>出师不利</h2><p>利用分支的思路，在 GitHub 上新建一个<strong>hexo 分支来存放 Hexo 网站源代码，master 分支还是存放静态网页</strong>。所以我们需要将 Hexo 网站源代码推送到 hexo 分支。</p>
+<p>我将自己笔记上的 Hexo 网站源文件夹复制到新笔记本后，在一开始 <code>git remote add origin</code> 连接 GitHub 远程库的时候就出现以下错误：</p>
+<figure class="highlight subunit"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ERROR: </span>Permission to DeppWang/deppwang.github.io.git denied to amyyanjie.</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br></pre></td></tr></table></figure>
+
+<p>根据错误意思显示是拒绝 “amyyanjie” 连接远程库。可能是没有正确连接或仓库不存在。我直接就 Google，发现原因可能是没有添加 SSH Key。其实还是应该先尝试通过错误提示来解决问题，首先仓库是一定存在的，那一定是连接有问题，所以就应该想到 SSH Key 出问题。 </p>
+<p>“amyyanjie” 是我安装 git 的时候新建的用户名，我已经将电脑唯一的 SSH Key 用于另一个 GitHub 账号，所以当我想添加 SSH key 到我的 GitHub 上时，就会报 SSH Key 已使用的错误。解决方法有两种：</p>
+<ol>
+<li>找到你添加 SSH Key 的另一个 GitHub 账号，将对应的 SSH Key 删除，如果你不记得那个账号了，可以采用第二种方法；</li>
+<li>如果你的电脑没有跟很多托管网站连接，采用简单粗暴的方法，重新生成一个 key！生成命令跟第一次一样 <code>ssh-keygen -t rsa -C &quot;youremail@example.com&quot;</code>。如果这个 SSH Key 还有用，你可以使用 <code>ssh-keygen -t rsa_2 -C &quot;youremail@example.com&quot;</code> 生成第二个 SSH Key。这样你可以实现一个电脑连接多个 GitHub 账号，具体参考 <a href="http://www.jianshu.com/p/04e9a885c5c8" target="_blank" rel="noopener">Git 之同一台电脑连接多个远程仓库</a></li>
+</ol>
+<p>重新设置仓库用户名的命令是：<code>git config --global user.name &quot;yourname&quot;</code></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/11/12/deploy-hexo-blog/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2017/10/01/execution-of-finally-code-block/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1762,174 +1933,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://depp.wang/2017/07/13/jvm-runtime-data-area/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Depp Wang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/deppwang.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Depp Wang's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/13/jvm-runtime-data-area/" itemprop="url">Java 虚拟机运行时数据区域 </a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-13T09:29:15+00:00">
-                2017-07-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JVM/" itemprop="url" rel="index">
-                    <span itemprop="name">JVM</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/13/jvm-runtime-data-area/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/13/jvm-runtime-data-area/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/07/13/jvm-runtime-data-area/" class="leancloud_visitors" data-flag-title="Java 虚拟机运行时数据区域 ">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>JVM 对于是每个 Java 程序员掌握一定 Java 基础后，都需要学习的。因为很多代码问题，只能了解了 JVM 底层原理后才能解决。大多数 Java 后端开发者都知道堆（Heap）和栈（Stack）的概念，却没有真正理解其原理。推荐 <a href="https://github.com/DeppWang/Java-Book" target="_blank" rel="noopener">《深入理解 Java 虚拟机（第二版）》— 周志明著</a> 学习 JVM。</p>
-<h2 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h2><p>学习 JVM 前要了解进程和线程的概念。</p>
-<p>以下是一个类比，来自 <a href="http://www.ruanyifeng.com/blog/2013/04/processes_and_threads.html" target="_blank" rel="noopener">阮一峰 — 进程与线程的一个简单解释</a>。</p>
-<ol>
-<li>计算机的 CPU 是像一座工厂，时刻在运行。</li>
-<li>因工厂电力有限，一次只能供给一个车间使用。也就是说，一个车间开工的时候，其他车间都必须停工。背后的含义就是，单个 CPU 一次只能运行一个任务。</li>
-<li>进程就好比工厂的车间，它代表 CPU 所能处理的单个任务。任一时刻，CPU 总是运行一个进程，其他进程处于非运行状态。</li>
-<li>一个车间里，可以有很多工人。他们协同完成一个任务。</li>
-<li>线程就好比车间里的工人。一个进程可以包括多个线程。</li>
-</ol>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/13/jvm-runtime-data-area/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1977,7 +1980,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-count">82</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1999,7 +2002,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">95</span>
+                <span class="site-state-item-count">96</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -2094,7 +2097,7 @@
         <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
