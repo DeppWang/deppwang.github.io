@@ -109,7 +109,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-06-10-102800.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-06-10-113424.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-06-10-060620.png">
-<meta property="og:updated_time" content="2022-02-27T11:34:27.942Z">
+<meta property="og:updated_time" content="2022-06-09T15:47:06.720Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何查找某个网站的（如：有道云笔记）的接口">
 <meta name="twitter:description" content="作者：DeppWang、原文地址  开发了个 《一键导出 / 备份「有道云笔记」所有笔记》的脚本。主要原理是利用有道云笔记本身的接口。下面是根据正常用户操作逻辑，找到需要的接口，主要是登录和「下载」。">
@@ -364,8 +364,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Markdown/" itemprop="url" rel="index">
-                    <span itemprop="name">Markdown</span>
+                  <a href="/categories/Tools/" itemprop="url" rel="index">
+                    <span itemprop="name">Tools</span>
                   </a>
                 </span>
 
@@ -456,7 +456,7 @@
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-06-11-070108.png" alt="image-20200611150107522" style="zoom:50%;"></p>
 
 <p>接口返回格式类似这样：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"fileEntry"</span>:&#123;</span><br><span class="line">        <span class="attr">"userId"</span>:<span class="string">"m17191082115@163.com"</span>,</span><br><span class="line">        "id":"F83DF1ADA69344D194C7CE861D09B1A1", // root_id</span><br><span class="line">        "version":22888,</span><br><span class="line">        "name":"ROOT",</span><br><span class="line">        "parentId":"0",</span><br><span class="line">        "createTimeForSort":1497860357,</span><br><span class="line">        "modifyTimeForSort":1497860357,</span><br><span class="line">        ....</span><br><span class="line">    &#125;,</span><br><span class="line">    "fileMeta":&#123;</span><br><span class="line">        "chunkList":"None",</span><br><span class="line">        "sharedCount":0,</span><br><span class="line">        "title":"ROOT",</span><br><span class="line">        ...</span><br><span class="line">    &#125;,</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"fileEntry"</span>:&#123;</span><br><span class="line">        <span class="attr">"userId"</span>:<span class="string">"m17191082115@163.com"</span>,</span><br><span class="line">        "id":"F83DF1ADA69344D194C7CE861D09B1A1", // root_id</span><br><span class="line">        "name":"ROOT",</span><br><span class="line">        "parentId":"0",</span><br><span class="line">        "createTimeForSort":1497860357,</span><br><span class="line">        "modifyTimeForSort":1497860357,</span><br><span class="line">        ....</span><br><span class="line">    &#125;,</span><br><span class="line">    "fileMeta":&#123;</span><br><span class="line">        "chunkList":"None",</span><br><span class="line">        "sharedCount":0,</span><br><span class="line">        "title":"ROOT",</span><br><span class="line">        ...</span><br><span class="line">    &#125;,</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">root_id = response.content[<span class="string">'fileEntry'</span>][<span class="string">'id'</span>]</span><br></pre></td></tr></table></figure>
 
@@ -467,7 +467,7 @@
 <figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">https://note.youdao.com/yws/api/personal/<span class="meta">file</span>/9d8a2385eeec77338211b4f04bbf844d?all=true<span class="variable">&amp;f</span>=true<span class="variable">&amp;len</span>=30<span class="variable">&amp;sort</span>=1<span class="variable">&amp;isReverse</span>=false<span class="variable">&amp;method</span>=listPageByParentId<span class="variable">&amp;keyfrom</span>=web<span class="variable">&amp;cstk</span>=01PvSwwu</span><br></pre></td></tr></table></figure>
 
 <p>接口返回格式跟上面差不多，只是数量更多，属性多了 parentId（父文件夹 id）。</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"fileEntry"</span>:&#123;</span><br><span class="line">            <span class="attr">"userId"</span>:<span class="string">"m17191082115@163.com"</span>,</span><br><span class="line">            <span class="attr">"id"</span>:<span class="string">"9d8a2385eeec77338211b4f04bbf844d"</span>,</span><br><span class="line">            <span class="attr">"version"</span>:<span class="number">14168</span>,</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"来自手机"</span>,</span><br><span class="line">            "parentId":"F83DF1ADA69344D194C7CE861D09B1A1", // 父文件夹的 id，此时是 root_id</span><br><span class="line">            "createTimeForSort":1550712995,</span><br><span class="line">            "modifyTimeForSort":1550713003,</span><br><span class="line">            ....</span><br><span class="line">        &#125;,</span><br><span class="line">        "fileMeta":&#123;</span><br><span class="line">            "chunkList":null,</span><br><span class="line">            "sharedCount":0,</span><br><span class="line">            "title":"来自手机",</span><br><span class="line">            "fileSize":0,</span><br><span class="line">            ...</span><br><span class="line">        &#125;,</span><br><span class="line">		...</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"fileEntry"</span>:&#123;</span><br><span class="line">            <span class="attr">"userId"</span>:<span class="string">"m17191082115@163.com"</span>,</span><br><span class="line">            <span class="attr">"id"</span>:<span class="string">"9d8a2385eeec77338211b4f04bbf844d"</span>,</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"来自手机"</span>,</span><br><span class="line">            "parentId":"F83DF1ADA69344D194C7CE861D09B1A1", // 父文件夹的 id，此时是 root_id</span><br><span class="line">            "createTimeForSort":1550712995,</span><br><span class="line">            "modifyTimeForSort":1550713003,</span><br><span class="line">            ....</span><br><span class="line">        &#125;,</span><br><span class="line">        "fileMeta":&#123;</span><br><span class="line">            "chunkList":null,</span><br><span class="line">            "sharedCount":0,</span><br><span class="line">            "title":"来自手机",</span><br><span class="line">            "fileSize":0,</span><br><span class="line">            ...</span><br><span class="line">        &#125;,</span><br><span class="line">		...</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 
 <h3 id="2-3-找到获取文件内容的接口"><a href="#2-3-找到获取文件内容的接口" class="headerlink" title="2.3 找到获取文件内容的接口"></a>2.3 找到获取文件内容的接口</h3><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-06-10-095111.png" alt="image-20200610175111568" style="zoom:50%;"></p>
 
@@ -658,7 +658,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">82</span>
+                <span class="site-state-item-count">83</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -680,7 +680,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">96</span>
+                <span class="site-state-item-count">98</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -1,3 +1,4 @@
+https://depp.wang/2022/06/09/learn-user-wubi-experience/
 https://depp.wang/2022/02/27/my-wedding-record/
 https://depp.wang/2021/03/03/check-python-code-before-commit/
 https://depp.wang/2020/11/17/django-getting-started-notes/
