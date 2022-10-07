@@ -1,4 +1,3 @@
-https://depp.wang/2022/10/07/undefined/
 https://depp.wang/2022/06/10/undefined/
 https://depp.wang/2022/02/27/my-wedding-record/
 https://depp.wang/2021/03/03/check-python-code-before-commit/

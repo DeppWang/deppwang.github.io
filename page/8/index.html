@@ -301,168 +301,6 @@
   
 
   <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://depp.wang/2017/07/18/reverse-String/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Depp Wang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/deppwang.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Depp Wang's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/18/reverse-String/" itemprop="url">算法：数据结构之反转字符串</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-18T09:45:00+00:00">
-                2017-07-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithms/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithms</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/18/reverse-String/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/18/reverse-String/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/07/18/reverse-String/" class="leancloud_visitors" data-flag-title="算法：数据结构之反转字符串">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="反转字符串"><a href="#反转字符串" class="headerlink" title="反转字符串"></a>反转字符串</h2><p><strong>题目描述</strong>：将字符串 <code>&quot;##We###Are###Family!###&quot;</code> 反转为 <code>&quot;###!ylimaF###erA###eW##&quot;</code>。</p>
-<p><strong>分析与解答</strong>：这题我们的解答方法有很多，常见的方法是使用数组，下面来介绍用数据结构中的 Stack（栈）来完成反转。</p>
-<p>Stack 的特点是 FILO（First In，Last Out）— 先进后出。此特点用于将字符串反转非常合适，以下是代码实现：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(ReverseAllStringWithStack(<span class="string">"##We###Are###Family!###"</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">ReverseAllStringWithStack</span><span class="params">(String string)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 如果 string 等于 null 或等于 "" 时，返回 string。</span></span><br><span class="line">        <span class="keyword">if</span> (string == <span class="keyword">null</span> || string.length() == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> string;</span><br><span class="line">        <span class="comment">// 新建一个 Stack，用于存放 Character 类型。为什么存放 Character 而不是 char，</span></span><br><span class="line">        <span class="comment">// 因为泛型只能指定是类或接口类型，而不能是 primitive 主（基本）数据类型。</span></span><br><span class="line">        Stack&lt;Character&gt; stringStack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">char</span>[] array = string.toCharArray();<span class="comment">//toCharArray() 将字符串转换成 char 类型数组</span></span><br><span class="line">        <span class="comment">// 使用 for-each 将数组中的元素 push（推）进 Stack</span></span><br><span class="line">        <span class="keyword">for</span> (Character c : array) &#123;</span><br><span class="line">            stringStack.push(c);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> length = string.length();<span class="comment">// 数组的长度 length; 字符串的长度 length(); 集合的长度 size()</span></span><br><span class="line">        <span class="comment">// 利用 for 循环将元素从栈顶开始，依次弹出</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">            array[i] = stringStack.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> String(array);<span class="comment">//String 的重载构造方法将 char[] 数组转换，返回一个实例化 String 对象</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/18/reverse-String/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2017/07/15/String-ByteCode/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1922,6 +1760,170 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2017/06/15/hexo-disqus/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Depp Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Depp Wang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/15/hexo-disqus/" itemprop="url">Hexo 添加 Disqus 评论</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-15T20:48:37+00:00">
+                2017-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/15/hexo-disqus/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/15/hexo-disqus/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/06/15/hexo-disqus/" class="leancloud_visitors" data-flag-title="Hexo 添加 Disqus 评论">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="Disqus-配置使用"><a href="#Disqus-配置使用" class="headerlink" title="Disqus 配置使用"></a>Disqus 配置使用</h2><p>Disqus 网址：<a href="https://disqus.com/" target="_blank" rel="noopener">https://disqus.com/</a></p>
+<p>打开链接后， 可以直接用 Facebook，Twitter 以及 Google 登录；也可以用邮箱注册后登录。</p>
+<h3 id="配置-Disqus"><a href="#配置-Disqus" class="headerlink" title="配置 Disqus"></a>配置 Disqus</h3><p>登录后，点击首页的 GET STARTED 按钮，点击图示按钮。</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-141304.png" alt="images"></p>
+<h3 id="Create-a-new-site"><a href="#Create-a-new-site" class="headerlink" title="Create a new site"></a>Create a new site</h3><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-141305.png" alt="images"></p>
+<p>Website Name 是 <code>主题配置文件</code>(_config.yml) 的 short name 。比如我的是 deppwang</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/15/hexo-disqus/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1969,7 +1971,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-count">83</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1991,7 +1993,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-count">101</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
