@@ -76,8 +76,8 @@ https://depp.wang/2017/07/05/Eliminate-Expired-Object-References/
 https://depp.wang/2017/07/04/two-logical-question-about-hat/
 https://depp.wang/2017/06/26/introduction-to-computer/
 https://depp.wang/2017/06/24/singleton-pattern/
-https://depp.wang/2017/06/18/test/
 https://depp.wang/2017/06/18/7-sort-algorithms/
+https://depp.wang/2017/06/18/test/
 https://depp.wang/2017/06/15/hexo-disqus/
 https://depp.wang/2017/06/14/hexo-statistical/
 https://depp.wang/2017/06/13/hexo4/
