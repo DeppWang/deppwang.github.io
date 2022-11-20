@@ -301,141 +301,6 @@
   
 
   <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://depp.wang/2022/11/20/GitHub/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Depp Wang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/deppwang.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Depp Wang's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/11/20/GitHub/" itemprop="url">GitHub Action - Obsidian to HexoBlog</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-11-20T04:53:21+00:00">
-                2022-11-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2022/11/20/GitHub/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/11/20/GitHub/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2022/11/20/GitHub/" class="leancloud_visitors" data-flag-title="GitHub Action - Obsidian to HexoBlog">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># This is a basic workflow to help you get started with Actions</span></span><br><span class="line"></span><br><span class="line"><span class="attr">name:</span> <span class="string">Obsidian</span> <span class="string">to</span> <span class="string">HexoBlog</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Controls when the workflow will run</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="comment"># Triggers the workflow on push or pull request events but only for the "master" branch</span></span><br><span class="line"><span class="attr">  push:</span></span><br><span class="line"><span class="attr">    branches:</span> <span class="string">[</span> <span class="string">"master"</span> <span class="string">]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># A workflow run is made up of one or more jobs that can run sequentially or in parallel</span></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="comment"># This workflow contains a single job called "build"</span></span><br><span class="line"><span class="attr">  build:</span></span><br><span class="line">    <span class="comment"># 只有 commit 中包含 manual 才执行后面操作</span></span><br><span class="line">    <span class="comment"># https://stackoverflow.com/questions/71361539/github-action-test-if-a-commit-containing-a-specific-word-was-previously-made/71364384#71364384</span></span><br><span class="line"><span class="attr">    if:</span> <span class="string">"contains(github.event.head_commit.message, 'manual')"</span></span><br><span class="line">    <span class="comment"># The type of runner that the job will run on</span></span><br><span class="line"><span class="attr">    runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Steps represent a sequence of tasks that will be executed as part of the job</span></span><br><span class="line"><span class="attr">    steps:</span></span><br><span class="line">      <span class="comment"># Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">Clone</span> <span class="string">Obsidian</span></span><br><span class="line"><span class="attr">        uses:</span> <span class="string">actions/checkout@v3</span></span><br><span class="line"><span class="attr">        with:</span></span><br><span class="line"><span class="attr">          path:</span> <span class="string">Obsidian-Resp</span></span><br><span class="line">        </span><br><span class="line"><span class="attr">      - name:</span> <span class="string">Clone</span> <span class="string">HexoBlog</span></span><br><span class="line"><span class="attr">        uses:</span> <span class="string">actions/checkout@v3</span></span><br><span class="line"><span class="attr">        with:</span></span><br><span class="line"><span class="attr">          repository:</span> <span class="string">DeppWang/HexoBlog</span></span><br><span class="line"><span class="attr">          token:</span> <span class="string">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</span></span><br><span class="line"><span class="attr">          path:</span> <span class="string">HexoBlog-Resp</span></span><br><span class="line">        </span><br><span class="line"><span class="attr">      - name:</span> <span class="string">Setup</span> <span class="string">Python</span> <span class="string">ENV</span></span><br><span class="line"><span class="attr">        uses:</span> <span class="string">actions/setup-python@v4.2.0</span></span><br><span class="line"><span class="attr">        with:</span></span><br><span class="line">          <span class="comment"># Version range or exact version of Python or PyPy to use, using SemVer's version range syntax. Reads from .python-version if unset.</span></span><br><span class="line"><span class="attr">          python-version:</span> <span class="number">3.7</span> <span class="comment"># optional</span></span><br><span class="line">          </span><br><span class="line"><span class="attr">      - run:</span> <span class="string">python</span> <span class="string">Obsidian-Resp/.github/obsidian_to_hexoblog.py</span></span><br><span class="line">      </span><br><span class="line"><span class="attr">      - run:</span> <span class="string">sh</span> <span class="string">Obsidian-Resp/.github/push_hexoblog.sh</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20221120125228.png" alt=""></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2022/10/26/configing-command-aliases-in-bash-and-zsh/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1845,6 +1710,166 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2020/11/02/build-a-maven-repository/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Depp Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Depp Wang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/11/02/build-a-maven-repository/" itemprop="url">搭建 Maven 仓库</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-02T20:48:37+00:00">
+                2020-11-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Note/" itemprop="url" rel="index">
+                    <span itemprop="name">Note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/11/02/build-a-maven-repository/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/11/02/build-a-maven-repository/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/11/02/build-a-maven-repository/" class="leancloud_visitors" data-flag-title="搭建 Maven 仓库">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>如果 jar 包在本地，只能每次手动导入，不太方便。可以使用以下方式搭建一个 Maven 仓库</p>
+<h2 id="1、使用-GitHub-Pages-搭建公有仓库"><a href="#1、使用-GitHub-Pages-搭建公有仓库" class="headerlink" title="1、使用 GitHub Pages 搭建公有仓库"></a>1、使用 GitHub Pages 搭建公有仓库</h2><p>jar 包本质上是一个静态文件，所以可以使用 GitHub 来存放，再利用 GitHub Pages 提供一个地址让其可直接访问下载。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/11/02/build-a-maven-repository/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1892,7 +1917,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">85</span>
+                <span class="site-state-item-count">84</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1914,7 +1939,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">110</span>
+                <span class="site-state-item-count">107</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
