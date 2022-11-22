@@ -1,5 +1,5 @@
 https://depp.wang/2022/11/22/message-iphone-to-mac/
-https://depp.wang/2022/11/22/obsidian_to_hexoblog/
+https://depp.wang/2022/11/21/obsidian_to_hexoblog/
 https://depp.wang/2022/10/26/configing-command-aliases-in-bash-and-zsh/
 https://depp.wang/2022/06/10/learn-use-wubi-experience/
 https://depp.wang/2022/02/27/my-wedding-record/
