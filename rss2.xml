@@ -8,7 +8,7 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>每个人都需要有自己的哈姆雷特</description>
-    <pubDate>Tue, 22 Nov 2022 15:53:32 GMT</pubDate>
+    <pubDate>Wed, 23 Nov 2022 15:39:52 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -20,16 +20,15 @@
       
         
         
-          &lt;p&gt;现在手机验证码登录比较多，平时工作时不想频繁拿起手机，就设置了手机短信自动同步转发到电脑&lt;/p&gt;
+          &lt;p&gt;现在手机验证码登录比较多，平时工作时不想频繁拿起手机，就设置了手机短信自动同步转发到电脑，利用 iMessage 实现，设置后无需连接同一个 WiFi，手机不在身边也没有关系，只要手机有网即可转发&lt;/p&gt;
 &lt;p&gt;设置步骤：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;iPhone 开启 iMessage，并设置「短信转发」&lt;/li&gt;
-&lt;li&gt;Mac 信息的 iMessage 中登录和 iPhone
+&lt;li&gt;iPhone 开启 iM
         
       
       </description>
       
-      <content:encoded><![CDATA[<p>现在手机验证码登录比较多，平时工作时不想频繁拿起手机，就设置了手机短信自动同步转发到电脑</p><p>设置步骤：</p><ul><li>iPhone 开启 iMessage，并设置「短信转发」</li><li>Mac 信息的 iMessage 中登录和 iPhone 一样的 Apple ID</li></ul><p>详细设置请看 <a href="https://support.apple.com/zh-cn/HT208386" target="_blank" rel="noopener">将短信 / 彩信从 iPhone 转发到 Mac 或 iPad</a></p><p>还可以结合 <a href="https://github.com/DreamSaddle/MacCopier" target="_blank" rel="noopener">MacCopier</a> 使用，MacCopier 可自动将验证码提取到剪贴板，并复制到光标处</p><p>带来一个问题：iMessage 垃圾短信在手机上可以通过「腾讯手机管家」这种 APP 过滤，但在 Mac 上无法过滤，每次得手动已读，强迫症表示有点不爽</p>]]></content:encoded>
+      <content:encoded><![CDATA[<p>现在手机验证码登录比较多，平时工作时不想频繁拿起手机，就设置了手机短信自动同步转发到电脑，利用 iMessage 实现，设置后无需连接同一个 WiFi，手机不在身边也没有关系，只要手机有网即可转发</p><p>设置步骤：</p><ul><li>iPhone 开启 iMessage，并设置「短信转发」</li><li>Mac 信息的 iMessage 中登录和 iPhone 一样的 Apple ID</li></ul><p>详细设置请看 <a href="https://support.apple.com/zh-cn/HT208386" target="_blank" rel="noopener">将短信 / 彩信从 iPhone 转发到 Mac 或 iPad</a></p><p>还可以结合 <a href="https://github.com/DreamSaddle/MacCopier" target="_blank" rel="noopener">MacCopier</a> 使用，MacCopier 可自动将验证码提取到剪贴板，并复制到光标处</p><p>带来一个问题：iMessage 垃圾短信在手机上可以通过「腾讯手机管家」这种 APP 过滤，但在 Mac 上无法过滤，每次得手动已读，强迫症表示有点不爽</p>]]></content:encoded>
       
       <comments>https://depp.wang/2022/11/22/message-iphone-to-mac/#disqus_thread</comments>
     </item>
