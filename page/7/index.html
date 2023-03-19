@@ -137,7 +137,7 @@
   <title>Depp Wang's Blog</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -164,7 +164,7 @@
  ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -300,16 +300,189 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://depp.wang/2019/01/11/share-a-few-useful-websites/">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2019/01/26/springboot2-apache-shiro/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Depp Wang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Depp Wang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/26/springboot2-apache-shiro/" itemprop="url">在 SpringBoot2 中使用 Apache Shiro 实现登录身份验证和访问权限控制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T14:25:08+00:00">
+                2019-01-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/26/springboot2-apache-shiro/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/01/26/springboot2-apache-shiro/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/01/26/springboot2-apache-shiro/" class="leancloud_visitors" data-flag-title="在 SpringBoot2 中使用 Apache Shiro 实现登录身份验证和访问权限控制">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>作者：<a href="https://depp.wang">DeppWang</a>、<a href="https://depp.wang/2019/01/26/springboot2-apache-shiro">原文地址</a></p>
+</blockquote>
+<h2 id="一、Shiro-登陆架构"><a href="#一、Shiro-登陆架构" class="headerlink" title="一、Shiro 登陆架构"></a>一、Shiro 登陆架构</h2><p>下面是 Shiro 的用户登陆架构图，我们根据箭头来看一下流程。</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135431.png" alt="image.png"></p>
+<h3 id="1、Token：使用用户的登录信息创建令牌"><a href="#1、Token：使用用户的登录信息创建令牌" class="headerlink" title="1、Token：使用用户的登录信息创建令牌"></a>1、Token：使用用户的登录信息创建令牌</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">UsernamePasswordToken token = <span class="keyword">new</span> UsernamePasswordToken(username, password, <span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+
+<p>我们要先通过用户名和密码，生成一个 token，token 是一个用户令牌，用于在登陆的时候，Shiro 来验证用户是否有合法的身份。</p>
+<h3 id="2、Subject：执行登陆动作-login"><a href="#2、Subject：执行登陆动作-login" class="headerlink" title="2、Subject：执行登陆动作 (login)"></a>2、Subject：执行登陆动作 (login)</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Subject subject = SecurityUtils.getSubject(); <span class="comment">// 获取 Subject 单例对象</span></span><br><span class="line">subject.login(token); <span class="comment">// 登陆</span></span><br></pre></td></tr></table></figure>
+
+<p>再通过 Subject 来执行登陆操作，将 token 发送给 Security Manager，让他来验证这个 token。Subject 中文翻译是主题。你可以理解为它是一个用户，是 User 的抽象概念。</p>
+<h3 id="3、Realm：自定义代码实现登陆身份验证和访问权限控制"><a href="#3、Realm：自定义代码实现登陆身份验证和访问权限控制" class="headerlink" title="3、Realm：自定义代码实现登陆身份验证和访问权限控制"></a>3、Realm：自定义代码实现登陆身份验证和访问权限控制</h3><p>先来看看 Realm，你从上图可以看出，Realm 在 Shiro 方框的外面。图片很形象，因为这一部分恰恰是需要我们自己去实现的。需要我们来设计如何验证登录用户的身份 (role)，和这个用户是否具有访问某个 URL 的权限 (permission)。前者使用 AuthenticationInfo(验证) 实现，后者使用 AuthorizationInfo(授权) 实现。</p>
+<h3 id="4、Security-Manager：Shiro-架构的核心"><a href="#4、Security-Manager：Shiro-架构的核心" class="headerlink" title="4、Security Manager：Shiro 架构的核心"></a>4、Security Manager：Shiro 架构的核心</h3><p>Security Manager，是 Shiro 架构的核心，简单来说，它根据我们自定义的 Realm，去完成验证和授权工作</p>
+<hr>
+<p>如果这部分没有看懂，建议先根据下面的 “与 SpringBoot2 集成” 部分，搭建一个 demo，在项目中直观体验一下了，再回来看。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/26/springboot2-apache-shiro/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2019/01/11/share-a-few-useful-websites/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Depp Wang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Depp Wang's Blog">
     </span>
 
@@ -354,7 +527,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Software-Website/" itemprop="url" rel="index">
                     <span itemprop="name">Software & Website</span>
                   </a>
@@ -465,16 +638,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2019/01/01/two-encoded-style-of-post-request/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Depp Wang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Depp Wang's Blog">
     </span>
 
@@ -519,7 +692,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/HTTP/" itemprop="url" rel="index">
                     <span itemprop="name">HTTP</span>
                   </a>
@@ -624,16 +797,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2018/11/28/the-morning-peak-of-the-subway-from-dongsanqi-to-xierqi/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Depp Wang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Depp Wang's Blog">
     </span>
 
@@ -678,7 +851,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Live/" itemprop="url" rel="index">
                     <span itemprop="name">Live</span>
                   </a>
@@ -736,26 +909,26 @@
       
         
           
-            <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135434.jpg" alt=""></p>
+            <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135434.jpg" alt></p>
 <p style="color:gray;font-size:12px;text-align:right">-- Illustrations by Emiliano Ponzi</p>
 
 <p>作为一个家在东三旗，公司在西二旗的东三旗人来说。工作日早高峰坐地铁成了一件费心费神的事。</p>
 <p>总的来说，分为三步。</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135436.jpg" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135436.jpg" alt></p>
 <h3 id="第一步，排队进站"><a href="#第一步，排队进站" class="headerlink" title="第一步，排队进站"></a>第一步，排队进站</h3><p>天通苑北站是五号线的起始站，也是东三旗人生活的起点。</p>
 <p>人流量自然不用说，常常看见高举的手机在记录这拥挤一刻。</p>
 <p>在天通苑北坐地铁，时间很有讲究。如果你夏季每天 7 点以前，冬季 7:15 以前坐地铁，那你完全不用担心排队问题 (北京没有春秋)。畅通无阻，你会忘记地铁站需要排队的事实。当然，如果你夏季 8:15 以后，冬季 8:30 以后进站，你也会很潇洒。这样的你应该是程序猿 (媛) 吧。</p>
 <p>如果你很不幸的在高峰时间进站，那么就安安心心的排队 15 分钟左右吧。<strong>听听歌，或者听听英语。谁说时间会浪费呢。</strong></p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135437.jpg" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135437.jpg" alt></p>
 <h3 id="第二步，上车站位"><a href="#第二步，上车站位" class="headerlink" title="第二步，上车站位"></a>第二步，上车站位</h3><p>在起始站上车还是有个得天独厚的优势的，只要你好好排队，肯定会有座位。</p>
 <p>高峰时期，在立水桥换乘的时候，就不要想座位了，能站个好位置就很不错了。站位也要讲技术，<strong>不要站在门口</strong>，门口是地铁最拥挤的地方，<strong>最好站座位前面，门旁座位更佳</strong>，这里下车方便。</p>
 <p>玩玩手机，时间过得好像挺快的。</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135439.jpg" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135439.jpg" alt></p>
 <h3 id="第三步，下车"><a href="#第三步，下车" class="headerlink" title="第三步，下车"></a>第三步，下车</h3><p>这一步很重要，关系你能赶上最后一班班车，还是到处找小蓝车。</p>
 <p>当你听到西二旗站要到了的时候，你就应该做好下车准备了。要收好你的手机，在西二旗下车把手机挤坏的例子太多了；提前跟周围人沟通是否下车，蠕动到门口；紧紧跟着前面的人，防止下车了被挤上车 (应该不少人经历过)。</p>
 <p>友情提示在西二旗不下车的小伙伴，要提前离开门口，<strong>因为你会被挤下去的，可能再也上不去了</strong>。</p>
 <p>下车的时候往往我们最后一丝尊严也被挤掉了。即使这样，我们还是要文明。</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135440.gif" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135440.gif" alt></p>
 <p>早上往往是起床气最重的时候，对于晚睡的人尤其重。东三旗人应该经常看见两个嗓门异常大，面红耳赤的激烈争吵。如果是在地铁上，一个人下车了，另一个肯定说，你上来啊。</p>
 <p>当你要爆粗的时候，忍，都是起床气害的。</p>
 <p><strong>比吵架的人嗓门还大的是地铁工作人员</strong>，“后面的赶快下！”、” 要关门了，不要上了！”。震耳欲聋，余音萦绕。</p>
@@ -804,16 +977,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2018/10/09/how-to-use-dubbo-directlink-and-group/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Depp Wang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Depp Wang's Blog">
     </span>
 
@@ -858,7 +1031,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Dubbo/" itemprop="url" rel="index">
                     <span itemprop="name">Dubbo</span>
                   </a>
@@ -979,16 +1152,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2018/09/20/ShadowsocksR-kexueshangwang/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Depp Wang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Depp Wang's Blog">
     </span>
 
@@ -1033,7 +1206,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Software-Website/" itemprop="url" rel="index">
                     <span itemprop="name">Software & Website</span>
                   </a>
@@ -1176,16 +1349,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2018/09/17/idea-ssr-wunderlist-wox/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Depp Wang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Depp Wang's Blog">
     </span>
 
@@ -1230,7 +1403,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Software-Website/" itemprop="url" rel="index">
                     <span itemprop="name">Software & Website</span>
                   </a>
@@ -1341,16 +1514,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2018/08/29/chrome-extensions/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Depp Wang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Depp Wang's Blog">
     </span>
 
@@ -1395,7 +1568,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Software-Website/" itemprop="url" rel="index">
                     <span itemprop="name">Software & Website</span>
                   </a>
@@ -1505,16 +1678,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2018/08/14/idea's-common-shortcuts-plugins-and-settings/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Depp Wang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Depp Wang's Blog">
     </span>
 
@@ -1559,7 +1732,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Notes/" itemprop="url" rel="index">
                     <span itemprop="name">Notes</span>
                   </a>
@@ -1664,16 +1837,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2018/08/09/a-tutorial-that-installation-centos7-and-use-xshell6-links/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Depp Wang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Depp Wang's Blog">
     </span>
 
@@ -1718,7 +1891,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Linux/" itemprop="url" rel="index">
                     <span itemprop="name">Linux</span>
                   </a>
@@ -1822,180 +1995,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://depp.wang/2018/01/07/js-how-to-use-the-Date-object-addition-and-subtraction-dates/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Depp Wang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/deppwang.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Depp Wang's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/07/js-how-to-use-the-Date-object-addition-and-subtraction-dates/" itemprop="url">JS 中怎样使用 Date 对象加减日期</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-07T21:48:08+00:00">
-                2018-01-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/01/07/js-how-to-use-the-Date-object-addition-and-subtraction-dates/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/07/js-how-to-use-the-Date-object-addition-and-subtraction-dates/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/01/07/js-how-to-use-the-Date-object-addition-and-subtraction-dates/" class="leancloud_visitors" data-flag-title="JS 中怎样使用 Date 对象加减日期">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这一周工作主要是写 js，遇到使用 JS 加减时间的问题，觉得需要总结记录一下。为了下次遇到这种问题时查阅方便，也为了更好的理解记忆。</p>
-<figure class="highlight lasso"><table><tr><td class="code"><pre><span class="line"><span class="built_in">var</span> <span class="built_in">date</span> = <span class="literal">new</span> <span class="built_in">Date</span>(<span class="number">2018</span>,<span class="number">0</span>,<span class="number">7</span>)<span class="comment">// 新建一个时间，用于表示 2018 年 1 月 7 日。</span></span><br></pre></td></tr></table></figure>
-
-<p>为什么用 0 表示 1 呢，这是一个 js 的设计缺陷，<strong>0-11 表示 1-12 月</strong>。</p>
-<h2 id="日期相加"><a href="#日期相加" class="headerlink" title="日期相加"></a>日期相加</h2><p>如果 date 要使用多次，要将这个日期赋给一个 temp 变量，操作 temp 完成计算。</p>
-<figure class="highlight lasso"><table><tr><td class="code"><pre><span class="line"><span class="built_in">var</span> temp = <span class="literal">new</span> <span class="built_in">Date</span>(<span class="built_in">date</span>);</span><br></pre></td></tr></table></figure>
-
-<p>例 1：加一个具体时间 -&gt;  x 年 y 月 z 日</p>
-<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">temp.set<span class="constructor">FullYear(<span class="params">temp</span>.<span class="params">getFullYear</span>()</span> + x);<span class="comment">// 注意是 FullYear</span></span><br><span class="line">temp.set<span class="constructor">Month(<span class="params">temp</span>.<span class="params">getMonth</span>()</span> + <span class="number">1</span> + y);<span class="comment">// 由于设计缺陷，要在设置月份的时候就加 1</span></span><br><span class="line">temp.set<span class="constructor">Date(<span class="params">temp</span>.<span class="params">getDate</span>()</span> + z);<span class="comment">// 注意是 Date</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"><span class="constructor">$(<span class="string">"#year"</span>)</span>.<span class="keyword">val</span>(temp.get<span class="constructor">FullYear()</span>);</span><br><span class="line"><span class="constructor">$(<span class="string">"#month"</span>)</span>.<span class="keyword">val</span>(temp.get<span class="constructor">Month()</span>);<span class="comment">// 如果 setMonth() 中没有加 1，那么在这加 1</span></span><br><span class="line"><span class="constructor">$(<span class="string">"#day"</span>)</span>.<span class="keyword">val</span>(temp.getDate);</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意，一定顺序是 setFullYear()-&gt;setMonth()-&gt;setDate，不然时间相加会不准确。</strong></p>
-<h2 id="日期相减"><a href="#日期相减" class="headerlink" title="日期相减"></a>日期相减</h2><figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line">temp.getTime<span class="comment">()</span>; <span class="comment">//1515254400000, 以 Number 形式表示的时间戳</span></span><br></pre></td></tr></table></figure>
-
-<p>计算 date1 和 date2 之间的天数差值</p>
-<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">var timesDiff = <span class="module-access"><span class="module"><span class="identifier">Math</span>.</span></span>abs(date1.get<span class="constructor">Time()</span> - date2.getTime);</span><br><span class="line">var diffDays = <span class="module-access"><span class="module"><span class="identifier">Math</span>.</span></span>ceil(timesDiff<span class="operator"> / </span>(<span class="number">1000</span><span class="operator"> * </span><span class="number">60</span><span class="operator"> * </span><span class="number">60</span><span class="operator"> * </span><span class="number">24</span>));<span class="comment">// 向上取整</span></span><br></pre></td></tr></table></figure>
-
-<p>但是如果要对天数进增减，那只能先将在 setDate() 中增减，因为你在获取之后增减可能出现 0-31 以外的数</p>
-<p>关于 Date 的其他属性，可以查看 <a href="https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/001434499525761186acdd5ac3a44f8a50cc0ed8606139b000" target="_blank" rel="noopener">廖雪峰的 JS 教程</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2031,7 +2030,7 @@
       
 
       <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="Depp Wang">
           <p class="site-author-name" itemprop="name">Depp Wang</p>
            
@@ -2043,7 +2042,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">93</span>
+                <span class="site-state-item-count">94</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2065,7 +2064,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">144</span>
+                <span class="site-state-item-count">146</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

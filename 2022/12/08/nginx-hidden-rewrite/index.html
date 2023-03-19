@@ -99,7 +99,7 @@
 <meta property="og:site_name" content="Depp Wang&#39;s Blog">
 <meta property="og:description" content="背景一个新项目，后端使用 PHP 实现，前端不做路由，提供一个模板，由后端路由控制。 Route::get(&apos;pages/&amp;#123;name&amp;#125;&apos;, [\App\Http\Controllers\ResourceController::class, &apos;getResourceVersion&apos;]);  当访问路由以 pages/ 开头的路径时，如 http://10.60.10.80/pag">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2023-02-14T14:27:23.294Z">
+<meta property="og:updated_time" content="2023-03-19T16:08:09.654Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx 隐藏式跳转（浏览器 URL 跳转后保持不变）">
 <meta name="twitter:description" content="背景一个新项目，后端使用 PHP 实现，前端不做路由，提供一个模板，由后端路由控制。 Route::get(&apos;pages/&amp;#123;name&amp;#125;&apos;, [\App\Http\Controllers\ResourceController::class, &apos;getResourceVersion&apos;]);  当访问路由以 pages/ 开头的路径时，如 http://10.60.10.80/pag">
@@ -139,7 +139,7 @@
   <title>Nginx 隐藏式跳转（浏览器 URL 跳转后保持不变） | Depp Wang's Blog</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -164,7 +164,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -300,16 +300,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2022/12/08/nginx-hidden-rewrite/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Depp Wang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Depp Wang's Blog">
     </span>
 
@@ -399,7 +399,7 @@
 <figure class="highlight php"><table><tr><td class="code"><pre><span class="line">Route::get(<span class="string">'rewrite_pages/&#123;name&#125;'</span>, [\App\Http\Controllers\ResourceController::class, <span class="string">'getResourceVersion'</span>]);</span><br></pre></td></tr></table></figure>
 
 <h2 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h2><p>借助 <code>$request_uri</code>，将所有以 <code>/pages</code> 开头的 URI 重新设置为一个固定的二级路由，如 <code>/pages/login</code>。PHP 将读取 <code>REQUEST_URI</code> 变量作为 URI</p>
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">index</span> index.php index.html;</span><br><span class="line">    <span class="attribute">server_name</span> localhost;</span><br><span class="line">    <span class="attribute">error_log</span>  /var/log/nginx/error.log <span class="literal">notice</span>;</span><br><span class="line">    <span class="attribute">access_log</span> /var/log/nginx/access.log;</span><br><span class="line">    <span class="attribute">root</span> /home/workspace/project/pms/public;</span><br><span class="line">    <span class="attribute">rewrite_log</span> <span class="literal">on</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="attribute">set</span> <span class="variable">$request_url</span> <span class="variable">$request_uri</span>;  <span class="comment"># 获取 $request_uri 变量，赋值给 $request_url</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">if</span> (<span class="variable">$request_url</span> <span class="regexp">~ ^/pages(.*)$</span> ) &#123;</span><br><span class="line">        <span class="attribute">set</span> <span class="variable">$request_url</span> /pages/login;  <span class="comment"># 设置 $request_url 为 /pages/login。其请求将继续走 location /</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="attribute">location</span> / &#123;<span class="attribute">nginx</span> hidden jump</span><br><span class="line">         try_files <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.php<span class="variable">$is_args</span><span class="variable">$args</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> <span class="regexp">~ \.php$</span> &#123;</span><br><span class="line">        <span class="attribute">try_files</span> <span class="variable">$uri</span> =<span class="number">404</span>;</span><br><span class="line">        <span class="attribute">fastcgi_split_path_info</span><span class="regexp"> ^(.+\.php)(/.+)$</span>;</span><br><span class="line">        <span class="attribute">fastcgi_pass</span> <span class="number">10.60.10.80:9000</span>;</span><br><span class="line">        <span class="attribute">fastcgi_index</span> index.php;</span><br><span class="line">        <span class="attribute">include</span> fastcgi_params;</span><br><span class="line">        <span class="attribute">fastcgi_param</span> REQUEST_URI <span class="variable">$request_url</span>; <span class="comment"># 注意这里要放在 fastcgi_params 后面，因为 fastcgi_params 中包含 REQUEST_URI 变量</span></span><br><span class="line">        <span class="attribute">fastcgi_param</span> SCRIPT_FILENAME <span class="variable">$document_root</span><span class="variable">$fastcgi_script_name</span>;</span><br><span class="line">        <span class="attribute">fastcgi_param</span> PATH_INFO <span class="variable">$fastcgi_path_info</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">index</span> index.php index.html;</span><br><span class="line">    <span class="attribute">server_name</span> localhost;</span><br><span class="line">    <span class="attribute">error_log</span>  /var/log/nginx/error.log <span class="literal">notice</span>;</span><br><span class="line">    <span class="attribute">access_log</span> /var/log/nginx/access.log;</span><br><span class="line">    <span class="attribute">root</span> /home/workspace/project/pms/public;</span><br><span class="line">    <span class="attribute">rewrite_log</span> <span class="literal">on</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="attribute">set</span> <span class="variable">$request_url</span> <span class="variable">$request_uri</span>;  <span class="comment"># 获取 $request_uri 变量，赋值给 $request_url</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">if</span> (<span class="variable">$request_url</span> <span class="regexp">~ ^/pages(.*)$</span> ) &#123;</span><br><span class="line">        <span class="attribute">set</span> <span class="variable">$request_url</span> /pages/login;  <span class="comment"># 设置 $request_url 为 /pages/login。其请求将继续走 location /</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">         <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.php<span class="variable">$is_args</span><span class="variable">$args</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> <span class="regexp">~ \.php$</span> &#123;</span><br><span class="line">        <span class="attribute">try_files</span> <span class="variable">$uri</span> =<span class="number">404</span>;</span><br><span class="line">        <span class="attribute">fastcgi_split_path_info</span><span class="regexp"> ^(.+\.php)(/.+)$</span>;</span><br><span class="line">        <span class="attribute">fastcgi_pass</span> <span class="number">10.60.10.80:9000</span>;</span><br><span class="line">        <span class="attribute">fastcgi_index</span> index.php;</span><br><span class="line">        <span class="attribute">include</span> fastcgi_params;</span><br><span class="line">        <span class="attribute">fastcgi_param</span> REQUEST_URI <span class="variable">$request_url</span>; <span class="comment"># 注意这里要放在 fastcgi_params 后面，因为 fastcgi_params 中包含 REQUEST_URI 变量</span></span><br><span class="line">        <span class="attribute">fastcgi_param</span> SCRIPT_FILENAME <span class="variable">$document_root</span><span class="variable">$fastcgi_script_name</span>;</span><br><span class="line">        <span class="attribute">fastcgi_param</span> PATH_INFO <span class="variable">$fastcgi_path_info</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://juejin.cn/post/6861726452917174279" target="_blank" rel="noopener">https://juejin.cn/post/6861726452917174279</a>  </li>
@@ -561,7 +561,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="Depp Wang">
           <p class="site-author-name" itemprop="name">Depp Wang</p>
            
@@ -573,7 +573,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">93</span>
+                <span class="site-state-item-count">94</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -595,7 +595,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">144</span>
+                <span class="site-state-item-count">146</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
