@@ -2402,9 +2402,11 @@
       var query = new AV.Query(Counter);
 
       query.equalTo("url", url);
+      console.log('addCount');
       query.find({
         success: function(results) {
           if (results.length > 0) {
+            console.log('find success');
             var counter = results[0];
             counter.fetchWhenSave(true);
             counter.increment("time");

@@ -104,7 +104,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20230128175146.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20230128174949.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20230128171614.png">
-<meta property="og:updated_time" content="2023-04-30T16:00:06.972Z">
+<meta property="og:updated_time" content="2023-04-30T16:18:14.268Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次 Jenkins 邮件失败排查过程">
 <meta name="twitter:description" content="问题使用插件 Email Extension Plugin 发送邮件，日志显示发送了，但没有收到邮件">
@@ -971,9 +971,11 @@
       var query = new AV.Query(Counter);
 
       query.equalTo("url", url);
+      console.log('addCount');
       query.find({
         success: function(results) {
           if (results.length > 0) {
+            console.log('find success');
             var counter = results[0];
             counter.fetchWhenSave(true);
             counter.increment("time");

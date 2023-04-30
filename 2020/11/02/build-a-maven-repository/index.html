@@ -99,7 +99,7 @@
 <meta property="og:site_name" content="Depp Wang&#39;s Blog">
 <meta property="og:description" content="如果 jar 包在本地，只能每次手动导入，不太方便。可以使用以下方式搭建一个 Maven 仓库 1、使用 GitHub Pages 搭建公有仓库jar 包本质上是一个静态文件，所以可以使用 GitHub 来存放，再利用 GitHub Pages 提供一个地址让其可直接访问下载。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2023-04-30T16:00:06.968Z">
+<meta property="og:updated_time" content="2023-04-30T16:18:14.264Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建 Maven 仓库">
 <meta name="twitter:description" content="如果 jar 包在本地，只能每次手动导入，不太方便。可以使用以下方式搭建一个 Maven 仓库 1、使用 GitHub Pages 搭建公有仓库jar 包本质上是一个静态文件，所以可以使用 GitHub 来存放，再利用 GitHub Pages 提供一个地址让其可直接访问下载。">
@@ -1005,9 +1005,11 @@
       var query = new AV.Query(Counter);
 
       query.equalTo("url", url);
+      console.log('addCount');
       query.find({
         success: function(results) {
           if (results.length > 0) {
+            console.log('find success');
             var counter = results[0];
             counter.fetchWhenSave(true);
             counter.increment("time");

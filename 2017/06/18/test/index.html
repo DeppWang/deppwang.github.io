@@ -99,7 +99,7 @@
 <meta property="og:site_name" content="Depp Wang&#39;s Blog">
 <meta property="og:description" content="test">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2023-04-30T16:00:06.972Z">
+<meta property="og:updated_time" content="2023-04-30T16:18:14.268Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="test">
 <meta name="twitter:description" content="test">
@@ -932,9 +932,11 @@
       var query = new AV.Query(Counter);
 
       query.equalTo("url", url);
+      console.log('addCount');
       query.find({
         success: function(results) {
           if (results.length > 0) {
+            console.log('find success');
             var counter = results[0];
             counter.fetchWhenSave(true);
             counter.increment("time");

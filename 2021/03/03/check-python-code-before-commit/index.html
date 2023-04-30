@@ -99,7 +99,7 @@
 <meta property="og:site_name" content="Depp Wang&#39;s Blog">
 <meta property="og:description" content="https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/  代码检查工具：flake8 借助钩子（hooks）： 在特定的重要动作发生时触发自定义脚本 pre-commit 钩子：在 pre-commit 前操作">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2023-04-30T16:00:06.968Z">
+<meta property="og:updated_time" content="2023-04-30T16:18:14.268Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Commit 前检查 Python 代码格式.md">
 <meta name="twitter:description" content="https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/  代码检查工具：flake8 借助钩子（hooks）： 在特定的重要动作发生时触发自定义脚本 pre-commit 钩子：在 pre-commit 前操作">
@@ -972,9 +972,11 @@
       var query = new AV.Query(Counter);
 
       query.equalTo("url", url);
+      console.log('addCount');
       query.find({
         success: function(results) {
           if (results.length > 0) {
+            console.log('find success');
             var counter = results[0];
             counter.fetchWhenSave(true);
             counter.increment("time");
