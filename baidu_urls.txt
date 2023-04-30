@@ -1,3 +1,4 @@
+https://depp.wang/2023/04/30/configing-command-aliases-in-bash-and-zsh/
 https://depp.wang/2023/03/19/chatgpt-plus-gpt-4/
 https://depp.wang/2023/01/28/a-jenkins-email-failure-troubleshooting-process/
 https://depp.wang/2023/01/15/use-keynote-to-complete-process-control/
