@@ -2118,9 +2118,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2019/09/08/what-is-otosclerosis/" itemprop="url">
+            <a class="post-title-link" href="/2019/09/08/how-to-lawsuit/" itemprop="url">
               
-                <span itemprop="name">什么是耳硬化症？</span>
+                <span itemprop="name">如何打官司？</span>
               
             </a>
         
@@ -2153,9 +2153,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2019/09/08/how-to-lawsuit/" itemprop="url">
+            <a class="post-title-link" href="/2019/09/08/what-is-otosclerosis/" itemprop="url">
               
-                <span itemprop="name">如何打官司？</span>
+                <span itemprop="name">什么是耳硬化症？</span>
               
             </a>
         
@@ -4041,10 +4041,9 @@
           body: JSON.stringify(data)
         });
       };
-      if (CONFIG.page.isPost) {
-        if (CONFIG.hostname !== location.hostname) return;
+      if ($('.leancloud_visitors').length == 1) {
         addCount(Counter);
-      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+      } else if ($('.post-title-link').length > 1) {
         showTime(Counter);
       }
     }

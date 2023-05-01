@@ -102,7 +102,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-11-131110.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-11-142758.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135146.png">
-<meta property="og:updated_time" content="2023-05-01T09:57:33.797Z">
+<meta property="og:updated_time" content="2023-05-01T10:10:55.261Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅析 Java 基本数据类型与封装类">
 <meta name="twitter:description" content="Java 有两种有效的数据类型：  基本 (Primitive) 数据类型（也称为原始数据类型） 引用数据类型：封装类 (Warpper) 的引用">
@@ -1200,10 +1200,9 @@
           body: JSON.stringify(data)
         });
       };
-      if (CONFIG.page.isPost) {
-        if (CONFIG.hostname !== location.hostname) return;
+      if ($('.leancloud_visitors').length == 1) {
         addCount(Counter);
-      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+      } else if ($('.post-title-link').length > 1) {
         showTime(Counter);
       }
     }

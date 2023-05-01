@@ -100,7 +100,7 @@
 <meta property="og:description" content="WSGIWSGI：（Web Server Gateway Interface，Web 服务端网关接口）。在不借助框架的情况下，直接使用 WSGI 来开发简易服务端。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-11-16-133323.png">
-<meta property="og:updated_time" content="2023-05-01T09:57:33.801Z">
+<meta property="og:updated_time" content="2023-05-01T10:10:55.261Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Django 入门笔记">
 <meta name="twitter:description" content="WSGIWSGI：（Web Server Gateway Interface，Web 服务端网关接口）。在不借助框架的情况下，直接使用 WSGI 来开发简易服务端。">
@@ -1159,10 +1159,9 @@
           body: JSON.stringify(data)
         });
       };
-      if (CONFIG.page.isPost) {
-        if (CONFIG.hostname !== location.hostname) return;
+      if ($('.leancloud_visitors').length == 1) {
         addCount(Counter);
-      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+      } else if ($('.post-title-link').length > 1) {
         showTime(Counter);
       }
     }
