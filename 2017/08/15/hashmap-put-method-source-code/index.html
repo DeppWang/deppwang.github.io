@@ -100,7 +100,7 @@
 <meta property="og:description" content="HashMap 是底层结构是数组 + 链表，数组是存放 Node(Entry)的数组 Entry[]，链表是 Node 组成的链表，充分利用了 Node 的特性。链表的头结点存放在数组中。 put 方法的大致思路 调用 hash(key) 方法，根据 key 对象的 hashCode 计算出 kay 的 hash，根据 hash 计算出其在 tab 数组中的 index，将键和值放入 Node(">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-01-11-065724.gif">
-<meta property="og:updated_time" content="2023-05-01T09:51:25.482Z">
+<meta property="og:updated_time" content="2023-05-01T09:57:33.801Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逐行分析 HashMap 的 put() 方法源码">
 <meta name="twitter:description" content="HashMap 是底层结构是数组 + 链表，数组是存放 Node(Entry)的数组 Entry[]，链表是 Node 组成的链表，充分利用了 Node 的特性。链表的头结点存放在数组中。 put 方法的大致思路 调用 hash(key) 方法，根据 key 对象的 hashCode 计算出 kay 的 hash，根据 hash 计算出其在 tab 数组中的 index，将键和值放入 Node(">
@@ -989,7 +989,7 @@
         });
     }
 
-    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI","app_key":"AjFBNu3SKV0SwMNsiIxA0mQv","server_urls":"https://ycdssag0.api.lncldglobal.com"};
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI","app_key":"AjFBNu3SKV0SwMNsiIxA0mQv","server_url":"https://ycdssag0.api.lncldglobal.com"};
     function fetchData(api_server) {
       var Counter = (method, url, data) => {
         return fetch(`${api_server}/1.1${url}`, {
