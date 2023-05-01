@@ -1,0 +1,1094 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="hOzwzcL7Td1p_evvLmRBasbQKy5-i5AgJwNLD2vHKJ8">
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="ShadowsocksR,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="Depp Wang's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="很多小伙伴问我怎么科学上网，为了方便讲解，写个教程贴出来。 科学上网需要一个软件 + 一个「账号」。  软件：ShadowsocksR，它有 Windows、MacOS、Android、iOS 等版本 「账号」：即 ssr 订阅地址，可以在 NetBoost 购买，1 个人使用的话，建议购买 $19 一年的套餐，每月流量限额 100G（够用了），可同时在线 3 个 ip。   你可以暂时先不用购买">
+<meta name="keywords" content="ShadowsocksR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10 分钟教会你科 (ke) 学 (xue) 上 (shang) 网 (wang)">
+<meta property="og:url" content="https://depp.wang/2018/09/20/ShadowsocksR-kexueshangwang/index.html">
+<meta property="og:site_name" content="Depp Wang&#39;s Blog">
+<meta property="og:description" content="很多小伙伴问我怎么科学上网，为了方便讲解，写个教程贴出来。 科学上网需要一个软件 + 一个「账号」。  软件：ShadowsocksR，它有 Windows、MacOS、Android、iOS 等版本 「账号」：即 ssr 订阅地址，可以在 NetBoost 购买，1 个人使用的话，建议购买 $19 一年的套餐，每月流量限额 100G（够用了），可同时在线 3 个 ip。   你可以暂时先不用购买">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135811.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135813.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135815.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135816.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135817.jpg">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135819.png">
+<meta property="og:updated_time" content="2023-05-01T09:17:35.633Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="10 分钟教会你科 (ke) 学 (xue) 上 (shang) 网 (wang)">
+<meta name="twitter:description" content="很多小伙伴问我怎么科学上网，为了方便讲解，写个教程贴出来。 科学上网需要一个软件 + 一个「账号」。  软件：ShadowsocksR，它有 Windows、MacOS、Android、iOS 等版本 「账号」：即 ssr 订阅地址，可以在 NetBoost 购买，1 个人使用的话，建议购买 $19 一年的套餐，每月流量限额 100G（够用了），可同时在线 3 个 ip。   你可以暂时先不用购买">
+<meta name="twitter:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135811.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'IQPKMP0VXO',
+      apiKey: 'd3e6a74afaebeb6b9c3a26eee410f08e',
+      indexName: 'deppwang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits}条相关记录，共耗时${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://depp.wang/2018/09/20/ShadowsocksR-kexueshangwang/">
+
+
+
+
+
+  <title>10 分钟教会你科 (ke) 学 (xue) 上 (shang) 网 (wang) | Depp Wang's Blog</title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Depp Wang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这是副标题</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools" rel="section">
+            
+            推荐
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2018/09/20/ShadowsocksR-kexueshangwang/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Depp Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Depp Wang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">10 分钟教会你科 (ke) 学 (xue) 上 (shang) 网 (wang)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-20T10:03:11+00:00">
+                2018-09-20
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-12-19T22:36:13+00:00">
+                2019-12-19
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Software-Website/" itemprop="url" rel="index">
+                    <span itemprop="name">Software & Website</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/20/ShadowsocksR-kexueshangwang/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/09/20/ShadowsocksR-kexueshangwang/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/09/20/ShadowsocksR-kexueshangwang/" class="leancloud_visitors" data-flag-title="10 分钟教会你科 (ke) 学 (xue) 上 (shang) 网 (wang)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>很多小伙伴问我怎么科学上网，为了方便讲解，写个教程贴出来。</p>
+<p>科学上网需要一个软件 + 一个「账号」。</p>
+<ul>
+<li>软件：ShadowsocksR，它有 Windows、MacOS、Android、iOS 等版本</li>
+<li>「账号」：即 ssr 订阅地址，可以在 <a href="https://relink.bid/r/bNKx9pm1hn" target="_blank" rel="noopener">NetBoost</a> 购买，1 个人使用的话，建议购买 $19 一年的套餐，每月流量限额 100G（够用了），可同时在线 3 个 ip。</li>
+</ul>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135811.png" alt="image.png"></p>
+<p>你可以暂时先不用购买「账号」，跟着下面教程使用我的（<code>https://conn.bz/s/mTrnMSeWVQ</code>）体验一下了再做决定。</p>
+<h2 id="安装-Windows-客户端"><a href="#安装-Windows-客户端" class="headerlink" title="安装 Windows 客户端"></a>安装 <a href="https://raw.githubusercontent.com/deppwang/ShadowsocksR-download/master/netboostapp.zip" target="_blank" rel="noopener">Windows 客户端</a></h2><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135813.png" alt="image.png"></p>
+<p>我已经将我购买的 ssr 订阅地址封装在 <code>netboostapp.zip</code> 中，<strong>解压打开客户端就可直接使用</strong>。</p>
+<ul>
+<li>双击打开 <code>ShadowsocksR-dotnet4.0.exe</code>，任务栏会出现一个绿色的小飞机，右键小飞机，选择「不限流量」</li>
+</ul>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135815.png" alt="windows.png"></p>
+<ul>
+<li>测试是否能打开 <a href="www.google.com">谷歌</a>。</li>
+<li><a href="https://netboost.co/docs/windows/shadowsocksr.html" target="_blank" rel="noopener">官方安装教程</a></li>
+</ul>
+<h2 id="安装-MacOS-版本"><a href="#安装-MacOS-版本" class="headerlink" title="安装 MacOS 版本"></a>安装 <a href="https://raw.githubusercontent.com/deppwang/ShadowsocksR-download/master/ShadowsocksX-NG-R8.dmg" target="_blank" rel="noopener">MacOS 版本</a></h2><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135816.png" alt="image.png"></p>
+<ul>
+<li><a href="https://netboost.co/docs/macos/shadowsocksr.html" target="_blank" rel="noopener">官方安装教程</a></li>
+</ul>
+<h2 id="安装-Andriod-客户端"><a href="#安装-Andriod-客户端" class="headerlink" title="安装 Andriod 客户端"></a>安装 <a href="https://raw.githubusercontent.com/deppwang/ShadowsocksR-download/master/ssr-3.4.0.5.apk" target="_blank" rel="noopener">Andriod 客户端</a></h2><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135817.jpg" alt="image"></p>
+<ul>
+<li><a href="https://netboost.co/docs/android/shadowsocksr.html" target="_blank" rel="noopener">官方安装教程</a></li>
+</ul>
+<h2 id="安装-iOS-客户端"><a href="#安装-iOS-客户端" class="headerlink" title="安装 iOS 客户端"></a>安装 iOS 客户端</h2><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135819.png" alt="image.png"></p>
+<ul>
+<li>使用非大陆地区共享 Apple ID: <code>red@sscloud.co</code>，密码: <code>JzznjdGf6frOcA5WgkPb</code> 登陆 Apple Store，搜索安装 Shadowrocket（安装完成后，请切换为自己 Apple ID）。</li>
+<li><a href="https://netboost.co/docs/ios/shadowrocket.html" target="_blank" rel="noopener">官方安装教程</a></li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>此订阅账号使用人数众多，每月 100G 流量很快就耗尽了，推荐一个免费通过二维码的方式科学上网：</p>
+<ul>
+<li>需要先翻墙后，打开 <a href="https://free-ss.site/" target="_blank" rel="noopener">free-ss</a>（主站），如果不能翻墙，使用国外邮箱（如 gmail）发送邮件到 <code>ss@rohankdd.com</code> 可自动获取镜像站（<strong>注意，一定要国外邮箱！</strong>）；</li>
+<li>点击 IP 右侧对应二维码小图标打开二维码；</li>
+<li>Windows 右键小飞机，选择「从二维码扫描」；</li>
+<li>MacOS 双击小飞机，选择「服务器」-&gt;「扫描屏幕上的二维码」；</li>
+<li>Android 用<strong>支付宝</strong>扫描复制 URL，在 APP 中使用「从剪贴板导入」方式添加；</li>
+<li>iOS 直接 APP 左上角扫一扫扫描；</li>
+<li>如果没有成功翻墙，换二维码重试。</li>
+</ul>
+<p>此方式虽然免费，但是比较麻烦（不定时失效），建议还是通过 <a href="https://relink.bid/r/bNKx9pm1hn" target="_blank" rel="noopener">NetBoost</a> 购买，小钱中大用。</p>
+<p>小伙伴成功翻墙了吗，欢迎点 Star 哦！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-01-06-wechat-qcode.png" alt="Depp Wang wechat" style="width: 200px; max-width: 100%;">
+    <div>个人公众号</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Depp Wang
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://depp.wang/2018/09/20/ShadowsocksR-kexueshangwang/" title="10 分钟教会你科 (ke) 学 (xue) 上 (shang) 网 (wang)">https://depp.wang/2018/09/20/ShadowsocksR-kexueshangwang/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ShadowsocksR/" rel="tag"># ShadowsocksR</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/17/idea-ssr-wunderlist-wox/" rel="next" title="推荐几个可以提高程序员生存技能的效率软件">
+                <i class="fa fa-chevron-left"></i> 推荐几个可以提高程序员生存技能的效率软件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/09/how-to-use-dubbo-directlink-and-group/" rel="prev" title="如何使用 Dubbo 的直连和服务分组">
+                如何使用 Dubbo 的直连和服务分组 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_inline_share_toolbox">
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-59a23d4837e48752" async="async"></script>
+</div>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="Depp Wang">
+          <p class="site-author-name" itemprop="name">Depp Wang</p>
+           
+              <p class="site-description motion-element" itemprop="description">每个人都需要有自己的哈姆雷特</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">94</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">145</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DeppWang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/deppwang1" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的网络日志" target="_blank">阮一峰的网络日志</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coolshell.cn" title="CoolShell" target="_blank">CoolShell</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://1byte.io" title="1byte" target="_blank">1byte</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Windows-客户端"><span class="nav-number">1.</span> <span class="nav-text">安装 Windows 客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-MacOS-版本"><span class="nav-number">2.</span> <span class="nav-text">安装 MacOS 版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Andriod-客户端"><span class="nav-number">3.</span> <span class="nav-text">安装 Andriod 客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-iOS-客户端"><span class="nav-number">4.</span> <span class="nav-text">安装 iOS 客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">5.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Depp Wang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+本站总共被访问 <span id="busuanzi_value_site_pv"></span> 次&nbsp&nbsp&nbsp
+你是第 <span id="busuanzi_value_site_uv"></span> 位小伙伴
+
+</div>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://deppwang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://depp.wang/2018/09/20/ShadowsocksR-kexueshangwang/';
+          this.page.identifier = '2018/09/20/ShadowsocksR-kexueshangwang/';
+          this.page.title = '10 分钟教会你科 (ke) 学 (xue) 上 (shang) 网 (wang)';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://deppwang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+
+  
+  <script src="https://unpkg.com/leancloud-storage@1.0.0/dist/av-min.js"></script>
+  <script>AV.initialize("YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI", "AjFBNu3SKV0SwMNsiIxA0mQv", serverURL="");</script>
+  <script>
+
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      console.log('addCount');
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            console.log('find success');
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", 'test');
+            newcounter.set("url", 'test');
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
