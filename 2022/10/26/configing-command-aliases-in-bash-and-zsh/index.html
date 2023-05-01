@@ -73,7 +73,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Git,Zsh,Aliases,macOS,别名,Bash,缩写,zshrc,">
+  <meta name="keywords" content="Git,Zsh,Aliases,macOS,别名,Bash,缩写,zshrc,Linux,">
 
 
 
@@ -92,16 +92,16 @@
 
 
 <meta name="description" content="使用命令行操作 Git、Docker 等时，命令较长，容易输错，影响效率，推荐配置别名（缩写），以提升效率。以下是在 Zsh 和 Bash 中配置别名教程 配置 Git 别名git config --global alias.st status  # git stgit config --global alias.co checkoutgit config --global alias.ci co">
-<meta name="keywords" content="Git,Zsh,Aliases,macOS,别名,Bash,缩写,zshrc">
+<meta name="keywords" content="Git,Zsh,Aliases,macOS,别名,Bash,缩写,zshrc,Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Bash 和 Zsh 中配置命令别名提升效率">
+<meta property="og:title" content="Linux Bash 和 Zsh 中配置命令别名提升效率">
 <meta property="og:url" content="https://depp.wang/2022/10/26/configing-command-aliases-in-bash-and-zsh/index.html">
 <meta property="og:site_name" content="Depp Wang&#39;s Blog">
 <meta property="og:description" content="使用命令行操作 Git、Docker 等时，命令较长，容易输错，影响效率，推荐配置别名（缩写），以提升效率。以下是在 Zsh 和 Bash 中配置别名教程 配置 Git 别名git config --global alias.st status  # git stgit config --global alias.co checkoutgit config --global alias.ci co">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2023-05-01T07:23:59.402Z">
+<meta property="og:updated_time" content="2023-05-01T07:25:55.406Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bash 和 Zsh 中配置命令别名提升效率">
+<meta name="twitter:title" content="Linux Bash 和 Zsh 中配置命令别名提升效率">
 <meta name="twitter:description" content="使用命令行操作 Git、Docker 等时，命令较长，容易输错，影响效率，推荐配置别名（缩写），以提升效率。以下是在 Zsh 和 Bash 中配置别名教程 配置 Git 别名git config --global alias.st status  # git stgit config --global alias.co checkoutgit config --global alias.ci co">
 
 
@@ -136,7 +136,7 @@
 
 
 
-  <title>Bash 和 Zsh 中配置命令别名提升效率 | Depp Wang's Blog</title>
+  <title>Linux Bash 和 Zsh 中配置命令别名提升效率 | Depp Wang's Blog</title>
 </head>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -318,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Bash 和 Zsh 中配置命令别名提升效率</h1>
+          <h1 class="post-title" itemprop="name headline">Linux Bash 和 Zsh 中配置命令别名提升效率</h1>
         
 
         <div class="post-meta">
@@ -346,8 +346,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2023-03-26T13:17:17+00:00">
-                2023-03-26
+              <time title="更新于" itemprop="dateModified" datetime="2023-05-01T11:16:25+00:00">
+                2023-05-01
               </time>
             
           </span>
@@ -370,7 +370,7 @@
 
           
           
-             <span id="/2022/10/26/configing-command-aliases-in-bash-and-zsh/" class="leancloud_visitors" data-flag-title="Bash 和 Zsh 中配置命令别名提升效率">
+             <span id="/2022/10/26/configing-command-aliases-in-bash-and-zsh/" class="leancloud_visitors" data-flag-title="Linux Bash 和 Zsh 中配置命令别名提升效率">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -409,7 +409,7 @@
 <h2 id="系统配置全局别名"><a href="#系统配置全局别名" class="headerlink" title="系统配置全局别名"></a>系统配置全局别名</h2><h3 id="1、新建一个-aliases-文件"><a href="#1、新建一个-aliases-文件" class="headerlink" title="1、新建一个 aliases 文件"></a>1、新建一个 aliases 文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; vi ~/.zsh_aliases   <span class="comment"># Zsh</span></span><br><span class="line">&gt; vi ~/.bash_aliases  <span class="comment"># Bash</span></span><br></pre></td></tr></table></figure>
 
 <p>aliases 文件内容：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Git</span></span><br><span class="line">alias gaa='git add .'</span><br><span class="line">alias gau='git add --update'</span><br><span class="line">alias gst='git status'</span><br><span class="line">alias gl='git pull'</span><br><span class="line">alias glo='git pull origin'</span><br><span class="line">alias glom='git pull origin master'</span><br><span class="line">alias glod='git pull origin dev'</span><br><span class="line">alias glot='git pull origin test'</span><br><span class="line">alias gp='git push'</span><br><span class="line">alias gpfo='git push -f origin'</span><br><span class="line">alias gpo='git push origin'</span><br><span class="line">alias gpom='git push origin master'</span><br><span class="line">alias gfom='git fetch origin master'</span><br><span class="line">alias grom='git rebase origin/master'</span><br><span class="line">alias gd='git diff | mate'</span><br><span class="line">alias gc='git commit -v'</span><br><span class="line">alias gca='git commit -v -a'</span><br><span class="line">alias gcm='git commit -m'</span><br><span class="line">alias gb='git branch'</span><br><span class="line">alias gba='git branch -a'</span><br><span class="line">alias gbd='git branch -D'</span><br><span class="line">alias gco='git checkout'</span><br><span class="line">alias gcob='git checkout -b'</span><br><span class="line">alias gcot='git checkout -t'</span><br><span class="line">alias gcom='git checkout master'</span><br><span class="line">alias gcotb='git checkout --track -b'</span><br><span class="line">alias gcod='git checkout dev'</span><br><span class="line">alias gcot='git checkout test'</span><br><span class="line">alias gcofw='git checkout feature/wxq'</span><br><span class="line">alias glog='git log'</span><br><span class="line">alias glogp='git log --pretty=format:"%h %s" --graph'</span><br><span class="line">alias glg='git lg'</span><br><span class="line">alias gsl='git stash list'</span><br><span class="line">alias gss='git stash save'</span><br><span class="line">alias gsp='git stash pop'</span><br><span class="line">alias gm='git merge'</span><br><span class="line">alias gma='git merge --abort'</span><br><span class="line">alias grao='git remote add origin'</span><br><span class="line">alias gr='git reset'</span><br><span class="line">alias grs='git reset --soft'</span><br><span class="line">alias grsh='git reset --soft HEAD^'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Docker</span></span><br><span class="line">alias dis="docker images"</span><br><span class="line">alias di="docker image"</span><br><span class="line">alias dps="docker ps"</span><br><span class="line">alias dex="docker exec -it"</span><br><span class="line">alias dlogs="docker logs --tail=20"</span><br><span class="line">alias drm="docker rm"</span><br><span class="line">alias dpa="docker exec -it pms php /home/www-data/pms/artisan"</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Git</span></span><br><span class="line">alias gaa='git add .'</span><br><span class="line">alias gau='git add --update'</span><br><span class="line">alias gst='git status'</span><br><span class="line">alias gl='git pull'</span><br><span class="line">alias glo='git pull origin'</span><br><span class="line">alias glom='git pull origin master'</span><br><span class="line">alias glod='git pull origin dev'</span><br><span class="line">alias glot='git pull origin test'</span><br><span class="line">alias gp='git push'</span><br><span class="line">alias gpfo='git push -f origin'</span><br><span class="line">alias gpo='git push origin'</span><br><span class="line">alias gpom='git push origin master'</span><br><span class="line">alias gfom='git fetch origin master'</span><br><span class="line">alias grom='git rebase origin/master'</span><br><span class="line">alias gd='git diff | mate'</span><br><span class="line">alias gc='git commit -v'</span><br><span class="line">alias gca='git commit -v -a'</span><br><span class="line">alias gcm='git commit -m'</span><br><span class="line">alias gb='git branch'</span><br><span class="line">alias gba='git branch -a'</span><br><span class="line">alias gbd='git branch -D'</span><br><span class="line">alias gco='git checkout'</span><br><span class="line">alias gcob='git checkout -b'</span><br><span class="line">alias gcot='git checkout -t'</span><br><span class="line">alias gcom='git checkout master'</span><br><span class="line">alias gcotb='git checkout --track -b'</span><br><span class="line">alias gcod='git checkout dev'</span><br><span class="line">alias gcot='git checkout test'</span><br><span class="line">alias gcofw='git checkout feature/wxq'</span><br><span class="line">alias glog='git log'</span><br><span class="line">alias glogp='git log --pretty=format:"%h %s" --graph'</span><br><span class="line">alias glg='git lg'</span><br><span class="line">alias gsl='git stash list'</span><br><span class="line">alias gss='git stash save'</span><br><span class="line">alias gsp='git stash pop'</span><br><span class="line">alias gm='git merge'</span><br><span class="line">alias gma='git merge --abort'</span><br><span class="line">alias grao='git remote add origin'</span><br><span class="line">alias gr='git reset'</span><br><span class="line">alias grs='git reset --soft'</span><br><span class="line">alias grsh='git reset --soft HEAD^'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Docker</span></span><br><span class="line">alias dis="docker images"</span><br><span class="line">alias di="docker image"</span><br><span class="line">alias dps="docker ps"</span><br><span class="line">alias dex="docker exec -it"</span><br><span class="line">alias dlogs="docker logs --tail=20"</span><br><span class="line">alias drm="docker rm"</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> K8s</span></span><br><span class="line">alias kcu='kubectl config use-context'</span><br><span class="line">alias kcc='kubectl config current-context'</span><br><span class="line">alias k8t='kubectl config use-context deppwang@test'</span><br><span class="line">alias k8on='kubectl config use-context deppwang@online'</span><br></pre></td></tr></table></figure>
 
@@ -455,7 +455,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://depp.wang/2022/10/26/configing-command-aliases-in-bash-and-zsh/" title="Bash 和 Zsh 中配置命令别名提升效率">https://depp.wang/2022/10/26/configing-command-aliases-in-bash-and-zsh/</a>
+      <a href="https://depp.wang/2022/10/26/configing-command-aliases-in-bash-and-zsh/" title="Linux Bash 和 Zsh 中配置命令别名提升效率">https://depp.wang/2022/10/26/configing-command-aliases-in-bash-and-zsh/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -487,6 +487,8 @@
           
             <a href="/tags/zshrc/" rel="tag"># zshrc</a>
           
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
         </div>
       
 
@@ -508,8 +510,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/11/21/obsidian_to_hexoblog/" rel="prev" title="一个自动同步 Obsidian 指定文章到 Hexo 博客的脚本">
-                一个自动同步 Obsidian 指定文章到 Hexo 博客的脚本 <i class="fa fa-chevron-right"></i>
+              <a href="/2022/10/26/configing-command-aliases-in-bash-and-zsh/" rel="prev" title="Bash 和 Zsh 中配置命令别名提升效率">
+                Bash 和 Zsh 中配置命令别名提升效率 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -872,7 +874,7 @@
         var disqus_config = function () {
           this.page.url = 'https://depp.wang/2022/10/26/configing-command-aliases-in-bash-and-zsh/';
           this.page.identifier = '2022/10/26/configing-command-aliases-in-bash-and-zsh/';
-          this.page.title = 'Bash 和 Zsh 中配置命令别名提升效率';
+          this.page.title = 'Linux Bash 和 Zsh 中配置命令别名提升效率';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://deppwang-1.disqus.com/embed.js';
