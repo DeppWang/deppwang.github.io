@@ -8,14 +8,14 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>每个人都需要有自己的哈姆雷特</description>
-    <pubDate>Wed, 03 May 2023 14:59:19 GMT</pubDate>
+    <pubDate>Wed, 03 May 2023 15:02:30 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
       <title>安装、迁移基于 Sentry 9 的错误跟踪系统</title>
       <link>https://depp.wang/2023/05/03/installing-and-migrating-sentry9/</link>
       <guid>https://depp.wang/2023/05/03/installing-and-migrating-sentry9/</guid>
-      <pubDate>Wed, 03 May 2023 14:21:39 GMT</pubDate>
+      <pubDate>Wed, 03 May 2023 06:21:39 GMT</pubDate>
       <description>
       
         &lt;p&gt;我给公司搭建错误跟踪系统，方便排查问题，技术选型为 Sentry&lt;br&gt; 9，因为其开源、轻量、能满足业务需求，相比最新版 Sentry，其搭建、维护也更容易，最新版 Sentry 在我们业务中有点杀鸡用牛刀了&lt;/p&gt;
@@ -31,7 +31,7 @@
       <title>开通 ChatGPT Plus 以使用 GPT-4</title>
       <link>https://depp.wang/2023/03/19/chatgpt-plus-gpt-4/</link>
       <guid>https://depp.wang/2023/03/19/chatgpt-plus-gpt-4/</guid>
-      <pubDate>Sun, 19 Mar 2023 15:53:14 GMT</pubDate>
+      <pubDate>Sun, 19 Mar 2023 07:53:14 GMT</pubDate>
       <description>
       
         &lt;p&gt;经过 1 个多月的使用，GPT-4 对我帮忙还是很大，ChatGPT Plus 每个月 20 美金也还是可以接受，推荐重度用户开通。&lt;/p&gt;
@@ -48,7 +48,7 @@
       <title>记一次 Jenkins 邮件失败排查过程</title>
       <link>https://depp.wang/2023/01/28/a-jenkins-email-failure-troubleshooting-process/</link>
       <guid>https://depp.wang/2023/01/28/a-jenkins-email-failure-troubleshooting-process/</guid>
-      <pubDate>Sat, 28 Jan 2023 14:42:37 GMT</pubDate>
+      <pubDate>Sat, 28 Jan 2023 06:42:37 GMT</pubDate>
       <description>
       
         &lt;h2 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h2&gt;&lt;p&gt;使用插件 &lt;code&gt;Email Extension Plugin&lt;/code&gt; 发送邮件，日志显示发送了，但没有收到邮件&lt;/p&gt;
@@ -65,7 +65,7 @@
       <title>使用 Keynote 完成年会场控</title>
       <link>https://depp.wang/2023/01/15/use-keynote-to-complete-process-control/</link>
       <guid>https://depp.wang/2023/01/15/use-keynote-to-complete-process-control/</guid>
-      <pubDate>Sun, 15 Jan 2023 11:37:39 GMT</pubDate>
+      <pubDate>Sun, 15 Jan 2023 03:37:39 GMT</pubDate>
       <description>
       
         &lt;p&gt;&lt;img src=&quot;https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20230113131516.JPG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
@@ -87,7 +87,7 @@
       <title>在 VSCode 中调试在 Docker 中运行的 PHP 代码</title>
       <link>https://depp.wang/2022/12/28/debug-docker-php-code-in-vscode/</link>
       <guid>https://depp.wang/2022/12/28/debug-docker-php-code-in-vscode/</guid>
-      <pubDate>Wed, 28 Dec 2022 14:33:48 GMT</pubDate>
+      <pubDate>Wed, 28 Dec 2022 06:33:48 GMT</pubDate>
       <description>
       
         &lt;h2 id=&quot;1、PHP-容器中安装-xdebug-依赖&quot;&gt;&lt;a href=&quot;#1、PHP-容器中安装-xdebug-依赖&quot; class=&quot;headerlink&quot; title=&quot;1、PHP 容器中安装 xdebug 依赖&quot;&gt;&lt;/a&gt;1、PHP 容器中安装 xdebug 依赖&lt;/h2&gt;&lt;p&gt;php 容器基于 php:8.1.12-fpm&lt;/p&gt;
@@ -106,7 +106,7 @@
       <title>Nginx 隐藏式跳转（浏览器 URL 跳转后保持不变）</title>
       <link>https://depp.wang/2022/12/08/nginx-hidden-rewrite/</link>
       <guid>https://depp.wang/2022/12/08/nginx-hidden-rewrite/</guid>
-      <pubDate>Thu, 08 Dec 2022 14:56:05 GMT</pubDate>
+      <pubDate>Thu, 08 Dec 2022 06:56:05 GMT</pubDate>
       <description>
       
         &lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;一个新项目，后端使用 PHP 实现，前端不做路由，提供一个模板，由后端路由控制。&lt;/p&gt;
@@ -126,7 +126,7 @@
       <title>读《1984》</title>
       <link>https://depp.wang/2022/12/04/read-1984/</link>
       <guid>https://depp.wang/2022/12/04/read-1984/</guid>
-      <pubDate>Sun, 04 Dec 2022 12:27:44 GMT</pubDate>
+      <pubDate>Sun, 04 Dec 2022 04:27:44 GMT</pubDate>
       <description>
       
         &lt;p&gt;此文涉及剧透。&lt;/p&gt;
@@ -144,7 +144,7 @@
       <title>修改 Chrome  默认快捷键（macOS）</title>
       <link>https://depp.wang/2022/11/24/change-chrome-default-keyboard-shortcuts/</link>
       <guid>https://depp.wang/2022/11/24/change-chrome-default-keyboard-shortcuts/</guid>
-      <pubDate>Thu, 24 Nov 2022 16:12:48 GMT</pubDate>
+      <pubDate>Thu, 24 Nov 2022 08:12:48 GMT</pubDate>
       <description>
       
         &lt;p&gt;我平时使用 Chrome 浏览器，浏览器标签页我个人喜欢使用全屏，我使用 &lt;a href=&quot;https://chrome.google.com/webstore/detail/xtab/amddgdnlkmohapieeekfknakgdnpbleb&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;xTab&lt;/a&gt; 限制浏览器只打开一个标签页。针对一些不想马上关闭的标签，我通过使用「固定标签页」来固定，让其不会马上关闭。但每次手动操作比较麻烦，想设置 &lt;code&gt;⇧+⌘+D&lt;/code&gt; 这个快捷键来实现，但这个快捷键浏览器已经占用，Chrome 设置中没有修改的地方，我找到一种方式，可以修改默认快捷键&lt;/p&gt;
@@ -161,7 +161,7 @@
       <title>在 Mac 上接听 iPhone 的来电</title>
       <link>https://depp.wang/2022/11/23/iphone-call-to-mac/</link>
       <guid>https://depp.wang/2022/11/23/iphone-call-to-mac/</guid>
-      <pubDate>Wed, 23 Nov 2022 15:41:09 GMT</pubDate>
+      <pubDate>Wed, 23 Nov 2022 07:41:09 GMT</pubDate>
       <description>
       
         
@@ -180,7 +180,7 @@
       <title>iPhone 短信同步转发到 Mac</title>
       <link>https://depp.wang/2022/11/22/message-iphone-to-mac/</link>
       <guid>https://depp.wang/2022/11/22/message-iphone-to-mac/</guid>
-      <pubDate>Tue, 22 Nov 2022 15:43:16 GMT</pubDate>
+      <pubDate>Tue, 22 Nov 2022 07:43:16 GMT</pubDate>
       <description>
       
         
@@ -202,7 +202,7 @@
       <title>一个自动同步 Obsidian 指定文章到 Hexo 博客的脚本</title>
       <link>https://depp.wang/2022/11/21/obsidian_to_hexoblog/</link>
       <guid>https://depp.wang/2022/11/21/obsidian_to_hexoblog/</guid>
-      <pubDate>Mon, 21 Nov 2022 15:43:16 GMT</pubDate>
+      <pubDate>Mon, 21 Nov 2022 07:43:16 GMT</pubDate>
       <description>
       
         &lt;p&gt;我使用 &lt;a href=&quot;https://obsidian.md/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Obsidian&lt;/a&gt; 作为我的本地 MarkDown 编辑器，使用 Hexo 作为个人博客。在 Obsidian 中写了文章，还需要复制到 HexoBlog 源文件中，并且要设置文章 METADATA，最麻烦的是维护问题，如果要修改文章，要修改多处&lt;/p&gt;
@@ -219,7 +219,7 @@
       <title>Bash 和 Zsh 中配置命令别名提升效率</title>
       <link>https://depp.wang/2022/10/26/configing-command-aliases-in-bash-and-zsh/</link>
       <guid>https://depp.wang/2022/10/26/configing-command-aliases-in-bash-and-zsh/</guid>
-      <pubDate>Wed, 26 Oct 2022 08:43:09 GMT</pubDate>
+      <pubDate>Wed, 26 Oct 2022 00:43:09 GMT</pubDate>
       <description>
       
         &lt;p&gt;使用命令行操作 &lt;code&gt;Git&lt;/code&gt;、&lt;code&gt;Docker&lt;/code&gt; 等时，命令较长，容易输错，影响效率，推荐配置别名（缩写），以提升效率。以下是在 &lt;code&gt;Zsh&lt;/code&gt; 和 &lt;code&gt;Bash&lt;/code&gt; 中配置别名教程&lt;/p&gt;
@@ -240,7 +240,7 @@
       <title>Linux Bash 和 Zsh 中配置命令别名提升效率</title>
       <link>https://depp.wang/2022/10/26/configing-command-aliases-in-bash-and-zsh/</link>
       <guid>https://depp.wang/2022/10/26/configing-command-aliases-in-bash-and-zsh/</guid>
-      <pubDate>Wed, 26 Oct 2022 08:43:09 GMT</pubDate>
+      <pubDate>Wed, 26 Oct 2022 00:43:09 GMT</pubDate>
       <description>
       
         &lt;p&gt;使用命令行操作 &lt;code&gt;Git&lt;/code&gt;、&lt;code&gt;Docker&lt;/code&gt; 等时，命令较长，容易输错，影响效率，推荐配置别名（缩写），以提升效率。以下是在 &lt;code&gt;Zsh&lt;/code&gt; 和 &lt;code&gt;Bash&lt;/code&gt; 中配置别名教程&lt;/p&gt;
@@ -261,7 +261,7 @@
       <title>我学习使用五笔的经验</title>
       <link>https://depp.wang/2022/06/10/learn-use-wubi-experience/</link>
       <guid>https://depp.wang/2022/06/10/learn-use-wubi-experience/</guid>
-      <pubDate>Fri, 10 Jun 2022 20:48:37 GMT</pubDate>
+      <pubDate>Fri, 10 Jun 2022 12:48:37 GMT</pubDate>
       <description>
       
         &lt;p&gt;我是 2021 年短暂学习过五笔，但一直没有一个比较宽松的时间，没有学会。最近趁换工作间隙重新捡起来，通过这一段时间的学习与使用，目前工作基本可以使用五笔了，算是出师了。遂分享一下我学习使用五笔的经验。&lt;/p&gt;
@@ -285,7 +285,7 @@
       <title>我的婚礼踩坑记录</title>
       <link>https://depp.wang/2022/02/27/my-wedding-record/</link>
       <guid>https://depp.wang/2022/02/27/my-wedding-record/</guid>
-      <pubDate>Sun, 27 Feb 2022 13:26:55 GMT</pubDate>
+      <pubDate>Sun, 27 Feb 2022 05:26:55 GMT</pubDate>
       <description>
       
         &lt;p&gt;&lt;img src=&quot;https://tva1.sinaimg.cn/large/e6c9d24egy1gzs5f35bjyj212j0u0gpy.jpg&quot; alt=&quot;image-20220227161753640&quot;&gt;&lt;/p&gt;
@@ -303,7 +303,7 @@
       <title>Commit 前检查 Python 代码格式.md</title>
       <link>https://depp.wang/2021/03/03/check-python-code-before-commit/</link>
       <guid>https://depp.wang/2021/03/03/check-python-code-before-commit/</guid>
-      <pubDate>Wed, 03 Mar 2021 17:25:24 GMT</pubDate>
+      <pubDate>Wed, 03 Mar 2021 09:25:24 GMT</pubDate>
       <description>
       
         &lt;p&gt;&lt;a href=&quot;https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/&lt;/a&gt;&lt;/p&gt;
@@ -324,7 +324,7 @@
       <title>Django 入门笔记</title>
       <link>https://depp.wang/2020/11/17/django-getting-started-notes/</link>
       <guid>https://depp.wang/2020/11/17/django-getting-started-notes/</guid>
-      <pubDate>Tue, 17 Nov 2020 17:25:24 GMT</pubDate>
+      <pubDate>Tue, 17 Nov 2020 09:25:24 GMT</pubDate>
       <description>
       
         &lt;!--学习 Django 前的疑问：--&gt;
@@ -346,7 +346,7 @@
       <title>JVM 启动参数设置</title>
       <link>https://depp.wang/2020/11/10/jvm-startup-options-setting/</link>
       <guid>https://depp.wang/2020/11/10/jvm-startup-options-setting/</guid>
-      <pubDate>Tue, 10 Nov 2020 21:48:08 GMT</pubDate>
+      <pubDate>Tue, 10 Nov 2020 13:48:08 GMT</pubDate>
       <description>
       
         &lt;p&gt;公司项目 jdk 版本为 1.8， JVM 参数是自定义设置的，gradle 中 JVM 配置如下（默认内存为 8 G）：&lt;/p&gt;
@@ -363,7 +363,7 @@
       <title>Java 中的 TreeSet</title>
       <link>https://depp.wang/2020/11/07/treeset-in-java/</link>
       <guid>https://depp.wang/2020/11/07/treeset-in-java/</guid>
-      <pubDate>Sat, 07 Nov 2020 22:16:09 GMT</pubDate>
+      <pubDate>Sat, 07 Nov 2020 14:16:09 GMT</pubDate>
       <description>
       
         &lt;p&gt;TreeSet 是一种可有序存放元素的集合，HashSet 是 value 为固定值的 HashMap，TreeSet 是 value 为固定值得 TreeMap。&lt;/p&gt;
@@ -379,7 +379,7 @@
       <title>自定义全局异常处理器（Java）</title>
       <link>https://depp.wang/2020/11/06/customize-global-exception-handler-java/</link>
       <guid>https://depp.wang/2020/11/06/customize-global-exception-handler-java/</guid>
-      <pubDate>Fri, 06 Nov 2020 20:48:37 GMT</pubDate>
+      <pubDate>Fri, 06 Nov 2020 12:48:37 GMT</pubDate>
       <description>
       
         &lt;p&gt;正常业务系统中，当前后端分离时，系统即使有未知异常，也要保证接口能返回错误提示，也需要根据业务规则制定相应的异常状态码和异常提示。所以需要一个全局异常处理器。相关代码：&lt;a href=&quot;https://github.com/DeppWang/springboot-demos/tree/master/springboot-exception&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GitHub&lt;/a&gt;&lt;/p&gt;
