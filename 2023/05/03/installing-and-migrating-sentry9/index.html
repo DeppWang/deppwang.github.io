@@ -105,7 +105,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20230503215243.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20230503214539.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20230423001132.png">
-<meta property="og:updated_time" content="2023-05-03T15:06:51.444Z">
+<meta property="og:updated_time" content="2023-05-03T15:08:50.501Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安装、迁移基于 Sentry 9 的错误跟踪系统">
 <meta name="twitter:description" content="我给公司搭建错误跟踪系统，方便排查问题，技术选型为 Sentry 9，因为其开源、轻量、能满足业务需求，相比最新版 Sentry，其搭建、维护也更容易，最新版 Sentry 在我们业务中有点杀鸡用牛刀了">
@@ -353,7 +353,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2023-05-03T23:05:51+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2023-05-03T23:07:53+08:00">
                 2023-05-03
               </time>
             
@@ -419,7 +419,8 @@
 
 <h3 id="Nginx-配置-Sentry-域名"><a href="#Nginx-配置-Sentry-域名" class="headerlink" title="Nginx 配置 Sentry 域名"></a>Nginx 配置 Sentry 域名</h3><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">server_name</span> [your_domain];</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">location</span> / &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span> [your_host_ip]:<span class="number">9090</span>;	</span><br><span class="line">    <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">    <span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">    <span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="初始化数据库数据"><a href="#初始化数据库数据" class="headerlink" title="初始化数据库数据"></a>初始化数据库数据</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker exec -it sentry sentry upgrade</span><br></pre></td></tr></table></figure>
+<h3 id="初始化数据库数据"><a href="#初始化数据库数据" class="headerlink" title="初始化数据库数据"></a>初始化数据库数据</h3><p>使用 Django 迁移初始化数据库数据</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker exec -it sentry sentry upgrade</span><br></pre></td></tr></table></figure>
 
 <h3 id="创建超级用户"><a href="#创建超级用户" class="headerlink" title="创建超级用户"></a>创建超级用户</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker-compose exec sentry sentry createuser --email your_email@example.com --password your_password --superuser</span><br></pre></td></tr></table></figure>
 
