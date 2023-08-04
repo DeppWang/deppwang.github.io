@@ -110,7 +110,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074258.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074549.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-18-111026.png">
-<meta property="og:updated_time" content="2023-06-28T10:09:53.896Z">
+<meta property="og:updated_time" content="2023-08-04T07:43:01.332Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="造轮子：实现一个简易的 Spring IoC 容器">
 <meta name="twitter:description" content="作者：DeppWang、原文地址   我通过实现一个简易的 Spring IoC 容器，算是真正入门了 Spring 框架。本文是对实现过程的一个总结提炼，需要配合源码阅读，源码地址。 结合本文和源码，你应该可以学到：Spring 的原理和 Spring Boot 的原理。 Spring 框架是 Java 开发的，Java 是面向对象的语言，所以 Spring 框架本身有大量的抽象、继承、多态。">
@@ -470,7 +470,7 @@
 
 </li>
 </ol>
-<p>关于类加载和反射，前者可以看看<a href="https://book.douban.com/subject/34907497/" target="_blank" rel="noopener">《深入理解 Java 虚拟机》</a>第 7 章，后者可以看看 <a href="https://depp.wang/2020/04/29/reflection-in-spring-and-reflection-principle/">Spring 中的反射与反射的原理</a>。本文只学习 Spring，这两个知识点不做深入讨论。</p>
+<p>关于类加载和反射，前者可以看看<a href="https://book.douban.com/subject/34907497/" target="_blank" rel="noopener">《深入理解 Java 虚拟机》</a>第 7 章，后者可以看看 <a href="https://depp.wang/2020/05/05/reflection-in-spring-and-reflection-principle/">Spring 中的反射与反射的原理</a>。本文只学习 Spring，这两个知识点不做深入讨论。</p>
 <p>本节源码对应：<strong>v1</strong>（<a href="https://github.com/DeppWang/litespring/tree/master/src/main/java/org/deppwang/litespring/v1" target="_blank" rel="noopener">main</a>、<a href="https://github.com/DeppWang/litespring/tree/master/src/test/java/org/deppwang/litespring/v1" target="_blank" rel="noopener">test</a>）</p>
 <h2 id="二、实现「填充属性（依赖注入）」"><a href="#二、实现「填充属性（依赖注入）」" class="headerlink" title="二、实现「填充属性（依赖注入）」"></a>二、实现「填充属性（依赖注入）」</h2><!--使用 Spring 时，我们希望只需要声明一下就能使用-->
 
