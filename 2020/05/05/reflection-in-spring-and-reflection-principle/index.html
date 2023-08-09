@@ -101,7 +101,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-29-154427.jpg">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-05-123303.png">
-<meta property="og:updated_time" content="2023-08-04T07:43:01.332Z">
+<meta property="og:updated_time" content="2023-08-09T12:41:52.390Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring 中的反射与反射的原理">
 <meta name="twitter:description" content="作者：DeppWang、原文地址   在造轮子：实现一个简易的 Spring IoC 容器一文中提到 Spring 在创建 Bean 实例和依赖注入时使用了反射，本文来具体分析一下 Spring 中的反射以及反射的原理。">
@@ -142,7 +142,7 @@
   <title>Spring 中的反射与反射的原理 | Depp Wang's Blog</title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -167,7 +167,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -303,16 +303,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2020/05/05/reflection-in-spring-and-reflection-principle/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Depp Wang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Depp Wang's Blog">
     </span>
 
@@ -367,7 +367,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
                   <a href="/categories/Java/" itemprop="url" rel="index">
                     <span itemprop="name">Java</span>
                   </a>
@@ -543,7 +543,7 @@
 <li>通过反射 API 实现</li>
 <li>通过 native 方法实现</li>
 </ul>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-05-123303.png" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-05-123303.png" alt=""></p>
 <p>反射是一种非常规（native 方法实现）方式获取 class 文件信息、运行 class 文件字节码指令和操作对象数据的能力。</p>
 <!--我们可以认为反射就是 native() 方法，可以把它看做一组 API，通过反射 API，可以运行时获取对象的信息，如字段、方法和构造函数，也可以修改字段值和运行方法和构造方法。-->
 
@@ -707,7 +707,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="Depp Wang">
           <p class="site-author-name" itemprop="name">Depp Wang</p>
            
