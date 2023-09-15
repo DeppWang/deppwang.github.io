@@ -119,7 +119,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-140558.jpg">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135553.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135555.jpg">
-<meta property="og:updated_time" content="2023-08-25T17:17:32.923Z">
+<meta property="og:updated_time" content="2023-09-15T15:46:28.465Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="理解狄克斯特拉算法：早上坐地铁最短用时多久就能到公司？">
 <meta name="twitter:description" content="题目来源灵感来自于《算法图解》第 7 章 「狄克斯特拉算法」，图片和代码也是来自该书。 题目描述假设你住起点，公司在终点。坐地铁上班路线有三条，起点 -&amp;gt; A -&amp;gt; 终点；起点 -&amp;gt; B -&amp;gt; A -&amp;gt; 终点；起点 -&amp;gt; B -&amp;gt; 终点。请用狄克斯特拉算法，计算出早上坐地铁上班，最短用时多久就能到公司（不算换乘时间）？2 代表 20 分钟。路线图如下：">
@@ -160,7 +160,7 @@
   <title>理解狄克斯特拉算法：早上坐地铁最短用时多久就能到公司？ | Depp Wang's Blog</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -185,7 +185,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -321,16 +321,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2019/09/09/how-long-is-the-shortest-time/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Depp Wang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Depp Wang's Blog">
     </span>
 
@@ -385,7 +385,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Algorithms/" itemprop="url" rel="index">
                     <span itemprop="name">Algorithms</span>
                   </a>
@@ -443,11 +443,11 @@
       
         <h2 id="题目来源"><a href="#题目来源" class="headerlink" title="题目来源"></a>题目来源</h2><p>灵感来自于<a href="https://depp.wang/Java-Books/%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3.epub">《算法图解》</a>第 7 章 「狄克斯特拉算法」，图片和代码也是来自该书。</p>
 <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>假设你住起点，公司在终点。坐地铁上班路线有三条，<code>起点 -&gt; A -&gt; 终点</code>；<code>起点 -&gt; B -&gt; A -&gt; 终点</code>；<code>起点 -&gt; B -&gt; 终点</code>。请用狄克斯特拉算法，计算出早上坐地铁上班，最短用时多久就能到公司（不算换乘时间）？<code>2</code> 代表 <code>20 分钟</code>。路线图如下：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135451.jpg" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135451.jpg" alt></p>
 <a id="more"></a>
 
 <p>提示：可用三个散列表来表示各节点之间的关系：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135452.jpg" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135452.jpg" alt></p>
 <ul>
 <li>GRAPH 表：记录所有节点到相邻节点（邻居）的时间</li>
 <li>COSTS 表：记录起点到其他节点的时间（开销）</li>
@@ -470,8 +470,8 @@
 <li><a href="https://github.com/egonSchiele/grokking_algorithms/blob/master/07_dijkstras_algorithm/java/01_dijkstras_algorithm/src/DijkstrasAlgorithm.java" target="_blank" rel="noopener">Java</a></li>
 <li><a href="https://github.com/egonSchiele/grokking_algorithms/blob/master/07_dijkstras_algorithm/javascript/01_dijkstras_algorithm.js" target="_blank" rel="noopener">JavaScript</a></li>
 </ul>
-<h3 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h3><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135455.jpg" alt=""></p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135457.jpg" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135459.jpg" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135502.jpg" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135507.png" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135509.jpg" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135525.jpg" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135537.jpg" alt=""><br><img src="https://i.loli.net/2019/09/09/kFR8KNyZMw4PbDG.jpg" style="zoom:108.2%;"><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135540.png" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135543.jpg" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135545.jpg" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135547.jpg" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135549.jpg" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-140551.jpg" style="zoom:115.5%;"><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-140558.jpg" style="zoom:103%;"><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135553.png" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135555.jpg" alt=""></p>
+<h3 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h3><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135455.jpg" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135457.jpg" alt><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135459.jpg" alt><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135502.jpg" alt><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135507.png" alt><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135509.jpg" alt><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135525.jpg" alt><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135537.jpg" alt><br><img src="https://i.loli.net/2019/09/09/kFR8KNyZMw4PbDG.jpg" style="zoom:108.2%;"><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135540.png" alt><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135543.jpg" alt><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135545.jpg" alt><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135547.jpg" alt><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135549.jpg" alt><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-140551.jpg" style="zoom:115.5%;"><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-140558.jpg" style="zoom:103%;"><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135553.png" alt><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135555.jpg" alt></p>
 <h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>如果要问：「早上地铁坐那条路线耗时最短？」应该怎样修改代码？</p>
 
       
@@ -618,7 +618,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="Depp Wang">
           <p class="site-author-name" itemprop="name">Depp Wang</p>
            
@@ -630,7 +630,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-count">98</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -652,7 +652,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">157</span>
+                <span class="site-state-item-count">164</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
