@@ -101,7 +101,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20230913233056.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20230914124228.png">
-<meta property="og:updated_time" content="2023-09-15T23:25:49.403Z">
+<meta property="og:updated_time" content="2023-09-15T23:32:12.060Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 MacBook Pro + ClashX Pro 做旁路由，让路由器翻墙">
 <meta name="twitter:description" content="同一个局域网内，一个设备翻墙，其他设备不安装翻墙软件，直接借助其网络翻墙的方式，一般有 2 种：  手动修改网络配置 路由器翻墙">
@@ -349,7 +349,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2023-09-16T07:24:53+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2023-09-16T07:31:25+08:00">
                 2023-09-16
               </time>
             
@@ -410,10 +410,10 @@
 
 <h2 id="手动修改网络配置"><a href="#手动修改网络配置" class="headerlink" title="手动修改网络配置"></a>手动修改网络配置</h2><p>手动修改网络配置的方式一般也有 2 种，「设置网关与 DNS」和「HTTP 代理」</p>
 <ol>
-<li>设置网关与 DNS：MacBook Pro 连接 WIFI（or 网线连接），设置为手动 IP，<a href="https://install.appcenter.ms/users/clashx/apps/clashx-pro/distribution_groups/public" target="_blank" rel="noopener">ClashX Pro</a> 翻墙，设置「增强模式」，设备连接 WIFI，手动设置 MacBook Pro IP 地址为网关地址和 DNS 地址</li>
+<li>设置「网关」与 「DNS」：MacBook Pro 连接 WIFI（or 网线连接），设置为手动 IP，<a href="https://install.appcenter.ms/users/clashx/apps/clashx-pro/distribution_groups/public" target="_blank" rel="noopener">ClashX Pro</a> 翻墙，设置「增强模式」，设备连接 WIFI，手动设置 MacBook Pro IP 地址为「网关」地址和 「DNS」 地址</li>
 <li>HTTP 代理：MacBook Pro 连接 WIFI（or 网线连接），设置为手动 IP，ClashX Pro 翻墙，设置「允许局域网连接」，设备连接 WIFI，手动设置「代理」 MacBook Pro IP + 混合端口</li>
 </ol>
-<p>具体操作视频可以 Youtube 搜一下，很多</p>
+<p>具体操作视频可以 YouTube 搜一下，很多</p>
 <h2 id="路由器翻墙"><a href="#路由器翻墙" class="headerlink" title="路由器翻墙"></a>路由器翻墙</h2><p>路由器翻墙也主要有 2 种方式：「旁路由」和「软路由」，软路由这篇文章不讲，感兴趣可以自己查下</p>
 <h2 id="旁路由"><a href="#旁路由" class="headerlink" title="旁路由"></a>旁路由</h2><p>什么是「旁路由」：我理解「旁路由」是路由器（主路由）后面的一个可以加入翻墙等功能的路由，所有网络要先经过「旁路由」，再到主路由器</p>
 <p>更简单易懂的讲解请看这个视频： <a href="https://www.youtube.com/watch?v=_XwHEiBmT30&list=LL&index=2" target="_blank" rel="noopener">旁路由设置教程：推开网关大门理解旁路由设置方法</a></p>
@@ -423,14 +423,14 @@
 <li>路由器后台 DHCP 配置「网关」和「DNS」为 MacBook Pro IP</li>
 </ol>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20230913233056.png" alt="路由器 DHCP 设置"></p>
-<p>详细的配置视频请看这个：<a href="https://www.youtube.com/watch?v=UkFIILkkfX0" target="_blank" rel="noopener">免费的 ClashX Pro 作为网关旁路由｜Mac 软件路由器</a></p>
+<p>详细的配置可以看这个视频：<a href="https://www.youtube.com/watch?v=UkFIILkkfX0" target="_blank" rel="noopener">免费的 ClashX Pro 作为网关旁路由｜Mac 软件路由器</a></p>
 <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><ol>
-<li>MacBook Pro 可以做网关（如支持网络共享当 WIFI 用）。可以通过 <code>sysctl net.inet.ip.forwarding</code> 查看其「IP 数据包的转发功能」是否开启，为 <code>1</code> 代表开启，开启时才能做网关</li>
+<li>MacBook Pro 可以做「网关」（如支持网络共享当 WIFI 用）。可以通过 <code>sysctl net.inet.ip.forwarding</code> 查看其「IP 数据包的转发功能」是否开启，为 <code>1</code> 代表开启，开启时才能做「网关」</li>
 <li>ClashX Pro 的增强模式可以实现全软件代理（如 Telegram 使用 MTProto 协议，不开增强模式无法翻墙），开启增强模式就相当于 VPN，其原理是「<a href="https://www.youtube.com/watch?v=qItL005LUik" target="_blank" rel="noopener">TUN虚拟网卡</a>」</li>
 <li>路由器 DHCP 支持配置「网关」和「DNS」，在 DHCP 中设置「网关」和「DNS」为 MacBook Pro 的 IP 地址，所有连接 WIFI 的设备的「网关」和「DNS」是 MacBook Pro 的 IP 地址，会先走 MacBook Pro 的网络</li>
 </ol>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20230914124228.png" alt="网络流向图"></p>
-<h3 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h3><p>我买的小米路由器比较老，路由器 DHCP 不支持设置「网关」和「DNS」。当时我没搞懂原理，把 Mac 电脑插到了光猫上，修改了路由器的「网关」和「DNS」，一直不好使。重新买了小米 AX3000T，它 DHCP 支持设置「网关」和「DNS」， 这才完成「旁路由」的设置。</p>
+<h3 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h3><p>我原来用的小米路由器 4A 千兆版，路由器 DHCP 不支持设置「网关」和「DNS」。开始我没搞懂原理，把 Mac 电脑用网线连接到光猫上，修改路由器的「网关」和「DNS」，一直不好使。YouTube上学习了下旁路由的原理，重新买了小米 AX3000T，它 DHCP 支持设置「网关」和「DNS」， 这才完成「旁路由」的设置。</p>
 <h3 id="小问题"><a href="#小问题" class="headerlink" title="小问题"></a>小问题</h3><p>MacBook Pro 休眠后无法使用，需设置为不休眠</p>
 
       
