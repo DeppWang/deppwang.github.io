@@ -105,7 +105,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231212103459.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231211232018.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231210224113.png">
-<meta property="og:updated_time" content="2023-12-12T04:17:06.695Z">
+<meta property="og:updated_time" content="2023-12-12T04:19:06.674Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 IPv6 + Tailscale 实现 NAS 外网访问">
 <meta name="twitter:description" content="在上一篇文章中写到我搭建了 NAS，但没有折腾外网访问功能。这篇文章就写一下我如何实现 NAS 外网访问。 外网访问的方式外部设备要访问家里局域网中设备，最好局域网有一个公网 IP，如果没有公网 IP，就只能使用内网穿透的方式。">
@@ -353,7 +353,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2023-12-12T12:16:17+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2023-12-12T12:18:18+08:00">
                 2023-12-12
               </time>
             
@@ -423,8 +423,8 @@
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231212102930.png" alt="图片来自：https://www.youtube.com/watch?v=5qzYwvotlNg"></p>
 <p>Tailscale 内网穿透示意图：</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231212103459.png" alt="图片来自：https://www.youtube.com/watch?v=l7pRuK0oEPc&amp;t=2s"></p>
-<p>也可以 Cloudflare Tunnel 来实现，和 ZeroTier、Tailscale 一样，也有速度不理想的问题。</p>
-<h2 id="设置-IPv6-防火墙"><a href="#设置-IPv6-防火墙" class="headerlink" title="设置 IPv6 防火墙"></a>设置 IPv6 防火墙</h2><p>因为宽带有 IPv6 公网 IP，所以我就直接用 IPv6 来实现外网访问，也不想购买中转服务器来实现内网穿透了。这种方式也有一个弊端，就是双方都要 IPv6 公网 IP，假如一方没有 IPv6 地址也不行（如公司网络没有开 IPv6）。当开启 IPv6 后，局域网中每个设备都会有一个 IPv6 公网 IP，此时需要开启 IPv6 防火墙，不然就是大门不上锁，有安全隐患。IPv4 因为没有公网 IP，运营商使用 NAT，防火墙运营商由设置，所以不用我们设置。正常来说，运营商已经屏蔽 IPv6 公网 IP 的 80 和 443 接口。而光猫和路由器也会自己的防火墙设置，默认情况下防火墙是开启的，可以<a href="https://port.tools/port-checker-ipv6/" target="_blank" rel="noopener">在线测试防火墙</a>。</p>
+<p>也可以利用 Cloudflare Tunnel 来实现内网穿透，和 ZeroTier、Tailscale 一样，也有速度不理想的问题。</p>
+<h2 id="设置-IPv6-防火墙"><a href="#设置-IPv6-防火墙" class="headerlink" title="设置 IPv6 防火墙"></a>设置 IPv6 防火墙</h2><p>因为宽带有 IPv6 公网 IP，也不想购买中转服务器来实现内网穿透了，所以我就直接用 IPv6 来实现外网访问。这种方式也有一个弊端，就是双方都要 IPv6 公网 IP，假如一方没有 IPv6 地址也不行（如公司网络没有开 IPv6）。当开启 IPv6 后，局域网中每个设备都会有一个 IPv6 公网 IP，此时需要开启 IPv6 防火墙，不然就是大门不上锁，有安全隐患。IPv4 因为没有公网 IP，运营商使用 NAT，防火墙由运营商设置，所以我们不用设置。正常来说，运营商已经屏蔽 IPv6 公网 IP 的 80 和 443 接口。而光猫和路由器也会自己的防火墙设置，默认情况下防火墙是开启的，可以<a href="https://port.tools/port-checker-ipv6/" target="_blank" rel="noopener">在线测试防火墙</a>。</p>
 <p>如果通过 VPN 的方式来实现外网访问，即使防火墙完全关闭，也没有影响，所以可以直接「使用路由器关闭防火墙」。我考虑到后面可能使用 DDNS 或 WebDAV，这些功能需要指定端口放开，不能关闭所有防火墙，所以我「使用软路由设置防火墙」。</p>
 <h3 id="使用路由器关闭防火墙"><a href="#使用路由器关闭防火墙" class="headerlink" title="使用路由器关闭防火墙"></a>使用路由器关闭防火墙</h3><p>某些路由器，如 <a href="https://u.jd.com/Zz1YQGx" target="_blank" rel="noopener">小米路由器 AX3000T</a> 可以配置开启 IPv6 防火墙：</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231211232018.png" alt="image.png"></p>
