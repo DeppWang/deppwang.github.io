@@ -1,3 +1,4 @@
+https://depp.wang/2023/12/12/ipv6-and-tailscale-remote-access-nas/
 https://depp.wang/2023/11/28/mac-mini-doubles-as-a-nas/
 https://depp.wang/2023/11/15/single-node-rolling-deployment-in-k8s-and-nacos-cluster/
 https://depp.wang/2023/09/15/macbook-pro-and-clashx-pro-as-bypass-router/
@@ -97,4 +98,3 @@ https://depp.wang/2017/06/18/7-sort-algorithms/
 https://depp.wang/2017/06/15/hexo-disqus/
 https://depp.wang/2017/06/14/hexo-statistical/
 https://depp.wang/2017/06/13/hexo4/
-https://depp.wang/2017/06/11/hexo-install-and-set-next-theme/
