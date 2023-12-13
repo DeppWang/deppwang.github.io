@@ -105,7 +105,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231212103459.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231211232018.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231210224113.png">
-<meta property="og:updated_time" content="2023-12-12T04:37:53.663Z">
+<meta property="og:updated_time" content="2023-12-13T13:01:01.675Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 IPv6 + Tailscale 实现 NAS 外网访问">
 <meta name="twitter:description" content="在上一篇文章中写到我搭建了 NAS，但没有折腾外网访问功能。这篇文章就写一下我如何实现 NAS 外网访问。 外网访问的方式外部设备要访问家里局域网中设备，最好局域网有一个公网 IP，如果没有公网 IP，就只能使用内网穿透的方式。">
@@ -353,8 +353,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2023-12-12T12:36:55+08:00">
-                2023-12-12
+              <time title="更新于" itemprop="dateModified" datetime="2023-12-13T21:00:04+08:00">
+                2023-12-13
               </time>
             
           </span>
@@ -435,10 +435,10 @@
 <p>我使用下来，发现 Tailscale 比 ZeroTier 更稳定一点，可能是 Tailscale 底层用了 WireGuard 协议。ZeroTier 和 Tailscale 都需要使用 VPN（Virtual Private Network），在 iPhone 中，VPN 同一时间只能使用一个，所以 Tailscale 我使用 AppleID 注册，没有使用 Gmail。</p>
 <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>使用 Tailscale + IPv6，基本可以跑满上行带宽（30M），看一些小一点的 NAS 中视频基本没有问题。</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231210224113.png" alt="image.png"></p>
-<h2 id="相关视频"><a href="#相关视频" class="headerlink" title="相关视频"></a>相关视频</h2><ul>
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ul>
 <li><a href="https://www.youtube.com/watch?v=nL0-UZSW_24&t=412s" target="_blank" rel="noopener">【硬核】外网访问？内网穿透！零经验上手！</a></li>
-<li><a href="https://www.youtube.com/watch?v=l7pRuK0oEPc&t=2s" target="_blank" rel="noopener">能与 ZeroTier 齐名的内网穿透工具 Tailscale，比 ZeroTier 还好用？</a></li>
-<li><a href="https://www.youtube.com/watch?v=5qzYwvotlNg" target="_blank" rel="noopener">这么良心的开源、内网穿透工具 ZeroTier，为啥到你手就不好用了？</a></li>
+<li><a href="https://www.youtube.com/watch?v=l7pRuK0oEPc&t=2s" target="_blank" rel="noopener">能与 ZeroTier 齐名的内网穿透工具 Tailscale，比 ZeroTier 还好用？| Youtube | 视频</a></li>
+<li><a href="https://www.youtube.com/watch?v=5qzYwvotlNg" target="_blank" rel="noopener">这么良心的开源、内网穿透工具 ZeroTier，为啥到你手就不好用了？| Youtube | 视频</a></li>
 <li><a href="https://service.oray.com/question/5571.html" target="_blank" rel="noopener">内网穿透原理解析</a></li>
 </ul>
 
@@ -714,7 +714,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#外网访问的方式"><span class="nav-number">1.</span> <span class="nav-text">外网访问的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#公网-IP"><span class="nav-number">1.1.</span> <span class="nav-text">公网 IP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内网穿透"><span class="nav-number">1.2.</span> <span class="nav-text">内网穿透</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置-IPv6-防火墙"><span class="nav-number">2.</span> <span class="nav-text">设置 IPv6 防火墙</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用路由器关闭防火墙"><span class="nav-number">2.1.</span> <span class="nav-text">使用路由器关闭防火墙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用软路由设置防火墙"><span class="nav-number">2.2.</span> <span class="nav-text">使用软路由设置防火墙</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Tailscale-点对点直连"><span class="nav-number">3.</span> <span class="nav-text">使用 Tailscale 点对点直连</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">4.</span> <span class="nav-text">效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关视频"><span class="nav-number">5.</span> <span class="nav-text">相关视频</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#外网访问的方式"><span class="nav-number">1.</span> <span class="nav-text">外网访问的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#公网-IP"><span class="nav-number">1.1.</span> <span class="nav-text">公网 IP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内网穿透"><span class="nav-number">1.2.</span> <span class="nav-text">内网穿透</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置-IPv6-防火墙"><span class="nav-number">2.</span> <span class="nav-text">设置 IPv6 防火墙</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用路由器关闭防火墙"><span class="nav-number">2.1.</span> <span class="nav-text">使用路由器关闭防火墙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用软路由设置防火墙"><span class="nav-number">2.2.</span> <span class="nav-text">使用软路由设置防火墙</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Tailscale-点对点直连"><span class="nav-number">3.</span> <span class="nav-text">使用 Tailscale 点对点直连</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">4.</span> <span class="nav-text">效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关链接"><span class="nav-number">5.</span> <span class="nav-text">相关链接</span></a></li></ol></div>
             
 
           </div>
