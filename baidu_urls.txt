@@ -1,3 +1,4 @@
+https://depp.wang/2023/12/25/decoration-sequence/
 https://depp.wang/2023/12/24/best-space-utilization/
 https://depp.wang/2023/12/23/some-decorating-experiences/
 https://depp.wang/2023/12/15/ocbc-account/
@@ -97,4 +98,3 @@ https://depp.wang/2017/07/05/Eliminate-Expired-Object-References/
 https://depp.wang/2017/07/04/two-logical-question-about-hat/
 https://depp.wang/2017/06/26/introduction-to-computer/
 https://depp.wang/2017/06/24/singleton-pattern/
-https://depp.wang/2017/06/18/7-sort-algorithms/
