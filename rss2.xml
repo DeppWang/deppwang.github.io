@@ -8,8 +8,28 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>每个人都需要有自己的哈姆雷特</description>
-    <pubDate>Tue, 26 Dec 2023 08:50:19 GMT</pubDate>
+    <pubDate>Tue, 26 Dec 2023 15:36:51 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>订阅（自动保存）阿里云盘正在连载的资源</title>
+      <link>https://depp.wang/2023/12/26/aliyundrive-subscribe/</link>
+      <guid>https://depp.wang/2023/12/26/aliyundrive-subscribe/</guid>
+      <pubDate>Tue, 26 Dec 2023 15:36:27 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;自从我设置了 Infuse + 阿里云盘 + NAS 观看影视，我媳妇追剧更方便了，但有个问题，当剧集还在连载时，最新剧集每次需要手动保存到自己阿里云盘。因为懒，试着搜了下有没有自动化工具，没想到还真有。&lt;/p&gt;
+&lt;p&gt;工具地址：&lt;a href=&quot;https://github.com/adminpass/aliyundrive-subscribe&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/adminpass/aliyundrive-subscribe&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;工具截图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226233335.png&quot; alt=&quot;image.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;这是一个在 Docker 运行的本地 WEB 程序&lt;/p&gt;
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p>自从我设置了 Infuse + 阿里云盘 + NAS 观看影视，我媳妇追剧更方便了，但有个问题，当剧集还在连载时，最新剧集每次需要手动保存到自己阿里云盘。因为懒，试着搜了下有没有自动化工具，没想到还真有。</p><p>工具地址：<a href="https://github.com/adminpass/aliyundrive-subscribe" target="_blank" rel="noopener">https://github.com/adminpass/aliyundrive-subscribe</a></p><p>工具截图：</p><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226233335.png" alt="image.png"></p><p>这是一个在 Docker 运行的本地 WEB 程序</p><a id="more"></a><h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><h3 id="1、pull-项目-docker-镜像"><a href="#1、pull-项目-docker-镜像" class="headerlink" title="1、pull 项目 docker 镜像"></a>1、pull 项目 docker 镜像</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker pull looby/aliyundrive-subscribe:latest</span><br></pre></td></tr></table></figure><h3 id="2、下载配置文件"><a href="#2、下载配置文件" class="headerlink" title="2、下载配置文件"></a>2、下载配置文件</h3><p>下载程序与 <code>app.ini</code></p><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226232010.png" alt="image.png"></p><p><a href="https://github.com/adminpass/aliyundrive-subscribe/releases/tag/V2.9.5_20231122" target="_blank" rel="noopener">https://github.com/adminpass/aliyundrive-subscribe/releases/tag/V2.9.5_20231122</a></p><h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>我是使用命令启动，<code>/Volumes/NAS/Projects/aliyundrive-subscribe/docker-conf</code> 是我 <code>aliyundrive-subscribe_linux_arm64</code> 和 <code>app.ini</code> 配置文件的路径</p><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226232328.png" alt="image.png"></p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run -d -p 8002:8002 --name aliyundrive-subscribe -v /Volumes/NAS/Projects/aliyundrive-subscribe/docker-conf:/app/conf looby/aliyundrive-subscribe</span><br></pre></td></tr></table></figure><p>启动后使用：<a href="http://127.0.0.1:8002/" target="_blank" rel="noopener">http://127.0.0.1:8002/</a> 打开</p><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="1、获取一个阿里云盘-refresh-token"><a href="#1、获取一个阿里云盘-refresh-token" class="headerlink" title="1、获取一个阿里云盘 refresh_token"></a>1、获取一个阿里云盘 refresh_token</h3><p>这是阿里云盘给三方客户端的 token，可以在<a href="https://alist.nn.ci/zh/guide/drivers/aliyundrive.html" target="_blank" rel="noopener">这里</a>获取，没有验证其安全性（我阿里云盘没有存放重要资料）</p><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226232556.png" alt="image.png"></p><h3 id="2、设置-refresh-token"><a href="#2、设置-refresh-token" class="headerlink" title="2、设置 refresh_token"></a>2、设置 refresh_token</h3><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226232829.png" alt="image.png"></p><h3 id="3、获取你要保存目录的-ID-与资源的地址"><a href="#3、获取你要保存目录的-ID-与资源的地址" class="headerlink" title="3、获取你要保存目录的 ID 与资源的地址"></a>3、获取你要保存目录的 ID 与资源的地址</h3><p>目录的 ID：</p><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226233101.png" alt="image.png"></p><p>资源的地址：</p><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226233120.png" alt="image.png"></p><h3 id="4、设置订阅"><a href="#4、设置订阅" class="headerlink" title="4、设置订阅"></a>4、设置订阅</h3><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226233313.png" alt="image.png"></p><h2 id="相关视频"><a href="#相关视频" class="headerlink" title="相关视频"></a>相关视频</h2><ul><li><a href="https://www.youtube.com/watch?v=mqRYKg_aB3I&amp;t=104s" target="_blank" rel="noopener">https://www.youtube.com/watch?v=mqRYKg_aB3I&amp;t=104s</a></li></ul>]]></content:encoded>
+      
+      <comments>https://depp.wang/2023/12/26/aliyundrive-subscribe/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>我的装修顺序</title>
@@ -18,11 +38,12 @@
       <pubDate>Mon, 25 Dec 2023 04:03:46 GMT</pubDate>
       <description>
       
-        &lt;p&gt;我开始装修时，对装修的先后顺序不清楚，特别是完全不知道什么时候应该购买什么东西。经历这次装修，发现只要知道这个东西什么时候用，用前买好就行。比如厨房烟道止逆阀，贴砖前买好就行。很多家电可以先不买，但需要确定购买型号，如洗碗机、冰箱、油烟机、马桶、扫地机器人等。这样水电和全屋定制就可以更好设计。大型家电可以活动时购买，推迟发货时间。以下我我装修材料购买 / 施工安装的顺序。&lt;/p&gt;
+        &lt;p&gt;装修文章持续更新。第三篇 &lt;/p&gt;
+&lt;h2 id=&quot;我的装修顺序&quot;&gt;&lt;a href=&quot;#我的装修顺序&quot; class=&quot;headerlink&quot; title=&quot;我的装修顺序&quot;&gt;&lt;/a&gt;我的装修顺序&lt;/h2&gt;&lt;p&gt;我开始装修时，对装修的先后顺序不清楚，特别是完全不知道什么时候应该购买什么东西。经历这次装修，发现只要知道这个东西什么时候用，用前买好就行。比如厨房烟道止逆阀，贴砖前买好就行。很多家电可以先不买，但需要确定购买型号，如洗碗机、冰箱、油烟机、马桶、扫地机器人等。这样水电和全屋定制就可以更好设计。大型家电可以活动时购买，推迟发货时间。以下我我装修材料购买 / 施工安装的顺序。&lt;/p&gt;
       
       </description>
       
-      <content:encoded><![CDATA[<p>我开始装修时，对装修的先后顺序不清楚，特别是完全不知道什么时候应该购买什么东西。经历这次装修，发现只要知道这个东西什么时候用，用前买好就行。比如厨房烟道止逆阀，贴砖前买好就行。很多家电可以先不买，但需要确定购买型号，如洗碗机、冰箱、油烟机、马桶、扫地机器人等。这样水电和全屋定制就可以更好设计。大型家电可以活动时购买，推迟发货时间。以下我我装修材料购买 / 施工安装的顺序。</p><a id="more"></a><p>设计阶段</p><ol><li>2022.10.1 全屋量尺寸</li><li>2022.10.6 平面设计优化初稿</li><li>2022.10.7 全屋复尺</li><li>2022.10.11 平面设计优化定稿</li></ol><p>拆改阶段</p><ol><li>2022.1.1 拆改工具购买</li><li>2023.1.3 封阳台窗户预定</li><li>2023.1.3 开工</li><li>2023.1.3-1.10 拆改（旧墙拆除、砌新墙）</li><li>2023.1.9 除渣</li><li>2023.1.31 铲墙（铲除开发商腻子）</li></ol><p>水电阶段</p><ol><li>2023.1.4 网线购买</li><li>2023.2.1 水电定位，水电材料购买</li><li>2023.2.5 水电开槽</li><li>2023.2.6 小区装修过业主推荐新水电师傅</li><li>2023.2.8 新水电师傅进场</li><li>2023.2.14 水电、灯二次设计后，石工补开槽</li><li>2023.2.15 水电穿线完成</li></ol><p>泥工阶段</p><ol><li>2023.1.1 看瓷砖</li><li>2023.2.7 小区群找到泥工师傅</li><li>2023.2.8 燃气改表线上申请</li><li>2023.2.11 泥工约看</li><li>2023.2.11 风管机预定</li><li>2023.2.14 燃气改表线上缴费</li><li>2023.2.16 泥工进场批荡（抹灰）做防水。中间不定时购买水泥河沙</li><li>2023.2.20 空调、热水器打孔</li><li>2023.2.20 风管机安装</li><li>2023.2.20 燃气改表</li><li>2023.2.26 墙砖瓷砖胶购买 </li><li>2023.2.26 瓷砖送货</li><li>2023.2.28 燃气管预埋</li><li>2023.3.1 开始贴砖</li><li>2023.3.2 阳台窗户安装</li><li>2023.3.4 全屋定制交订金，开始设计</li><li>2023.4.1 泥工贴砖完成</li></ol><p>木工阶段</p><ol><li>2023.2.7 刚装修业主推荐木工</li><li>2023.2.11 木工约看</li><li>2023.2.22 买木工材料</li><li>2023.2.24 木工进场，1 天半完成</li></ol><p>油工阶段</p><ol><li>2023.2.8 油工，小区中碰见加微信</li><li>2023.4.2 油工工地约看、开材料</li><li>2023.4.2 定室内门，量尺寸</li><li>2023.4.9 油工材料购买</li><li>2023.4.15 刮石膏（底层腻子）</li><li>2023.4.25 全屋定制设计完成出报价</li><li>2023.4.27 找另一家全屋定制</li><li>2023.5.7 全屋定制设计完成开始生产</li><li>2023.5.8 刮第一遍面层腻子</li><li>2023.5.10 安室内木门</li><li>2023.5.17 安窗台石</li><li>2023.5.30 刮第二遍面层腻子</li><li>2023.6.4 厨卫美缝清理与美缝</li><li>2023.6.4 全屋定制送货安装</li><li>2023.6.15 在全屋定制处预定厨房石材</li><li>2023.6.19 安装厨房石材</li><li>2023.6.22 吊顶材料购买</li><li>2023.6.22 看浴室柜</li><li>2023.6.23 浴室柜没货，再看浴室柜</li><li>2023.6.25 浴室柜安装</li><li>2023.6.27 厨卫吊顶安装</li><li>2023.6.28 安厨房、卫生间门</li><li>2023.6.30 腻子打磨</li><li>2023.7.6 刷乳胶漆（天气热，底漆面漆一起一天刷完）</li><li>2023.9.4 开关插座安装后，油漆补缝</li></ol><p>家具 / 家电阶段</p><ol><li>2023.6.18 热水器 / 冰箱 / 油烟机 / 智能窗帘 / 开关购买</li><li>2023.6.23 看床 / 沙发 / 床垫</li><li>2023.6.26 热水器安装</li><li>2023.6.30 看灯</li><li>2023.7.13 淘宝买主卧床</li><li>2023.7.14 京东买沙发 / 床垫 / 次卧床</li><li>2023.7.15 开荒保洁</li><li>2023.7.15 地面美缝</li><li>2023.7.19 踢脚线安装</li><li>2023.7.21 洗衣机购买</li><li>2023.7.21 开关灯具安装（3 天）</li><li>2023.7.29 主卧床 / 次卧床安装</li><li>2023.8.5 智能窗帘轨道安装</li><li>2023.8.5 买窗帘</li><li>2023.8.5 沙发送货安装</li><li>2023.8.12 马桶购买</li><li>2023.8.13 油烟机安装</li><li>2023.8.13 燃气自闭阀安装</li><li>2023.8.13 窗帘安装</li><li>2023.9.09 马桶第 1 次安装，马桶排污管移位</li><li>2023.9.10 马桶安装</li><li>2023.9.10 开始除甲醛</li><li>2023.9.21 餐桌送货安装</li><li>2023.9.28 晾衣杆、三角架安装</li></ol><p>入住</p><ol><li>2023.10.15 入住</li><li>2023.10.15 购买洗碗机</li><li>2023.10.22 洗衣台购买</li><li>2023.10.23 扫地机器人购买</li><li>2023.10.23 小米门锁购买</li><li>2023.10.23 净水器购买</li><li>2023.10.27 洗衣台安装</li><li>2023.10.30 小米空调安装</li></ol>]]></content:encoded>
+      <content:encoded><![CDATA[<p>装修文章持续更新。第三篇 </p><h2 id="我的装修顺序"><a href="#我的装修顺序" class="headerlink" title="我的装修顺序"></a>我的装修顺序</h2><p>我开始装修时，对装修的先后顺序不清楚，特别是完全不知道什么时候应该购买什么东西。经历这次装修，发现只要知道这个东西什么时候用，用前买好就行。比如厨房烟道止逆阀，贴砖前买好就行。很多家电可以先不买，但需要确定购买型号，如洗碗机、冰箱、油烟机、马桶、扫地机器人等。这样水电和全屋定制就可以更好设计。大型家电可以活动时购买，推迟发货时间。以下我我装修材料购买 / 施工安装的顺序。</p><a id="more"></a><p>设计阶段</p><ol><li>2022.10.1 全屋量尺寸</li><li>2022.10.6 平面设计优化初稿</li><li>2022.10.7 全屋复尺</li><li>2022.10.11 平面设计优化定稿</li></ol><p>拆改阶段</p><ol><li>2022.1.1 拆改工具购买</li><li>2023.1.3 封阳台窗户预定</li><li>2023.1.3 开工</li><li>2023.1.3-1.10 拆改（旧墙拆除、砌新墙）</li><li>2023.1.9 除渣</li><li>2023.1.31 铲墙（铲除开发商腻子）</li></ol><p>水电阶段</p><ol><li>2023.1.4 网线购买</li><li>2023.2.1 水电定位，水电材料购买</li><li>2023.2.5 水电开槽</li><li>2023.2.6 小区装修过业主推荐新水电师傅</li><li>2023.2.8 新水电师傅进场</li><li>2023.2.14 水电、灯二次设计后，石工补开槽</li><li>2023.2.15 水电穿线完成</li></ol><p>泥工阶段</p><ol><li>2023.1.1 看瓷砖</li><li>2023.2.7 小区群找到泥工师傅</li><li>2023.2.8 燃气改表线上申请</li><li>2023.2.11 泥工约看</li><li>2023.2.11 风管机预定</li><li>2023.2.14 燃气改表线上缴费</li><li>2023.2.16 泥工进场批荡（抹灰）做防水。中间不定时购买水泥河沙</li><li>2023.2.20 空调、热水器打孔</li><li>2023.2.20 风管机安装</li><li>2023.2.20 燃气改表</li><li>2023.2.26 墙砖瓷砖胶购买 </li><li>2023.2.26 瓷砖送货</li><li>2023.2.28 燃气管预埋</li><li>2023.3.1 开始贴砖</li><li>2023.3.2 阳台窗户安装</li><li>2023.3.4 全屋定制交订金，开始设计</li><li>2023.4.1 泥工贴砖完成</li></ol><p>木工阶段</p><ol><li>2023.2.7 刚装修业主推荐木工</li><li>2023.2.11 木工约看</li><li>2023.2.22 买木工材料</li><li>2023.2.24 木工进场，1 天半完成</li></ol><p>油工阶段</p><ol><li>2023.2.8 油工，小区中碰见加微信</li><li>2023.4.2 油工工地约看、开材料</li><li>2023.4.2 定室内门，量尺寸</li><li>2023.4.9 油工材料购买</li><li>2023.4.15 刮石膏（底层腻子）</li><li>2023.4.25 全屋定制设计完成出报价</li><li>2023.4.27 找另一家全屋定制</li><li>2023.5.7 全屋定制设计完成开始生产</li><li>2023.5.8 刮第一遍面层腻子</li><li>2023.5.10 安室内木门</li><li>2023.5.17 安窗台石</li><li>2023.5.30 刮第二遍面层腻子</li><li>2023.6.4 厨卫美缝清理与美缝</li><li>2023.6.4 全屋定制送货安装</li><li>2023.6.15 在全屋定制处预定厨房石材</li><li>2023.6.19 安装厨房石材</li><li>2023.6.22 吊顶材料购买</li><li>2023.6.22 看浴室柜</li><li>2023.6.23 浴室柜没货，再看浴室柜</li><li>2023.6.25 浴室柜安装</li><li>2023.6.27 厨卫吊顶安装</li><li>2023.6.28 安厨房、卫生间门</li><li>2023.6.30 腻子打磨</li><li>2023.7.6 刷乳胶漆（天气热，底漆面漆一起一天刷完）</li><li>2023.9.4 开关插座安装后，油漆补缝</li></ol><p>家具 / 家电阶段</p><ol><li>2023.6.18 热水器 / 冰箱 / 油烟机 / 智能窗帘 / 开关购买</li><li>2023.6.23 看床 / 沙发 / 床垫</li><li>2023.6.26 热水器安装</li><li>2023.6.30 看灯</li><li>2023.7.13 淘宝买主卧床</li><li>2023.7.14 京东买沙发 / 床垫 / 次卧床</li><li>2023.7.15 开荒保洁</li><li>2023.7.15 地面美缝</li><li>2023.7.19 踢脚线安装</li><li>2023.7.21 洗衣机购买</li><li>2023.7.21 开关灯具安装（3 天）</li><li>2023.7.29 主卧床 / 次卧床安装</li><li>2023.8.5 智能窗帘轨道安装</li><li>2023.8.5 买窗帘</li><li>2023.8.5 沙发送货安装</li><li>2023.8.12 马桶购买</li><li>2023.8.13 油烟机安装</li><li>2023.8.13 燃气自闭阀安装</li><li>2023.8.13 窗帘安装</li><li>2023.9.09 马桶第 1 次安装，马桶排污管移位</li><li>2023.9.10 马桶安装</li><li>2023.9.10 开始除甲醛</li><li>2023.9.21 餐桌送货安装</li><li>2023.9.28 晾衣杆、三角架安装</li></ol><p>入住</p><ol><li>2023.10.15 搬家入住</li><li>2023.10.15 购买洗碗机</li><li>2023.10.22 洗衣台购买</li><li>2023.10.23 扫地机器人购买</li><li>2023.10.23 小米门锁购买</li><li>2023.10.23 净水器购买</li><li>2023.10.27 洗衣台安装</li><li>2023.10.30 小米空调安装</li></ol><p>原文链接：<a href="https://depp.wang/2023/12/25/decoration-sequence/">https://depp.wang/2023/12/25/decoration-sequence/</a></p>]]></content:encoded>
       
       <comments>https://depp.wang/2023/12/25/decoration-sequence/#disqus_thread</comments>
     </item>
@@ -356,28 +377,6 @@
       <content:encoded><![CDATA[<p>上文说了 <a href="https://depp.wang/2022/11/22/message-iphone-to-mac/">iPhone 短信同步转发到 Mac</a>，其实 Mac 也可以接听 iPhone 的来电，利用 FaceTime 实现，但有个限制，就是只能连接同一个网络才行。还是无法实现不带手机，只用电脑，不过也还是方便不少，至少不把手机放身边时也可以不漏接电话。想不带手机接电话，可配个可接听电话的手表</p><p>设置教程：<a href="https://support.apple.com/zh-cn/HT209456" target="_blank" rel="noopener">在 Mac 或 iPad 上拨打和接听电话</a></p>]]></content:encoded>
       
       <comments>https://depp.wang/2022/11/23/iphone-call-to-mac/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>iPhone 短信同步转发到 Mac</title>
-      <link>https://depp.wang/2022/11/22/message-iphone-to-mac/</link>
-      <guid>https://depp.wang/2022/11/22/message-iphone-to-mac/</guid>
-      <pubDate>Tue, 22 Nov 2022 07:43:16 GMT</pubDate>
-      <description>
-      
-        
-        
-          &lt;p&gt;现在手机验证码登录比较多，平时工作时不想频繁拿起手机，就设置了手机短信自动同步转发到电脑，利用 iMessage 实现，设置后无需连接同一个 WiFi，手机不在身边也没有关系，只要有网即可转发&lt;/p&gt;
-&lt;p&gt;设置步骤：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;iPhone 开启 iMes
-        
-      
-      </description>
-      
-      <content:encoded><![CDATA[<p>现在手机验证码登录比较多，平时工作时不想频繁拿起手机，就设置了手机短信自动同步转发到电脑，利用 iMessage 实现，设置后无需连接同一个 WiFi，手机不在身边也没有关系，只要有网即可转发</p><p>设置步骤：</p><ul><li>iPhone 开启 iMessage，并设置「短信转发」</li><li>Mac 信息的 iMessage 中登录和 iPhone 一样的 Apple ID</li></ul><p>详细设置请看 <a href="https://support.apple.com/zh-cn/HT208386" target="_blank" rel="noopener">将短信 / 彩信从 iPhone 转发到 Mac 或 iPad</a></p><p>还可以结合 <a href="https://github.com/DreamSaddle/MacCopier" target="_blank" rel="noopener">MacCopier</a> 使用，MacCopier 可自动将验证码提取到剪贴板，并复制到光标处</p><p>带来一个问题：iMessage 垃圾短信在手机上可以通过「腾讯手机管家」这种 APP 过滤，但在 Mac 上无法过滤，每次得手动已读，强迫症表示有点不爽</p>]]></content:encoded>
-      
-      <comments>https://depp.wang/2022/11/22/message-iphone-to-mac/#disqus_thread</comments>
     </item>
     
   </channel>
