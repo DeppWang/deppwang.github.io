@@ -1709,7 +1709,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #bfd0eb;
+  background: #7c0d91;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3044,9 +3044,4 @@ h6 {
   font-family: Bookerly;
   src: url("/fonts/Bookerly.ttf");
   font-weight: normal;
-}
-@font-face {
-  font-family: Bookerly;
-  src: url("/fonts/Bookerly.ttf");
-  font-weight: 700;
 }
