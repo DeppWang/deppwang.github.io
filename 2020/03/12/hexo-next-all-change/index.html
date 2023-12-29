@@ -99,7 +99,7 @@
 <meta property="og:site_name" content="Depp Wang&#39;s Blog">
 <meta property="og:description" content="有问题建议先看官方文档，和 issue 一、样式修改注意：重新部署后，样式若没更新，清除浏览器缓存 分类横向展示原来纵向展示个人不太喜欢，就改为横向扩展 themes\next\source\css\_common\component\pages\categories.styl 中修改： .category-list-item &amp;#123;   margin: 5px 10px;   displa">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2023-12-29T05:11:02.168Z">
+<meta property="og:updated_time" content="2023-12-29T07:21:02.698Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo + NexT 博客优化（修改）记录">
 <meta name="twitter:description" content="有问题建议先看官方文档，和 issue 一、样式修改注意：重新部署后，样式若没更新，清除浏览器缓存 分类横向展示原来纵向展示个人不太喜欢，就改为横向扩展 themes\next\source\css\_common\component\pages\categories.styl 中修改： .category-list-item &amp;#123;   margin: 5px 10px;   displa">
@@ -497,9 +497,7 @@
 <li>打印环境变量命令：printenv</li>
 </ul>
 <h3 id="添加文章阅读次数统计、网站访问次数统计"><a href="#添加文章阅读次数统计、网站访问次数统计" class="headerlink" title="添加文章阅读次数统计、网站访问次数统计"></a>添加文章阅读次数统计、网站访问次数统计</h3><p>可参考文章：<a href="https://depp.wang/2017/06/14/hexo-statistical/">Hexo 添加不蒜子和 LeanCloud 统计</a></p>
-<h2 id="三、外部设置"><a href="#三、外部设置" class="headerlink" title="三、外部设置"></a>三、外部设置</h2><ul>
-<li><a href="https://depp.wang/2020/02/17/use-github-actions-to-achieve-hexo-blog-auto-deploy/">使用 GitHub Actions 实现 Hexo 博客自动部署</a></li>
-</ul>
+<h2 id="三、外部设置"><a href="#三、外部设置" class="headerlink" title="三、外部设置"></a>三、外部设置</h2><p><a href="https://depp.wang/2020/02/17/use-github-actions-to-achieve-hexo-blog-auto-deploy/">使用 GitHub Actions 实现 Hexo 博客自动部署</a></p>
 <h3 id="自定义域名加密为-HTTPS"><a href="#自定义域名加密为-HTTPS" class="headerlink" title="自定义域名加密为 HTTPS"></a>自定义域名加密为 HTTPS</h3><p>直接利用 <a href="https://www.cloudflare.com/" target="_blank" rel="noopener">cloudfire</a> 加密网站</p>
 <p>访问域名时，需要先由 DNS 服务来将域名解析为 ip 地址</p>
 <p>DNS 服务器负责域名解析，需要先将域名的 DNS 服务器修改为  cloudfire 的服务器，由 cloudfiere 的 DNS 服务器负责域名解析，在 cloudfire 中设置规则，如：将 depp.wang 解析到 deppwang.gihub.io</p>
@@ -528,10 +526,10 @@
 <ul>
 <li><a href="https://github.com/hexojs/hexo-generator-sitemap/issues/92" target="_blank" rel="noopener">https://github.com/hexojs/hexo-generator-sitemap/issues/92</a></li>
 </ul>
-<h2 id="四、其他可能遇到的问题"><a href="#四、其他可能遇到的问题" class="headerlink" title="四、其他可能遇到的问题"></a>四、其他可能遇到的问题</h2><ul>
+<h2 id="四、其他可能遇到的问题"><a href="#四、其他可能遇到的问题" class="headerlink" title="四、其他可能遇到的问题"></a>四、其他可能遇到的问题</h2><ol>
 <li>Google 不收录网址的问题</li>
 <li>博客源文件每次被覆盖的问题</li>
-</ul>
+</ol>
 <h3 id="头像下网址描述不显示问题"><a href="#头像下网址描述不显示问题" class="headerlink" title="头像下网址描述不显示问题"></a>头像下网址描述不显示问题</h3><p>可能是你在 <code>主题配置文件</code> 中开起了 SEO，SEO 覆盖掉了原来的代码</p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">seo:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
