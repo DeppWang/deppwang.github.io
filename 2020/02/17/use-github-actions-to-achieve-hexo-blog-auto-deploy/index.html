@@ -107,7 +107,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-02-15-140504.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-02-15-140636.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-02-16-103927.png">
-<meta property="og:updated_time" content="2023-12-30T11:32:35.324Z">
+<meta property="og:updated_time" content="2023-12-30T11:35:28.791Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 GitHub Actions 实现 Hexo 博客自动部署">
 <meta name="twitter:description" content="一、Hexo 相关知识点静态博客简单，但是发布博文时稍显麻烦，一般需要下面两步： hexo cleanhexo g -d // 相当于 hexo g + hexo d  如果考虑到同步源文件，还需要每次更改后，将源文件 push 到指定仓库： git push origin master">
@@ -520,7 +520,7 @@
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-02-17-115552.jpg" alt="Image result for error"></p>
 <h2 id="五、可能出现的问题：Deploy-失败"><a href="#五、可能出现的问题：Deploy-失败" class="headerlink" title="五、可能出现的问题：Deploy 失败"></a>五、可能出现的问题：Deploy 失败</h2><p>可能出现以下 3 三种情况：</p>
 <p><strong>1、</strong></p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-02-15-140504.png" alt="image-20200215220503185"></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-02-15-140504.png" alt=""></p>
 <p>重点：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Host key verification failed</span><br><span class="line">fatal: Could not read from remote repository.</span><br></pre></td></tr></table></figure>
 
@@ -531,14 +531,14 @@
 <li>要么 *<em>entrypoint.sh *</em> 添加 <code>ssh-keyscan -t rsa e.coding.net &gt;&gt; /root/.ssh/known_hosts</code></li>
 </ol>
 <p><strong>2、</strong></p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-02-15-140636.png" alt="image-20200215220635619"></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-02-15-140636.png" alt=""></p>
 <p>重点：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Load key "/root/ssh/id_rsa": invalid format</span><br><span class="line">git@github.com: Permission denied (publickey)</span><br><span class="line">fatal: Could not read from remote repository.</span><br></pre></td></tr></table></figure>
 
 <p>原因：SSH Key 的公钥和私钥没有正确复制，或者设置错误</p>
 <p>解决方式：正确且完整的复制并设置</p>
 <p><strong>3、</strong></p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-02-16-103927.png" alt="image-20200216183926423"></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-02-16-103927.png" alt=""></p>
 <p>重点：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ERROR Local hexo not found in /github/workspace</span><br><span class="line">ERROR Try running: 'npm install hexo --save'</span><br></pre></td></tr></table></figure>
 

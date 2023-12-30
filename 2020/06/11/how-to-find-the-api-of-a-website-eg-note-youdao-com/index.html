@@ -109,7 +109,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-06-10-102800.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-06-10-113424.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-06-10-060620.png">
-<meta property="og:updated_time" content="2023-12-30T11:32:35.328Z">
+<meta property="og:updated_time" content="2023-12-30T11:35:28.791Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何查找某个网站的（如：有道云笔记）的接口">
 <meta name="twitter:description" content="作者：DeppWang、原文地址  开发了个 《一键导出 / 备份「有道云笔记」所有笔记》的脚本。主要原理是利用有道云笔记本身的接口。下面是根据正常用户操作逻辑，找到需要的接口，主要是登录和「下载」。">
@@ -446,7 +446,7 @@
 <p>接口应该在登录时执行。使用<strong>错误密码</strong>测试，可得到登录 post 请求接口。注意过滤条件是 <strong>All</strong></p>
 <figure class="highlight sas"><table><tr><td class="code"><pre><span class="line">https://note.youdao.com/login/acc/urs/verify/<span class="meta">check</span>?app=web<span class="variable">&amp;product</span>=YNOTE<span class="variable">&amp;tp</span>=urstoken<span class="variable">&amp;cf</span>=6<span class="variable">&amp;fr</span>=1<span class="variable">&amp;systemName</span>=<span class="variable">&amp;deviceType</span>=<span class="variable">&amp;ru</span>=</span><br><span class="line">https://note.youdao.com/signIn//loginCallback.html<span class="variable">&amp;er</span>=</span><br><span class="line">https://note.youdao.com/signIn//loginCallback.html&amp;</span><br><span class="line">vcode=dman9<span class="variable">&amp;systemName</span>=mac<span class="variable">&amp;deviceType</span>=MacPC<span class="variable">&amp;timestamp</span>=1591770253472</span><br></pre></td></tr></table></figure>
 
-<h3 id="1-2-推导密码加密规则"><a href="#1-2-推导密码加密规则" class="headerlink" title="1.2 推导密码加密规则"></a>1.2 推导密码加密规则</h3><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-06-10-062936.png" alt="image-20200610142935436"></p>
+<h3 id="1-2-推导密码加密规则"><a href="#1-2-推导密码加密规则" class="headerlink" title="1.2 推导密码加密规则"></a>1.2 推导密码加密规则</h3><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-06-10-062936.png" alt=""></p>
 <p>本地测试使用同样错误密码用不同加密算法加密，看加密结果是否一致</p>
 <p>发现使用 md5 加密</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">## Python3</span></span><br><span class="line">password=hashlib.md5(password.encode(<span class="string">'utf-8'</span>)).hexdigest()</span><br></pre></td></tr></table></figure>
