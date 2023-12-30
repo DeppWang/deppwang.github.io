@@ -1709,7 +1709,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff6144;
+  background: #ff2599;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3031,7 +3031,10 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 10px 10px 20px;
+  margin: 10px 0px 20px;
+}
+.posts-collapse .collection-title h1 {
+  margin-left: 20px;
 }
 @font-face {
   font-family: Bookerly;
