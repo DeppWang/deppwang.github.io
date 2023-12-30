@@ -981,12 +981,12 @@ pre .javascript .function {
   position: relative;
   display: inline-block;
   padding: 0 40px;
-  color: #fff;
+  color: #fc6423;
   background: #222;
   border-bottom: none;
 }
 .brand:hover {
-  color: #fff;
+  color: #fc6423;
 }
 .logo {
   display: inline-block;
@@ -1005,7 +1005,7 @@ pre .javascript .function {
 .site-subtitle {
   margin-top: 10px;
   font-size: 13px;
-  color: #ddd;
+  color: #fff;
 }
 .use-motion .brand {
   opacity: 0;
@@ -1709,7 +1709,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #67ffe4;
+  background: #fffcd9;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3040,4 +3040,10 @@ h6 {
   font-family: Bookerly;
   src: url("/fonts/Bookerly.ttf");
   font-weight: normal;
+}
+ol {
+  padding-inline-start: 30px;
+}
+ul {
+  padding-inline-start: 30px;
 }
