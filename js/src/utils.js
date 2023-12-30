@@ -10,7 +10,7 @@ NexT.utils = NexT.$u = {
       .not('.group-picture img, .post-gallery img')
       .each(function () {
         var $image = $(this);
-        var imageTitle = $image.attr('title');
+        var imageTitle = $image.attr('alt');
         var $imageWrapLink = $image.parent('a');
 
         if ($imageWrapLink.size() < 1) {
