@@ -1709,7 +1709,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff6b7a;
+  background: #91ffff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2803,9 +2803,10 @@ pre .javascript .function {
 .brand {
   padding: 0;
   background: none;
+  color: #fff;
 }
 .brand:hover {
-  color: #fff;
+  color: #fc6423;
 }
 .site-subtitle {
   margin: 10px 10px 0;
