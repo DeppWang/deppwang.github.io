@@ -1709,7 +1709,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #8565c7;
+  background: #7d0eff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3043,7 +3043,8 @@ h6 {
   font-weight: normal;
 }
 ol {
-  padding-inline-start: 20px;
+  padding-inline-start: 0px;
+  list-style-position: inside;
 }
 ul {
   padding-inline-start: 20px;
