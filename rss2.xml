@@ -8,8 +8,25 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>每个人都需要有自己的哈姆雷特</description>
-    <pubDate>Sun, 07 Jan 2024 12:21:32 GMT</pubDate>
+    <pubDate>Tue, 09 Jan 2024 02:36:50 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>使用 ChatGPT + Suno 创建一首歌</title>
+      <link>https://depp.wang/2024/01/09/create-a-song/</link>
+      <guid>https://depp.wang/2024/01/09/create-a-song/</guid>
+      <pubDate>Tue, 09 Jan 2024 02:36:28 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;昨晚上做梦，梦见学校的一个晚自习时间，几个小伙伴来唱歌，突然来了一个胖胖的学弟，开启麦霸模式，唱了一首歌，那饱满的情感，朴实真诚的歌词，掷地有声的演唱方式，瞬间变成了学校演唱会。&lt;/p&gt;
+&lt;p&gt;醒来后，我还隐隐那首歌记得最后一句好像是：「最重要的是，我从未改变过你」。&lt;/p&gt;
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p>昨晚上做梦，梦见学校的一个晚自习时间，几个小伙伴来唱歌，突然来了一个胖胖的学弟，开启麦霸模式，唱了一首歌，那饱满的情感，朴实真诚的歌词，掷地有声的演唱方式，瞬间变成了学校演唱会。</p><p>醒来后，我还隐隐那首歌记得最后一句好像是：「最重要的是，我从未改变过你」。</p><a id="more"></a><p>想到前两天在 Twitter 上看见有人使用「ChatGPT + <a href="https://suno.ai" target="_blank" rel="noopener">Suno</a>」创建过音乐。我也抓住情绪的尾巴，用 ChatGPT 辅助写了歌词，再会 suna.ai 生成了一首歌。</p><p><video src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/music.mp4" controls="controls" width="500" height="300"></video></p><p>完整的歌词：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">在这复杂的世界里，我们学会了沉默，  </span><br><span class="line">看着日升月落，感受时间婆娑。  </span><br><span class="line"></span><br><span class="line">每一次挑战，每一次困惑，  </span><br><span class="line">在无声中体会着生活。</span><br><span class="line"></span><br><span class="line">虽被磨平了棱角，我依旧向前奔跑。</span><br><span class="line">抬头望向星空， 寻找自由的光芒。</span><br><span class="line"></span><br><span class="line">和我相恋的爱人啊，我们一起经历了很多</span><br><span class="line">我有很多缺点，你可能对我有很多抱怨</span><br><span class="line"></span><br><span class="line">我希望你能找到你的那片土地，我从未想改变你</span><br></pre></td></tr></table></figure><p>歌词使用 ChatGPT 生成，它生成的歌词还是太浅显直白了，基本不可用，可能是我提示词没写好。Suno 生成的第一首歌感觉最好，就是最后这句没有唱完，婆娑的娑 suo 发音错了。</p>]]></content:encoded>
+      
+      <comments>https://depp.wang/2024/01/09/create-a-song/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>订阅（自动保存）阿里云盘正在连载的资源</title>
@@ -365,25 +382,6 @@
       <content:encoded><![CDATA[<p>我平时使用 Chrome 浏览器，浏览器标签页我个人喜欢使用全屏，我使用 <a href="https://chrome.google.com/webstore/detail/xtab/amddgdnlkmohapieeekfknakgdnpbleb" target="_blank" rel="noopener">xTab</a> 限制浏览器只打开一个标签页。针对一些不想马上关闭的标签，我通过使用「固定标签页」来固定，让其不会马上关闭。但每次手动操作比较麻烦，想设置 <code>⇧+⌘+D</code> 这个快捷键来实现，但这个快捷键浏览器已经占用，Chrome 设置中没有修改的地方，我找到一种方式，可以修改默认快捷键</p><p>安装  <a href="https://github.com/crittermike/shortkeys" target="_blank" rel="noopener">ShortKeys 插件</a>，在 chrome://extensions/shortcuts 中配置 ShortKeys 的相关快捷键即可</p><a id="more"></a><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20221123233056.png" alt=""></p><p>我的配置：</p><ul><li><code>⇧+⌘+D</code>: 固定 / 不固定标签页 (Ding)</li><li><code>⇧+⌘+W</code>: 关闭其它标签页</li><li><code>⇧+⌘+C</code>: 复制当前网页 URL</li><li><code>⇧+⌘+F</code>: 切换到全屏</li></ul><p>关于「切换到全屏」这个快捷键。公司使用飞书，飞书云文档默认 <code>⇧+⌘+F</code> 是唤起全局搜索，但在 Chrome 中 <code>⇧+⌘+F</code>  默认是「隐藏顶部状态栏」。每次打开飞书云文档时，想隐藏顶部状态栏时就会失败，只能换个页面来操作，问飞书客服，客服表示不能关闭。正好 ShortKeys 提供一种方式，虽然「切换到全屏」和「隐藏顶部状态栏」不太一样，但也可以曲线救国的实现全屏，nice。</p>]]></content:encoded>
       
       <comments>https://depp.wang/2022/11/24/change-chrome-default-keyboard-shortcuts/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>在 Mac 上接听 iPhone 的来电</title>
-      <link>https://depp.wang/2022/11/23/iphone-call-to-mac/</link>
-      <guid>https://depp.wang/2022/11/23/iphone-call-to-mac/</guid>
-      <pubDate>Wed, 23 Nov 2022 07:41:09 GMT</pubDate>
-      <description>
-      
-        
-        
-          &lt;p&gt;上文说了 &lt;a href=&quot;https://depp.wang/2022/11/22/message-iphone-to-mac/&quot;&gt;iPhone 短信同步转发到 Mac&lt;/a&gt;，其实 Mac 也可以接听 iPhone 的来电，利用 FaceTime 实现，但有个限制，就是
-        
-      
-      </description>
-      
-      <content:encoded><![CDATA[<p>上文说了 <a href="https://depp.wang/2022/11/22/message-iphone-to-mac/">iPhone 短信同步转发到 Mac</a>，其实 Mac 也可以接听 iPhone 的来电，利用 FaceTime 实现，但有个限制，就是只能连接同一个网络才行。还是无法实现不带手机，只用电脑，不过也还是方便不少，至少不把手机放身边时也可以不漏接电话。想不带手机接电话，可配个可接听电话的手表</p><p>设置教程：<a href="https://support.apple.com/zh-cn/HT209456" target="_blank" rel="noopener">在 Mac 或 iPad 上拨打和接听电话</a></p>]]></content:encoded>
-      
-      <comments>https://depp.wang/2022/11/23/iphone-call-to-mac/#disqus_thread</comments>
     </item>
     
   </channel>
