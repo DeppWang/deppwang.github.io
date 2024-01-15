@@ -1,3 +1,4 @@
+https://depp.wang/2024/01/15/electric-circuit/
 https://depp.wang/2024/01/09/create-a-song/
 https://depp.wang/2023/12/26/aliyundrive-subscribe/
 https://depp.wang/2023/12/25/decoration-sequence/
@@ -97,4 +98,3 @@ https://depp.wang/2017/07/15/String-ByteCode/
 https://depp.wang/2017/07/13/jvm-runtime-data-area/
 https://depp.wang/2017/07/09/granderMother/
 https://depp.wang/2017/07/05/Eliminate-Expired-Object-References/
-https://depp.wang/2017/07/04/two-logical-question-about-hat/
