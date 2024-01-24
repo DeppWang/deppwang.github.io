@@ -102,7 +102,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231211113111.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231128102849.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231128103149.png">
-<meta property="og:updated_time" content="2024-01-16T01:25:32.786Z">
+<meta property="og:updated_time" content="2024-01-24T02:50:43.070Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 Mac mini 兼做 NAS">
 <meta name="twitter:description" content="我日常没有什么大容量储存需求，连硬盘也没有买，一些需要数据备份与远程同步的场景我使用 iCloud，200G 的空间也够用了。前些天电脑突然启动不了，因为没有使用「时间机器」备份系统，只能重装系统，虽然数据基本没有丢失，但软件安装、软件配置等也断断续续搞了几天。不想再次出现这个问题，时间机器备份得马上安排上，因为时间机器需要外置硬盘，现在也出现一些大容量存储需求，索性一步到位，整个 NAS。 NA">
@@ -143,7 +143,7 @@
   <title>使用 Mac mini 兼做 NAS | Depp Wang's Blog</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -168,7 +168,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -305,16 +305,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2023/11/28/mac-mini-doubles-as-a-nas/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Depp Wang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Depp Wang's Blog">
     </span>
 
@@ -408,7 +408,7 @@
 <a id="more"></a>
 
 <h2 id="配置家里所有设备在一个局域网中"><a href="#配置家里所有设备在一个局域网中" class="headerlink" title="配置家里所有设备在一个局域网中"></a>配置家里所有设备在一个局域网中</h2><p>局域网中使用 NAS 的前提是需要所有设备在一个局域网中，我使用路由器 Mesh 实现，我用到的设备是 2 个「<a href="https://u.jd.com/Zz1YQGx" target="_blank" rel="noopener">小米路由器 AX3000T</a>」与 1 个「<a href="https://u.jd.com/ZbgpIRt" target="_blank" rel="noopener">绿联 5 口千兆交换机</a>」，我家的局域网配置如下：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231211113111.png" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231211113111.png" alt></p>
 <h2 id="我为什么没有选择成品-NAS"><a href="#我为什么没有选择成品-NAS" class="headerlink" title="我为什么没有选择成品 NAS"></a>我为什么没有选择成品 NAS</h2><p>成品 NAS 我理解为带有硬件和操作系统的主要作为 NAS 功能的电脑，成品 NAS 一般的选择：</p>
 <ol>
 <li>ARM 低性能成品 NAS，如极空间的 Q2C</li>
@@ -445,9 +445,9 @@
 <p>硬盘确定了，我开始纠结是用 2 个外置硬盘盒？还是 1 个双盘位的硬盘底座？或者是 1 个 双盘位的硬盘阵列柜？看说硬盘底座容易导致硬盘故障，加上硬盘没有移动的需求，就选择了「<a href="https://u.jd.com/ZQDNOeP" target="_blank" rel="noopener">绿联双盘位硬盘柜</a>」。因为 macOS 系统支持设置「软磁盘阵列模式」RAID1，所以我选择的「不带 RAID 功能」的这款，RAID1 由 macOS 系统来设置。</p>
 <p>Mac 提供设置磁盘阵列的<a href="https://support.apple.com/zh-cn/guide/disk-utility/dskua23150fd/mac" target="_blank" rel="noopener">教程</a>，设置磁盘阵列时，会将硬盘格式化。设置时格式我选择的是「APFS」，块大小选择的是「256K」。因为使用的软阵列，但不知道将磁盘阵列柜接到操作系统版本一样的另一台 Mac 电脑上，磁盘阵列柜是否还可以正常使用，后面测试一下。</p>
 <p>在设置磁盘阵列后，需要硬盘设置功能分区，因为一块硬盘一旦用于时间机器备份，就不能用于其他场景。RAID 磁盘阵列本身的分区功能不可用，但可以通完「宗卷」功能实现同样的效果。</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231128102849.png" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231128102849.png" alt></p>
 <p>还需要在「系统设置 - 通用 - 共享」中开启「<a href="https://support.apple.com/zh-cn/guide/mac-help/mh17131/mac" target="_blank" rel="noopener">文件共享</a>」，共享磁盘阵列的文件夹，文件夹就可以被局域网上设备访问了，NAS 就设置好了。</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231128103149.png" alt=""><br>关于外网访问，请看我这篇文章「<a href="https://depp.wang/2023/12/12/ipv6-and-tailscale-remote-access-nas/">使用 IPv6 + Tailscale 实现 NAS 外网访问</a>」</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231128103149.png" alt><br>关于外网访问，请看我这篇文章「<a href="https://depp.wang/2023/12/12/ipv6-and-tailscale-remote-access-nas/">使用 IPv6 + Tailscale 实现 NAS 外网访问</a>」</p>
 <p>折腾一段时间，我希望 Mac mini 兼做 NAS可以满足以下要求，但发现基本可以满足，但有的还是不能满足：</p>
 <ol>
 <li>数据备份<ul>
@@ -663,7 +663,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="Depp Wang">
           <p class="site-author-name" itemprop="name">Depp Wang</p>
            
