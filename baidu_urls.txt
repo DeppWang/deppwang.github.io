@@ -1,3 +1,4 @@
+https://depp.wang/2024/02/22/dishwasher/
 https://depp.wang/2024/02/22/smart-toilet/
 https://depp.wang/2024/01/15/electric-circuit/
 https://depp.wang/2024/01/09/create-a-song/
@@ -97,4 +98,3 @@ https://depp.wang/2017/07/21/object-funciton/
 https://depp.wang/2017/07/18/reverse-String/
 https://depp.wang/2017/07/15/String-ByteCode/
 https://depp.wang/2017/07/13/jvm-runtime-data-area/
-https://depp.wang/2017/07/09/granderMother/
