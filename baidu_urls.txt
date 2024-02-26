@@ -1,3 +1,4 @@
+https://depp.wang/2024/02/26/water-purifier/
 https://depp.wang/2024/02/26/gas-water-heater/
 https://depp.wang/2024/02/22/dishwasher/
 https://depp.wang/2024/02/22/smart-toilet/
@@ -97,4 +98,3 @@ https://depp.wang/2017/07/26/java-parameter-passing/
 https://depp.wang/2017/07/24/string-initialization/
 https://depp.wang/2017/07/21/object-funciton/
 https://depp.wang/2017/07/18/reverse-String/
-https://depp.wang/2017/07/15/String-ByteCode/
