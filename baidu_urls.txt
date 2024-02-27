@@ -1,3 +1,4 @@
+https://depp.wang/2024/02/27/balcony-window/
 https://depp.wang/2024/02/26/smart-door-lock/
 https://depp.wang/2024/02/26/sweeping-robot/
 https://depp.wang/2024/02/26/water-purifier/
@@ -97,4 +98,3 @@ https://depp.wang/2017/09/14/convert-sorted-array-to-binary-search-tree/
 https://depp.wang/2017/09/13/implementing-stack-with-arrays/
 https://depp.wang/2017/08/15/hashmap-put-method-source-code/
 https://depp.wang/2017/07/26/java-parameter-passing/
-https://depp.wang/2017/07/24/string-initialization/
