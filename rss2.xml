@@ -8,8 +8,25 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>每个人都需要有自己的哈姆雷特</description>
-    <pubDate>Thu, 14 Mar 2024 03:30:05 GMT</pubDate>
+    <pubDate>Sun, 17 Mar 2024 14:17:33 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>为什么 Cloudflare Worker 部署 VLESS 代理服务可以实现白嫖翻墙</title>
+      <link>https://depp.wang/2024/03/17/cloudflare-worker-vless/</link>
+      <guid>https://depp.wang/2024/03/17/cloudflare-worker-vless/</guid>
+      <pubDate>Sun, 17 Mar 2024 14:17:06 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;这两天刷推，看见不少推文实现了用 Cloudflare Worker 实现了白嫖翻墙，我也鼓捣了试了一下，确实可以。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240317205833.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p>这两天刷推，看见不少推文实现了用 Cloudflare Worker 实现了白嫖翻墙，我也鼓捣了试了一下，确实可以。</p><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240317205833.png" alt=""></p><a id="more"></a><p>但正如这位推主<a href="https://twitter.com/huhexian/status/1769318527369097411" target="_blank" rel="noopener">所说</a>，折腾探索一下就行，还是得用机场。我折腾主要是想了解一下它的实现原理。至于如何折腾， 可以参考<a href="https://github.com/cmliu/edgetunnel" target="_blank" rel="noopener">这个教程</a>，文字 + 视频都有，还是比较简单。</p><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>Cloudflare 的 Worker 可以部署 JavaScrip 函数，实现一些功能，类似 Serverless。相当于 Cloudflare 的 Worker 可以提供运算能力，可以把 Worker 当国外的主机（VPS）使用。Cloudflare 注册用户每天有 10 万个请求可以使用。（Page 与 Worker 一样的道理，使用 Page 的优势在于可以不将域名注册转到 Cloudflare）</p><p>而国内网络用可以访问 Cloudflare Worker，Worker 可以访问国外的网站，所以可以使用 Worker 做代理转发，转发时加上 VLESS Header 信息，逃避防火墙的审查。但因为没有做高级混淆，所以可能过一段时间这种方式就会失效。</p><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240317170638.png" alt="图片来自于 upsangel.com"></p><h2 id="为什么需要优选-IP"><a href="#为什么需要优选-IP" class="headerlink" title="为什么需要优选 IP"></a>为什么需要优选 IP</h2><p>因为国内网络访问 Cloudflare 不是很稳定，国内网络访问优选 IP 更稳定，有优选 IP 时：国内网络 -&gt; 优选 IP -&gt; Worker -&gt; Origin。这样可以提升稳定性与速度。</p><h2 id="为什么需要-proxyIP"><a href="#为什么需要-proxyIP" class="headerlink" title="为什么需要 proxyIP"></a>为什么需要 proxyIP</h2><p>Cloudflare 设计了 Worker 不能访问托管到 Cloudflare 上的网站，如果没有 proxyIP，就不能访问托管到 Cloudflare 上的网站，所以使用 proxyIP 反向代理一下。路径示意：国内网络 -&gt; 优选 IP -&gt; Worker -&gt; proxyIP -&gt; Origin</p><p>这个 proxyIP 是谁维护的我也不清楚，因为这种翻墙方式只是数据包加了 VLESS Header，所以其安全性我也不知道，建议不要主力使用。</p><h2 id="为什么-cmliu-edgetunnel-的-worker-js-方便易用"><a href="#为什么-cmliu-edgetunnel-的-worker-js-方便易用" class="headerlink" title="为什么 cmliu/edgetunnel 的 worker.js 方便易用"></a>为什么 cmliu/edgetunnel 的 worker.js 方便易用</h2><ol><li>封装的通用订阅地址可以适配各种客户端，可以直接导入解析</li><li>维护了订阅生成服务，可自动更新优选 IP 与 proxyIP</li><li>维护了订阅规则，如果域名没在配置群组里面，就走「漏网之鱼」</li><li>还针对没有域名的用户提供了临时域名</li></ol><!--使用 xingquan.wang 做代理有没有风险，应该没有，1、不长期用；2、不搞政治--><h2 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h2><ul><li><a href="https://blog.mareep.net/posts/10934/?utm_source=pocket_saves" target="_blank" rel="noopener">cloudflare worker搭建vless</a></li><li><a href="https://upsangel.com/security/vpn/cloudflare-worker-vless%E7%BF%BB%E7%89%86%E4%BB%A3%E7%90%86%E5%8E%9F%E7%90%86-proxyip%E7%B4%B0%E7%AF%80%E7%A0%94%E7%A9%B6/" target="_blank" rel="noopener">真的安全？Cloudflare Worker部署VLESS翻墙代理的原理和proxyIP细节研究</a></li></ul>]]></content:encoded>
+      
+      <comments>https://depp.wang/2024/03/17/cloudflare-worker-vless/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>观《进击的巨人》</title>
@@ -356,26 +373,6 @@
       <content:encoded><![CDATA[<p>同一个局域网内，一个设备翻墙，其他设备不安装翻墙软件，直接借助其网络翻墙的方式，一般有 2 种：</p><ol><li>手动修改网络配置</li><li>路由器翻墙</li></ol><a id="more"></a><h2 id="手动修改网络配置"><a href="#手动修改网络配置" class="headerlink" title="手动修改网络配置"></a>手动修改网络配置</h2><p>手动修改网络配置的方式一般也有 2 种，「设置网关与 DNS」和「HTTP 代理」</p><ol><li>设置「网关」与 「DNS」：MacBook Pro 连接 WIFI（or 网线连接），设置为手动 IP，<a href="https://install.appcenter.ms/users/clashx/apps/clashx-pro/distribution_groups/public" target="_blank" rel="noopener">ClashX Pro</a> 翻墙，设置「增强模式」，设备连接 WIFI，手动设置 MacBook Pro IP 地址为「网关」地址和 「DNS」 地址</li><li>HTTP 代理：MacBook Pro 连接 WIFI（or 网线连接），设置为手动 IP，ClashX Pro 翻墙，设置「允许局域网连接」，设备连接 WIFI，手动设置「代理」 MacBook Pro IP + 混合端口</li></ol><p>具体操作视频可以 YouTube 搜一下，很多</p><h2 id="路由器翻墙"><a href="#路由器翻墙" class="headerlink" title="路由器翻墙"></a>路由器翻墙</h2><p>路由器翻墙也主要有 2 种方式：「旁路由」和「软路由」，软路由这篇文章不讲，感兴趣可以自己查下</p><h2 id="旁路由"><a href="#旁路由" class="headerlink" title="旁路由"></a>旁路由</h2><p>什么是「旁路由」：我理解「旁路由」是路由器（主路由）后面的一个可以加入翻墙等功能的路由，所有网络要先经过「旁路由」，再到主路由器</p><p>更简单易懂的讲解请看这个视频： <a href="https://www.youtube.com/watch?v=_XwHEiBmT30&list=LL&index=2" target="_blank" rel="noopener">旁路由设置教程：推开网关大门理解旁路由设置方法</a></p><h2 id="MacBook-Pro-ClashX-Pro-做旁路由"><a href="#MacBook-Pro-ClashX-Pro-做旁路由" class="headerlink" title="MacBook Pro  + ClashX Pro 做旁路由"></a>MacBook Pro  + ClashX Pro 做旁路由</h2><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol><li>MacBook Pro 网线（or WIFI）连接路由器，MacBook Pro 设置为手动 IP</li><li>MacBook Pro 的 ClashX Pro 打开增强模式</li><li>路由器后台 DHCP 配置「网关」和「DNS」为 MacBook Pro IP</li></ol><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20230913233056.png" alt="路由器 DHCP 设置"></p><p>详细的配置可以看这个视频：<a href="https://www.youtube.com/watch?v=UkFIILkkfX0" target="_blank" rel="noopener">免费的 ClashX Pro 作为网关旁路由｜Mac 软件路由器</a></p><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><ol><li>MacBook Pro 可以做「网关」（如支持网络共享当 WIFI 用）。可以通过 <code>sysctl net.inet.ip.forwarding</code> 查看其「IP 数据包的转发功能」是否开启，为 <code>1</code> 代表开启，开启时才能做「网关」</li><li>ClashX Pro 的增强模式可以实现全软件代理（如 Telegram 使用 MTProto 协议，不开增强模式就无法翻墙，得单独配代理），开启增强模式就相当于从代理变成了 VPN，其原理是用了「<a href="https://www.youtube.com/watch?v=qItL005LUik" target="_blank" rel="noopener">TUN虚拟网卡</a>」</li><li>路由器 DHCP 支持配置「网关」和「DNS」，在 DHCP 中设置「网关」和「DNS」为 MacBook Pro 的 IP 地址，所有连接 WIFI 的设备的「网关」和「DNS」是 MacBook Pro 的 IP 地址，会先走 MacBook Pro 的网络</li></ol><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20230914124228.png" alt="网络流向图"></p><h3 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h3><p>我原来用的小米路由器 4A 千兆版，路由器 DHCP 不支持设置「网关」和「DNS」。开始我没搞懂原理，把 Mac 电脑用网线连接到光猫上，修改路由器的「网关」和「DNS」，一直不好使。YouTube上学习了下旁路由的原理，重新买了小米 AX3000T，它 DHCP 支持设置「网关」和「DNS」， 这才完成「旁路由」的设置</p><h3 id="小问题"><a href="#小问题" class="headerlink" title="小问题"></a>小问题</h3><p>MacBook Pro 休眠后无法使用，需设置为不休眠</p><h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>我为什么用 MacBook Pro 做旁路由，没有用软路由</p><ol><li>软路由需要额外购买，我 MacBook Pro 是个旧电脑，电脑性能已经不太好了，平时很少用</li><li>更重要的原因是后面我打算用「AppleTV 电视盒子」做旁路由。「AppleTV 电视盒子」在 tvOS 17 中增加了 VPN 功能，也可以做网关，可以直接用「AppleTV 电视盒子」做旁路由，这样就可以不用买软路由了，电视盒子休眠后也可以用</li></ol><p>坐等 19 号更新 tvOS17 正式版</p>]]></content:encoded>
       
       <comments>https://depp.wang/2023/09/15/macbook-pro-and-clashx-pro-as-bypass-router/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>搭建一个免翻墙使用 GPT-4 的 ChatGPT 网页服务</title>
-      <link>https://depp.wang/2023/06/08/build-a-chatgpt-web-service/</link>
-      <guid>https://depp.wang/2023/06/08/build-a-chatgpt-web-service/</guid>
-      <pubDate>Thu, 08 Jun 2023 15:56:07 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;我这样使用 ChatGPT：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;手机（iOS16）： ChatGPT 官方客户端&lt;/li&gt;
-&lt;li&gt;电脑（macOS 14.2）：GPT-4 通过网页版 ChatGPT Plus 使用，其它场景使用 API Key + 自定义 API 域名&lt;/li&gt;
-&lt;/ul&gt;
-      
-      </description>
-      
-      <content:encoded><![CDATA[<p>我这样使用 ChatGPT：</p><ul><li>手机（iOS16）： ChatGPT 官方客户端</li><li>电脑（macOS 14.2）：GPT-4 通过网页版 ChatGPT Plus 使用，其它场景使用 API Key + 自定义 API 域名</li></ul><a id="more"></a><p>同事咨询如何可以使用 GPT-4，我准备把我的 GPT-4 API key 给她使用，但出现这种情况：</p><ul><li>她手机版本比 iOS16 低，无法下载 ChatGPT</li><li>她电脑版本比 macOS 13 低，也无法使用 OpenCat 这类 App</li><li>她电脑没有翻墙，无法使用官方的网页服务</li></ul><p>我也不想将 GPT-4 API key 输入到<a href="https://github.com/LiLittleCat/awesome-free-chatgpt" target="_blank" rel="noopener">这些网页服务</a>上去，怕泄露盗刷。在这种情况下，如果只是想使用 GPT-3.5，手机可以使用 Poe，电脑可以使用 <a href="https://ruoyu.dingyu.me/messages" target="_blank" rel="noopener">https://ruoyu.dingyu.me/messages</a> 这类网页服务，都是免费的。</p><p>我了解到 Apple 生态有 OpenCat 这类工具可以使用配置「API key + 自定义域名」实现免翻墙使用 GPT-4。据我了解，目前非 Apple 生态的终端还没有合适的方式通过「API key + 自定义域名」免翻墙使用 GPT-4（如果你知道，请留言告诉我）。当然也可以帮助其翻墙注册帐号后，购买 ChatGPT Plus，使用官方的 GPT-4。但精力有限，无法帮助每个人翻墙、注册、购买 ChatGPT Plus。所以想着自己搭建一个 ChatGPT 网页服务，周围人想用 GPT-4 的话，扔给 Ta 就行。</p><p>我搭建网页服务的期望是不用购买云主机、可免翻墙访问。我使用 <a href="https://vercel.com/" target="_blank" rel="noopener">Vercel</a> + <a href="https://github.com/Yidadaa/ChatGPT-Next-Web" target="_blank" rel="noopener">ChatGPT-Next-Web</a> + <a href="https://dash.cloudflare.com/" target="_blank" rel="noopener">Cloudflare</a> 实现。</p><ul><li>ChatGPT-Next-Web 可以一键将 ChatGPT 网页服务部署到 Vercel 上（通过配置 API key 使用 GPT-4）</li><li>Vercel 每月有一定的额度可以免费使用，不用购买云主机</li><li>Vercel 上可配置自定义域名，使用 Cloudflare 配置域名转发，实现免翻墙访问</li></ul><p>我搭建的 ChatGPT 网页服务地址：<a href="https://chatgpt.depp.wang" target="_blank" rel="noopener">https://chatgpt.depp.wang</a> 。可使用自己的 API key 使用此网页服务。</p><p>设置使用 GPT-4：</p><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20230609104439.png" alt=""></p><p>区分 GPT-3.5 和 GPT-4 可以问：「为什么父母结婚没有邀请我」</p>]]></content:encoded>
-      
-      <comments>https://depp.wang/2023/06/08/build-a-chatgpt-web-service/#disqus_thread</comments>
     </item>
     
   </channel>
