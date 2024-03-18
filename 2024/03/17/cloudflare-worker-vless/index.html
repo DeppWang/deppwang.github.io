@@ -73,7 +73,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Cloudflare,Worker,VLESS,Cloudflare-Worker,翻墙,科学上网,">
+  <meta name="keywords" content="Cloudflare,VLESS,Cloudflare-Worker,翻墙,科学上网,">
 
 
 
@@ -92,7 +92,7 @@
 
 
 <meta name="description" content="这两天刷推，看见不少推文实现了用 Cloudflare Worker 实现了白嫖翻墙，我也鼓捣了试了一下，确实可以。">
-<meta name="keywords" content="Cloudflare,Worker,VLESS,Cloudflare-Worker,翻墙,科学上网">
+<meta name="keywords" content="Cloudflare,VLESS,Cloudflare-Worker,翻墙,科学上网">
 <meta property="og:type" content="article">
 <meta property="og:title" content="为什么 Cloudflare Worker 部署 VLESS 代理服务可以实现白嫖翻墙">
 <meta property="og:url" content="https://depp.wang/2024/03/17/cloudflare-worker-vless/index.html">
@@ -101,7 +101,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240317205833.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240317170638.png">
-<meta property="og:updated_time" content="2024-03-18T01:59:53.062Z">
+<meta property="og:updated_time" content="2024-03-18T02:01:38.420Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为什么 Cloudflare Worker 部署 VLESS 代理服务可以实现白嫖翻墙">
 <meta name="twitter:description" content="这两天刷推，看见不少推文实现了用 Cloudflare Worker 实现了白嫖翻墙，我也鼓捣了试了一下，确实可以。">
@@ -350,8 +350,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-03-17T22:57:52+08:00">
-                2024-03-17
+              <time title="更新于" itemprop="dateModified" datetime="2024-03-18T10:00:47+08:00">
+                2024-03-18
               </time>
             
           </span>
@@ -410,10 +410,10 @@
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>Cloudflare 的 Worker 可以部署 JavaScrip 函数，实现一些功能，类似 Serverless。相当于 Cloudflare 的 Worker 可以提供运算能力，可以把 Worker 当国外主机（VPS）使用。Cloudflare 注册用户每天有 10 万个请求可以使用。（Page 与 Worker 一样的道理，使用 Page 的优势在于使用自定义域名时可以不将域名注册转到 Cloudflare）</p>
 <p>而国内网络用可以访问 Cloudflare Worker，Worker 可以访问国外的网站，所以可以使用 Worker 做代理转发，转发时加上 VLESS Header 信息，可以逃避防火墙的审查。但因为没有做高级混淆，所以这种方式可能过一段时间这种方式就会失效。</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240317170638.png" alt="图片来自于 upsangel.com"></p>
-<h2 id="为什么需要优选-IP"><a href="#为什么需要优选-IP" class="headerlink" title="为什么需要优选 IP"></a>为什么需要优选 IP</h2><p>因为国内网络访问 Cloudflare 不是很稳定，国内网络访问优选 IP 更稳定，有优选 IP 时：国内网络 -&gt; 优选 IP -&gt; Worker -&gt; Origin。这样可以提升稳定性与速度。</p>
-<h2 id="为什么需要-proxyIP"><a href="#为什么需要-proxyIP" class="headerlink" title="为什么需要 proxyIP"></a>为什么需要 proxyIP</h2><p>Cloudflare 设计了 Worker 不能访问托管到 Cloudflare 上的网站，如果没有 proxyIP，就不能访问托管到 Cloudflare 上的网站，所以使用 proxyIP 反向代理一下。路径示意：国内网络 -&gt; 优选 IP -&gt; Worker -&gt; proxyIP -&gt; Origin。</p>
+<h2 id="为什么需要优选-IP"><a href="#为什么需要优选-IP" class="headerlink" title="为什么需要优选 IP"></a>为什么需要优选 IP</h2><p>因为国内网络访问 Cloudflare 不是很稳定，国内网络访问优选 IP 更稳定，有优选 IP 时：国内网络 -&gt; 墙 -&gt; 优选 IP -&gt; Worker -&gt; Origin。这样可以提升稳定性与速度。</p>
+<h2 id="为什么需要-proxyIP"><a href="#为什么需要-proxyIP" class="headerlink" title="为什么需要 proxyIP"></a>为什么需要 proxyIP</h2><p>Cloudflare 设计了 Worker 不能访问托管到 Cloudflare 上的网站，如果没有 proxyIP，就不能访问托管到 Cloudflare 上的网站，所以使用 proxyIP 反向代理一下。路径示意：国内网络 -&gt; 墙 -&gt; 优选 IP -&gt; Worker -&gt; proxyIP -&gt; Origin。</p>
 <p>这个 proxyIP 是谁维护的我也不清楚，因为这种翻墙方式只是数据包加了 VLESS Header，所以其安全性我也不知道，建议不要主力使用。</p>
-<h2 id="为什么-cmliu-edgetunnel-的-worker-js-方便易用"><a href="#为什么-cmliu-edgetunnel-的-worker-js-方便易用" class="headerlink" title="为什么 cmliu/edgetunnel 的 worker.js 方便易用"></a>为什么 cmliu/edgetunnel 的 worker.js 方便易用</h2><ol>
+<h2 id="为什么-cmliu-edgetunnel-的-worker-js-方便易用"><a href="#为什么-cmliu-edgetunnel-的-worker-js-方便易用" class="headerlink" title="为什么 cmliu/edgetunnel 的 _worker.js 方便易用"></a>为什么 cmliu/edgetunnel 的 <code>_worker.js</code> 方便易用</h2><ol>
 <li>封装的通用订阅地址可以适配各种客户端，可以直接导入解析</li>
 <li>维护了订阅生成服务，可自动更新优选 IP 与 proxyIP</li>
 <li>维护了订阅规则，如果域名没在配置群组里面，就走「漏网之鱼」</li>
@@ -468,8 +468,6 @@
         <div class="post-tags">
           
             <a href="/tags/Cloudflare/" rel="tag"># Cloudflare</a>
-          
-            <a href="/tags/Worker/" rel="tag"># Worker</a>
           
             <a href="/tags/VLESS/" rel="tag"># VLESS</a>
           
@@ -589,7 +587,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">239</span>
+                <span class="site-state-item-count">238</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -685,7 +683,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么需要优选-IP"><span class="nav-number">2.</span> <span class="nav-text">为什么需要优选 IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么需要-proxyIP"><span class="nav-number">3.</span> <span class="nav-text">为什么需要 proxyIP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么-cmliu-edgetunnel-的-worker-js-方便易用"><span class="nav-number">4.</span> <span class="nav-text">为什么 cmliu/edgetunnel 的 worker.js 方便易用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Link"><span class="nav-number">5.</span> <span class="nav-text">Link</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么需要优选-IP"><span class="nav-number">2.</span> <span class="nav-text">为什么需要优选 IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么需要-proxyIP"><span class="nav-number">3.</span> <span class="nav-text">为什么需要 proxyIP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么-cmliu-edgetunnel-的-worker-js-方便易用"><span class="nav-number">4.</span> <span class="nav-text">为什么 cmliu/edgetunnel 的 _worker.js 方便易用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Link"><span class="nav-number">5.</span> <span class="nav-text">Link</span></a></li></ol></div>
             
 
           </div>
