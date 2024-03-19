@@ -8,7 +8,7 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>每个人都需要有自己的哈姆雷特</description>
-    <pubDate>Tue, 19 Mar 2024 15:37:30 GMT</pubDate>
+    <pubDate>Tue, 19 Mar 2024 15:39:19 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -22,7 +22,7 @@
       
       </description>
       
-      <content:encoded><![CDATA[<p>虽然我这个静态博客搭建很久了，但一直不知道可以使用 Google Analytics 来流量分析。通过<a href="https://blog.douchi.space/static-blog-half-year/#gsc.tab=0" target="_blank" rel="noopener">这篇博文</a>了解到静态博客也可以做流量分析，推测博是用的 Google Analytics 做的流量分析，我也就把我的博客加上了。还是比较简单，复制其 JS 代码到博客源文件就行。现在有 24 小时了，可以看到一些数据了。我想可能很多朋友和我一样，还不知道这个工具，所以分享一下。下面简单演示一下如何查看流量来源。</p><a id="more"></a><p>Google Analytics 的<a href="https://support.google.com/analytics/answer/9756891?sjid=17191511922244892220-AP" target="_blank" rel="noopener">默认渠道组</a>，已经针对流量来源做了默认区分。所以流量来源可以在「首页」和「报告」处查看一些，但如果想查看更详细的流量来源，可以使用「探索」。</p><table><thead><tr><th>首页</th><th>报告</th></tr></thead><tbody><tr><td><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240319223919.png" alt=""></td><td><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240319223817.png" alt=""></td></tr></tbody></table><p>在「探索」，创建一个「空白探索」，在过滤器中设置你想过滤的具体数据，你就可以筛选查看具体的流量来源了</p><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240319225034.png" alt=""></p>]]></content:encoded>
+      <content:encoded><![CDATA[<p>虽然我这个静态博客搭建很久了，但一直不知道可以使用 Google Analytics 来流量分析。通过<a href="https://blog.douchi.space/static-blog-half-year/#gsc.tab=0" target="_blank" rel="noopener">这篇博文</a>了解到静态博客也可以做流量分析，推测博是用的 Google Analytics 做的流量分析，我也就把我的博客加上了。还是比较简单，复制其 JS 代码到博客源文件就行。现在有 24 小时了，可以看到一些数据了。我想可能很多朋友和我一样，还不知道这个工具，所以分享一下。下面简单演示一下如何查看流量来源。</p><a id="more"></a><p>Google Analytics 的<a href="https://support.google.com/analytics/answer/9756891?sjid=17191511922244892220-AP" target="_blank" rel="noopener">默认渠道组</a>，已经针对流量来源做了默认区分。所以流量来源可以在「首页」和「报告」处查看一些，但如果想查看更详细的流量来源，可以使用「探索」。</p><table><thead><tr><th>首页</th><th>报告</th></tr></thead><tbody><tr><td><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240319223919.png" alt="首页"></td><td><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240319223817.png" alt="报告"></td></tr></tbody></table><p>在「探索」，创建一个「空白探索」，在过滤器中设置你想过滤的具体数据，你就可以筛选查看具体的流量来源了</p><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240319225034.png" alt=""></p>]]></content:encoded>
       
       <comments>https://depp.wang/2024/03/19/google-analytics/#disqus_thread</comments>
     </item>
