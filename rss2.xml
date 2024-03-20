@@ -8,11 +8,11 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>每个人都需要有自己的哈姆雷特</description>
-    <pubDate>Tue, 19 Mar 2024 15:39:19 GMT</pubDate>
+    <pubDate>Wed, 20 Mar 2024 01:18:06 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
-      <title>静态博客也可以使用 Google Analytics 来分析流量来源</title>
+      <title>静态博客也可以使用 Google Analytics 分析流量来源</title>
       <link>https://depp.wang/2024/03/19/google-analytics/</link>
       <guid>https://depp.wang/2024/03/19/google-analytics/</guid>
       <pubDate>Tue, 19 Mar 2024 15:09:48 GMT</pubDate>
