@@ -1,3 +1,4 @@
+https://depp.wang/2024/03/23/ipv6-mac-server/
 https://depp.wang/2024/03/19/google-analytics/
 https://depp.wang/2024/03/17/cloudflare-worker-vless/
 https://depp.wang/2024/03/13/attack-on-titan/
@@ -97,4 +98,3 @@ https://depp.wang/2018/01/07/js-how-to-use-the-Date-object-addition-and-subtract
 https://depp.wang/2017/12/17/install-mysql5.6/
 https://depp.wang/2017/11/12/deploy-hexo-blog/
 https://depp.wang/2017/10/01/execution-of-finally-code-block/
-https://depp.wang/2017/09/14/convert-sorted-array-to-binary-search-tree/
