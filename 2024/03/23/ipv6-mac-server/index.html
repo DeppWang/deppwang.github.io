@@ -91,13 +91,13 @@
 
 
 
-<meta name="description" content="我们可能有这样的需求，需要部署点应用，使其可以 WEB 访问，但又不想买服务器，因为这个应用不暴露到公网访问，就自己用。有的场景我们可以使用 Vercel，如搭建个 ChatGPT 网页服务，但有的场景又不太适合用 Vercel，如你需要跟谁联调点东西。这时候，就可以把自己电脑当服务器用，只需要找到电脑的 IPv6 公网 IP与启动的服务的端口，配置指定主机  IP 可以通过 IPv6 公网 IP">
+<meta name="description" content="我们经常有这样的需求，需要部署点应用，使其可以 WEB 访问，但又不想买服务器，因为这个应用不暴露到公网访问，就自己用。有的场景我们可以使用 Vercel，如搭建个 ChatGPT 网页服务，但有的场景又不太适合用 Vercel，如你需要跟谁联调点东西。这时候，你可以利用 IPv6 把自己电脑变成服务器用，只需要找到电脑的 IPv6 公网 IP与启动的服务的端口，配置指定主机  IP 可以通过 I">
 <meta name="keywords" content="Cloudflare,IPv6,DNS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用 IPv6 把自己电脑当 WEB 服务器">
+<meta property="og:title" content="使用 IPv6 免费把自己电脑变成 WEB 服务器">
 <meta property="og:url" content="https://depp.wang/2024/03/23/ipv6-mac-server/index.html">
 <meta property="og:site_name" content="Depp Wang&#39;s Blog">
-<meta property="og:description" content="我们可能有这样的需求，需要部署点应用，使其可以 WEB 访问，但又不想买服务器，因为这个应用不暴露到公网访问，就自己用。有的场景我们可以使用 Vercel，如搭建个 ChatGPT 网页服务，但有的场景又不太适合用 Vercel，如你需要跟谁联调点东西。这时候，就可以把自己电脑当服务器用，只需要找到电脑的 IPv6 公网 IP与启动的服务的端口，配置指定主机  IP 可以通过 IPv6 公网 IP">
+<meta property="og:description" content="我们经常有这样的需求，需要部署点应用，使其可以 WEB 访问，但又不想买服务器，因为这个应用不暴露到公网访问，就自己用。有的场景我们可以使用 Vercel，如搭建个 ChatGPT 网页服务，但有的场景又不太适合用 Vercel，如你需要跟谁联调点东西。这时候，你可以利用 IPv6 把自己电脑变成服务器用，只需要找到电脑的 IPv6 公网 IP与启动的服务的端口，配置指定主机  IP 可以通过 I">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223328.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223250.png">
@@ -109,10 +109,10 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223047.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223036.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223813.png">
-<meta property="og:updated_time" content="2024-03-23T14:41:32.637Z">
+<meta property="og:updated_time" content="2024-03-23T14:53:30.518Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用 IPv6 把自己电脑当 WEB 服务器">
-<meta name="twitter:description" content="我们可能有这样的需求，需要部署点应用，使其可以 WEB 访问，但又不想买服务器，因为这个应用不暴露到公网访问，就自己用。有的场景我们可以使用 Vercel，如搭建个 ChatGPT 网页服务，但有的场景又不太适合用 Vercel，如你需要跟谁联调点东西。这时候，就可以把自己电脑当服务器用，只需要找到电脑的 IPv6 公网 IP与启动的服务的端口，配置指定主机  IP 可以通过 IPv6 公网 IP">
+<meta name="twitter:title" content="使用 IPv6 免费把自己电脑变成 WEB 服务器">
+<meta name="twitter:description" content="我们经常有这样的需求，需要部署点应用，使其可以 WEB 访问，但又不想买服务器，因为这个应用不暴露到公网访问，就自己用。有的场景我们可以使用 Vercel，如搭建个 ChatGPT 网页服务，但有的场景又不太适合用 Vercel，如你需要跟谁联调点东西。这时候，你可以利用 IPv6 把自己电脑变成服务器用，只需要找到电脑的 IPv6 公网 IP与启动的服务的端口，配置指定主机  IP 可以通过 I">
 <meta name="twitter:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223328.png">
 
 
@@ -147,7 +147,7 @@
 
 
 
-  <title>使用 IPv6 把自己电脑当 WEB 服务器 | Depp Wang's Blog</title>
+  <title>使用 IPv6 免费把自己电脑变成 WEB 服务器 | Depp Wang's Blog</title>
 </head>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -339,7 +339,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">使用 IPv6 把自己电脑当 WEB 服务器</h1>
+          <h1 class="post-title" itemprop="name headline">使用 IPv6 免费把自己电脑变成 WEB 服务器</h1>
         
 
         <div class="post-meta">
@@ -367,7 +367,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-03-23T22:41:09+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2024-03-23T22:52:41+08:00">
                 2024-03-23
               </time>
             
@@ -391,7 +391,7 @@
 
           
           
-             <span id="/2024/03/23/ipv6-mac-server/" class="leancloud_visitors" data-flag-title="使用 IPv6 把自己电脑当 WEB 服务器">
+             <span id="/2024/03/23/ipv6-mac-server/" class="leancloud_visitors" data-flag-title="使用 IPv6 免费把自己电脑变成 WEB 服务器">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -419,7 +419,7 @@
       
 
       
-        <p>我们可能有这样的需求，需要部署点应用，使其可以 WEB 访问，但又不想买服务器，因为这个应用不暴露到公网访问，就自己用。有的场景我们可以使用 Vercel，如<a href="https://depp.wang/2023/06/08/build-a-chatgpt-web-service/">搭建个 ChatGPT 网页服务</a>，但有的场景又不太适合用 Vercel，如你需要跟谁联调点东西。这时候，就可以把自己电脑当服务器用，只需要找到电脑的 IPv6 公网 IP与启动的服务的端口，配置指定主机  IP 可以通过 IPv6 公网 IP +  端口访问服务就可以了。如果 IP 经常变，还可以通过 DDNS（如<a href="https://github.com/jeessy2/ddns-go）" target="_blank" rel="noopener">ddns-go</a> ）和 Cloudflare DNS 配置，实现域名 + 端口访问服务。PS：我原来买了阿里云的轻量服务器，简直不能用，动不动就直接卡死，就需要重新启动。</p>
+        <p>我们经常有这样的需求，需要部署点应用，使其可以 WEB 访问，但又不想买服务器，因为这个应用不暴露到公网访问，就自己用。有的场景我们可以使用 Vercel，如<a href="https://depp.wang/2023/06/08/build-a-chatgpt-web-service/">搭建个 ChatGPT 网页服务</a>，但有的场景又不太适合用 Vercel，如你需要跟谁联调点东西。这时候，你可以利用 IPv6 把自己电脑变成服务器用，只需要找到电脑的 IPv6 公网 IP与启动的服务的端口，配置指定主机  IP 可以通过 IPv6 公网 IP +  端口访问服务就可以了。如果 IP 经常变，还可以通过 DDNS（如<a href="https://github.com/jeessy2/ddns-go）" target="_blank" rel="noopener">ddns-go</a> ）和 Cloudflare DNS 配置，实现域名 + 端口访问服务。PS：我原来买了阿里云的轻量服务器，简直不能用，动不动就直接卡死，就需要重新启动。</p>
 <a id="more"></a>
 
 <h2 id="一、获取自己电脑的-IPv6-公网-IP-并配置可被访问"><a href="#一、获取自己电脑的-IPv6-公网-IP-并配置可被访问" class="headerlink" title="一、获取自己电脑的 IPv6 公网 IP 并配置可被访问"></a>一、获取自己电脑的 IPv6 公网 IP 并配置可被访问</h2><p>现在宽带都支持 IPv6，你可以让你家里每个设备都获得一个 IPv6 公网 IP，如果你没有，需要你将光猫拨号改为路由器拨号，再用一个支持 IPv6 的路由器，<a href="https://depp.wang/2023/12/12/ipv6-and-tailscale-remote-access-nas/">这篇文章</a>有讲如何设置 IPv6。</p>
@@ -428,9 +428,9 @@
 
 <p>返回结果一般如下，红包部分就是你的 IPv6 公网 IP</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223328.png" alt=""></p>
-<p>我使用软路由，配置示例：在「通信规则」中配置「240e:xxx:db2f」可访问自己电脑的 9090 端口。如果你不使用软路由，可能没有很好的方式配置。</p>
+<p>获取了公网 IP，还需要设置此 IP 可被指定 IP 访问。我使用软路由，配置示例：在「通信规则」中配置「240e:xxx:db2f」可访问自己电脑的 9090 端口。如果你不使用软路由，可能尝试用路由器的 DDNS 功能。</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223250.png" alt=""></p>
-<h2 id="二、启动应用，使可通过-IPv6-访问"><a href="#二、启动应用，使可通过-IPv6-访问" class="headerlink" title="二、启动应用，使可通过 IPv6 访问"></a>二、启动应用，使可通过 IPv6 访问</h2><p>我使用一个简单 Flask 项目来说明一下，下面创建一个简单的 Flask 项目，启动后可通过 <code>http:[ipv6]:9090</code> 来访问</p>
+<h2 id="二、启动应用，使可通过-IPv6-访问"><a href="#二、启动应用，使可通过-IPv6-访问" class="headerlink" title="二、启动应用，使可通过 IPv6 访问"></a>二、启动应用，使可通过 IPv6 访问</h2><p>我使用一个简单 Flask 项目来举例说明，下面创建一个简单的 Flask 项目，启动后可通过 <code>http:[ipv6]:9090</code> 来访问。</p>
 <h3 id="启动一个-Flask-项目，让其可以通过-IPv6-访问"><a href="#启动一个-Flask-项目，让其可以通过-IPv6-访问" class="headerlink" title="启动一个 Flask 项目，让其可以通过 IPv6 访问"></a>启动一个 Flask 项目，让其可以通过 IPv6 访问</h3><h4 id="创建-Flask-项目"><a href="#创建-Flask-项目" class="headerlink" title="创建 Flask 项目"></a>创建 Flask 项目</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir flask-demo</span><br><span class="line">cd flask-demo</span><br><span class="line">python3 -m venv venv</span><br><span class="line">. venv/bin/activate</span><br><span class="line">pip3 install flask  # 安装</span><br><span class="line">vi app.py</span><br></pre></td></tr></table></figure>
 
 <h4 id="app-py-代码"><a href="#app-py-代码" class="headerlink" title="app.py 代码"></a>app.py 代码</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#app.py</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'Hello World'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    app.run(host=<span class="string">'::'</span>, port=<span class="number">9090</span>)</span><br></pre></td></tr></table></figure>
@@ -441,15 +441,17 @@
 <h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">python</span> app.<span class="keyword">py</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="启动结果"><a href="#启动结果" class="headerlink" title="启动结果"></a>启动结果</h4><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223157.png" alt=""></p>
-<h3 id="测试-IPv6-访问"><a href="#测试-IPv6-访问" class="headerlink" title="测试 IPv6 访问"></a>测试 IPv6 访问</h3><p>另一台电脑不要连同一个 WIFI，可用热点，使用 <code>telnet -6 240e:xxx:54cd 9090</code>  这个命令来测试是否可以访问，如果可以，代表其可以访问，此时可以通过 <code>http:[ipv6]:9090</code> 来访问。</p>
+<h3 id="测试-IPv6-访问"><a href="#测试-IPv6-访问" class="headerlink" title="测试 IPv6 访问"></a>测试 IPv6 访问</h3><p>另一台电脑不要连同一个 WIFI，可用热点，使用 <code>telnet -6 240e:xxx:54cd 9090</code>  这个命令来测试，Connected 代表已通。</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223129.png" alt=""></p>
+<p>当可能 telnet 通，此时可以通过 <code>http:[ipv6]:9090</code> 来访问。</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223118.png" alt=""></p>
-<h2 id="三、通过-Cloudflare-DNS-配置域名访问（可选）"><a href="#三、通过-Cloudflare-DNS-配置域名访问（可选）" class="headerlink" title="三、通过 Cloudflare DNS 配置域名访问（可选）"></a>三、通过 Cloudflare DNS 配置域名访问（可选）</h2><p>你可以将你的 IPv6 地址在系统设置中设置为手动，这样它就不会经常变动。</p>
+<h2 id="三、通过-Cloudflare-DNS-配置域名访问（可选）"><a href="#三、通过-Cloudflare-DNS-配置域名访问（可选）" class="headerlink" title="三、通过 Cloudflare DNS 配置域名访问（可选）"></a>三、通过 Cloudflare DNS 配置域名访问（可选）</h2><p>你可以将你的 IPv6 地址在系统设置中设置为「手动」，这样它就不会经常变动。</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323222024.png" alt=""></p>
 <p>此时就可以在 Cloudflare DNS 中配置 DNS 解析：</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323222352.png" alt=""></p>
-<p>DNS 解析可通过 <a href="https://dnschecker.org/" target="_blank" rel="noopener">dnschecker</a> 来检测是否已生效，再另一台电脑可通过 <code>ping6 mac.depp.wang</code> 来测试是否<br>已生效，注意是 <code>ping6</code> 不是 <code>ping</code>，我就在这里踩坑了，一起用 ping，结果不通，以为有什么问题，浪费不少时间</p>
+<p>DNS 解析可通过 <a href="https://dnschecker.org/" target="_blank" rel="noopener">dnschecker</a> 来检测是否已生效，再用另一台电脑可通过 <code>ping6 mac.depp.wang</code> 来测试是否已生效，注意是 <code>ping6</code> 不是 <code>ping</code>，我就在这里踩坑了，一起用 ping，结果不通，以为有什么问题，浪费不少时间。以下代表 ping 通了。</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223047.png" alt=""></p>
+<p>当 ping 通了，就可以通过 <code>http:[ipv6]:9090</code> 来访问。</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223036.png" alt=""><br>当你电脑 IP 长时间固定不变时，可以不用 DDNS，如果想用，可以用 <a href="https://github.com/jeessy2/ddns-go" target="_blank" rel="noopener">ddns-go</a>，如果使用 macOS，可以用 brew 安装，配置教程可以参考<a href="https://lijianfei.com/post/yi-jian-gao-ding-cloudflare-dns-zi-dong-geng-xin-gao-bie-shou-dong-fan-suo/" target="_blank" rel="noopener">这篇文章</a>，文章漏了一步，还需要配置域名：</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223813.png" alt=""></p>
 
@@ -480,7 +482,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://depp.wang/2024/03/23/ipv6-mac-server/" title="使用 IPv6 把自己电脑当 WEB 服务器">https://depp.wang/2024/03/23/ipv6-mac-server/</a>
+      <a href="https://depp.wang/2024/03/23/ipv6-mac-server/" title="使用 IPv6 免费把自己电脑变成 WEB 服务器">https://depp.wang/2024/03/23/ipv6-mac-server/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -877,7 +879,7 @@
         var disqus_config = function () {
           this.page.url = 'https://depp.wang/2024/03/23/ipv6-mac-server/';
           this.page.identifier = '2024/03/23/ipv6-mac-server/';
-          this.page.title = '使用 IPv6 把自己电脑当 WEB 服务器';
+          this.page.title = '使用 IPv6 免费把自己电脑变成 WEB 服务器';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://deppwang-1.disqus.com/embed.js';
