@@ -109,7 +109,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223047.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223036.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223813.png">
-<meta property="og:updated_time" content="2024-03-24T05:20:17.777Z">
+<meta property="og:updated_time" content="2024-03-24T14:12:06.381Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 IPv6 免费把自己电脑变成 WEB 服务器">
 <meta name="twitter:description" content="我们可能有这样的需求，需要部署点应用，使其可以 WEB 访问，但又不想买服务器，可能这个应用不暴露到公网访问，就自己用。有的场景我们可以使用 Vercel，如搭建个 ChatGPT 网页服务，但有的场景又不太适合用 Vercel，如你需要跟谁联调点东西。这时候，你可以利用 IPv6 把自己电脑变成服务器用，只需要配置自己电脑可被指定 IP 外网访问，再让应用可通过 IPv6 访问就可以了。如果 I">
@@ -367,7 +367,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-03-24T09:31:44+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2024-03-24T22:11:07+08:00">
                 2024-03-24
               </time>
             
@@ -436,7 +436,7 @@
 <h4 id="app-py-代码"><a href="#app-py-代码" class="headerlink" title="app.py 代码"></a>app.py 代码</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#app.py</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'Hello World'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    app.run(host=<span class="string">'::'</span>, port=<span class="number">9090</span>)</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>端口需要使用 1024 以上</li>
+<li>端口需要使用 1024 以上。一般运营商还屏蔽了 80 与 443 接口，验证方式，以 80 举例，首先排除自己防火墙没有屏蔽 80 端口，在 80 和指定端口如 9090 都启动这个服务，如果可以 telnet 通 9090 端口，但 telnet 不通 80 端口，那么就说明你的 80 端口被运营商屏蔽了。</li>
 </ul>
 <h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">python</span> app.<span class="keyword">py</span></span><br></pre></td></tr></table></figure>
 
