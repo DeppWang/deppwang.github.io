@@ -109,7 +109,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223047.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223036.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223813.png">
-<meta property="og:updated_time" content="2024-03-23T15:18:11.223Z">
+<meta property="og:updated_time" content="2024-03-24T01:32:39.594Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 IPv6 免费把自己电脑变成 WEB 服务器">
 <meta name="twitter:description" content="我们可能有这样的需求，需要部署点应用，使其可以 WEB 访问，但又不想买服务器，可能这个应用不暴露到公网访问，就自己用。有的场景我们可以使用 Vercel，如搭建个 ChatGPT 网页服务，但有的场景又不太适合用 Vercel，如你需要跟谁联调点东西。这时候，你可以利用 IPv6 把自己电脑变成服务器用，只需要配置自己电脑可被指定 IP 外网访问，再让应用可通过 IPv6 访问就可以了。如果 I">
@@ -367,8 +367,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-03-23T23:17:04+08:00">
-                2024-03-23
+              <time title="更新于" itemprop="dateModified" datetime="2024-03-24T09:31:44+08:00">
+                2024-03-24
               </time>
             
           </span>
@@ -423,7 +423,7 @@
 <a id="more"></a>
 
 <h2 id="一、获取自己电脑的-IPv6-公网-IP"><a href="#一、获取自己电脑的-IPv6-公网-IP" class="headerlink" title="一、获取自己电脑的 IPv6 公网 IP"></a>一、获取自己电脑的 IPv6 公网 IP</h2><p>现在电信宽带都支持 IPv6，你可以让你家里每个设备都获得一个 IPv6 公网 IP，如果你没有，需要你将光猫拨号改为路由器拨号，再用一个支持 IPv6 的路由器，<a href="https://depp.wang/2023/12/12/ipv6-and-tailscale-remote-access-nas/">这篇文章</a>有讲如何设置 IPv6。</p>
-<p>当你宽带有了 IPv6，可以通过这个命令获取自己电脑的 IPv6 公网 IP。</p>
+<p>当你宽带有了 IPv6，可以通过这个命令获取自己电脑的 IPv6 公网 IP：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ping6 240C::6666</span><br></pre></td></tr></table></figure>
 
 <p>返回结果一般如下，红包部分就是你的 IPv6 公网 IP：</p>
@@ -449,9 +449,9 @@
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323222024.png" alt=""></p>
 <p>在 Cloudflare DNS 中配置 DNS 解析：</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323222352.png" alt=""></p>
-<p>DNS 解析可通过 <a href="https://dnschecker.org/" target="_blank" rel="noopener">dnschecker</a> 来检测是否已生效，再用另一台电脑通过 <code>ping6 mac.depp.wang</code> 来测试是否已生效，注意是 <code>ping6</code> 不是 <code>ping</code>，我就在这里踩坑了，一起用 ping，结果不通，以为有什么问题，浪费不少时间。以下代表 ping 通了。</p>
+<p>DNS 解析可通过 <a href="https://dnschecker.org/" target="_blank" rel="noopener">dnschecker</a> 来检测是否已生效，再用另一台电脑通过 <code>ping6 mac.depp.wang</code> 来测试是否已生效，注意是 <code>ping6</code> 不是 <code>ping</code>，我就在这里踩坑了，一直用 ping，结果不通，以为有什么问题，浪费不少时间。以下代表 ping 通了。</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223047.png" alt=""></p>
-<p>当 ping 通了，就可以通过 <code>http:[ipv6]:9090</code> 来访问。</p>
+<p>当 ping 通了，就可以通过 <code>http:mac.depp.wang:9090</code> 来访问。</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223036.png" alt=""><br>当你电脑 IP 长时间固定不变时，可以不用 DDNS，如果想用，可以用 <a href="https://github.com/jeessy2/ddns-go" target="_blank" rel="noopener">ddns-go</a>，如果使用 macOS，可以用 brew 安装，配置教程可以参考<a href="https://lijianfei.com/post/yi-jian-gao-ding-cloudflare-dns-zi-dong-geng-xin-gao-bie-shou-dong-fan-suo/" target="_blank" rel="noopener">这篇文章</a>，文章漏了一步，还需要配置域名：</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223813.png" alt=""></p>
 
