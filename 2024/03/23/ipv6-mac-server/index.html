@@ -109,7 +109,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223047.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223036.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240323223813.png">
-<meta property="og:updated_time" content="2024-03-24T14:12:06.381Z">
+<meta property="og:updated_time" content="2024-03-24T14:16:21.515Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 IPv6 免费把自己电脑变成 WEB 服务器">
 <meta name="twitter:description" content="我们可能有这样的需求，需要部署点应用，使其可以 WEB 访问，但又不想买服务器，可能这个应用不暴露到公网访问，就自己用。有的场景我们可以使用 Vercel，如搭建个 ChatGPT 网页服务，但有的场景又不太适合用 Vercel，如你需要跟谁联调点东西。这时候，你可以利用 IPv6 把自己电脑变成服务器用，只需要配置自己电脑可被指定 IP 外网访问，再让应用可通过 IPv6 访问就可以了。如果 I">
@@ -367,7 +367,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-03-24T22:11:07+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2024-03-24T22:15:33+08:00">
                 2024-03-24
               </time>
             
@@ -419,7 +419,7 @@
       
 
       
-        <p>我们可能有这样的需求，需要部署点应用，使其可以 WEB 访问，但又不想买服务器，可能这个应用不暴露到公网访问，就自己用。有的场景我们可以使用 Vercel，如<a href="https://depp.wang/2023/06/08/build-a-chatgpt-web-service/">搭建个 ChatGPT 网页服务</a>，但有的场景又不太适合用 Vercel，如你需要跟谁联调点东西。这时候，你可以利用 IPv6 把自己电脑变成服务器用，只需要配置自己电脑可被指定 IP 外网访问，再让应用可通过 IPv6 访问就可以了。如果 IP 经常变，还可以通过 DDNS（如<a href="https://github.com/jeessy2/ddns-go）" target="_blank" rel="noopener">ddns-go</a> ）和 Cloudflare DNS 配置，实现域名 + 端口访问服务。PS：我原来买了阿里云的轻量服务器，简直不能用，动不动就直接卡死，就需要重新启动。</p>
+        <p>我们可能有这样的需求，需要部署点应用，使其可以 WEB 访问，但又不想买服务器，可能这个应用不暴露到公网访问，就自己用。有的场景我们可以使用 Vercel，如<a href="https://depp.wang/2023/06/08/build-a-chatgpt-web-service/">搭建个 ChatGPT 网页服务</a>，但有的场景又不太适合用 Vercel，如你需要跟谁联调点东西。这时候，你可以利用 IPv6 把自己电脑变成服务器用，只需要配置自己电脑可被指定 IP 外网访问，再让应用可通过 IPv6 访问就可以了。如果 IP 经常变，还可以通过 DDNS（如<a href="https://github.com/jeessy2/ddns-go）" target="_blank" rel="noopener">ddns-go</a> ）和 Cloudflare DNS 配置，实现域名 + 端口访问服务。注意，一般运营商屏蔽了 80 与 443 端口，所以需要域名 + 端口访问。PS：我原来买了阿里云的轻量服务器，简直不能用，动不动就直接卡死，就需要重新启动。</p>
 <a id="more"></a>
 
 <h2 id="一、获取自己电脑的-IPv6-公网-IP"><a href="#一、获取自己电脑的-IPv6-公网-IP" class="headerlink" title="一、获取自己电脑的 IPv6 公网 IP"></a>一、获取自己电脑的 IPv6 公网 IP</h2><p>现在电信宽带都支持 IPv6，你可以让你家里每个设备都获得一个 IPv6 公网 IP，如果你没有，需要你将光猫拨号改为路由器拨号，再用一个支持 IPv6 的路由器，<a href="https://depp.wang/2023/12/12/ipv6-and-tailscale-remote-access-nas/">这篇文章</a>有讲如何设置 IPv6。</p>
