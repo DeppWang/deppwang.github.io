@@ -1,0 +1,1161 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="hOzwzcL7Td1p_evvLmRBasbQKy5-i5AgJwNLD2vHKJ8">
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Bookerly:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="String,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="德普王's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="String 的两种实例化方式隐式实例化：直接赋值public class Demo &amp;#123;    public static void main(String[] args) &amp;#123;        String s = &quot;hello&quot;;        String s2 = &quot;hello&quot;;        System.out.println(s == s2);    &amp;#125;&amp;">
+<meta name="keywords" content="String">
+<meta property="og:type" content="article">
+<meta property="og:title" content="String 的两种实例化方式">
+<meta property="og:url" content="https://depp.wang/2017/07/24/string-initialization/index.html">
+<meta property="og:site_name" content="德普王&#39;s Blog">
+<meta property="og:description" content="String 的两种实例化方式隐式实例化：直接赋值public class Demo &amp;#123;    public static void main(String[] args) &amp;#123;        String s = &quot;hello&quot;;        String s2 = &quot;hello&quot;;        System.out.println(s == s2);    &amp;#125;&amp;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135652.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135655.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135658.png">
+<meta property="og:updated_time" content="2020-06-30T16:00:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="String 的两种实例化方式">
+<meta name="twitter:description" content="String 的两种实例化方式隐式实例化：直接赋值public class Demo &amp;#123;    public static void main(String[] args) &amp;#123;        String s = &quot;hello&quot;;        String s2 = &quot;hello&quot;;        System.out.println(s == s2);    &amp;#125;&amp;">
+<meta name="twitter:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135652.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'IQPKMP0VXO',
+      apiKey: 'd3e6a74afaebeb6b9c3a26eee410f08e',
+      indexName: 'deppwang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://depp.wang/2017/07/24/string-initialization/">
+
+
+
+
+
+  <title>String 的两种实例化方式 | 德普王's Blog</title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3HG6GE96C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3HG6GE96C');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">德普王's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Draft, Edit, Proofread, Publish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/2019/08/22/tools/" rel="section">
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-decorate">
+          <a href="/tags/装修/" rel="section">
+            
+            装修
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAPF8TuhkibCKuDf" data-callback="javascriptCallback"></div>
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2017/07/24/string-initialization/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">String 的两种实例化方式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-24T22:16:09+08:00">
+                2017-07-24
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2023-05-01T00:34:57+08:00">
+                2023-05-01
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/24/string-initialization/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/24/string-initialization/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/07/24/string-initialization/" class="leancloud_visitors" data-flag-title="String 的两种实例化方式">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="String-的两种实例化方式"><a href="#String-的两种实例化方式" class="headerlink" title="String 的两种实例化方式"></a>String 的两种实例化方式</h2><h3 id="隐式实例化：直接赋值"><a href="#隐式实例化：直接赋值" class="headerlink" title="隐式实例化：直接赋值"></a>隐式实例化：直接赋值</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="string">"hello"</span>;</span><br><span class="line">        String s2 = <span class="string">"hello"</span>;</span><br><span class="line">        System.out.println(s == s2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135652.png" alt="image"></p>
+<p>String 一般使用直接赋值的方式创建字符串。此时字符串是一个<strong>匿名对象</strong>，存放于位于堆的字符串常量池（String Table）中。匿名对象也是对象，就如同对象创建后，对象本身不可以改变，字符串也有不可变的特性，每次都将创建新的字符串。因为不可变，所以字符串可以称为字符串常量。</p>
+<p>JVM 中设计字符串常量池是为了减少实例化重复的字符串，以节约新建时间和内存空间。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="string">"hello"</span>;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        String s = <span class="string">"world"</span>;</span><br><span class="line">        System.out.println(s2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">hello</span></span><br><span class="line"><span class="attribute">world</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135655.png" alt="image"></p>
+<h3 id="显式实例化：使用构造函数"><a href="#显式实例化：使用构造函数" class="headerlink" title="显式实例化：使用构造函数"></a>显式实例化：使用构造函数</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="string">"hello"</span>;</span><br><span class="line">        String s2 = <span class="keyword">new</span> String(<span class="string">"hello"</span>);</span><br><span class="line">        String s3 = <span class="keyword">new</span> String(<span class="string">"hello"</span>);</span><br><span class="line">        System.out.println(s==s2);</span><br><span class="line">        System.out.println(s==s3);</span><br><span class="line">        System.out.println(s2==s3);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="literal">false</span></span><br><span class="line"><span class="literal">false</span></span><br><span class="line"><span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>String 是一个类，可以使用构造函数创建字符串。</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135658.png" alt="image"></p>
+<h3 id="intern-方法"><a href="#intern-方法" class="headerlink" title="intern() 方法"></a>intern() 方法</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="string">"hello"</span>;</span><br><span class="line">        String s2 = <span class="keyword">new</span> String(<span class="string">"hello"</span>);</span><br><span class="line">        String s3 = <span class="keyword">new</span> String(<span class="string">"hello"</span>);</span><br><span class="line">        System.out.println(s2 == s2.intern());</span><br><span class="line">        System.out.println(s == s3.intern());</span><br><span class="line">        System.out.println(s2.intern() == s3.intern());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="literal">false</span></span><br><span class="line"><span class="literal">true</span></span><br><span class="line"><span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>intern() 方法，复制字符串对象到字符串常量池，返回字符串（引用）。native() 方法</p>
+<p>具体来说：JVM 会在字符串常量池中去比较是否有「等于（equals）」 此 String 对象的字符串，如果有，返回字符串引用，没有则将此 String 对象包含的字符串放入字符串常量池中，再返回引用</p>
+<p>String 被 final 修饰。</p>
+<ul>
+<li>final 修饰类，类不能被继承</li>
+<li>修饰方法，方法不能被重写</li>
+<li>修饰字段，字段不能指向其他对象</li>
+</ul>
+<p>字符串常量池和运行时常量池的关系</p>
+<ul>
+<li>没有关系，运行时常量池存放运行 Class 文件的常量池表。</li>
+</ul>
+<h2 id="String-常用方法"><a href="#String-常用方法" class="headerlink" title="String 常用方法"></a>String 常用方法</h2><p>转换为字符数组：toCharArray()</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String string = <span class="string">"hello"</span>;</span><br><span class="line"><span class="keyword">char</span>[] array = string.toCharArray();</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> String(array);</span><br></pre></td></tr></table></figure>
+
+<p>获取指定字符</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String string = <span class="string">"hello"</span>;</span><br><span class="line"><span class="keyword">char</span> c = string.charAt(<span class="number">0</span>) <span class="comment">// 'h'</span></span><br></pre></td></tr></table></figure>
+
+<p>格式化</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String.format(<span class="string">"%s %s %s"</span>, c1.name, c2.name, C.name)</span><br></pre></td></tr></table></figure>
+
+<!--关于 String 的两种实例化方式，我们要先理解类、对象、实例的含义和它们之间的区别与联系。举个形象化的例子：类是抽象化的（如狗），对象是具体化的（如京巴狗），我们常说一个对象（京巴狗）是某个类（狗）的一个实例（instance），所以对象与实例的含义等价。-->
+
+<!--我们知道，字符串操作是计算机程序设计中最常见的行为。学习 String 的实例化是非常有必要的。以下是 String 的源码：-->
+
+
+
+<!--我们可以看出 String 是 final 类型，不能被继承。它继承了 3 个接口，Serializable（可序列化的）、Comparable（可比较的）、CharSequence（字符序列）。-->
+
+<!--继承 Serializable 接口，可以被 JVM 序列化成文件。-->
+
+<!--继承 Comparable 接口，主要实现它的 compareTo(T o) 方法，此方法用来比较两个字符串的长度，返回一个 int 值。-->
+
+<!--继承 CharSequence 接口，实现的方法常用的有 length()、toString() 等。-->
+
+<!--Java 是单继承、多实现语言：即可以一个类只能被一个类继承，一个类可以实现多个接口。-->
+
+
+
+<!--JVM 中设计字符串常量池是为了减少实例化重复的字符串，以节约新建时间和内存空间。如果字符串已经在字符串常量池存在，就不再新建，而是将新的引用指向它，可以理解为多个引用共享一个字符串。-->
+
+
+
+<!--以上直接赋值，是我们常用的实例化方式。我们将采用直接赋值方式生成的字符串也称为**匿名对象**，当然，匿名对象也是对象。符号 "==" 判断两个引用是否指向同一个对象（字符串），通过输出结果为 true 可知，对于引用 s2 来说，没有重新新建一个字符串，而是将引用 s2 指向字符串 "hello"，-->
+
+
+<!--从 JVM 角度来看，JVM 在编译 Java 文件生成 Class 文件时，将字符串 "hello" 添加到字符串常量池中，在虚拟机栈（局部变量表）中给 s、s2 分配一块内存，均指向字符串 "hello"。如下图，**我们可以将引用理解为存放它 “指向” 的对象（字符串）的内存地址**，假设字符串 "hello" 的地址为 0x1001。-->
+
+<!--那如果隐式实例化如下，引用与字符串是什么关系呢？-->
+
+<!--因为 String 是 final 类型，即一个字符串（String 对象）创建后就不能被修改。所以 "world" 是一个新的字符串。引用 s 指向字符串 "world"，字符串常量池中的字符串 "hello" 由于没有了引用，会被回收。（本文是基于 jdk1.8 研究，字符串常量池已经移出永久代。字符串可以被回收）如下图所示：-->
+
+
+
+<!--从输出三个 false 可以看出，三个对象均不相同，我们知道使用 new 关键字创建的实例存放于 Java 堆中。假设堆中存放的两个 String 对象的内存地址分别为 0x1002 和 0x1003。如前面所讲，引用 s 所 “指向” 的字符串存放于字符串常量池。从 JVM 分析，有如下图示:-->
+
+
+
+<!--显式实例化常用于将字符数组转换为字符串，使用方式如下：-->
+
+
+
+<!--你是不是觉得，两种实例化方式产生的 “相等（equals())” 对象总感觉能联系起来，你的直觉是对的。它们之间的联系纽带在于 intern() 方法。intern() 方法是 String 类的方法，一个 Native 方法。一个存放在堆中的 String 对象调用此方法，JVM 会在字符串常量池中去比较是否有 “等于（==）” 此 String 对象的字符串，如果有，返回池中代表这个字符串的 String 对象，没有则将此 String 对象包含的字符串放入字符串常量池中，再返回此 String 对象的引用 (书中 78 页）。如果执行以下代码，会输出 false/true/true。-->
+
+
+
+<h2 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h2><ul>
+<li><a href="https://depp.wang/Java-Books/docs/深入理解Java虚拟机：JVM高级特性与最佳实践（第2版）.pdf">《深入理解 Java 虚拟机：JVM 高级特性与最佳实践（第 2 版）》</a></li>
+</ul>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1707703738443946" crossorigin="anonymous"></script>
+<!-- 文章内 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1707703738443946" data-ad-slot="6330017668" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      deppwang
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://depp.wang/2017/07/24/string-initialization/" title="String 的两种实例化方式">https://depp.wang/2017/07/24/string-initialization/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/String/" rel="tag"># String</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/21/object-funciton/" rel="next" title="Object 的常用方法">
+                <i class="fa fa-chevron-left"></i> Object 的常用方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/26/java-parameter-passing/" rel="prev" title="Java 的参数传递">
+                Java 的参数传递 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
+          <p class="site-author-name" itemprop="name">deppwang</p>
+           
+              <p class="site-description motion-element" itemprop="description">每个人都需要有自己的哈姆雷特</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">120</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">247</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DeppWang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/deppwang1" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://space.bilibili.com/336707243" target="_blank" title="BiliBili">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  BiliBili
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.youtube.com/channel/UCpjV96uJBtbf64eDaJjUkkQ" target="_blank" title="YouTube">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  YouTube
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coolshell.cn" title="CoolShell" target="_blank">CoolShell</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的网络日志" target="_blank">阮一峰的网络日志</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://1byte.io" title="1byte" target="_blank">1byte</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://catcoding.me/" title="程序员的喵" target="_blank">程序员的喵</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://blog.douchi.space/" title="椒盐豆豉" target="_blank">椒盐豆豉</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#String-的两种实例化方式"><span class="nav-number">1.</span> <span class="nav-text">String 的两种实例化方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#隐式实例化：直接赋值"><span class="nav-number">1.1.</span> <span class="nav-text">隐式实例化：直接赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显式实例化：使用构造函数"><span class="nav-number">1.2.</span> <span class="nav-text">显式实例化：使用构造函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#intern-方法"><span class="nav-number">1.3.</span> <span class="nav-text">intern() 方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String-常用方法"><span class="nav-number">2.</span> <span class="nav-text">String 常用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延伸阅读"><span class="nav-number">3.</span> <span class="nav-text">延伸阅读</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">deppwang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://deppwang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://depp.wang/2017/07/24/string-initialization/';
+          this.page.identifier = '2017/07/24/string-initialization/';
+          this.page.title = 'String 的两种实例化方式';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://deppwang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI","app_key":"AjFBNu3SKV0SwMNsiIxA0mQv","server_url":"https://ycdssag0.api.lncldglobal.com"};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

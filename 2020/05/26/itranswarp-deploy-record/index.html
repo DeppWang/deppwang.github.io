@@ -1,0 +1,1144 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="hOzwzcL7Td1p_evvLmRBasbQKy5-i5AgJwNLD2vHKJ8">
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Bookerly:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iTranswarp,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="德普王's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="作者：DeppWang、原文地址 目的：使用 iTranswarp 学习 nginx 配置 如果你只想本地启动，直接修改 ip，使用 docker-compose 即可">
+<meta name="keywords" content="iTranswarp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iTranswarp 部署记录">
+<meta property="og:url" content="https://depp.wang/2020/05/26/itranswarp-deploy-record/index.html">
+<meta property="og:site_name" content="德普王&#39;s Blog">
+<meta property="og:description" content="作者：DeppWang、原文地址 目的：使用 iTranswarp 学习 nginx 配置 如果你只想本地启动，直接修改 ip，使用 docker-compose 即可">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-25-143614.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-26-084417.png">
+<meta property="og:updated_time" content="2024-04-04T11:01:03.081Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iTranswarp 部署记录">
+<meta name="twitter:description" content="作者：DeppWang、原文地址 目的：使用 iTranswarp 学习 nginx 配置 如果你只想本地启动，直接修改 ip，使用 docker-compose 即可">
+<meta name="twitter:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-25-143614.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'IQPKMP0VXO',
+      apiKey: 'd3e6a74afaebeb6b9c3a26eee410f08e',
+      indexName: 'deppwang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://depp.wang/2020/05/26/itranswarp-deploy-record/">
+
+
+
+
+
+  <title>iTranswarp 部署记录 | 德普王's Blog</title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3HG6GE96C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3HG6GE96C');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">德普王's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Draft, Edit, Proofread, Publish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/2019/08/22/tools/" rel="section">
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-decorate">
+          <a href="/tags/装修/" rel="section">
+            
+            装修
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAPF8TuhkibCKuDf" data-callback="javascriptCallback"></div>
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2020/05/26/itranswarp-deploy-record/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iTranswarp 部署记录</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-26T17:58:35+08:00">
+                2020-05-26
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2021-01-15T10:16:56+08:00">
+                2021-01-15
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/05/26/itranswarp-deploy-record/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/05/26/itranswarp-deploy-record/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/05/26/itranswarp-deploy-record/" class="leancloud_visitors" data-flag-title="iTranswarp 部署记录">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>作者：<a href="https://depp.wang">DeppWang</a>、<a href="https://depp.wang/2020/05/26/itranswarp-deploy-record/">原文地址</a></p>
+<p>目的：使用 <a href="https://github.com/michaelliao/itranswarp" target="_blank" rel="noopener">iTranswarp</a> 学习 nginx 配置</p>
+<p>如果你只想本地启动，直接修改 ip，使用 docker-compose 即可</p>
+<a id="more"></a>
+
+<h2 id="Google-Cloud-Platform-配置"><a href="#Google-Cloud-Platform-配置" class="headerlink" title="Google Cloud Platform 配置"></a>Google Cloud Platform 配置</h2><p>本地部署耗资源，服务器部署</p>
+<p>腾讯云 clone GitHub 项目太慢，使用 <a href="https://console.cloud.google.com/" target="_blank" rel="noopener">Google Cloud Platform</a>，招商银行国际信用卡注册</p>
+<p>Compute Engine 新建「虚拟机实例」 CentOS7</p>
+<p>实例配置（防火墙）入站端口</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">0</span> tcp:<span class="number">13306</span>,<span class="number">16379</span>,<span class="number">443</span>,<span class="number">80</span></span><br></pre></td></tr></table></figure>
+
+<p>「元数据」添加公钥 id_rsa.pub，使用 SSH 公钥登录，原理请看<a href="https://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html" target="_blank" rel="noopener">SSH 原理与运用（一）：远程登录</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh -i ~/.ssh/id_rsa(私钥) your_user_name@ip</span><br><span class="line"></span><br><span class="line">ssh -i ~/.ssh/id_rsa_4 deppwxq@35.201.176.108 # 示例</span><br></pre></td></tr></table></figure>
+
+<p>安装 Git、配置别名</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install git-core</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global alias.st status</span><br><span class="line">git config --global alias.co checkout</span><br><span class="line">git config --global alias.ci commit</span><br><span class="line">git config --global alias.br branch</span><br><span class="line">git config --global alias.unstage <span class="string">'reset HEAD'</span></span><br><span class="line">git config --global alias.last <span class="string">'log -1'</span></span><br><span class="line">git config --global alias.lg <span class="string">"log --color --graph --pretty=format:'% Cred% h% Creset -% C(yellow)% d% Creset % s % Cgreen(% cr) % C(bold blue)&lt;% an&gt;% Creset' --abbrev-commit"</span></span><br></pre></td></tr></table></figure>
+
+<p>切换为 ohmyzsh（个人习惯）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum update &amp;&amp; sudo yum -y install zsh</span><br><span class="line">sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 切换 zsh 失败时，重新切换</span></span><br><span class="line">sudo chsh -s /bin/zsh your_user_name</span><br><span class="line">echo $SHELL</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可能需要输入用户密码，用户密码为 Google 账号密码</li>
+<li>未生效时重启实例，重启 ip 会变！</li>
+</ul>
+<p>语言设置为英文（默认就是英文，为何 Git 显示中文）</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">localectl</span></span><br></pre></td></tr></table></figure>
+
+<p>安装 <a href="https://docs.docker.com/install/linux/docker-ce/centos/" target="_blank" rel="noopener">Docker</a>，<a href="https://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html" target="_blank" rel="noopener">Docker 教程</a></p>
+<p>安装 <a href="https://docs.docker.com/compose/install/#install-compose" target="_blank" rel="noopener">Docker-Compose</a>，<a href="https://www.ruanyifeng.com/blog/2018/02/docker-wordpress-tutorial.html" target="_blank" rel="noopener">Docker-Compose 教程</a></p>
+<p>重启实例，ip 会变！需要重启 docker daemon</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo<span class="built_in"> service </span>docker start</span><br></pre></td></tr></table></figure>
+
+<h2 id="服务器运行项目"><a href="#服务器运行项目" class="headerlink" title="服务器运行项目"></a>服务器运行项目</h2><p>先 fork 项目</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> https://github.com/your-name/itranswarp.git <span class="comment"># 使用 HTTPS</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> itranswarp</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> docker</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cp .env.example .env</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vim .env <span class="comment"># 修改为服务器公网 ip</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker-compose up <span class="comment"># 启动</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker-compose stop <span class="comment"># 停止</span></span></span><br></pre></td></tr></table></figure>
+
+<p>修改服务器 hosts，相当于 DNS</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">vim <span class="regexp">/etc/</span>hosts</span><br></pre></td></tr></table></figure>
+
+<p>使用 <a href="https://zh.wikipedia.org/wiki/Lynx" target="_blank" rel="noopener">lynx</a> 模拟服务器本地浏览器打开 <code>https://www.local.itranswarp.com/</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install lynx</span><br><span class="line">lynx https://www.local.itranswarp.com/</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-25-143614.png" alt=""></p>
+<p>远程连接 Redis</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 远程连接</span></span><br><span class="line">redis-cli -h XXX.XXX.XXX.XXX(ip) -p port -a password</span><br><span class="line">redis-cli -h ip -p 16379 -a JFPRJ</span><br></pre></td></tr></table></figure>
+
+<p>远程连接 Mysql 使用 Navicat Premium</p>
+<p>进入容器</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker container exec -it [containerId] /bin/bash # 启动容器实例 bash</span><br><span class="line">or</span><br><span class="line">docker exec -it [containerId] /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用自定义域名"><a href="#使用自定义域名" class="headerlink" title="使用自定义域名"></a>使用自定义域名</h2><h3 id="配置域名解析"><a href="#配置域名解析" class="headerlink" title="配置域名解析"></a>配置域名解析</h3><p>（例：万网）配置域名解析</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">A www.xingquan.wang ip</span><br><span class="line">A static.xingquan.wang ip</span><br><span class="line">A source.xingquan.wang ip</span><br><span class="line">A @xingquan.wang ip</span><br></pre></td></tr></table></figure>
+
+<h3 id="申请数字证书"><a href="#申请数字证书" class="headerlink" title="申请数字证书"></a>申请数字证书</h3><p><a href="https://freessl.org/" target="_blank" rel="noopener">freessl</a> 申请免费数字证书</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">www<span class="selector-class">.xingquan</span><span class="selector-class">.wang</span></span><br><span class="line">static<span class="selector-class">.xingquan</span><span class="selector-class">.wang</span></span><br><span class="line">source<span class="selector-class">.xingquan</span><span class="selector-class">.wang</span></span><br><span class="line">xingquan.wang</span><br></pre></td></tr></table></figure>
+
+<p>可四个域名同时申请同一个数字证书，也可分开申请</p>
+<p>离线申请，使用 <a href="https://keymanager.org/" target="_blank" rel="noopener">KeyManager</a>，最后「导出证书」，解压可得到两个文件：<code>**</code>.crt，<code>**</code>.key。crt 为数字证书，key 为服务器私钥，深入理解请看<a href="https://mp.weixin.qq.com/s?__biz=MzAxOTc0NzExNg==&mid=2665513779&idx=1&sn=a1de58690ad4f95111e013254a026ca2&chksm=80d67b70b7a1f26697fa1626b3e9830dbdf4857d7a9528d22662f2e43af149265c4fd1b60024&scene=21#wechat_redirect" target="_blank" rel="noopener">一个故事讲完 https</a></p>
+<h3 id="修改项目配置文件"><a href="#修改项目配置文件" class="headerlink" title="修改项目配置文件"></a>修改项目配置文件</h3><p>clone fork 项目到本地，（切换分支）修改配置。</p>
+<p>全局将 local.itranswarp.com 修改为你的域名（如：xingquan.wang）</p>
+<p>修改 local.itranswarp.com.crt / local.itranswarp.com.key 为 xingquan.wang.crt、xingquan.wang.key，使用「导出证书」的 crt、key 替换。local-conf 文件夹下可不修改</p>
+<p>修改配置后，只重启 docker-compose（容器），配置是否生效？生效</p>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><a href="https://www.xingquan.wang" target="_blank" rel="noopener">https://www.xingquan.wang</a></p>
+<img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-26-084417.png" alt="" style="zoom:50%;">
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>学习到</p>
+<ul>
+<li>HTTPS、证书</li>
+<li>nginx 配置</li>
+</ul>
+<p>问题：</p>
+<ul>
+<li>Docker 如何进入容器操作，如查看日志、修改数据库</li>
+<li>iTranswarp 作为博客，没有订阅地址？</li>
+</ul>
+<p>admin 默认密码为 123456</p>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1707703738443946" crossorigin="anonymous"></script>
+<!-- 文章内 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1707703738443946" data-ad-slot="6330017668" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      deppwang
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://depp.wang/2020/05/26/itranswarp-deploy-record/" title="iTranswarp 部署记录">https://depp.wang/2020/05/26/itranswarp-deploy-record/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iTranswarp/" rel="tag"># iTranswarp</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/18/export-youdaonote-all-notes/" rel="next" title="一个一键导出/备份「有道云笔记」所有笔记的脚本">
+                <i class="fa fa-chevron-left"></i> 一个一键导出/备份「有道云笔记」所有笔记的脚本
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/11/how-to-find-the-api-of-a-website-eg-note-youdao-com/" rel="prev" title="如何查找某个网站的（如：有道云笔记）的接口">
+                如何查找某个网站的（如：有道云笔记）的接口 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
+          <p class="site-author-name" itemprop="name">deppwang</p>
+           
+              <p class="site-description motion-element" itemprop="description">每个人都需要有自己的哈姆雷特</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">120</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">247</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DeppWang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/deppwang1" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://space.bilibili.com/336707243" target="_blank" title="BiliBili">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  BiliBili
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.youtube.com/channel/UCpjV96uJBtbf64eDaJjUkkQ" target="_blank" title="YouTube">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  YouTube
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coolshell.cn" title="CoolShell" target="_blank">CoolShell</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的网络日志" target="_blank">阮一峰的网络日志</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://1byte.io" title="1byte" target="_blank">1byte</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://catcoding.me/" title="程序员的喵" target="_blank">程序员的喵</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://blog.douchi.space/" title="椒盐豆豉" target="_blank">椒盐豆豉</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Google-Cloud-Platform-配置"><span class="nav-number">1.</span> <span class="nav-text">Google Cloud Platform 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器运行项目"><span class="nav-number">2.</span> <span class="nav-text">服务器运行项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用自定义域名"><span class="nav-number">3.</span> <span class="nav-text">使用自定义域名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置域名解析"><span class="nav-number">3.1.</span> <span class="nav-text">配置域名解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#申请数字证书"><span class="nav-number">3.2.</span> <span class="nav-text">申请数字证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改项目配置文件"><span class="nav-number">3.3.</span> <span class="nav-text">修改项目配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">4.</span> <span class="nav-text">效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">deppwang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://deppwang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://depp.wang/2020/05/26/itranswarp-deploy-record/';
+          this.page.identifier = '2020/05/26/itranswarp-deploy-record/';
+          this.page.title = 'iTranswarp 部署记录';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://deppwang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI","app_key":"AjFBNu3SKV0SwMNsiIxA0mQv","server_url":"https://ycdssag0.api.lncldglobal.com"};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

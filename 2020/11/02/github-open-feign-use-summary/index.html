@@ -1,0 +1,1102 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="hOzwzcL7Td1p_evvLmRBasbQKy5-i5AgJwNLD2vHKJ8">
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Bookerly:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="GitHub Open Feign,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="德普王's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="原文地址  公司项目目前使用 SOA 架构（Service-oriented architecture：服务导向架构），每个服务作为一个单体对外提供接口，服务之间使用 GitHub OpenFeign  调用接口。 服务提供者正常提供接口，把需要暴露的接口封装为一个 client jar 包，服务调用者正常引入 jar 包，直接调用 jar 方法即可调用服务提供者接口。此文相关代码示例">
+<meta name="keywords" content="GitHub Open Feign">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GitHub Open Feign  使用总结">
+<meta property="og:url" content="https://depp.wang/2020/11/02/github-open-feign-use-summary/index.html">
+<meta property="og:site_name" content="德普王&#39;s Blog">
+<meta property="og:description" content="原文地址  公司项目目前使用 SOA 架构（Service-oriented architecture：服务导向架构），每个服务作为一个单体对外提供接口，服务之间使用 GitHub OpenFeign  调用接口。 服务提供者正常提供接口，把需要暴露的接口封装为一个 client jar 包，服务调用者正常引入 jar 包，直接调用 jar 方法即可调用服务提供者接口。此文相关代码示例">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2024-04-04T11:01:03.271Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GitHub Open Feign  使用总结">
+<meta name="twitter:description" content="原文地址  公司项目目前使用 SOA 架构（Service-oriented architecture：服务导向架构），每个服务作为一个单体对外提供接口，服务之间使用 GitHub OpenFeign  调用接口。 服务提供者正常提供接口，把需要暴露的接口封装为一个 client jar 包，服务调用者正常引入 jar 包，直接调用 jar 方法即可调用服务提供者接口。此文相关代码示例">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'IQPKMP0VXO',
+      apiKey: 'd3e6a74afaebeb6b9c3a26eee410f08e',
+      indexName: 'deppwang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://depp.wang/2020/11/02/github-open-feign-use-summary/">
+
+
+
+
+
+  <title>GitHub Open Feign  使用总结 | 德普王's Blog</title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3HG6GE96C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3HG6GE96C');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">德普王's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Draft, Edit, Proofread, Publish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/2019/08/22/tools/" rel="section">
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-decorate">
+          <a href="/tags/装修/" rel="section">
+            
+            装修
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAPF8TuhkibCKuDf" data-callback="javascriptCallback"></div>
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2020/11/02/github-open-feign-use-summary/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">GitHub Open Feign  使用总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-02T20:48:37+08:00">
+                2020-11-02
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-11-03T14:40:29+08:00">
+                2020-11-03
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Note/" itemprop="url" rel="index">
+                    <span itemprop="name">Note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/11/02/github-open-feign-use-summary/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/11/02/github-open-feign-use-summary/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/11/02/github-open-feign-use-summary/" class="leancloud_visitors" data-flag-title="GitHub Open Feign  使用总结">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="https://depp.wang/2020/11/02/github-open-feign-use-summary/">原文地址</a></p>
+</blockquote>
+<p>公司项目目前使用 SOA 架构（<a href="https://en.wikipedia.org/wiki/Service-oriented_architecture" target="_blank" rel="noopener">Service-oriented architecture</a>：服务导向架构），每个服务作为一个单体对外提供接口，服务之间使用 <a href="https://github.com/OpenFeign/feign" target="_blank" rel="noopener">GitHub OpenFeign</a>  调用接口。</p>
+<p>服务提供者正常提供接口，把需要暴露的接口封装为一个 client jar 包，服务调用者正常引入 jar 包，直接调用 jar 方法即可调用服务提供者接口。此文相关<a href="https://github.com/DeppWang/springboot-demos/tree/master/springboot-openfeign" target="_blank" rel="noopener">代码示例</a></p>
+<a id="more"></a>
+
+<h2 id="Provider-Api"><a href="#Provider-Api" class="headerlink" title="Provider Api"></a>Provider Api</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/signin"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ApiResponse&lt;Void&gt; <span class="title">doSignin</span><span class="params">(@RequestParam(<span class="string">"username"</span>)</span> String username, @<span class="title">RequestParam</span><span class="params">(<span class="string">"password"</span>)</span> String password) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (username.equals(<span class="string">""</span>) &amp;&amp; password.equals(<span class="string">""</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> ApiResponse.fail(<span class="number">500</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ApiResponse.success();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Provider-Client"><a href="#Provider-Client" class="headerlink" title="Provider Client"></a>Provider Client</h2><p>ProviderClientBuilder</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProviderClientBuilder</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;provider.domain&#125;"</span>)</span><br><span class="line">    <span class="keyword">public</span> String providerDomain;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;provider.socketTimeout:60000&#125;"</span>)</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> socketTimeout;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;provider.connectTimeout:10000&#125;"</span>)</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> connectTimeout;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> UserApi <span class="title">buildProviderApi</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Preconditions.checkArgument(StringUtils.isNotBlank(providerDomain));</span><br><span class="line">        <span class="keyword">return</span> Feign.builder()</span><br><span class="line">                .decoder(<span class="keyword">new</span> GsonDecoder())</span><br><span class="line">                .encoder(<span class="keyword">new</span> FormEncoder())</span><br><span class="line">                .logger(<span class="keyword">new</span> Slf4jLogger(UserApi.class))</span><br><span class="line">                .retryer(Retryer.NEVER_RETRY)</span><br><span class="line">                .logLevel(Logger.Level.FULL)</span><br><span class="line">                .client(<span class="keyword">new</span> AccessTraceHttpClient(httpClient(), requestConfig()))</span><br><span class="line">                .target(UserApi.class, providerDomain);</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>UserApi</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Headers</span>(<span class="string">"Content-Type: application/x-www-form-urlencoded"</span>) <span class="comment">// 请求的编码格式为 application/x-www-form-urlencoded</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserApi</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestLine</span>(<span class="string">"POST /signin"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ApiResponse&lt;Void&gt; <span class="title">signin</span><span class="params">(@Param(<span class="string">"username"</span>)</span> String username, @<span class="title">Param</span><span class="params">(<span class="string">"password"</span>)</span> String password)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestLine</span>(<span class="string">"GET /status/version"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ApiResponse&lt;String&gt; <span class="title">statusVersion</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Consumer-Api"><a href="#Consumer-Api" class="headerlink" title="Consumer Api"></a>Consumer Api</h2><p>引入依赖</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>wang.depp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>provider-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HomeController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserApi userApi;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/signin"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ApiResponse&lt;Void&gt; <span class="title">signin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userApi.signin(<span class="string">"admin"</span>,<span class="string">"admin"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ComponentScan</span>(basePackages = <span class="string">"wang.depp"</span>)</span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsumerApiApplication</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		SpringApplication.run(ConsumerApiApplication.class, args);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ProviderClientBuilder 为配置类，当 Provider 和 Consumer 的 package 路径不同时，需要指定包扫描路径，使引入包配置类在容器启动时就能加载到容器。</p>
+<p>application.properties 配置提供方 domain。可通过配置文件为不同环境配置不同的服务提供者 domain</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">server.port</span>=<span class="string">8888</span></span><br><span class="line"><span class="meta">provider.demain</span>=<span class="string">http://localhost:8080/ # 完整书写，不能是 localhost:8080</span></span><br><span class="line"><span class="meta">provider.socketTimeout</span>=<span class="string">60000</span></span><br><span class="line"><span class="meta">provider.connectTimeout</span>=<span class="string">10000</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="踩过的坑"><a href="#踩过的坑" class="headerlink" title="踩过的坑"></a>踩过的坑</h2><p>1、java.lang.IllegalArgumentException: target values must be absolute.</p>
+<ul>
+<li>读取配置文件的配置出了问题，如：provider-api 的 domain 没写全；或命名错误，没有读取到<!--Service 参数问题，没有获取到具体数据，还为 `${*}`--></li>
+</ul>
+<p>2、Caused by: java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $</p>
+<ul>
+<li>**Api 和 Controller 方法的返回值类型对不上，比如：Provider Api 的拦截器给 ApiResponse 又包装了一层 ApiResponse</li>
+</ul>
+<p>3、接收参数不能直接为 Date</p>
+<ul>
+<li>因为使用 <code>application/x-www-form-urlencoded</code> 传输时将参数使用 &amp;&amp; 链接到一起，此时可以认为是 String 类型，Date 类型不能接受 String 类型参数</li>
+</ul>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1707703738443946" crossorigin="anonymous"></script>
+<!-- 文章内 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1707703738443946" data-ad-slot="6330017668" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      deppwang
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://depp.wang/2020/11/02/github-open-feign-use-summary/" title="GitHub Open Feign  使用总结">https://depp.wang/2020/11/02/github-open-feign-use-summary/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/GitHub-Open-Feign/" rel="tag"># GitHub Open Feign</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/11/02/build-a-maven-repository/" rel="next" title="搭建 Maven 仓库">
+                <i class="fa fa-chevron-left"></i> 搭建 Maven 仓库
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/11/06/customize-global-exception-handler-java/" rel="prev" title="自定义全局异常处理器（Java）">
+                自定义全局异常处理器（Java） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
+          <p class="site-author-name" itemprop="name">deppwang</p>
+           
+              <p class="site-description motion-element" itemprop="description">每个人都需要有自己的哈姆雷特</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">120</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">247</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DeppWang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/deppwang1" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://space.bilibili.com/336707243" target="_blank" title="BiliBili">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  BiliBili
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.youtube.com/channel/UCpjV96uJBtbf64eDaJjUkkQ" target="_blank" title="YouTube">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  YouTube
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coolshell.cn" title="CoolShell" target="_blank">CoolShell</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的网络日志" target="_blank">阮一峰的网络日志</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://1byte.io" title="1byte" target="_blank">1byte</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://catcoding.me/" title="程序员的喵" target="_blank">程序员的喵</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://blog.douchi.space/" title="椒盐豆豉" target="_blank">椒盐豆豉</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Provider-Api"><span class="nav-number">1.</span> <span class="nav-text">Provider Api</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Provider-Client"><span class="nav-number">2.</span> <span class="nav-text">Provider Client</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Consumer-Api"><span class="nav-number">3.</span> <span class="nav-text">Consumer Api</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#踩过的坑"><span class="nav-number">4.</span> <span class="nav-text">踩过的坑</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">deppwang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://deppwang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://depp.wang/2020/11/02/github-open-feign-use-summary/';
+          this.page.identifier = '2020/11/02/github-open-feign-use-summary/';
+          this.page.title = 'GitHub Open Feign  使用总结';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://deppwang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI","app_key":"AjFBNu3SKV0SwMNsiIxA0mQv","server_url":"https://ycdssag0.api.lncldglobal.com"};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

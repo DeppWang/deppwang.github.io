@@ -1,0 +1,1556 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="hOzwzcL7Td1p_evvLmRBasbQKy5-i5AgJwNLD2vHKJ8">
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Bookerly:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Redis,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="德普王's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="本文翻译于 Dan Arias 的 Introduction to Redis: Installation, CLI Commands, and Data Types  文章虽然篇幅较长，但非常浅显易懂，是一篇很好的 Redis 入门文章。  在本 Redis 教程中，可以学习到如何安装、配置 Redis，以及使用其核心数据结构用命令从存储中写入、读取、更新、删除数据。 什么是 Redis？Re">
+<meta name="keywords" content="Redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&lt;译&gt; Redis 入门：安装、客户端命令和数据类型">
+<meta property="og:url" content="https://depp.wang/2019/09/11/introduction-to-redis-install-cli-commands-and-data-types/index.html">
+<meta property="og:site_name" content="德普王&#39;s Blog">
+<meta property="og:description" content="本文翻译于 Dan Arias 的 Introduction to Redis: Installation, CLI Commands, and Data Types  文章虽然篇幅较长，但非常浅显易懂，是一篇很好的 Redis 入门文章。  在本 Redis 教程中，可以学习到如何安装、配置 Redis，以及使用其核心数据结构用命令从存储中写入、读取、更新、删除数据。 什么是 Redis？Re">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-01-04-035301.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-01-05-020751.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-01-04-113958.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-01-04-152214.png">
+<meta property="og:updated_time" content="2024-04-04T11:01:03.887Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="&lt;译&gt; Redis 入门：安装、客户端命令和数据类型">
+<meta name="twitter:description" content="本文翻译于 Dan Arias 的 Introduction to Redis: Installation, CLI Commands, and Data Types  文章虽然篇幅较长，但非常浅显易懂，是一篇很好的 Redis 入门文章。  在本 Redis 教程中，可以学习到如何安装、配置 Redis，以及使用其核心数据结构用命令从存储中写入、读取、更新、删除数据。 什么是 Redis？Re">
+<meta name="twitter:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-01-04-035301.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'IQPKMP0VXO',
+      apiKey: 'd3e6a74afaebeb6b9c3a26eee410f08e',
+      indexName: 'deppwang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://depp.wang/2019/09/11/introduction-to-redis-install-cli-commands-and-data-types/">
+
+
+
+
+
+  <title><译> Redis 入门：安装、客户端命令和数据类型 | 德普王's Blog</译></title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3HG6GE96C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3HG6GE96C');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">德普王's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Draft, Edit, Proofread, Publish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/2019/08/22/tools/" rel="section">
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-decorate">
+          <a href="/tags/装修/" rel="section">
+            
+            装修
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAPF8TuhkibCKuDf" data-callback="javascriptCallback"></div>
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2019/09/11/introduction-to-redis-install-cli-commands-and-data-types/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"><译> Redis 入门：安装、客户端命令和数据类型</译></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-11T13:26:55+08:00">
+                2019-09-11
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-12-04T00:08:08+08:00">
+                2020-12-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/11/introduction-to-redis-install-cli-commands-and-data-types/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/09/11/introduction-to-redis-install-cli-commands-and-data-types/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/09/11/introduction-to-redis-install-cli-commands-and-data-types/" class="leancloud_visitors" data-flag-title="<译> Redis 入门：安装、客户端命令和数据类型">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>本文翻译于 <a href="https://auth0.com/blog/authors/dan-arias/" target="_blank" rel="noopener">Dan Arias</a> 的 <a href="https://auth0.com/blog/introduction-to-redis-install-cli-commands-and-data-types/" target="_blank" rel="noopener">Introduction to Redis: Installation, CLI Commands, and Data Types</a></p>
+</blockquote>
+<p>文章虽然篇幅较长，但非常浅显易懂，是一篇很好的 Redis 入门文章。</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-01-04-035301.png" alt=""></p>
+<p>在本 Redis 教程中，可以学习到如何安装、配置 Redis，以及使用其核心数据结构用命令从存储中写入、读取、更新、删除数据。</p>
+<h2 id="什么是-Redis？"><a href="#什么是-Redis？" class="headerlink" title="什么是 Redis？"></a>什么是 Redis？</h2><p>Redis 是一款在内存中存储数据的 Key-Value 存储，可用来做数据库、缓存和消息代理等。它是 <a href="https://github.com/antirez/redis" target="_blank" rel="noopener">开源</a> 的，目前使用 <a href="https://github.com/antirez/redis/blob/unstable/COPYING" target="_blank" rel="noopener">BSD 开源协议</a>。</p>
+<blockquote>
+<p>有趣的事实：Redis 的本意是「REmote DIctionary Server.（远程字典服务器）」</p>
+</blockquote>
+<p><a href="https://aws.amazon.com/cn/redis/" target="_blank" rel="noopener">Redis 响应时间在微妙级</a>，每秒能处理百万次的请求，满足对性能有苛刻要求的实时应用，如游戏、广告代理、金融监控等等。</p>
+<p>他支持基本的数据结构，如 string、list、set、sort set（有序集合：可范围查找） 和 hash。还支持更高级的数据结构，如 bitmaps（位图）、hyperloglogs（超级日志）、geospatial（地理空间索引：有半径查询）。</p>
+<a id="more"></a>
+
+<p><a href="https://twitter.com/alecks" target="_blank" rel="noopener">Alex Stanciu</a>，<a href="https://auth0.com/" target="_blank" rel="noopener">Auth0</a> 身份管理团队的产品负责人，解释我们用 Redis 的一个原因：</p>
+<blockquote>
+<p>「我们使用 Redis 作为 Slack Bot 会话引擎的缓存层和Session 存储，因为它将数据存放在内存（RAM）中，提供了超快的读写速度；响应时间通常在 10 毫秒以下。」</p>
+</blockquote>
+<p>在这个 Redis 教程中，我们将学习如何在自己系统中安装 Redis，学习如何使用其核心和最常用的数据结构在 Redis 存储数据。有了这个基础，以后的文章中，我们将学习如何使用 Redis 进行缓存，Session 存储、消息传递和实时分析。我们开始吧！</p>
+<h2 id="安装-Redis"><a href="#安装-Redis" class="headerlink" title="安装 Redis"></a>安装 Redis</h2><p>第一件事情，我们需要先安装 Redis。如果你已经安装过了，你可以跳过这一节。</p>
+<p><a href="https://redis.io/topics/quickstart#installing-redis" target="_blank" rel="noopener">Redis 文档</a> 建议使用编译源代码的方式来安装 Redis，因为 Redis 除了工作必要的 <code>GCC 编译器</code> 和<code>libc</code>，没有其他依赖项。我们也可以通过在 <a href="https://redis.io/" target="_blank" rel="noopener"><code>redis.io</code></a> 下载最新的压缩包，或者使用始终指向最新稳定版的 URL：<a href="http://download.redis.io/redis-stable.tar.gz" target="_blank" rel="noopener"><code>http://download.redis.io/redis-stable.tar.gz</code></a>。</p>
+<blockquote>
+<p>Windows 用户：Redis 项目没有正式支持 Windows 系统。但是，如果你想在 Windows10 上运行，你可以 <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10" target="_blank" rel="noopener">安装适用于 Linux 的 Windows子系统</a> 来安装运行 Redis。当你已经安装、并运行适用于 Linux 的 Windows子系统了，请通过您的 Linux 命令行，跟着本教程下面针对 Linux（在指定时） 的步骤操作。</p>
+</blockquote>
+<!--译注：也可以直接安装-->
+
+<p>要编译 Redis，请根据以下简单步骤操作：</p>
+<ul>
+<li>创建一个 redis 文件夹，并切换到 redis 文件夹</li>
+</ul>
+<p>macOS/Linux:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir redis &amp;&amp; cd redis</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>获取最新 redis tar 包（tarball）：</li>
+</ul>
+<p>macOS/Linux:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -O http://download.redis.io/redis-stable.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>解压 tar 包：</li>
+</ul>
+<p>macOS/Linux:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar xvzf redis-stable.tar.gz</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>切换到解压后的 <code>redis-stable</code> 文件夹：</li>
+</ul>
+<p>macOS/Linux:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd redis-stable</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>编译 Redis：</li>
+</ul>
+<p>macOS/Linux:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果您的系统中没有安装 make 包（则不能使用 make 命令），请按照 CLI（客户端应用）提供的说明安装。在 macOS 中，你可能需要下载 XCode 才能访问包含 <code>make</code> 命令和 C 编译器的命令行工具。在 Ubuntu 上安装很简单，例如，你可能希望运行以下命令来更新包管理器和安装核心包。</p>
+</blockquote>
+<p>Ubuntu:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt upgrade</span><br><span class="line">sudo apt install build-essential</span><br><span class="line">sudo apt-get install tcl8.5</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<p>需要 <code>tcl</code> 8.5 或更高版本来运行下一步的 Redis 测试。</p>
+<ul>
+<li>测试构建版本是否正常工作：</li>
+</ul>
+<p>macOS/Linux:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">make test</span><br></pre></td></tr></table></figure>
+
+<p>编译完成后，<code>redis-stable</code>  下的 <code>src</code> 文件夹会出现 Redis 的各种可执行文件。Redis 文档解释了 <a href="https://redis.io/topics/quickstart" target="_blank" rel="noopener">每个可执行文件的功能</a>：</p>
+<ul>
+<li><code>redis-server</code>: 运行 Redis Server 端本身。</li>
+<li><code>redis-sentinel</code>: 运行 <a href="https://redis.io/topics/sentinel" target="_blank" rel="noopener">Redis Sentinel</a>, 一个用于监控和故障转移的工具。</li>
+<li><code>redis-cli</code>: 运行 <a href="https://en.wikipedia.org/wiki/Command-line_interface" target="_blank" rel="noopener">命令行界面</a> 客户端，用于跟 Redis 交互。</li>
+<li><code>redis-benchmark</code>: 检查 Redis 性能。</li>
+<li><code>redis-check-aof</code> 和 <code>redis-check-dump</code>: 用于存在损坏的数据文件的罕见情况。</li>
+</ul>
+<p>我们将频繁使用 <code>redis-server</code> 和 <code>redis-cli</code> 这两个可执行文件。为了方便起见，我们将它们复制（不是软链）到一个在系统范围内都能访问的位置（<code>/usr/local/bin/</code> 专门存放可执行文件的目录），这可以通过以下命令来手动完成：</p>
+<p>macOS/Linux:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo cp src/redis-server /usr/local/bin/</span><br><span class="line">sudo cp src/redis-cli /usr/local/bin/</span><br></pre></td></tr></table></figure>
+
+<p>在将 <code>redis-stable</code> 作为当前的工作目录时，也可以通过运行以下命令来自动完成此操作：</p>
+<p>macOS/Linux:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+
+<p>我们需要重新启动 shell，这些更改才能生效。一旦我们这样做了，我们就可以开始运行 Redis 了。</p>
+<blockquote>
+<h2 id="译注：如果是使用-brew-安装，安装后的-redis-将安装-usr-local-Celler-下，-不用执行这一步"><a href="#译注：如果是使用-brew-安装，安装后的-redis-将安装-usr-local-Celler-下，-不用执行这一步" class="headerlink" title="译注：如果是使用 brew 安装，安装后的 redis 将安装 /usr/local/Celler/ 下， 不用执行这一步"></a>译注：如果是使用 brew 安装，安装后的 redis 将安装 <code>/usr/local/Celler/</code> 下， 不用执行这一步</h2></blockquote>
+<h2 id="运行-Redis"><a href="#运行-Redis" class="headerlink" title="运行 Redis"></a>运行 Redis</h2><h3 id="启动-Redis"><a href="#启动-Redis" class="headerlink" title="启动 Redis"></a>启动 Redis</h3><p>启动 Redis 服务器的最简单方法是运行 <code>redis-server</code> 命令。在一个新的 shell 窗口中，输入：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">redis-server</span><br></pre></td></tr></table></figure>
+
+<p>如果一切正常，shell 将输出一个巨大的 ASCII Redis 标志，其中显示了 Redis 版本、运行模式、服务器运行的端口以及它的 PID（<a href="http://www.linfo.org/pid.html" target="_blank" rel="noopener">进程标识号</a>）。</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-01-05-020751.png" alt=""></p>
+<p>我们启动 Redis 时没有任何显式的配置文件；因此，我们将使用内部默认配置。这对于本文的范围来说是可以接受的：理解和使用基本的 Redis 数据结构。</p>
+<p>作为第一步，我们总是需要让 Redis 服务器运行，因为 CLI 和其他服务依赖于它工作。</p>
+<h3 id="如何检查-Redis-是否工作"><a href="#如何检查-Redis-是否工作" class="headerlink" title="如何检查 Redis 是否工作"></a>如何检查 Redis 是否工作</h3><p>正如在 Redis 文档中提到的，外部程序使用 <a href="https://redis.io/topics/quickstart#check-if-redis-is-working" target="_blank" rel="noopener">TCP 套接字和 Redis 特定的协议</a>与 Redis 通信。Redis 协议是由 Redis 客户端库实现的，这些客户端库是用许多编程语言编写的，比如 JavaScript。但是我们不需要直接使用客户端库与 Redis 交互。我们可以使用 <code>redis-cli</code> 直接向其发送命令。要测试 Redis 是否正常工作，让我们发送 <code>ping</code> 命令。打开一个新的 shell 窗口并执行以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">redis-cli ping</span><br></pre></td></tr></table></figure>
+
+<p>如果一切正常，shell 会返回  <code>PONG</code> 。</p>
+<p>当我们发出 <code>redis-cli ping</code> 时，我们调用了后跟命令名为 <code>ping</code> 的 <code>redis-cli</code> 可执行文件。命令名及其参数被发送到运行在 localhost: 6379上的 Redis 实例，以便对其进行处理并返回结果。</p>
+<p>可以更改实例的主机和端口。使用 <code>-- help</code> 选项检查所有可以与 <code>redis-cli</code> 一起使用的命令:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">redis-cli --help</span><br></pre></td></tr></table></figure>
+
+<p>如果我们在没有任何参数的情况下运行 <code>redis-cli</code>，程序将以交互模式启动。类似于 Python 等编程语言的 <a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop" target="_blank" rel="noopener">Read-Eval-Print Loop (REPL) </a>，我们可以在 shell 中键入不同的 Redis 命令，并从 Redis 实例获得返回结果。这些命令是什么，它们做什么是本文的核心学习目标！</p>
+<p>让我们首先学习如何使用命令操作 Redis 中的数据！</p>
+<h2 id="在-Redis-中写入、读取、更新和删除数据"><a href="#在-Redis-中写入、读取、更新和删除数据" class="headerlink" title="在 Redis 中写入、读取、更新和删除数据"></a>在 Redis 中写入、读取、更新和删除数据</h2><p>正如我们前面所了解的，Redis 是一个键值存储，它允许我们将一些称为 <strong>value</strong>（值）的数据与 <strong>key</strong>（键）关联起来。如果我们知道用于存储数据的*确切 *键，那么稍后可以用来检索存储的数据。</p>
+<p>如果你还没有这样做，通过执行以下命令在交互模式下运行 Redis CLI:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">redis-cli</span><br></pre></td></tr></table></figure>
+
+<p>当我们在 shell 提示符中看到 Redis 实例主机和端口时，我们就知道交互式 CLI 正在工作：</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6379</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>到了这一步，我们准备输入命令。</p>
+<h3 id="写入数据"><a href="#写入数据" class="headerlink" title="写入数据"></a>写入数据</h3><p>要在 Redis 存储一个值，我们可以使用具有以下样式的 <a href="https://redis.io/commands/set" target="_blank" rel="noopener"><code>SET</code> 命令</a>：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">SET key value</span><br></pre></td></tr></table></figure>
+
+<p>在英语中，它读起来像 “set key to hold value”（设置键以保留值）。但值得注意的是，如果键已经对应了一个值， <code>SET</code> 将会覆盖原来的数据。</p>
+<p>让我们来看一个例子，在交互式 shell 中输入：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">SET service "auth0"</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>请注意，当您键入时，交互式 shell 会建议 Redis 命令的必需参数和可选参数。</strong></p>
+</blockquote>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-01-04-113958.png" alt="Redis CLI showing syntax suggestions"></p>
+<p>按回车键发送命令。一旦 Redis 存储 <code>“auth0”</code> 作为 <code>service</code> 的值，它就会返回 <code>OK</code>，让我们知道一切都很顺利。Thank you, Redis！</p>
+<h3 id="读取数据"><a href="#读取数据" class="headerlink" title="读取数据"></a>读取数据</h3><p>我们可以使用 <a href="https://redis.io/commands/get" target="_blank" rel="noopener">GET 命令</a> 向 Redis 获取键的值:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">GET key</span><br></pre></td></tr></table></figure>
+
+<p>让我们来获取 <code>service</code> 的值:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">GET service</span><br></pre></td></tr></table></figure>
+
+<p>Redis 返回 <code>&quot;auth0&quot;</code>。</p>
+<p>如果我们获取一个从未设置过的键的值会怎么样？</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="builtin-name">GET</span> users</span><br></pre></td></tr></table></figure>
+
+<p>Redis 返回 <code>(nil)</code> ，以让我们知道键不存在于内存中。</p>
+<p>在连接到数据库的经典 API 中，我们希望执行 <a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete" target="_blank" rel="noopener">CRUD</a> 操作: 创建、读取、更新和删除。我们分别介绍了如何使用 SET 和 GET 命令在 Redis 中创建（写入）和读取数据。我们来看看剩下的。</p>
+<h3 id="更新数据"><a href="#更新数据" class="headerlink" title="更新数据"></a>更新数据</h3><p>如前所述，我们可以通过覆盖键原来的数据来更新键的值。</p>
+<p>让我们创建一个新的键值对：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">SET framework angular</span><br></pre></td></tr></table></figure>
+
+<p>但是，我们改变了想法，现在我们想要设置的是 <code>&quot;react&quot;</code>。我们可以这样覆盖它:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">SET framework react</span><br></pre></td></tr></table></figure>
+
+<p>Redis 设置对了吗？让我们来测试一下！</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="builtin-name">GET</span> framework</span><br></pre></td></tr></table></figure>
+
+<p>Redis 确实返回 <code>&quot;react&quot;</code>，我们有点犹豫不决，现在我们想设置 <code>framework</code> 键来对应 <code>&quot;vue&quot;</code> 值。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">SET framework vue</span><br></pre></td></tr></table></figure>
+
+<p>如果我们再次运行 <code>GET framework</code>，就会得到 <code>&quot;vue&quot;</code> 。更新 / 覆盖的其他示例也无一例外。</p>
+<h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><p>但是，我们现在不想设置任何 <code>framework</code>，我们需要删除这个键。我们该怎么做？ 我们使用 <a href="https://redis.io/commands/del" target="_blank" rel="noopener"><code>DEL</code> 命令</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">DEL key</span><br></pre></td></tr></table></figure>
+
+<p>让我们运行它：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">DEL framework</span><br></pre></td></tr></table></figure>
+
+<p>Redis 返回 <code>(integer) 1</code> ，以让我们知道被删除的键的数量。</p>
+<p>仅使用三个命令：<code>SET</code>、 <code>GET</code> 和 <code>DEL</code>，我们就能够遵守四个 CRUD 操作！</p>
+<h3 id="用引号包装字符串"><a href="#用引号包装字符串" class="headerlink" title="用引号包装字符串"></a>用引号包装字符串</h3><p>注意一些奇怪的现象：我们不必在要存储的单个字符串值上加引号。<code>SET framework angular</code> 和 <code>SET framework &quot;angular&quot;</code> 都被 Redis 接受作为一个操作来存储字符串<code>&quot;angular&quot;</code>作为键 <code>framework</code> 的值。</p>
+<p>Redis 自动将单个字符串参数包装在引号中。因为键和值都是字符串，所以键名也是如此。我们可以使用 <code>SET &quot;framework&quot; angular</code> ，它也会工作得很好。但是，如果我们计划使用多个字符串作为键或值，我们必须要将字符串包装在引号中：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">SET "the frameworks" "angular vue react"</span><br></pre></td></tr></table></figure>
+
+<p>返回 <code>OK</code>。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">SET the frameworks "angular vue react"</span><br></pre></td></tr></table></figure>
+
+<p>返回  <code>(error) ERR syntax error</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">SET "the frameworks" angular vue react</span><br></pre></td></tr></table></figure>
+
+<p>还是返回  <code>(error) ERR syntax error</code></p>
+<p>最后，要获取该值，我们必须使用确切的键字符串：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">GET "the frameworks"</span><br></pre></td></tr></table></figure>
+
+<p>返回  <code>&quot;angular vue react&quot;</code>。</p>
+<h3 id="非破坏性写入"><a href="#非破坏性写入" class="headerlink" title="非破坏性写入"></a>非破坏性写入</h3><p>Redis 富有同情心，让我们可以小心地写入数据。假设我们想要创建一个键 <code>services</code> 对应值  <code>&quot;heroku aws&quot;</code> ，但是我们输入的不是 <code>SET services &quot;heroku aws&quot;</code>，而是 <code>SET service &quot;heroku aws&quot;</code>。最后一个命令将毫不留情地覆盖 <code>service</code> 的当前值。所以，Redis 给我们提供了一个叫做 <a href="https://redis.io/commands/setnx" target="_blank" rel="noopener"><code>SETNX</code></a> 的 <code>SET</code> 的非破坏版本：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">SETNX key value</span><br></pre></td></tr></table></figure>
+
+<p>当且仅当键不存在时，<code>SETNX</code> 才在内存中创建一个键（<code>SET</code> if <code>N</code>ot e<code>X</code>ists）。如果键已经存在，Redis 用 <code>0</code> 表示未能存储键值对，用 <code>1</code> 表示成功。让我们尝试一下前面的场景，但是使用 <code>SETNX</code> 代替 <code>SET</code>：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">SETNX service "heroku aws"</span><br></pre></td></tr></table></figure>
+
+<p>正如我们所期望的那样，返回  <code>(integer) 0</code>。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">SETNX services "heroku aws"</span><br></pre></td></tr></table></figure>
+
+<p>这一次，返回  <code>(integer) 1</code>。好极了！</p>
+<p>我们可以使用 <code>SETNX</code> 来防止我们意外地覆盖数据。</p>
+<h2 id="键过期"><a href="#键过期" class="headerlink" title="键过期"></a>键过期</h2><p>当使用 Redis 创建密钥时，我们可以指定该密钥在内存中保存的时间。使用 <a href="https://redis.io/commands/expire" target="_blank" rel="noopener"><code>EXPIRE</code></a> 命令，我们可以设置一个键的过期时间，并在过期后自动删除该键：</p>
+<p>让我们创建一个 30 秒后要删除的 <code>notification</code> 键：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">SET notification "Anomaly detected"</span><br><span class="line">EXPIRE notification 30</span><br></pre></td></tr></table></figure>
+
+<p>这将安排 Redis 在 30 秒后删除 <code>notification</code> 键。我们可以查看时钟，并在 30 秒后检查 <code>notification</code> 是否仍然可用 ，但我们不必这样做！ Redis 提供  <a href="https://redis.io/commands/ttl" target="_blank" rel="noopener"><code>TTL</code></a>  命令，告诉我们一个键在过期并被删除之前还剩多少秒：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">TTL key</span><br></pre></td></tr></table></figure>
+
+<p>可能已经超过 30 秒了，所以让我们再试一次上面的例子，但是这次一执行 <code>EXPIRE</code> 就调用 <code>TTL</code>：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">SET notification "Anomaly detected"</span><br><span class="line">EXPIRE notification 30</span><br><span class="line">TTL notification</span><br></pre></td></tr></table></figure>
+
+<p>Redis 给我返回  <code>(integer) 27</code> ，表示 <code>notification</code> 仍然可用 27 秒。让我再等一会儿，然后再运行 <code>TTL</code>：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">TTL</span><br></pre></td></tr></table></figure>
+
+<p>这一次，Redis 返回 <code>(integer) -2</code>。从 Redis 2.8 开始，<code>TTL</code> 返回：</p>
+<ul>
+<li>超时时间以秒为单位。</li>
+<li><code>-2</code> 代表 key 不存在（要么没有被创建，要么已经被删除）。</li>
+<li><code>-1</code> 代表 key 存在，但没有过期设置。</li>
+</ul>
+<p>我确信 30 秒已经过去了，所以 <code>-2</code> 是预料中的。当键存在但是没有设置过期时间时，我们看一下错误消息：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">SET dialog "Continue?"</span><br><span class="line">TTL dialog</span><br></pre></td></tr></table></figure>
+
+<p>正如预期的那样，在没有设置过期时间时，Redis 返回 <code>(integer) -1</code>。</p>
+<p>需要注意的是，我们可以通过再次使用 <code>SET</code> 键来重置超时：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">SET notification "Anomaly detected"</span><br><span class="line">EXPIRE notification 30</span><br><span class="line">TTL notification</span><br><span class="line">// (integer) 27</span><br><span class="line">SET notification "No anomaly detected"</span><br><span class="line">TTL notification</span><br><span class="line">// (integer) -1</span><br></pre></td></tr></table></figure>
+
+<p>我们在前面了解到，使用 <code>SET</code> 与再次创建键是一样的，对于 Redis 来说，这还涉及到重置当前分配给它的任何过期时间。</p>
+<p>我们现在在 Redis 操作数据方面有了坚实的基础。有了这些知识，我们现在可以开始探索 Redis 提供的数据类型了。</p>
+<h2 id="Redis-数据类型"><a href="#Redis-数据类型" class="headerlink" title="Redis 数据类型"></a>Redis 数据类型</h2><p>Redis 远不是一个普通的键值存储，而是一个实际的 <strong>数据结构服务器</strong>，它支持不同类型的值。传统上，键值存储允许我们将字符串键映射到字符串值，而不允许其他任何操作。在 Redis，字符串键可以映射到不仅仅是一个简单的字符串。</p>
+<p>作为一个数据结构服务器，我们也可以将数据类型称为数据结构。我们可以使用这些更加复杂的数据结构来同时在一个键中存储多个值。让我们从更高的层次来看一下这些类型。我们将在随后的章节中详细探讨每一种类型。</p>
+<ul>
+<li><strong>Binary-safe Strings</strong> 二进制安全字符串</li>
+</ul>
+<p>Redis 值的最基本类型。“二进制安全” 意味着字符串可以包含能表示为字符串的任何类型的数据：例如 PNG 图像或序列化对象。</p>
+<ul>
+<li><strong>Lists</strong> 列表</li>
+</ul>
+<p>本质上，Redis Lists 是链表。它们是字符串元素的集合，这些元素根据 <strong>插入的顺序</strong> 进行排序。</p>
+<ul>
+<li><strong>Sets</strong> 集合</li>
+</ul>
+<p>它们表示唯一的和未排序的字符串元素的集合。</p>
+<ul>
+<li><strong>Sorted Sets</strong> 有序集合</li>
+</ul>
+<p>与 Sets 类似，它们表示一组唯一的字符串元素；但是，每个字符串元素都链接到一个浮点数值，称为元素  <strong>score（分数）</strong>。在查询 Sorted Set 时，元素总是根据它们的 score 进行排序，这使我们能够始终如一地查找到 Set 中的一系列数据。</p>
+<ul>
+<li><strong>Hashes</strong> 哈希</li>
+</ul>
+<p>这些哈希（映射）由链接到字符串值的字符串字段组成。</p>
+<ul>
+<li><strong>Bit arrays</strong> 位数组</li>
+</ul>
+<p>也称为位图。它们让我们像处理位数组一样处理字符串值。</p>
+<ul>
+<li><strong>HyperLogLogs</strong> 超级日志</li>
+</ul>
+<p>一种用于估计集合 <a href="https://en.wikipedia.org/wiki/Cardinality" target="_blank" rel="noopener">基数</a> 的概率数据结构，它是对 “集合中元素的数量” 的度量</p>
+<p>我们已经在 ”在 Redis 中写入、读取、更新和删除数据“ 部分讨论了字符串。对于本教程的其余部分，我们将集中讨论除位图和超级日志以外的所有 Redis 类型。我们将在以后的文章中访问那些处理高级 Redis 用例的文章。</p>
+<h2 id="Lists-列表"><a href="#Lists-列表" class="headerlink" title="Lists 列表"></a>Lists 列表</h2><p>List 是有序元素的序列。例如，<code>1 2 4 5 6 90 19 3</code> 是一个数字列表。在 Redis，重要的是要注意列表是以 <a href="https://en.wikipedia.org/wiki/Linked_list" target="_blank" rel="noopener">链表</a> 的形式实现的。这对性能有一些重要的影响。向 List 的头部和尾部添加元素的速度很快，但在 List 中搜索元素的速度较慢，因为我们没法对元素进行索引访问（就像我们在数组中所做的那样）。</p>
+<p>List 是通过使用 Redis 命令创建的，在键名后跟 push 数据。我们可以使用两个命令：<code>RPUSH</code> 和 <code>LPUSH</code>。如果键不存在，这些命令将返回一个新的 List，并将传递的参数作为元素。如果键已经存在或者不是 List，则返回一个错误。</p>
+<h3 id="RPUSH"><a href="#RPUSH" class="headerlink" title="RPUSH"></a>RPUSH</h3><p><a href="https://redis.io/commands/rpush" target="_blank" rel="noopener"><code>RPUSH</code></a> 在 List 的末尾（尾部）插入一个新元素：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">RPUSH key value [value ...]</span><br></pre></td></tr></table></figure>
+
+<p>让我们创建一个表示 List 的 <code>engineers</code> 键：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">RPUSH engineers "Alice"</span><br><span class="line">// 1</span><br><span class="line">RPUSH engineers "Bob"</span><br><span class="line">// 2</span><br><span class="line">RPUSH engineers "Carmen"</span><br><span class="line">// 3</span><br></pre></td></tr></table></figure>
+
+<p>每次插入元素时，Redis 都会在插入之后返回 List 的长度。我们希望 <code>users</code> 列表像这样：</p>
+<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">Alice</span> <span class="keyword">Bob </span>Carmen</span><br></pre></td></tr></table></figure>
+
+<p>我们如何验证? 我们可以使用 <code>LRANGE</code> 命令。</p>
+<h3 id="LRANGE"><a href="#LRANGE" class="headerlink" title="LRANGE"></a>LRANGE</h3><p> <code>LRANGE</code> 基于指定的开始和停止索引返回 List 的一个子集。尽管这些索引是从零开始的，但它们不同于数组索引。给定一个完整的 List，它们只是指出 List 的分区位置：从这里（开始）到这里（停止）创建一个 slice：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">LRANGE key start stop</span><br></pre></td></tr></table></figure>
+
+<p>要查看完整的 List，我们可以使用一个简洁的技巧：从 <code>0</code> 到它前面的元素 <code>-1</code>。</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">LRANGE engineers <span class="number">0</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
+
+<p>Redis 返回：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1) "Alice"</span><br><span class="line">2) "Bob"</span><br><span class="line">3) "Carmen"</span><br></pre></td></tr></table></figure>
+
+<p>Index <code>-1</code> 将始终表示 List 中的最后一个元素。</p>
+<p>为了得到 <code>engineers</code> 的前两个元素，我们可以用以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">LRANGE engineers 0 1</span><br></pre></td></tr></table></figure>
+
+<h3 id="LPUSH"><a href="#LPUSH" class="headerlink" title="LPUSH"></a>LPUSH</h3><p><a href="https://redis.io/commands/lpush" target="_blank" rel="noopener"><code>LPUSH</code></a> 的作用与 <code>RPUSH</code> 相同，只是它将元素插入到 List 的前面（在头部）：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">LPUSH key value [value ...]</span><br></pre></td></tr></table></figure>
+
+<p>让我们把 <code>Daniel</code> 放在 <code>engineers</code> 列表的前面：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">LPUSH engineers "Daniel"</span><br><span class="line">// 4</span><br></pre></td></tr></table></figure>
+
+<p>我们现在有四名工程师，让我们验证一下 list 是否正确：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">LRANGE engineers 0 -1</span><br></pre></td></tr></table></figure>
+
+<p>返回如下：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">1) "Daniel"</span><br><span class="line">2) "Alice"</span><br><span class="line">3) "Bob"</span><br><span class="line">4) "Carmen"</span><br></pre></td></tr></table></figure>
+
+<p>这和我们之前的 List 是一样的，第一个元素是 <code>“Daniel”</code> ，这正是我们所期望的。</p>
+<h3 id="多元素插入"><a href="#多元素插入" class="headerlink" title="多元素插入"></a>多元素插入</h3><p>我们在 <code>RPUSH</code> 和 <code>LPUSH</code> 的命令提示中看到，我们可以在每个命令中插入多个元素。让我们看看它的实际效果。</p>
+<p>基于我们现有的 <code>engineers</code> 列表，让我们运行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">RPUSH engineers <span class="string">"Eve"</span> <span class="string">"Francis"</span> <span class="string">"Gary"</span></span><br><span class="line">// 7</span><br></pre></td></tr></table></figure>
+
+<p>因为我们将它们插入到 List 的末尾，所以我们期望这三个新元素按照它们作为参数列出的相同顺序显示。让我们来验证一下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">LRANGE engineers 0 -1</span><br></pre></td></tr></table></figure>
+
+<p>Redis 返回：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1) <span class="string">"Daniel"</span></span><br><span class="line">2) <span class="string">"Alice"</span></span><br><span class="line">3) <span class="string">"Bob"</span></span><br><span class="line">4) <span class="string">"Carmen"</span></span><br><span class="line">5) <span class="string">"Eve"</span></span><br><span class="line">6) <span class="string">"Francis"</span></span><br><span class="line">7) <span class="string">"Gary"</span></span><br></pre></td></tr></table></figure>
+
+<p>如果我们对 <code>LPUSH</code> 也这样做呢：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">LPUSH engineers <span class="string">"Hugo"</span> <span class="string">"Ivan"</span> <span class="string">"Jess"</span></span><br><span class="line">// 10</span><br></pre></td></tr></table></figure>
+
+<p>让我们看看：</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">LRANGE <span class="number">0</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
+
+<p>返回：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> 1) <span class="string">"Jess"</span></span><br><span class="line"> 2) <span class="string">"Ivan"</span></span><br><span class="line"> 3) <span class="string">"Hugo"</span></span><br><span class="line"> 4) <span class="string">"Daniel"</span></span><br><span class="line"> 5) <span class="string">"Alice"</span></span><br><span class="line"> 6) <span class="string">"Bob"</span></span><br><span class="line"> 7) <span class="string">"Carmen"</span></span><br><span class="line"> 8) <span class="string">"Eve"</span></span><br><span class="line"> 9) <span class="string">"Francis"</span></span><br><span class="line">10) <span class="string">"Gary"</span></span><br></pre></td></tr></table></figure>
+
+<p>当列出 <code>LPUSH</code> 和 <code>RPUSH</code> 的多个参数时，Redis 逐个地插入元素，因此，<code>“Hugo”</code>、<code>“Ivan”</code> 和 <code>“Jess”</code> 以相反的顺序出现，它们作为参数列出。</p>
+<h3 id="LLEN"><a href="#LLEN" class="headerlink" title="LLEN"></a>LLEN</h3><p>我们可以使用 <a href="https://redis.io/commands/llen" target="_blank" rel="noopener"><code>LLEN</code></a> 命令随时查看 List 的长度：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">LLEN key</span><br></pre></td></tr></table></figure>
+
+<p>让我们验证一下 <code>engineers</code> 的长度确实是 <code>10</code>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">LLEN engineers</span><br></pre></td></tr></table></figure>
+
+<p>Redis 返回 <code>(integer) 10</code>。完美。</p>
+<h3 id="从-Redis-列表中删除元素"><a href="#从-Redis-列表中删除元素" class="headerlink" title="从 Redis 列表中删除元素"></a>从 Redis 列表中删除元素</h3><p>类似于我们可以 ”弹出“ 数组中的元素，我们可以从 Redis List 的头部或尾部弹出一个元素。</p>
+<p><a href="https://redis.io/commands/lpop" target="_blank" rel="noopener"><code>LPOP</code></a> 删除并返回 List 的第一个元素：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">LPOP key</span><br></pre></td></tr></table></figure>
+
+<p>我们可以使用它从 List 中删除 <code>“Jess”</code> ，即第一个元素：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">LPOP engineers</span><br></pre></td></tr></table></figure>
+
+<p>Redis 确实返回 <code>“Jess”</code>，以表明它是被删除的元素。</p>
+<p><a href="https://redis.io/commands/rpop" target="_blank" rel="noopener"><code>RPOP</code></a> 删除并返回 List 的最后一个元素：</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">RPOP key</span></span><br></pre></td></tr></table></figure>
+
+<p>是时候和 <code>“Gary”</code> 说再见了，这是 List 的最后一个元素：</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">RPOP engineers</span></span><br></pre></td></tr></table></figure>
+
+<p>Redis 返回 <code>“Gary”</code>。</p>
+<p>能够获得从 List 中删除的元素是非常有用的，因为我们可能想对它做一些特殊的处理。</p>
+<p>Redis Lists 是以链表的形式实现的，因为它的开发团队设想，对于一个数据库系统来说，<a href="https://redis.io/topics/data-types-intro#redis-lists" target="_blank" rel="noopener">能够以非常快的方式将元素添加到一个非常长的列表中是至关重要的</a>。</p>
+<h2 id="Sets-集合"><a href="#Sets-集合" class="headerlink" title="Sets 集合"></a>Sets 集合</h2><p>在 Redis 中，Set 类似于 List，只是它不为元素保持任何特定的顺序，并且每个元素必须是唯一的。</p>
+<h3 id="SADD"><a href="#SADD" class="headerlink" title="SADD"></a>SADD</h3><p>我们使用 <a href="https://redis.io/commands/sadd" target="_blank" rel="noopener"><code>SADD</code></a> 命令创建一个 Set，该命令将指定的成员添加到键中：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">SADD key member [member ...]</span><br></pre></td></tr></table></figure>
+
+<p>已经是集合一部分的指定成员将被忽略。如果键不存在，则创建一个新的 Set，并添加唯一指定的成员。如果键已经存在或者不是 Set，则返回一个错误。</p>
+<p>让我们创建一个 <code>languages</code> 集合。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">SADD languages <span class="string">"english"</span></span><br><span class="line">// 1</span><br><span class="line">SADD languages <span class="string">"spanish"</span></span><br><span class="line">// 1</span><br><span class="line">SADD languages <span class="string">"french"</span></span><br><span class="line">// 1</span><br></pre></td></tr></table></figure>
+
+<p>在这种情况下，对于每个成员添加，Redis 返回用 <code>SADD</code> 命令添加的成员数，而不是 Set 的大小。让我们来看看实际的情况：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">SADD languages <span class="string">"chinese"</span> <span class="string">"japanese"</span> <span class="string">"german"</span></span><br><span class="line">// 3</span><br><span class="line">SADD languages <span class="string">"english"</span></span><br><span class="line">// 0</span><br></pre></td></tr></table></figure>
+
+<p>第一个命令返回 <code>3</code>，因为我们在集合中添加了三个唯一的成员。第二个命令返回 <code>0</code>，因为 <code>“english”</code> 已经是 Set 的成员。</p>
+<h3 id="SREM"><a href="#SREM" class="headerlink" title="SREM"></a>SREM</h3><p>我们可以使用 <a href="https://redis.io/commands/srem" target="_blank" rel="noopener"><code>SREM</code></a> (set remove) 命令从 Set 中删除成员：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">SREM key member [member ...]</span><br></pre></td></tr></table></figure>
+
+<p>我们可以同时删除一个或多个成员：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">SREM languages <span class="string">"english"</span> <span class="string">"french"</span></span><br><span class="line">// 2</span><br><span class="line">SREM languages <span class="string">"german"</span></span><br><span class="line">// 0</span><br></pre></td></tr></table></figure>
+
+<p><code>SREM</code> 返回被删除的成员数。</p>
+<h3 id="SISMEMBER"><a href="#SISMEMBER" class="headerlink" title="SISMEMBER"></a>SISMEMBER</h3><p>要验证某个成员是否是 Set 的一部分，我们可以使用 <a href="https://redis.io/commands/sismember" target="_blank" rel="noopener"><code>SISMEMBER</code></a>(Set Is Member) 命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">SISMEMBER key member</span><br></pre></td></tr></table></figure>
+
+<p>如果元素是 Set 的一部分，则该命令返回 <code>1</code>；否则，它返回 <code>0</code>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">SISMEMBER languages <span class="string">"spanish"</span></span><br><span class="line">// 1</span><br><span class="line">SISMEMBER languages <span class="string">"german"</span></span><br><span class="line">// 0</span><br></pre></td></tr></table></figure>
+
+<p>由于我们上一节中去掉了 <code>&quot;german&quot;</code> ，所以返回 <code>0</code>。</p>
+<h3 id="SMEMBERS"><a href="#SMEMBERS" class="headerlink" title="SMEMBERS"></a>SMEMBERS</h3><p>要显示 Set 中存在的所有成员，我们可以使用 <a href="https://redis.io/commands/smembers" target="_blank" rel="noopener"><code>SMEMBERS</code></a> 命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">SMEMBERS key</span><br></pre></td></tr></table></figure>
+
+<p>让我们看看我们目前在 <code>languages</code> 集合中有哪些语言值：</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">SMEMBERS languages</span></span><br></pre></td></tr></table></figure>
+
+<p>返回：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1) <span class="string">"chinese"</span></span><br><span class="line">2) <span class="string">"japanese"</span></span><br><span class="line">3) <span class="string">"spanish"</span></span><br></pre></td></tr></table></figure>
+
+<p>由于集合不排序，Redis 可以在每次调用时以任何顺序返回元素。他们不能保证成员排序。</p>
+<h3 id="SUNION"><a href="#SUNION" class="headerlink" title="SUNION"></a>SUNION</h3><p>我们可以非常快速地使用 set 来实现一个非常强大的功能，那就是使用 <a href="https://redis.io/commands/sunion" target="_blank" rel="noopener"><code>SUNION</code></a> 命令将它们组合起来：</p>
+<figure class="highlight gauss"><table><tr><td class="code"><pre><span class="line">SUNION <span class="built_in">key</span> [<span class="built_in">key</span> ...]</span><br></pre></td></tr></table></figure>
+
+<p><code>SUNION</code> 的每个参数代表一个集合，我们可以合并到一个更大的集合中。重要的是要注意，任何重复的成员将只被被列出一次。</p>
+<p>为了看到这一点，我们首先创建一个 <code>ancient-languages</code> 集：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">SADD ancient-languages <span class="string">"greek"</span></span><br><span class="line">SADD ancient-languages <span class="string">"latin"</span></span><br><span class="line">SMEMBERS ancient-languages</span><br></pre></td></tr></table></figure>
+
+<p>现在，让我们创建一个 <code>languages</code> 和 <code>ancient-languages</code> 的结合体，一次看到所有的语言：</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">SUNION languages ancient-languages</span></span><br></pre></td></tr></table></figure>
+
+<p>我们得到以下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1) <span class="string">"greek"</span></span><br><span class="line">2) <span class="string">"spanish"</span></span><br><span class="line">3) <span class="string">"japanese"</span></span><br><span class="line">4) <span class="string">"chinese"</span></span><br><span class="line">5) <span class="string">"latin"</span></span><br></pre></td></tr></table></figure>
+
+<p>如果我们将一个不存在的键传递给 <code>SUNION</code>，它将认为该键是一个空集（一个没有任何内容的集合）。</p>
+<h2 id="Hashes-哈希"><a href="#Hashes-哈希" class="headerlink" title="Hashes 哈希"></a>Hashes 哈希</h2><p>在 Redis，Hash 是一种数据结构，它将字符串键映射为 field-value 对（字段-值对）。因此，哈希表示对象非常有用。它们的 <strong>键</strong> 是 Hash 的名称，<strong>值</strong> 表示 <code>field-name field-value</code> 的序列。我们可以这样描述一个 <code>computer</code> 对象：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">computer name <span class="string">"MacBook Pro"</span> year 2015 disk 512 ram 16</span><br></pre></td></tr></table></figure>
+
+<p>对象的 ”属性“ 定义为对象（<code>computer</code>）名称后面的 ”属性名“ 和 ”属性值“ 序列。回想一下，Redis 完全是关于顺序字符串的，所以我们在创建这些字符串对象时必须非常小心，我们使用正确的字符串顺序来正确地定义对象。</p>
+<p>为了操作哈希，我们使用与字符串类似的命令，毕竟它们是字符串。</p>
+<h3 id="写入和读取哈希数据"><a href="#写入和读取哈希数据" class="headerlink" title="写入和读取哈希数据"></a>写入和读取哈希数据</h3><h3 id="HSET"><a href="#HSET" class="headerlink" title="HSET"></a>HSET</h3><p>命令 <a href="https://redis.io/commands/hset" target="_blank" rel="noopener"><code>HSET</code></a> 将 Hash 中的 <code>field</code> (字段) 设置为 <code>value</code>。如果键不存在，则创建一个存储哈希键值对的新键。如果字段已经存在于哈希表中，则会覆盖该字段。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">HSET key field value</span><br></pre></td></tr></table></figure>
+
+<p>让我们创建 <code>computer</code> 对象：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">HSET computer name <span class="string">"MacBook Pro"</span></span><br><span class="line">// 1</span><br><span class="line">HSET computer year 2015</span><br><span class="line">// 1</span><br><span class="line">HSET computer disk 512</span><br><span class="line">// 1</span><br><span class="line">HSET computer ram 16</span><br><span class="line">// 1</span><br></pre></td></tr></table></figure>
+
+<p>对于每个 <code>HSET</code> 命令，Redis 返回一个整数，如下：</p>
+<ul>
+<li><code>1</code>，如果 <code>field</code> 是哈希表中的一个新字段，并设置了值。</li>
+<li><code>0</code>，如果 <code>field</code> 已经存在于哈希表中，并且该值已被更新。</li>
+</ul>
+<p>让我们将字段 <code>year</code> 的值更新为 <code>2018</code>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">HSET computer year 2018</span><br><span class="line">// 0</span><br></pre></td></tr></table></figure>
+
+<h3 id="HGET"><a href="#HGET" class="headerlink" title="HGET"></a>HGET</h3><p><a href="https://redis.io/commands/hget" target="_blank" rel="noopener"><code>HGET</code></a> 返回 Hash 中与字段关联的值：</p>
+<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">HGET</span> key <span class="meta">field</span></span><br></pre></td></tr></table></figure>
+
+<p>让我们验证一下，我们把字段 <code>year</code> 的值由 <code>2015</code> 变成了 <code>2018</code>：</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">HGET computer <span class="built_in">year</span></span><br></pre></td></tr></table></figure>
+
+<p>Redis 返回 <code>2018</code>，结果没问题。</p>
+<h3 id="HGETALL"><a href="#HGETALL" class="headerlink" title="HGETALL"></a>HGETALL</h3><p>从哈希表中获取所有字段及其值的一个快速方法是使用 <a href="https://redis.io/commands/hgetall" target="_blank" rel="noopener"><code>HGETALL</code></a>：</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">HGETALL key</span></span><br></pre></td></tr></table></figure>
+
+<p>让我们来测试一下：</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">HGETALL computer</span></span><br></pre></td></tr></table></figure>
+
+<p>返回：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1) <span class="string">"name"</span></span><br><span class="line">2) <span class="string">"MacBook Pro"</span></span><br><span class="line">3) <span class="string">"year"</span></span><br><span class="line">4) <span class="string">"2018"</span></span><br><span class="line">5) <span class="string">"disk"</span></span><br><span class="line">6) <span class="string">"512"</span></span><br><span class="line">7) <span class="string">"ram"</span></span><br><span class="line">8) <span class="string">"16"</span></span><br></pre></td></tr></table></figure>
+
+<p>当提供的键参数不存在时，<code>HGETALL</code> 返回一个空列表。</p>
+<h3 id="HMSET"><a href="#HMSET" class="headerlink" title="HMSET"></a>HMSET</h3><p>我们也可以使用 <code>HMSET</code> 一次设置多个字段：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">HMSET key field value [field value ...]</span><br></pre></td></tr></table></figure>
+
+<p>让我们用它来创建一个 <code>tablet</code> 哈希表：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">HMSET tablet name <span class="string">"iPad"</span> year 2016 disk 64 ram 4</span><br></pre></td></tr></table></figure>
+
+<p><code>HMSET</code> 返回 <code>OK</code>，告诉我们已经成功创建了 <code>tablet</code> 哈希表。</p>
+<h3 id="HMGET"><a href="#HMGET" class="headerlink" title="HMGET"></a>HMGET</h3><p>如果我们只想获取两个字段呢？ 我们使用 <a href="https://redis.io/commands/hmget" target="_blank" rel="noopener"><code>HMGET</code></a> 来指定我们希望从哈希表中哪些字段获得值：</p>
+<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">HMGET</span> key <span class="meta">field</span> [<span class="meta">field</span> ...]</span><br></pre></td></tr></table></figure>
+
+<p>让我们获得 <code>tablet</code> 的 <code>disk</code> 和 <code>ram</code>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">HMGET tablet disk ram</span><br></pre></td></tr></table></figure>
+
+<p>返回 <code>disk</code> 和 <code>ram</code> 的值：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1) <span class="string">"64"</span></span><br><span class="line">2) <span class="string">"4"</span></span><br></pre></td></tr></table></figure>
+
+<p>这差不多就是在 Redis 使用哈希表的要点。您可以查看 <a href="https://redis.io/commands#hash" target="_blank" rel="noopener">哈希命令的完整列表</a> 并尝试使用它们。</p>
+<h2 id="Sorted-Sets-有序集合"><a href="#Sorted-Sets-有序集合" class="headerlink" title="Sorted Sets 有序集合"></a>Sorted Sets 有序集合</h2><p>在 Redis 1.2 中引入的一个 Sorted Set 实质上是一个 Set：它包含 <a href="https://redis.io/topics/data-types-intro#redis-sorted-sets" target="_blank" rel="noopener">唯一的、不重复的字符串成员</a>。然而，尽管 Set 的成员是无序的（Redis 可以在 Set 的 <a href="https://redis.io/topics/data-types-intro#redis-sets" target="_blank" rel="noopener">每次调用中以任何顺序返回元素</a>) ，但是 Sorted Set 的每个成员都链接到一个称为 <strong>score（分数）</strong> 的浮点值，Redis 使用这个值来确定 Sorted Set 成员的顺序。因为 Sorted Set 的每个元素都映射到一个值，所以它也有一个类似于 Hash 的体系结构。</p>
+<blockquote>
+<p>在 Redis，一个有序集合可以被看作是一个集合和一个散列的混合。</p>
+</blockquote>
+<p>如何确定有序集合成员的顺序？ 正如 <a href="https://redis.io/topics/data-types-intro#redis-sorted-sets" target="_blank" rel="noopener">Redis 文档</a> 中所述：</p>
+<ul>
+<li>如果 A 和 B 是两个分数不同的成员，那么如果 A &gt; B，那么 A.score &gt; B.score。</li>
+<li>如果  A 和 B 的分数完全相同，那么如果 A 字符串在字母顺序上大于 B 字符串，那么 A &gt; B。<strong>A 和 B 字符串不能相等，因为有序集合只有唯一的元素。</strong></li>
+</ul>
+<p>我们用来与 Sorted Sets 交互的一些命令类似于我们用来与 Sets 交互的命令：我们将 Set 命令中的 <code>S</code> 替换为 <code>Z</code>，例如，<code>SADD</code> =&gt; <code>ZADD</code>。然而，我们的命令对于两者都是独一无二的。我们来看看。</p>
+<h3 id="ZADD"><a href="#ZADD" class="headerlink" title="ZADD"></a>ZADD</h3><p>使用 <a href="https://redis.io/commands/zadd" target="_blank" rel="noopener"><code>ZADD</code></a> 将具有指定分数的所有指定成员添加到 Sorted Set：</p>
+<figure class="highlight accesslog"><table><tr><td class="code"><pre><span class="line">ZADD key <span class="string">[NX|XX]</span> <span class="string">[CH]</span> <span class="string">[INCR]</span> score member <span class="string">[score member ...]</span></span><br></pre></td></tr></table></figure>
+
+<p>与集合一样，如果键不存在，则创建具有指定成员作为唯一成员的新 “有序集合”。如果键存在但不是有序集合，则返回一个错误。</p>
+<p>从 Redis 3.0.2开始，<a href="https://redis.io/commands/zadd#zadd-options-redis-302-or-greater" target="_blank" rel="noopener"><code>ZADD</code> 提供了可选参数</a>，可以控制插入:</p>
+<ul>
+<li><code>XX</code>：只更新已存在的成员。不添加成员。</li>
+<li><code>NX</code>：不要更新已经存在的成员。总是添加新成员。</li>
+<li><code>CH</code>： 将返回值从添加的新成员数目修改为更改的成员总数（CH 是更改的缩写）。更改的成员是新添加的成员和已经存在的成员，该成员的分数已经更新。因此，在命令行中指定的与过去分数相同的成员不计算在内。</li>
+<li><code>INCR</code>：当指定此选项时，ZADD 的作用类似于 <a href="https://redis.io/commands/zincrby" target="_blank" rel="noopener"><code>ZINCRBY</code></a>。在此模式中只能指定一个成员对。</li>
+</ul>
+<p>很高兴知道这些可选参数的存在以及它们的作用，但是在本教程中，我们将专注于添加成员而不使用其中任何一个，但是请随意探索它们！ 在以后的文章中，我们将在更复杂的用例中重新讨论它们！</p>
+<p>让我们创建一个存储服务台支持票据 <code>tickets</code>的有序集合。支持票据是唯一的，但也需要排序，因此，这种数据结构是一个很好的选择：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ZADD tickets 100 HELP204</span><br><span class="line">// 1</span><br><span class="line">ZADD tickets 90 HELP004</span><br><span class="line">// 1</span><br><span class="line">ZADD tickets 180 HELP330</span><br><span class="line">// 1</span><br></pre></td></tr></table></figure>
+
+<p><code>ZADD</code> 返回新添加元素的数量计数。在上面的命令中，我们使用票据在队列中的位置作为分数，后跟票号（都是虚构的）。</p>
+<h3 id="ZRANGE"><a href="#ZRANGE" class="headerlink" title="ZRANGE"></a>ZRANGE</h3><p>我们现在想看看我们的有序集合看起来如何。对于集合，我们使用 <code>SMEMBERS</code> 列出无序成员。使用 Sorted Sets 时，我们使用的命令更符合使用 Lists 时使用的命令，这个命令向我们显示一个元素范围。</p>
+<p><a href="https://redis.io/commands/zrange" target="_blank" rel="noopener"><code>ZRANGE</code></a> 返回在 Sorted Set 中指定的成员范围：</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">ZRANGE key <span class="literal">start</span> <span class="literal">stop</span> [WITHSCORES]</span><br></pre></td></tr></table></figure>
+
+<p>它的行为非常类似于 Lists 列表的 <code>LRANGE</code>。我们可以使用它来获取有序集合的一个子集。要获得完整的有序集合，我们可以再次使用 <code>0 -1</code> 范围：</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">ZRANGE tickets <span class="number">0</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
+
+<p>返回如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1) <span class="string">"HELP004"</span></span><br><span class="line">2) <span class="string">"HELP204"</span></span><br><span class="line">3) <span class="string">"HELP330"</span></span><br></pre></td></tr></table></figure>
+
+<p>我们可以通过 <code>ZRANGE</code> 的 <code>WITHSCORES</code> 参数来包含每个成员的分数：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ZRANGE tickets 0 -1 WITHSCORES</span><br></pre></td></tr></table></figure>
+
+<p>返回：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1) <span class="string">"HELP004"</span></span><br><span class="line">2) <span class="string">"90"</span></span><br><span class="line">3) <span class="string">"HELP204"</span></span><br><span class="line">4) <span class="string">"100"</span></span><br><span class="line">5) <span class="string">"HELP330"</span></span><br><span class="line">6) <span class="string">"180"</span></span><br></pre></td></tr></table></figure>
+
+<p>注意成员和分数是如何按顺序排列的，而不是挨着排列的。正如我们所看到的，成员根据他们的分数按升序存储在 <code>tickets</code> 中。</p>
+<h2 id="使用-Redis-作为-Session（会话）存储"><a href="#使用-Redis-作为-Session（会话）存储" class="headerlink" title="使用 Redis 作为 Session（会话）存储"></a>使用 Redis 作为 Session（会话）存储</h2><p>在 web 应用程序的身份验证和授权工作流中，Redis 最相关的用途是充当会话存储。</p>
+<p>正如 <a href="https://aws.amazon.com/redis/" target="_blank" rel="noopener">Amazon Web Services</a> 所承认的那样，Redis 的内存架构为开发人员提供了高可用性和持久性，使其成为网络规模应用程序存储和管理会话数据的流行选择。它闪电般的性能为我们提供了超低延迟、最佳规模和弹性，这些是我们管理会话数据（如用户配置文件、用户设置、会话状态和凭证管理）所需的。</p>
+<p><a href="https://redislabs.com/" target="_blank" rel="noopener">Redis 实验室 </a>的 <a href="https://twitter.com/roshankumar" target="_blank" rel="noopener">Roshan Kumar</a> 在他的 <a href="https://redislabs.com/blog/cache-vs-session-store/" target="_blank" rel="noopener">“Cache vs. Session Store”</a> 文章中解释说，面向会话的 web 应用程序在用户登录时启动会话。会话处于活动状态，直到用户注销或会话超时为止。在会话生命周期中，web 应用程序将所有与会话相关的数据存储在主存（RAM）或会话存储中，当应用程序宕机时，这些数据不会丢失。这个会话存储区可以使用 Redis 实现，尽管它是一个内存存储区，但它能够通过在磁盘中顺序写入事务日志来持久保存数据。</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-01-04-152214.png" alt="A session-oriented application diagram"></p>
+<p>图片来源：<a href="https://redislabs.com/blog/cache-vs-session-store/" target="_blank" rel="noopener">Redis Labs: Cache vs. Session Store</a></p>
+<p>Roshan 进一步解释说，会话存储依赖于读写数据的内存数据库。会话存储数据不是临时的，当会话处于活动状态时，它成为唯一的真实数据源。出于这个原因，会话存储需要满足 ”真正数据库的数据持久性需求“。</p>
+<blockquote>
+<p>“根据 @redislabs 的说法，会话存储需要高可用性和持久性来支持事务数据和不间断的用户参与。使用 redis 就可以轻松做到这一点。”</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Redis 是一个强大、灵活和灵活的数据库，可以加快您的体系结构。它可以提供很多服务，包括缓存、数据复制、发布 / 订阅消息系统、会话存储等等。Redis 有大量的客户端，覆盖了所有流行的编程语言。我希望每当您有一个符合其价值主张的用例时，您都可以尝试一下。</p>
+<hr>
+<p>我觉得对于初学者来说，找到学习的入口非常重要。不然就会望而却步，感觉高不可攀。但一旦打开了这扇门，后面的学习相对来说好开展一些。这也是我翻译这篇文章的初衷。</p>
+<p>为了更好的理解与使用 Redis，强烈建议大家看一看<a href="https://book.douban.com/subject/26971561/" target="_blank" rel="noopener">《Redis 开发与运维》</a> 和 <a href="https://book.douban.com/subject/25900156/" target="_blank" rel="noopener">《Redis 设计与实现》</a>这两本书。</p>
+<p>ps：阅读英语文档时，可以借助 <a href="https://fanyi.caiyunapp.com/#/web" target="_blank" rel="noopener">彩云小译</a> 双语对照网页翻译插件。</p>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1707703738443946" crossorigin="anonymous"></script>
+<!-- 文章内 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1707703738443946" data-ad-slot="6330017668" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      deppwang
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://depp.wang/2019/09/11/introduction-to-redis-install-cli-commands-and-data-types/" title="<译> Redis 入门：安装、客户端命令和数据类型">https://depp.wang/2019/09/11/introduction-to-redis-install-cli-commands-and-data-types/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Redis/" rel="tag"># Redis</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/09/how-long-is-the-shortest-time/" rel="next" title="理解狄克斯特拉算法：早上坐地铁最短用时多久就能到公司？">
+                <i class="fa fa-chevron-left"></i> 理解狄克斯特拉算法：早上坐地铁最短用时多久就能到公司？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/18/linux-note/" rel="prev" title="Linux 笔记：核心思想、常用命令以及脚本语法">
+                Linux 笔记：核心思想、常用命令以及脚本语法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
+          <p class="site-author-name" itemprop="name">deppwang</p>
+           
+              <p class="site-description motion-element" itemprop="description">每个人都需要有自己的哈姆雷特</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">120</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">247</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DeppWang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/deppwang1" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://space.bilibili.com/336707243" target="_blank" title="BiliBili">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  BiliBili
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.youtube.com/channel/UCpjV96uJBtbf64eDaJjUkkQ" target="_blank" title="YouTube">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  YouTube
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coolshell.cn" title="CoolShell" target="_blank">CoolShell</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的网络日志" target="_blank">阮一峰的网络日志</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://1byte.io" title="1byte" target="_blank">1byte</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://catcoding.me/" title="程序员的喵" target="_blank">程序员的喵</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://blog.douchi.space/" title="椒盐豆豉" target="_blank">椒盐豆豉</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-Redis？"><span class="nav-number">1.</span> <span class="nav-text">什么是 Redis？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Redis"><span class="nav-number">2.</span> <span class="nav-text">安装 Redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#译注：如果是使用-brew-安装，安装后的-redis-将安装-usr-local-Celler-下，-不用执行这一步"><span class="nav-number">3.</span> <span class="nav-text">译注：如果是使用 brew 安装，安装后的 redis 将安装 /usr/local/Celler/ 下， 不用执行这一步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行-Redis"><span class="nav-number">4.</span> <span class="nav-text">运行 Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-Redis"><span class="nav-number">4.1.</span> <span class="nav-text">启动 Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何检查-Redis-是否工作"><span class="nav-number">4.2.</span> <span class="nav-text">如何检查 Redis 是否工作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在-Redis-中写入、读取、更新和删除数据"><span class="nav-number">5.</span> <span class="nav-text">在 Redis 中写入、读取、更新和删除数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#写入数据"><span class="nav-number">5.1.</span> <span class="nav-text">写入数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取数据"><span class="nav-number">5.2.</span> <span class="nav-text">读取数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新数据"><span class="nav-number">5.3.</span> <span class="nav-text">更新数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除数据"><span class="nav-number">5.4.</span> <span class="nav-text">删除数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用引号包装字符串"><span class="nav-number">5.5.</span> <span class="nav-text">用引号包装字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非破坏性写入"><span class="nav-number">5.6.</span> <span class="nav-text">非破坏性写入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#键过期"><span class="nav-number">6.</span> <span class="nav-text">键过期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-数据类型"><span class="nav-number">7.</span> <span class="nav-text">Redis 数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lists-列表"><span class="nav-number">8.</span> <span class="nav-text">Lists 列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RPUSH"><span class="nav-number">8.1.</span> <span class="nav-text">RPUSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LRANGE"><span class="nav-number">8.2.</span> <span class="nav-text">LRANGE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LPUSH"><span class="nav-number">8.3.</span> <span class="nav-text">LPUSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多元素插入"><span class="nav-number">8.4.</span> <span class="nav-text">多元素插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LLEN"><span class="nav-number">8.5.</span> <span class="nav-text">LLEN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从-Redis-列表中删除元素"><span class="nav-number">8.6.</span> <span class="nav-text">从 Redis 列表中删除元素</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sets-集合"><span class="nav-number">9.</span> <span class="nav-text">Sets 集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SADD"><span class="nav-number">9.1.</span> <span class="nav-text">SADD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SREM"><span class="nav-number">9.2.</span> <span class="nav-text">SREM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SISMEMBER"><span class="nav-number">9.3.</span> <span class="nav-text">SISMEMBER</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SMEMBERS"><span class="nav-number">9.4.</span> <span class="nav-text">SMEMBERS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SUNION"><span class="nav-number">9.5.</span> <span class="nav-text">SUNION</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hashes-哈希"><span class="nav-number">10.</span> <span class="nav-text">Hashes 哈希</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#写入和读取哈希数据"><span class="nav-number">10.1.</span> <span class="nav-text">写入和读取哈希数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HSET"><span class="nav-number">10.2.</span> <span class="nav-text">HSET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HGET"><span class="nav-number">10.3.</span> <span class="nav-text">HGET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HGETALL"><span class="nav-number">10.4.</span> <span class="nav-text">HGETALL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HMSET"><span class="nav-number">10.5.</span> <span class="nav-text">HMSET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HMGET"><span class="nav-number">10.6.</span> <span class="nav-text">HMGET</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sorted-Sets-有序集合"><span class="nav-number">11.</span> <span class="nav-text">Sorted Sets 有序集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ZADD"><span class="nav-number">11.1.</span> <span class="nav-text">ZADD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZRANGE"><span class="nav-number">11.2.</span> <span class="nav-text">ZRANGE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Redis-作为-Session（会话）存储"><span class="nav-number">12.</span> <span class="nav-text">使用 Redis 作为 Session（会话）存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">13.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">deppwang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://deppwang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://depp.wang/2019/09/11/introduction-to-redis-install-cli-commands-and-data-types/';
+          this.page.identifier = '2019/09/11/introduction-to-redis-install-cli-commands-and-data-types/';
+          this.page.title = '<译> Redis 入门：安装、客户端命令和数据类型';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://deppwang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI","app_key":"AjFBNu3SKV0SwMNsiIxA0mQv","server_url":"https://ycdssag0.api.lncldglobal.com"};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

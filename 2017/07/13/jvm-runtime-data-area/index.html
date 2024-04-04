@@ -1,0 +1,1124 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="hOzwzcL7Td1p_evvLmRBasbQKy5-i5AgJwNLD2vHKJ8">
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Bookerly:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="JVM,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="德普王's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="JVM 对于是每个 Java 程序员掌握一定 Java 基础后，都需要学习的。因为很多代码问题，只能了解了 JVM 底层原理后才能解决。大多数 Java 后端开发者都知道堆（Heap）和栈（Stack）的概念，却没有真正理解其原理。推荐 《深入理解 Java 虚拟机（第二版）》— 周志明著 学习 JVM。 进程和线程学习 JVM 前要了解进程和线程的概念。 以下是一个类比，来自 阮一峰 — 进程与">
+<meta name="keywords" content="JVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 虚拟机运行时数据区域 ">
+<meta property="og:url" content="https://depp.wang/2017/07/13/jvm-runtime-data-area/index.html">
+<meta property="og:site_name" content="德普王&#39;s Blog">
+<meta property="og:description" content="JVM 对于是每个 Java 程序员掌握一定 Java 基础后，都需要学习的。因为很多代码问题，只能了解了 JVM 底层原理后才能解决。大多数 Java 后端开发者都知道堆（Heap）和栈（Stack）的概念，却没有真正理解其原理。推荐 《深入理解 Java 虚拟机（第二版）》— 周志明著 学习 JVM。 进程和线程学习 JVM 前要了解进程和线程的概念。 以下是一个类比，来自 阮一峰 — 进程与">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135349.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135407.png">
+<meta property="og:updated_time" content="2024-04-04T11:01:03.056Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 虚拟机运行时数据区域 ">
+<meta name="twitter:description" content="JVM 对于是每个 Java 程序员掌握一定 Java 基础后，都需要学习的。因为很多代码问题，只能了解了 JVM 底层原理后才能解决。大多数 Java 后端开发者都知道堆（Heap）和栈（Stack）的概念，却没有真正理解其原理。推荐 《深入理解 Java 虚拟机（第二版）》— 周志明著 学习 JVM。 进程和线程学习 JVM 前要了解进程和线程的概念。 以下是一个类比，来自 阮一峰 — 进程与">
+<meta name="twitter:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135349.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'IQPKMP0VXO',
+      apiKey: 'd3e6a74afaebeb6b9c3a26eee410f08e',
+      indexName: 'deppwang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://depp.wang/2017/07/13/jvm-runtime-data-area/">
+
+
+
+
+
+  <title>Java 虚拟机运行时数据区域  | 德普王's Blog</title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3HG6GE96C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3HG6GE96C');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">德普王's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Draft, Edit, Proofread, Publish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/2019/08/22/tools/" rel="section">
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-decorate">
+          <a href="/tags/装修/" rel="section">
+            
+            装修
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAPF8TuhkibCKuDf" data-callback="javascriptCallback"></div>
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2017/07/13/jvm-runtime-data-area/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java 虚拟机运行时数据区域 </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-13T09:29:15+08:00">
+                2017-07-13
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-06-15T12:44:07+08:00">
+                2020-06-15
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/13/jvm-runtime-data-area/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/13/jvm-runtime-data-area/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/07/13/jvm-runtime-data-area/" class="leancloud_visitors" data-flag-title="Java 虚拟机运行时数据区域 ">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>JVM 对于是每个 Java 程序员掌握一定 Java 基础后，都需要学习的。因为很多代码问题，只能了解了 JVM 底层原理后才能解决。大多数 Java 后端开发者都知道堆（Heap）和栈（Stack）的概念，却没有真正理解其原理。推荐 <a href="https://github.com/DeppWang/Java-Book" target="_blank" rel="noopener">《深入理解 Java 虚拟机（第二版）》— 周志明著</a> 学习 JVM。</p>
+<h2 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h2><p>学习 JVM 前要了解进程和线程的概念。</p>
+<p>以下是一个类比，来自 <a href="http://www.ruanyifeng.com/blog/2013/04/processes_and_threads.html" target="_blank" rel="noopener">阮一峰 — 进程与线程的一个简单解释</a>。</p>
+<ol>
+<li>计算机的 CPU 是像一座工厂，时刻在运行。</li>
+<li>因工厂电力有限，一次只能供给一个车间使用。也就是说，一个车间开工的时候，其他车间都必须停工。背后的含义就是，单个 CPU 一次只能运行一个任务。</li>
+<li>进程就好比工厂的车间，它代表 CPU 所能处理的单个任务。任一时刻，CPU 总是运行一个进程，其他进程处于非运行状态。</li>
+<li>一个车间里，可以有很多工人。他们协同完成一个任务。</li>
+<li>线程就好比车间里的工人。一个进程可以包括多个线程。</li>
+</ol>
+<a id="more"></a>
+
+<p>进程和线程里面还涉及到 “锁” 的知识，请在参考网址中学习。</p>
+<p>下图是：Java 虚拟机运行时数据区</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135349.png" alt=""></p>
+<h2 id="程序计数器（Program-Counter-Resiger）"><a href="#程序计数器（Program-Counter-Resiger）" class="headerlink" title="程序计数器（Program Counter Resiger）"></a>程序计数器（Program Counter Resiger）</h2><p>首先程序计数器是一块较小的内存空间，“决定” 当前线程字节码的执行顺序，因为它存储字节码的行号。而在多线程中，每个线程都具有一个程序计数器，各条线程之间独立，计数器互不影响，独立存储。程序计数器是 “线程私有” 的内存。</p>
+<p>如果线程执行 Java 方法，计数器记录的是虚拟机字节码指令的地址。而如果执行 Native 方法，值为空（Undefined），理解这一段文字需要理解 Native 方法是什么！Native 方法是非 Java 代码（比如 C）编写的方法。程序计数器是 Java 虚拟机规范中唯一没有 OutOfMemoryError 的内存区域。</p>
+<h2 id="Java-虚拟机栈（Java-Virtual-Machine-Stacks）"><a href="#Java-虚拟机栈（Java-Virtual-Machine-Stacks）" class="headerlink" title="Java 虚拟机栈（Java Virtual Machine Stacks）"></a>Java 虚拟机栈（Java Virtual Machine Stacks）</h2><p>虚拟机栈是 Java 方法（也就是字节码）运行时的内存模型：每个方法在执行的同时都会创建一个栈帧（Stack Frame）[帧是一种数据结构] 用于存储局部变量表等。它是 “线程私有” 的，生命周期和线程相同。</p>
+<p>我们常说的栈（Stacks）其中一种含义就是 Java 虚拟机栈，确切的说是虚拟机栈中局部变量表部分。局部变量表存放原始（基本）数据类型，其中 Long 和 double 占两个局部变量空间（Slot）-32 位。也存放对象引用和 ruturnAddress 类型（指向了一条字节码指令的地址？）。</p>
+<p>局部变量表所需的内存空间在编译期间完成分配，当进入（运行）一个方法时，这个方法需要在帧中分配多大的局部变量空间是完全确定的，这是因为局部变量表是有结构的，每个区块按照一定次序存放，所以可以明确知道每个区块的大小。局部变量就是在方法运行期间不会改变局部变量表的大小。</p>
+<p>Java 虚拟机规范中规定此区域有两种异常：</p>
+<ul>
+<li>每次方法调用都会有一个栈帧压入虚拟机栈，JVM 分配给虚拟机栈的内存是有限的。如果方法调用过多，导致虚拟机栈满了就会溢出。如果线程请求的栈深度（栈帧的数量）大于虚拟机所允许的深度（虚拟机栈的内存），将抛出 StackOverflowError 异常</li>
+<li>虚拟机栈可以动态扩展，如果扩展时无法申请到足够的内存，就会抛出 OutOfMemoryError 异常。</li>
+</ul>
+<h2 id="本地方法栈（Native-Method-Stack）"><a href="#本地方法栈（Native-Method-Stack）" class="headerlink" title="本地方法栈（Native Method Stack）"></a>本地方法栈（Native Method Stack）</h2><p>本地方法栈与 Java 虚拟机栈类似，是虚拟机使用到的 Native 方法服务。Sun HotSpot 虚拟机直接本地方法栈和虚拟机栈合二为一。与虚拟机栈一样，本地方法栈区域也会抛出 StackOverflowError 和 OutOfMemoryError 异常。 </p>
+<h2 id="Java-堆（Java-Heap）"><a href="#Java-堆（Java-Heap）" class="headerlink" title="Java 堆（Java Heap）"></a>Java 堆（Java Heap）</h2><p>Java 堆（Java Heap）是 Java 虚拟机所管理的内存中最大的一块。是被所有线程共享的一块内存区域。存放对象实例和数组（数组也是对象），现在不是那么 “绝对” 了。</p>
+<p>Java 堆是垃圾收集器管理的主要区域，因此很多时候也被称做 “GC 堆”（Garbage Collected Heap）。</p>
+<p>根据 Java 虚拟机规范，Java 堆只要逻辑上是连续的即可，就像磁盘空间。可以实现成固定大小的，也可以是可扩展的（大部分虚拟机都可动态扩展）。如果堆没有内存完成实例分配，且堆也无法再扩展时，会抛出 OutOfMemoryError 异常。</p>
+<h2 id="方法区（Method-Area）"><a href="#方法区（Method-Area）" class="headerlink" title="方法区（Method Area）"></a>方法区（Method Area）</h2><p>方法区（Method Area）不是存储方法，而是用于存储<strong>已被虚拟机加载</strong>的类信息、常量、静态变量、即时编译器编译后的代码等数据。Java 虚拟机规范将方法区描述为堆的一个逻辑部分，是逻辑区，但为区分堆，别名叫 Non-Heap（非堆）。</p>
+<p>方法区（Method Area）一样不需要连续的内存和可以选择固定大小或者可扩展外，还可以选择不实现垃圾收集。此区域的内存回收目标主要是针对常量池的回收和（对类型的卸载？）。也可能抛出 OutOfMemoryError 异常。</p>
+<h2 id="运行时常量池（Runtime-Constant-Pool）"><a href="#运行时常量池（Runtime-Constant-Pool）" class="headerlink" title="运行时常量池（Runtime Constant Pool）"></a>运行时常量池（Runtime Constant Pool）</h2><p>运行时常量池（Runtime Constant Pool）是方法区的一部分。Class 文件中除了有类的版本、字段、方法、接口等描述信息外，还有一项信息是常量池（Constant Pool Table），用于存放编译期生成的各种字面量（Literal）和符号引用（Symbolic References），这部分内容将在<strong>类加载后</strong>进入方法区的运行时常量池中存放。</p>
+<p>字面量比较接近于 Java 语言层面的常量概念，如文本字符串、 声明为 final 的常量值等。 而符号引用则属于编译原理方面的概念，包括了下面三类常量：</p>
+<ul>
+<li>类和接口的全限定名（Fully Qualified Name）</li>
+<li>字段的名称和描述符（Descriptor）</li>
+<li>方法的名称和描述符</li>
+</ul>
+<p>对于运行时常量池，Java 虚拟机规范没有做任何细节的要求。运行时常量池不同于 Class 文件常量池，运行期间也可能将新的常量放入池中。内存不足时会抛出 OutOfMemoryError 异常。</p>
+<h2 id="直接内存（Direct-Memory）"><a href="#直接内存（Direct-Memory）" class="headerlink" title="直接内存（Direct Memory）"></a>直接内存（Direct Memory）</h2><p>直接内存通俗来说就是 I/O 方式使用 Native 堆直接分配堆外内存。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>一般来说，每个进程分配一个 “Heap”，每个线程分配一个 “Stack”。因为一个进程中有很多线程，所以 Java 堆等是线程共享的；而 “Stack” 的生命周期跟线程相同，即 “Stack” 是线程独占的，所以程序计数器、Java 虚拟机栈等是线程私有的。</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135407.png" alt="image"></p>
+<p>“Stack” 的另外两种含义有：</p>
+<ul>
+<li>一种数据结构，即一组数据的存放方式，特点是 FILO—First In,Last Out(先进后出)</li>
+<li>一种代码运行方式，即 “ 调用栈 “（call Stack），表示函数或子例程像堆积木一样存放，以实现层层调用。</li>
+</ul>
+<p>“Stack” 和 Heap 的主要区别是：”Stack” 是有结构的，”Heap” 是没有结构的。因此，”Stack” 的寻址速度要快于 “Heap”。</p>
+<p>线程共享的好处：任何时候一个线程改变一些数据，其他线程可以看到它。</p>
+<blockquote>
+<p>？号部分通读全文理解后解释。</p>
+</blockquote>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="https://github.com/DeppWang/Java-Book" target="_blank" rel="noopener">《深入理解 Java 虚拟机（第二版）》— 周志明著</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2013/04/processes_and_threads.html" target="_blank" rel="noopener">阮一峰 — 进程与线程的一个简单解释</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2013/11/stack.html" target="_blank" rel="noopener">阮一峰 —Stack 的三种含义</a></li>
+</ul>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1707703738443946" crossorigin="anonymous"></script>
+<!-- 文章内 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1707703738443946" data-ad-slot="6330017668" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      deppwang
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://depp.wang/2017/07/13/jvm-runtime-data-area/" title="Java 虚拟机运行时数据区域 ">https://depp.wang/2017/07/13/jvm-runtime-data-area/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JVM/" rel="tag"># JVM</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/09/granderMother/" rel="next" title="我奶奶人很胖，但心很美">
+                <i class="fa fa-chevron-left"></i> 我奶奶人很胖，但心很美
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/15/String-ByteCode/" rel="prev" title="从字节码（ByteCode）角度理解 String 的连接">
+                从字节码（ByteCode）角度理解 String 的连接 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
+          <p class="site-author-name" itemprop="name">deppwang</p>
+           
+              <p class="site-description motion-element" itemprop="description">每个人都需要有自己的哈姆雷特</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">120</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">247</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DeppWang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/deppwang1" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://space.bilibili.com/336707243" target="_blank" title="BiliBili">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  BiliBili
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.youtube.com/channel/UCpjV96uJBtbf64eDaJjUkkQ" target="_blank" title="YouTube">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  YouTube
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coolshell.cn" title="CoolShell" target="_blank">CoolShell</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的网络日志" target="_blank">阮一峰的网络日志</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://1byte.io" title="1byte" target="_blank">1byte</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://catcoding.me/" title="程序员的喵" target="_blank">程序员的喵</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://blog.douchi.space/" title="椒盐豆豉" target="_blank">椒盐豆豉</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程和线程"><span class="nav-number">1.</span> <span class="nav-text">进程和线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#程序计数器（Program-Counter-Resiger）"><span class="nav-number">2.</span> <span class="nav-text">程序计数器（Program Counter Resiger）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-虚拟机栈（Java-Virtual-Machine-Stacks）"><span class="nav-number">3.</span> <span class="nav-text">Java 虚拟机栈（Java Virtual Machine Stacks）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地方法栈（Native-Method-Stack）"><span class="nav-number">4.</span> <span class="nav-text">本地方法栈（Native Method Stack）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-堆（Java-Heap）"><span class="nav-number">5.</span> <span class="nav-text">Java 堆（Java Heap）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法区（Method-Area）"><span class="nav-number">6.</span> <span class="nav-text">方法区（Method Area）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行时常量池（Runtime-Constant-Pool）"><span class="nav-number">7.</span> <span class="nav-text">运行时常量池（Runtime Constant Pool）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直接内存（Direct-Memory）"><span class="nav-number">8.</span> <span class="nav-text">直接内存（Direct Memory）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">10.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">deppwang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://deppwang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://depp.wang/2017/07/13/jvm-runtime-data-area/';
+          this.page.identifier = '2017/07/13/jvm-runtime-data-area/';
+          this.page.title = 'Java 虚拟机运行时数据区域 ';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://deppwang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI","app_key":"AjFBNu3SKV0SwMNsiIxA0mQv","server_url":"https://ycdssag0.api.lncldglobal.com"};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
