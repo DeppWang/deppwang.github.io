@@ -1,0 +1,1301 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="hOzwzcL7Td1p_evvLmRBasbQKy5-i5AgJwNLD2vHKJ8">
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Bookerly:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Spring,IoC,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="德普王's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="作者：DeppWang、原文地址   我通过实现一个简易的 Spring IoC 容器，算是真正入门了 Spring 框架。本文是对实现过程的一个总结提炼，需要配合源码阅读，源码地址。 结合本文和源码，你应该可以学到：Spring 的原理和 Spring Boot 的原理。 Spring 框架是 Java 开发的，Java 是面向对象的语言，所以 Spring 框架本身有大量的抽象、继承、多态。">
+<meta name="keywords" content="Spring,IoC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="造轮子：实现一个简易的 Spring IoC 容器">
+<meta property="og:url" content="https://depp.wang/2020/04/19/realize-a-simple-spring-ioc-container/index.html">
+<meta property="og:site_name" content="德普王&#39;s Blog">
+<meta property="og:description" content="作者：DeppWang、原文地址   我通过实现一个简易的 Spring IoC 容器，算是真正入门了 Spring 框架。本文是对实现过程的一个总结提炼，需要配合源码阅读，源码地址。 结合本文和源码，你应该可以学到：Spring 的原理和 Spring Boot 的原理。 Spring 框架是 Java 开发的，Java 是面向对象的语言，所以 Spring 框架本身有大量的抽象、继承、多态。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-19-110638.jpg">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-17-143303.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-05-092624.png?ynotemdtimestamp=1587214457308">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-18-151532.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-18-134518.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-19-085235.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074720.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074801.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074258.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074549.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-18-111026.png">
+<meta property="og:updated_time" content="2023-12-30T11:34:36.601Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="造轮子：实现一个简易的 Spring IoC 容器">
+<meta name="twitter:description" content="作者：DeppWang、原文地址   我通过实现一个简易的 Spring IoC 容器，算是真正入门了 Spring 框架。本文是对实现过程的一个总结提炼，需要配合源码阅读，源码地址。 结合本文和源码，你应该可以学到：Spring 的原理和 Spring Boot 的原理。 Spring 框架是 Java 开发的，Java 是面向对象的语言，所以 Spring 框架本身有大量的抽象、继承、多态。">
+<meta name="twitter:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-19-110638.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'IQPKMP0VXO',
+      apiKey: 'd3e6a74afaebeb6b9c3a26eee410f08e',
+      indexName: 'deppwang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://depp.wang/2020/04/19/realize-a-simple-spring-ioc-container/">
+
+
+
+
+
+  <title>造轮子：实现一个简易的 Spring IoC 容器 | 德普王's Blog</title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3HG6GE96C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3HG6GE96C');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">德普王's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Draft, Edit, Proofread, Publish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/2019/08/22/tools/" rel="section">
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-decorate">
+          <a href="/tags/装修/" rel="section">
+            
+            装修
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAPF8TuhkibCKuDf" data-callback="javascriptCallback"></div>
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2020/04/19/realize-a-simple-spring-ioc-container/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">造轮子：实现一个简易的 Spring IoC 容器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-19T08:09:37+08:00">
+                2020-04-19
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-07-20T00:00:00+08:00">
+                2020-07-20
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/04/19/realize-a-simple-spring-ioc-container/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/19/realize-a-simple-spring-ioc-container/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/04/19/realize-a-simple-spring-ioc-container/" class="leancloud_visitors" data-flag-title="造轮子：实现一个简易的 Spring IoC 容器">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>作者：<a href="https://depp.wang">DeppWang</a>、<a href="https://depp.wang/2020/04/19/realize-a-simple-spring-ioc-container">原文地址</a></p>
+</blockquote>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-19-110638.jpg" alt="source:https://fernandofranzini.wordpress.com/"></p>
+<p>我通过实现一个简易的 Spring IoC 容器，算是真正入门了 Spring 框架。本文是对实现过程的一个总结提炼，<strong>需要配合源码阅读</strong>，<a href="https://github.com/DeppWang/litespring" target="_blank" rel="noopener">源码地址</a>。</p>
+<p>结合本文和源码，你应该可以学到：Spring 的原理和 Spring Boot 的原理。</p>
+<p>Spring 框架是 Java 开发的，Java 是面向对象的语言，所以 Spring 框架本身有大量的抽象、继承、多态。对于初学者来说，光是理清他们的逻辑就很麻烦，我摒弃了那些包装，只实现了最本质的功能。代码不是很严谨，但只为了理解 Spring 思想却够了。</p>
+<p>下面正文开始。</p>
+<a id="more"></a>
+
+<h2 id="零、Spring-的作用"><a href="#零、Spring-的作用" class="headerlink" title="零、Spring 的作用"></a>零、Spring 的作用</h2><p>在没有 Spring 框架的远古时代，我们业务逻辑一般长这样：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PetStoreService</span> </span>&#123;</span><br><span class="line">    AccountDao accountDao = <span class="keyword">new</span> AccountDao();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountDao</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">PetStoreService petStoreService = <span class="keyword">new</span> PetStoreService();</span><br></pre></td></tr></table></figure>
+
+<p>到处都是  <strong>new</strong> 关键字，需要开发人员显式的使用 new 关键字来创建对象（实例）。这样有很多弊端，如，创建的对象太多（多次创建多个对象），耦合性太强（默认 new），等等。</p>
+<p>有个叫 <a href="https://en.wikipedia.org/wiki/Rod_Johnson_(programmer)" target="_blank" rel="noopener">Rod Johnson</a> 老哥对此很不爽，就开发了一个叫 <a href="https://spring.io/" target="_blank" rel="noopener">Spring</a> 的框架，就是为了干掉 new 关键字（哈哈，我杜撰的，只是为了说明 Spring 的作用）。</p>
+<p>有了 Spring 框架，<strong>由框架来新建对象，管理对象，并处理对象之间的依赖</strong>，我们程序员就可以专注于业务逻辑（专心搬砖），不用关心对象的创建了。我们来看看 Spring 框架是如何实现的吧。</p>
+<p>注：以下 Spring 框架简写为 Spring</p>
+<p>本节源码对应：<a href="https://github.com/DeppWang/litespring/tree/master/src/test/java/org/deppwang/litespring/v0" target="_blank" rel="noopener">v0</a></p>
+<h2 id="一、实现「实例化-Bean-」"><a href="#一、实现「实例化-Bean-」" class="headerlink" title="一、实现「实例化 Bean 」"></a>一、实现「实例化 Bean 」</h2><p>首先，我们需要标记哪些类交给 Spring 管理，可以借助 xml 标记，将其标记为 <code>&lt;bean&gt;</code>：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--petstore-v1.xml--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"petStore"</span> <span class="attr">class</span>=<span class="string">"org.deppwang.litespring.v1.service.PetStoreService"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"accountDao"</span> <span class="attr">class</span>=<span class="string">"org.deppwang.litespring.v1.dao.AccountDao"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Spring 的第一步操作就是根据 xml 的标记来实例化类，在 Spring 中，我们管类叫 Bean，所以实例化类也可以称为实例化 Bean。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">BeanIocContainer iocContainer = <span class="keyword">new</span> BeanIocContainer(<span class="string">"petstore-v1.xml"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>Spring 如何根据 xml 配置来实现实例化类？</p>
+<p>大致可以分为三步（配合源码 <strong>v1</strong> 阅读）：</p>
+<ol>
+<li><p>从 xml 配置文件获取 Bean 信息：id、beanClassName（路径），将其作为 BeanDefinition（Bean 定义类）的属性</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">BeanDefinition bd = <span class="keyword">new</span> BeanDefinition(id, beanClassName);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用一个 Map 存放所有 BeanDefinition，此时 Spring 本质上是一个 Map，存放 BeanDefinition</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, BeanDefinition&gt; beanDefinitionMap = <span class="keyword">new</span> ConcurrentHashMap&lt;&gt;(<span class="number">64</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当获取 Bean 实例时，通过类加载器，根据路径，得到其类对象，通过类对象利用<strong>反射</strong>创建 Bean 实例</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> Thread.currentThread().getContextClassLoader().loadClass(bd.getBeanClassName()).newInstance();</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>关于类加载和反射，前者可以看看<a href="https://book.douban.com/subject/34907497/" target="_blank" rel="noopener">《深入理解 Java 虚拟机》</a>第 7 章，后者可以看看 <a href="https://depp.wang/2020/05/05/reflection-in-spring-and-reflection-principle/">Spring 中的反射与反射的原理</a>。本文只学习 Spring，这两个知识点不做深入讨论。</p>
+<p>本节源码对应：<strong>v1</strong>（<a href="https://github.com/DeppWang/litespring/tree/master/src/main/java/org/deppwang/litespring/v1" target="_blank" rel="noopener">main</a>、<a href="https://github.com/DeppWang/litespring/tree/master/src/test/java/org/deppwang/litespring/v1" target="_blank" rel="noopener">test</a>）</p>
+<h2 id="二、实现「填充属性（依赖注入）」"><a href="#二、实现「填充属性（依赖注入）」" class="headerlink" title="二、实现「填充属性（依赖注入）」"></a>二、实现「填充属性（依赖注入）」</h2><!--使用 Spring 时，我们希望只需要声明一下就能使用-->
+
+<!--直接 new 改为依赖注入-->
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PetStoreService</span> </span>&#123;</span><br><span class="line">    AccountDao accountDao;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当不默认 new 时，实现实例化 Bean 后，此时成员变量（属性）还为 null：</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-17-143303.png" alt=""></p>
+<!--当一个 Bean 的成员变量类型是另一个 Bean 时，我们可以说一个 Bean 依赖于另一个 Bean。当不默认 new 时，就需要使用依赖注入（**D**ependency **I**njection，简称 DI）的方式设置依赖。依赖注入让属性不为 null，所以也可以称为填充属性。-->
+
+<!--Spring 通过依赖注入的方式实现填充属性。-->
+
+<p>此时需要通过一种方式实现让属性不为 null，我们管这一步叫填充属性。</p>
+<p>当一个 Bean 的成员变量类型是另一个 Bean 时，我们可以说一个 Bean 依赖于另一个 Bean。所以填充属性，也可以称为依赖注入（<strong>D</strong>ependency <strong>I</strong>njection，简称 DI）。</p>
+<p>抛开 Spring 不谈，在正常情况下，我们有两种方式实现依赖注入，1、使用构造方法；2、使用 Setter() 方法。一般使用构造方法（因为依赖可能有多个）：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PetStoreService</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> AccountDao accountDao;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PetStoreService</span><span class="params">(AccountDao accountDao)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.accountDao = accountDao;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountDao</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">PetStoreService petStore = <span class="keyword">new</span> PetStoreService(<span class="keyword">new</span> AccountDao()); <span class="comment">// 将依赖 new AccountDao() 注入 petStore</span></span><br></pre></td></tr></table></figure>
+
+<p>Spring 也是通过这两种方式来实现依赖注入。</p>
+<p>我们需要告诉 Spring，需要为类使用什么方式注入依赖，注入什么依赖。比如，我们想 Spring 使用构造函数的方式，注入 AccountDao 依赖。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"petStore"</span> <span class="attr">class</span>=<span class="string">"org.deppwang.litespring.v2.service.PetStoreService"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">ref</span>=<span class="string">"accountDao"</span>/&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Spring 如何根据 <code>&lt;constructor-arg&gt;</code> 来实现依赖注入？</p>
+<p>大致也分为 3 步（配合源码 <strong>v2</strong> 阅读）：</p>
+<ol>
+<li><p>从 xml 中获取构造函数的参数实例的 id，存放到 BeanDefinition 的 constructorArguments 中</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">bd.getConstructorArgumentValues().add(argumentName);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过反射得到 PetStoreService 所有的构造函数（Constructor 对象），找到参数跟 constructorArguments 一致的 Constructor 对象</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Constructor&lt;?&gt;[] candidates = beanClass.getDeclaredConstructors();</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>通过 constructorArguments 获取到所有参数实例，再利用反射，通过 Constructor 对象实现填充属性。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> constructorToUse.newInstance(argsToUse);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>基于 Setter() 方法实现依赖注入的方式跟构造方法差不多，源码中有实现，请看源码。</p>
+<p>实际上，Spring 默认先尝试使用构造函数注入依赖，当没有配置 <code>&lt;constructor-arg&gt;</code> 时，使用 <code>&lt;property&gt;</code>。</p>
+<p>因为 Spring 实现了依赖注入，所以我们程序员没有了创建对象的控制权，所以也被称为控制反转（<strong>I</strong>nversion <strong>o</strong>f <strong>C</strong>ontrol，简称  IoC）。因为 Spring 使用 Map 管理 BeanDefinition，我们也可以将 Spring 称为 IoC 容器。</p>
+<p>本节源码对应：<strong>v2</strong>（<a href="https://github.com/DeppWang/litespring/tree/master/src/main/java/org/deppwang/litespring/v2" target="_blank" rel="noopener">main</a>、<a href="https://github.com/DeppWang/litespring/tree/master/src/test/java/org/deppwang/litespring/v2" target="_blank" rel="noopener">test</a>）</p>
+<h2 id="三、使用「单例模式、工厂方法模式」"><a href="#三、使用「单例模式、工厂方法模式」" class="headerlink" title="三、使用「单例模式、工厂方法模式」"></a>三、使用「单例模式、工厂方法模式」</h2><p>前面两步实现了获取 Bean 实例时创建 Bean 实例，但 Bean 实例经常使用，不能每次都新创建。其实在 Spring 中，一个 Bean 只对应一个 Bean 实例，这需要使用单例模式。</p>
+<blockquote>
+<p>单例模式：一个类有且只有一个实例</p>
+</blockquote>
+<p>Spring 使用类对象创建 Bean 实例，是如何实现单例模式的？</p>
+<p>Spring 其实使用一个 Map 存放所有 Bean 实例。创建时，先看 Map 中是否有 Bean 实例，没有就创建；获取时，直接从 Map 中获取。这种方式能保证一个类只有一个 Bean 实例。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Object&gt; singletonObjects = <span class="keyword">new</span> ConcurrentHashMap&lt;&gt;(<span class="number">64</span>);</span><br></pre></td></tr></table></figure>
+
+<p>因为存放 Bean 实例也是 Map，这是除 beanDefinitionMap 外，Spring 称为 IoC 容器的另一个原因。</p>
+<p>我们将创建对象的控制权交给 Spring（BeanIocContainer.java），我们可以认为 BeanIocContainer.java 是一个创建对象的工厂（专门生产对象），也可以称为简单工厂。<strong>它实现了创建对象和使用对象分离</strong>。</p>
+<p>Spring 为了使用不同的方式均可实现实例化 Bean，不能只是简单工厂，需要使用工厂方法模式。</p>
+<blockquote>
+<p>工厂方法模式：定义一个用于创建对象的接口，让子类决定实例化哪一个类。Factory Method 使一个类的实例化延迟到其子类。来源：《Head First 设计模式》</p>
+</blockquote>
+<p>简单的理解就是：将创建对象的方法抽象，作为一个工厂方法。</p>
+<p>这里的「让子类决定实例化哪一个类」，也可以看成让子类决定如何实现实例化类。</p>
+<p>我们可以把工厂方法模式理解为简单工厂的升级版，可通过子类实现多种方式创建对象，是一种简单工厂的「多态」。</p>
+<p>早期 Spring 使用 Bean 的策略是用到时再实例化所用 Bean，杰出代表是 XmlBeanFactory。后期为了实现更多的功能，新增了 ApplicationContext，初始化时就实例化所有 Bean，两者都继承于 BeanFactory 接口。</p>
+<!--两者的区别：ApplicationContext 初始化时就实例化所有 Bean，BeanFactory 用到时再实例化所用 Bean。-->
+
+<!--这里创建对象的工厂方法是**构造方法**。-->
+
+<p>实现：将 BeanIocContainer 修改为 BeanFactory 接口，只提供 getBean() 方法。实现不同的子类对应不同的方式实例化 Bean。</p>
+<p>Spring 使用 <strong>getBean()</strong> 作为工厂方法。getBean() 包含创建对象的方法。</p>
+<p>本节源码对应：<strong>v3</strong>（<a href="https://github.com/DeppWang/litespring/tree/master/src/main/java/org/deppwang/litespring/v3" target="_blank" rel="noopener">main</a>、<a href="https://github.com/DeppWang/litespring/tree/master/src/test/java/org/deppwang/litespring/v3" target="_blank" rel="noopener">test</a>）</p>
+<h2 id="四、实现「注解」"><a href="#四、实现「注解」" class="headerlink" title="四、实现「注解」"></a>四、实现「注解」</h2><p>在业务开发中，如果每个业务类均设置构造函数，并且需要在 xml 中配置，那么就太繁琐，还容易出错。Spring 从 2.5<sup><a href="https://www.tutorialspoint.com/spring/spring_annotation_based_configuration.htm" target="_blank" rel="noopener">ref</a></sup> 开始，新增了注解，可以使用注解来替代业务类的 xml 配置和构造函数。</p>
+<ul>
+<li>使用 @Component 注解代替 <code>&lt;bean&gt;</code></li>
+<li>使用 @Autowired 注解代替 <code>&lt;constructor-arg&gt;</code> + 构造函数。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PetStoreService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> AccountDao accountDao;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Spring 如何根据注解来实现实例化 Bean 和依赖注入？或者说，这两个注解起了什么作用？</p>
+<p>1、@Component 用于生成 BeanDefinition，实现原理（配合源码 <strong>v4</strong> 阅读）：</p>
+<ul>
+<li><p>根据 <code>&lt;context:component-scan&gt;</code> 指定路径，找到路径下所有包含 @Component 注解的 Class 文件，作为 BeanDefinition</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String basePackagesStr = ele.attributeValue(<span class="string">"base-package"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如何判断 Class 是否有 @Component：利用字节码技术，获取 Class 文件中的元数据（注解），判断元数据中是否有 @Componet</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">annotationMetadata.hasAnnotation(Component.class.getName())</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>2、@Autowired 用于依赖注入，实现原理（配合源码 <strong>v4</strong> 阅读）：</p>
+<ul>
+<li><p>通过反射，得到所有的属性（Field 对象），查看 Field 对象中是否有 @Autowired 类型的注解，有，则使用反射实现依赖注入</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Field[] fields = bean.getClass().getDeclaredFields();</span><br><span class="line">field.set(bean, getBean(field.getName()));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意：使用 @Autowired 时，既没有使用构造方法，也没有使用 Setter() 方法</p>
+</li>
+</ul>
+<p>@Component + @Autowired 实现 Spring 对业务类的管理。被 @Component + @Autowired  修饰的业务类算是一种特殊的 Bean。</p>
+<p>至此，我们还是在需要通过配置文件来实现组件扫描。有没有完全不使用配置文件的方式？有！</p>
+<p>我们可以使用 @Configuration 替代配置文件，并使用 @ComponentScan 来替代配置文件的  <code>&lt;context:component-scan&gt;</code> 。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span> <span class="comment">// 将类标记为 @Configuration，代表这个类是相当于一个配置文件</span></span><br><span class="line"><span class="meta">@ComponentScan</span> <span class="comment">// ComponentScan 扫描 PetStoreConfig.class 所在路径及其所在路径所有子路径的文件</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PetStoreConfig</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ApplicationContext context = <span class="keyword">new</span> AnnotationConfigApplicationContext(PetStoreConfig.class);</span><br><span class="line">        PetStoreService userService = context.getBean(PetStoreService.class);</span><br><span class="line">        userService.getAccountDao();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用注解其实跟使用 xml 配置文件一样，目的是将配置类作为入口，实现扫描组件，将其加载进 IoC 容器中的功能。</p>
+<p>AnnotationConfigApplicationContext 是专为针对配置类的启动类。其实现机制，可以 Google 查阅。</p>
+<p>前面说：在 Spring 中，我们管类叫 Bean。其实不完全正确，类要称为 Bean，需要满足一个条件：</p>
+<ul>
+<li>当有成员变量时，要么有 @Autowired 注解，要么有对应的构造函数或者 Setter() 方法</li>
+</ul>
+<p>即可以被 Spring 管理的类，称为 Bean。</p>
+<p>名词解释：</p>
+<ul>
+<li>Component：组件</li>
+<li>Autowired：自动装配</li>
+</ul>
+<p>本节源码对应：<strong>v4</strong>（<a href="https://github.com/DeppWang/litespring/tree/master/src/main/java/org/deppwang/litespring/v4" target="_blank" rel="noopener">main</a>、<a href="https://github.com/DeppWang/litespring/tree/master/src/test/java/org/deppwang/litespring/v4" target="_blank" rel="noopener">test</a>）</p>
+<h2 id="五、注解-Bean"><a href="#五、注解-Bean" class="headerlink" title="五、注解 @Bean"></a>五、注解 @Bean</h2><p>只要类是一个 Bean，就可以由 Spring 管理。</p>
+<p>业务类为了减少配置，可使用 @Component + @Autowired 实现依赖注入。</p>
+<p>将其他 Bean 注入容器时，虽然可以通过 xml 实现，但仍然比较麻烦，Spring 提供了一个注解 @Bean，当一个方法标记为 @Bean 时，它的返回值将被注入容器。</p>
+<p>举个栗子：我们可以将一个线程池 Executor 实例注入容器，再 @Autowired 使用：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeanConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ExecutorService <span class="title">sendMessageExecutor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ExecutorService executor = <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">2</span>, <span class="number">2</span>,</span><br><span class="line">                <span class="number">0L</span>, TimeUnit.MILLISECONDS,</span><br><span class="line">                <span class="keyword">new</span> LinkedBlockingQueue&lt;&gt;(<span class="number">1024</span>), <span class="keyword">new</span> ThreadPoolExecutor.AbortPolicy());</span><br><span class="line">        <span class="keyword">return</span> executor;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeanTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    ExecutorService service;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这如果用 xml 来实现，就比较麻烦了，还不直观。</p>
+<!--如果 Bean 没有构造函数或者 Setter 方法，需要引用 @Autowired-->
+
+<p>注意：@Bean 需要和 @Configuration 一起使用</p>
+<p>本节源码对应：<strong>v5</strong>（<a href="https://github.com/DeppWang/litespring/tree/master/src/main/java/org/deppwang/litespring/v5" target="_blank" rel="noopener">main</a>、<a href="https://github.com/DeppWang/litespring/tree/master/src/test/java/org/deppwang/litespring/v5" target="_blank" rel="noopener">test</a>）</p>
+<!--如果一个标记为 @Bean 的函数需要使用另一个类，那么另一个类也要注入容器？除非它本身也作为 Bean-->
+
+<h2 id="六、Spring-Boot-原理"><a href="#六、Spring-Boot-原理" class="headerlink" title="六、Spring Boot 原理"></a>六、Spring Boot 原理</h2><p>前面说到了 @Configuration 和 @ComponentScan，这就不得不提 Spring Boot。因为 Spring Boot 就使用了  @Configuration 和 @ComponentScan，你可以点开 @SpringBootApplication 看到。</p>
+<p>我们发现，Spring Boot 启动时，并没有使用 AnnotationConfigApplicationContext 来指定启动某某 Config 类。这是因为它使用了 @EnableAutoConfiguration 注解。</p>
+<p>Spring Boot 利用了 @EnableAutoConfiguration 来自动加载<strong>启动类路径（base-package）</strong>下标识为 @Configuration 的配置类到容器中。有时项目引入 jar 包的部分类也需要注入容器，如果引用 jar 包与启动类路径不一致，就需要一个额外标识，一个名为 spring.factories 文件。jar 包将需要自动加载的配置类放在 spring.factories 中，Spring Boot 将自动加载 jar 包 spring.factories 中的配置类。spring.factories 需放置于META-INF 下。</p>
+<p>关于 @EnableAutoConfiguration 的详细工作原理，可以看看<a href="http://tengj.top/2017/03/09/springboot3/" target="_blank" rel="noopener">这篇文章</a></p>
+<p>如 Spring Boot 项目启动时，autocofigure 包中将被自动加载到容器的（部分）配置类如下：</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-05-092624.png?ynotemdtimestamp=1587214457308" alt=""></p>
+<p>以上也是 Spring Boot 的原理。</p>
+<h3 id="Starter-包"><a href="#Starter-包" class="headerlink" title="Starter 包"></a>Starter 包</h3><p>在 Spring Boot 中，我们引入的部分 jar 包一般包含一个字段，<strong>starter</strong>，我们叫 starter 包。</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-18-151532.png" alt=""></p>
+<p>标识为 starter（启动器），可以看作是一个依赖总集，用于方便引用依赖。starter 包不需要额外配置，相关 Bean 会自动装配到容器。这是如何实现自动装配 Bean 呢。其实很简单，也是利用 spring.factories + 配置类。</p>
+<p>1、starter 包包含自己的 spring.factories。如 spring-cloud-starter-eureka-server：</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-18-134518.png" alt=""></p>
+<p>如 druid-spring-boot-starter：</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-19-085235.png" alt=""></p>
+<p>2、将相关配置类放在 autocofigure 中，由 autoconfigure 来自动装配。如 spring-boot-starter-jdbc：</p>
+<img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074720.png" alt="" style="zoom:67%;">
+
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074801.png" alt=""></p>
+<p>如 spring-boot-starter-amqp：</p>
+<img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074258.png" alt="" style="zoom:50%;">
+
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074549.png" alt=""></p>
+<p>一般来说，我们在 application.properties(application.yml) 配置的数据将由相应配置类读取。</p>
+<p>有时候我们还需要自定义 starter 包，比如在 Spring Cloud 中，当某个应用要调用另一个应用的代码时，要么调用方使用 HTTP，要么将被调用方自定义为 starter 包，让调用方依赖引用，再 @Autowired 使用。此时需要在被调用方设置配置类和 spring.factories：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProviderAppConfiguration</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># spring.factories</span></span><br><span class="line"><span class="comment"># Auto Configure</span></span><br><span class="line"><span class="string">org.springframework.boot.autoconfigure.EnableAutoConfiguration=\</span></span><br><span class="line"><span class="string">com.amy.cloud.amycloudact.ProviderAppConfiguration</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-18-111026.png" alt=""></p>
+<p>当然，你也可以把这两个文件放在调用方（此时要指定扫描路径），但一般放在被调用方。注意：如果你两个应用的 base-package 路径一样，那么可以不用这一步。</p>
+<!--[Starter 包官方介绍](https://docs.spring.io/spring-boot/docs/1.2.1.RELEASE/reference/htmlsingle/#using-boot-starter-poms)-->
+
+<p>说了 Spring Boot，那么在 Spring MVC，如何将引入 jar 包的组件注入容器？</p>
+<ul>
+<li>跟扫描本项目包一样，在 xml ，增加引入 jar 包的扫描路径：</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"引入 jar 包的 base-package"</span> /&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>嗯，本节没有源码</p>
+<h2 id="七、结语"><a href="#七、结语" class="headerlink" title="七、结语"></a>七、结语</h2><p>Spring 的原理离不开两个关键词：反射和注解。</p>
+<ul>
+<li>反射：在创建 Bean 实例和依赖注入是都需要使用反射。</li>
+<li>注解：使用注解可大大提升代码可阅读性，降低复杂度。注解本质上是作为一个标识，获取注解时需要使用字节码技术。</li>
+</ul>
+<p>现在我们一般很少使用 xml 来设置 bean，但了解了 xml 可以更好的理解 Spring 注解的原理。</p>
+<p>来个注解小结：</p>
+<ul>
+<li>@Component 作为组件标识，代表需要 Spring 管理</li>
+<li>@Autowired 用于判断是否需要依赖注入，代替构造函数</li>
+<li>@ComponentScan 指定组件扫描路径，不指定即为当前路径</li>
+<li>@Configuration 代表配置类，作为 Spring 寻找需要被管理 Bean 的入口</li>
+<li>@Bean 实现将任意 Bean 注入容器</li>
+<li>@EnableAutoConfiguration 实现自动加载配置类到容器</li>
+</ul>
+<p>以上实现了一个简易的 Spring IoC 容器，顺便说了一下 Spring Boot 原理。Spring 还有很多重要功能，如：处理对象之间的依赖、管理 Bean 生命周期、AOP 的实现，等等。</p>
+<p>全文完。</p>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1707703738443946" crossorigin="anonymous"></script>
+<!-- 文章内 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1707703738443946" data-ad-slot="6330017668" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      deppwang
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://depp.wang/2020/04/19/realize-a-simple-spring-ioc-container/" title="造轮子：实现一个简易的 Spring IoC 容器">https://depp.wang/2020/04/19/realize-a-simple-spring-ioc-container/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring/" rel="tag"># Spring</a>
+          
+            <a href="/tags/IoC/" rel="tag"># IoC</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/10/singleton-pattern/" rel="next" title="你真的会写单例模式吗">
+                <i class="fa fa-chevron-left"></i> 你真的会写单例模式吗
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/05/reflection-in-spring-and-reflection-principle/" rel="prev" title="Spring 中的反射与反射的原理">
+                Spring 中的反射与反射的原理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
+          <p class="site-author-name" itemprop="name">deppwang</p>
+           
+              <p class="site-description motion-element" itemprop="description">每个人都需要有自己的哈姆雷特</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">120</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">247</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DeppWang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/deppwang1" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://space.bilibili.com/336707243" target="_blank" title="BiliBili">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  BiliBili
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.youtube.com/channel/UCpjV96uJBtbf64eDaJjUkkQ" target="_blank" title="YouTube">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  YouTube
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coolshell.cn" title="CoolShell" target="_blank">CoolShell</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的网络日志" target="_blank">阮一峰的网络日志</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://1byte.io" title="1byte" target="_blank">1byte</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://catcoding.me/" title="程序员的喵" target="_blank">程序员的喵</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://blog.douchi.space/" title="椒盐豆豉" target="_blank">椒盐豆豉</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#零、Spring-的作用"><span class="nav-number">1.</span> <span class="nav-text">零、Spring 的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、实现「实例化-Bean-」"><span class="nav-number">2.</span> <span class="nav-text">一、实现「实例化 Bean 」</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、实现「填充属性（依赖注入）」"><span class="nav-number">3.</span> <span class="nav-text">二、实现「填充属性（依赖注入）」</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、使用「单例模式、工厂方法模式」"><span class="nav-number">4.</span> <span class="nav-text">三、使用「单例模式、工厂方法模式」</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、实现「注解」"><span class="nav-number">5.</span> <span class="nav-text">四、实现「注解」</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、注解-Bean"><span class="nav-number">6.</span> <span class="nav-text">五、注解 @Bean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、Spring-Boot-原理"><span class="nav-number">7.</span> <span class="nav-text">六、Spring Boot 原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Starter-包"><span class="nav-number">7.1.</span> <span class="nav-text">Starter 包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、结语"><span class="nav-number">8.</span> <span class="nav-text">七、结语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">deppwang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://deppwang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://depp.wang/2020/04/19/realize-a-simple-spring-ioc-container/';
+          this.page.identifier = '2020/04/19/realize-a-simple-spring-ioc-container/';
+          this.page.title = '造轮子：实现一个简易的 Spring IoC 容器';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://deppwang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI","app_key":"AjFBNu3SKV0SwMNsiIxA0mQv","server_url":"https://ycdssag0.api.lncldglobal.com"};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1125 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="hOzwzcL7Td1p_evvLmRBasbQKy5-i5AgJwNLD2vHKJ8">
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Bookerly:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Exception,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="德普王's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="正常业务系统中，当前后端分离时，系统即使有未知异常，也要保证接口能返回错误提示，也需要根据业务规则制定相应的异常状态码和异常提示。所以需要一个全局异常处理器。相关代码：GitHub">
+<meta name="keywords" content="Exception">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义全局异常处理器（Java）">
+<meta property="og:url" content="https://depp.wang/2020/11/06/customize-global-exception-handler-java/index.html">
+<meta property="og:site_name" content="德普王&#39;s Blog">
+<meta property="og:description" content="正常业务系统中，当前后端分离时，系统即使有未知异常，也要保证接口能返回错误提示，也需要根据业务规则制定相应的异常状态码和异常提示。所以需要一个全局异常处理器。相关代码：GitHub">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2023-12-21T03:42:36.017Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自定义全局异常处理器（Java）">
+<meta name="twitter:description" content="正常业务系统中，当前后端分离时，系统即使有未知异常，也要保证接口能返回错误提示，也需要根据业务规则制定相应的异常状态码和异常提示。所以需要一个全局异常处理器。相关代码：GitHub">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'IQPKMP0VXO',
+      apiKey: 'd3e6a74afaebeb6b9c3a26eee410f08e',
+      indexName: 'deppwang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://depp.wang/2020/11/06/customize-global-exception-handler-java/">
+
+
+
+
+
+  <title>自定义全局异常处理器（Java） | 德普王's Blog</title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3HG6GE96C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3HG6GE96C');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">德普王's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Draft, Edit, Proofread, Publish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/2019/08/22/tools/" rel="section">
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-decorate">
+          <a href="/tags/装修/" rel="section">
+            
+            装修
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAPF8TuhkibCKuDf" data-callback="javascriptCallback"></div>
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2020/11/06/customize-global-exception-handler-java/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">自定义全局异常处理器（Java）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-06T20:48:37+08:00">
+                2020-11-06
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-11-10T18:39:07+08:00">
+                2020-11-10
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Note/" itemprop="url" rel="index">
+                    <span itemprop="name">Note</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/11/06/customize-global-exception-handler-java/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/11/06/customize-global-exception-handler-java/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/11/06/customize-global-exception-handler-java/" class="leancloud_visitors" data-flag-title="自定义全局异常处理器（Java）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>正常业务系统中，当前后端分离时，系统即使有未知异常，也要保证接口能返回错误提示，也需要根据业务规则制定相应的异常状态码和异常提示。所以需要一个全局异常处理器。相关代码：<a href="https://github.com/DeppWang/springboot-demos/tree/master/springboot-exception" target="_blank" rel="noopener">GitHub</a></p>
+<a id="more"></a>
+
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p>下面是 Java 异常继承图：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">                     ┌───────────┐</span><br><span class="line">                     │  Object   │</span><br><span class="line">                     └───────────┘</span><br><span class="line">                           ▲</span><br><span class="line">                           │</span><br><span class="line">                     ┌───────────┐</span><br><span class="line">                     │ Throwable │</span><br><span class="line">                     └───────────┘</span><br><span class="line">                           ▲</span><br><span class="line">                 ┌─────────┴─────────┐</span><br><span class="line">                 │                   │</span><br><span class="line">           ┌───────────┐       ┌───────────┐</span><br><span class="line">           │   Error   │       │ Exception │</span><br><span class="line">           └───────────┘       └───────────┘</span><br><span class="line">                 ▲                   ▲</span><br><span class="line">         ┌───────┘              ┌────┴──────────┐</span><br><span class="line">         │                      │               │</span><br><span class="line">┌─────────────────┐    ┌─────────────────┐┌───────────┐</span><br><span class="line">│OutOfMemoryError │... │RuntimeException ││IOException│...</span><br><span class="line">└─────────────────┘    └─────────────────┘└───────────┘</span><br><span class="line">                                ▲</span><br><span class="line">                    ┌───────────┴─────────────┐</span><br><span class="line">                    │                         │</span><br><span class="line">         ┌─────────────────────┐ ┌─────────────────────────┐</span><br><span class="line">         │NullPointerException │ │IllegalArgumentException │...</span><br><span class="line">         └─────────────────────┘ └─────────────────────────┘</span><br></pre></td></tr></table></figure>
+
+<p>根据编译时是否需要捕获，异常可以分为两类：1、写代码时，编译器规定必须捕获的异常，不捕获将报错；2、（抛出后）不必须捕获的异常，编译器对此类异常不做处理。</p>
+<ul>
+<li><p>必须捕获的异常：Exception 以及 Exception 除去 RuntimeException 的子类。</p>
+</li>
+<li><p>不必须捕获的异常：Error 以及 Error 的子类；RuntimeException 以及 RuntimeException 的子类。</p>
+</li>
+</ul>
+<p>必须捕获的异常：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/testThrowIOException"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> ApiResponse&lt;Void&gt; <span class="title">testThrowIOException</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    testThrowIOException(); <span class="comment">// 将报错</span></span><br><span class="line">    <span class="keyword">return</span> ApiResponse.success();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">throwIOException</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"testThrowIOException"</span>);</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> IOException();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不必须捕获的异常：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/testThrowRuntimeException"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> ApiResponse&lt;Void&gt; <span class="title">testThrowRuntimeException</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    throwRuntimeException(); <span class="comment">// 不报错</span></span><br><span class="line">    <span class="keyword">return</span> ApiResponse.success();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">throwRuntimeException</span><span class="params">()</span> </span>&#123; <span class="comment">// 无需 throws</span></span><br><span class="line">    System.out.println(<span class="string">"testThrowRuntimeException"</span>);</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> ArrayIndexOutOfBoundsException();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不过在运行时，任何异常都可以进行捕获处理，避免接口没有返回值的情况。</p>
+<h3 id="抛异常"><a href="#抛异常" class="headerlink" title="抛异常"></a>抛异常</h3><p>常见异常处理方式有两种，1、捕获后处理，2、抛出。抛出也分为捕获后抛出和直接抛出。</p>
+<p>当本身没有异常，却使用 throws 抛出异常时，此时相当于没有抛异常（将拦截不到异常）。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/testThrowIOException2"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> ApiResponse&lt;Void&gt; <span class="title">testThrowIOException2</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">    throwIOException2();</span><br><span class="line">    <span class="keyword">return</span> ApiResponse.success();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">throwIOException2</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"testThrowIOException"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="打印异常"><a href="#打印异常" class="headerlink" title="打印异常"></a>打印异常</h3><p>打印异常可以使用 <a href="https://depp.wang/2020/10/30/logback-use-summary/">Logback</a> 打印，其相关方法的使用： <code>log.error(e.getMessage(), e);</code> 相当于下面这两条语句：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(e.getMessage()); <span class="comment">// 打印异常信息</span></span><br><span class="line">e.printStackTrace(); <span class="comment">// 打印异常调用栈</span></span><br></pre></td></tr></table></figure>
+
+<p>减少 NullPointException 的方式是设置默认值。</p>
+<h3 id="测试-Error"><a href="#测试-Error" class="headerlink" title="测试 Error"></a>测试 Error</h3><p><strong>测试 StackOverflowError</strong>，设置栈的大小为 256K，IDEA（VM options）： -Xss256k；命令行：<code>java -Xss256k JavaVMStackSOF</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JavaVMStackSOF</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> stackLength = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stackLeak</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        stackLength++;</span><br><span class="line">        stackLeak();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        JavaVMStackSOF oom = <span class="keyword">new</span> JavaVMStackSOF();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            oom.stackLeak();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">            System.out.println(<span class="string">"stack length:"</span> + oom.stackLength);</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">stack length:1693</span><br><span class="line">Exception in thread "main" java.lang.StackOverflowError</span><br><span class="line">	at wang.depp.exception.JavaVMStackSOF.stackLeak(JavaVMStackSOF.java:10)</span><br><span class="line">	at wang.depp.exception.JavaVMStackSOF.stackLeak(JavaVMStackSOF.java:11)</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试 OutOfMemoryError</strong>，设置 Java 堆的大小为 128M，IDEA（VM options）：-Xms10M -Xmx10M；命令行：<code>java -Xms10M -Xmx10M wang.depp.exception.HeapOOM</code>（如果类中包含 package 路径，需 cd 到 <code>java</code> 目录后运行此命令）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> wang.depp.exception;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HeapOOM</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">OOMObject</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;OOMObject&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            list.add(<span class="keyword">new</span> OOMObject());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Exception in thread "main" java.lang.OutOfMemoryError: Java heap space</span><br><span class="line">	at java.base/java.util.Arrays.copyOf(Arrays.java:3720)</span><br><span class="line">	at java.base/java.util.Arrays.copyOf(Arrays.java:3689)</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+
+<h2 id="全局异常处理器"><a href="#全局异常处理器" class="headerlink" title="全局异常处理器"></a>全局异常处理器</h2><h3 id="自定义异常"><a href="#自定义异常" class="headerlink" title="自定义异常"></a>自定义异常</h3><p>自定义异常从 RuntimeException 派生，构造方法使用 <code>super(message);</code> 和 <code>super(message, cause);</code>。添加状态码和参数属性。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseException</span> <span class="keyword">extends</span> <span class="title">RuntimeException</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> code; <span class="comment">// 状态码</span></span><br><span class="line">    <span class="keyword">private</span> String message;</span><br><span class="line">    <span class="keyword">private</span> Object[] args; <span class="comment">// 参数</span></span><br><span class="line">    <span class="keyword">private</span> IResponseEnum responseEnum;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BaseException</span><span class="params">(IResponseEnum iResponseEnum, Object[] args, String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(message);</span><br><span class="line">        <span class="keyword">this</span>.code = iResponseEnum.getCode();</span><br><span class="line">        <span class="keyword">this</span>.message = message;</span><br><span class="line">        <span class="keyword">this</span>.responseEnum = iResponseEnum;</span><br><span class="line">        <span class="keyword">this</span>.args = args;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BaseException</span><span class="params">(IResponseEnum iResponseEnum, Object[] args, String message, Throwable cause)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(message, cause);</span><br><span class="line">        <span class="keyword">this</span>.code = iResponseEnum.getCode();</span><br><span class="line">        <span class="keyword">this</span>.message = message;</span><br><span class="line">        <span class="keyword">this</span>.responseEnum = iResponseEnum;</span><br><span class="line">        <span class="keyword">this</span>.args = args;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Object[] getArgs() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.args;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IResponseEnum <span class="title">getResponseEnum</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.responseEnum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当前服务的业务异常不用每个单独作为一个异常类，可通过 message 和 code 来做一个区分。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoanException</span> <span class="keyword">extends</span> <span class="title">BusinessException</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LoanException INTERNAL_ERROR = <span class="keyword">new</span> LoanException(ResponseEnum.SERVER_ERROR);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LoanException REJECT = <span class="keyword">new</span> LoanException(ResponseEnum.REJECT);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LoanException BAND_FAIL = <span class="keyword">new</span> LoanException(ResponseEnum.BAND_FAIL);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LoanException FORBIDDEN = <span class="keyword">new</span> LoanException(ResponseEnum.FORBIDDEN);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LoanException DB_OPTIMISTIC_LOCK = <span class="keyword">new</span> LoanException(ResponseEnum.DB_OPTIMISTIC_LOCK);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LoanException</span><span class="params">(IResponseEnum responseEnum)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(responseEnum, <span class="keyword">null</span>, responseEnum.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LoanException</span><span class="params">(IResponseEnum responseEnum, String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(responseEnum, <span class="keyword">null</span>, message);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/testLoanException"</span>)</span><br><span class="line"><span class="function"><span class="keyword">private</span> ApiResponse&lt;Void&gt; <span class="title">testLoanException</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> LoanException.REJECT;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为不同的业务错误场景设置相关枚举类型（状态码、错误提示）。为枚举添加可断言判断抛出异常功能。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Assert</span> </span>&#123;</span><br><span class="line">    <span class="function">BaseException <span class="title">newException</span><span class="params">(Object... var1)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">BaseException <span class="title">newException</span><span class="params">(Throwable var1, Object... var2)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">assertNotNull</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (obj == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">this</span>.newException((Object[])<span class="keyword">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">assertNotNull</span><span class="params">(Object obj, Object... args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (obj == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">this</span>.newException(args);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">assertTrue</span><span class="params">(<span class="keyword">boolean</span> flag)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!flag) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">this</span>.newException((Object[])<span class="keyword">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">assertTrue</span><span class="params">(<span class="keyword">boolean</span> flag, Object... args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!flag) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">this</span>.newException((Object[])<span class="keyword">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BusinessExceptionAssert</span> <span class="keyword">extends</span> <span class="title">IResponseEnum</span>, <span class="title">Assert</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> BaseException <span class="title">newException</span><span class="params">(Object... args)</span> </span>&#123;</span><br><span class="line">        String msg = MessageFormat.format(<span class="keyword">this</span>.getMessage(), args);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BusinessException(<span class="keyword">this</span>, args, msg);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> BaseException <span class="title">newException</span><span class="params">(Throwable t, Object... args)</span> </span>&#123;</span><br><span class="line">        String msg = MessageFormat.format(<span class="keyword">this</span>.getMessage(), args);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BusinessException(<span class="keyword">this</span>, args, msg, t);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> ResponseEnum implements BusinessExceptionAssert &#123;</span><br><span class="line"></span><br><span class="line">    SUCCESS(<span class="number">111000</span>,<span class="string">"success"</span>),</span><br><span class="line">    PARAM_VALID_ERROR(<span class="number">111001</span>,<span class="string">"param check error."</span>),</span><br><span class="line">    SERVER_ERROR(<span class="number">111002</span>,<span class="string">"server error."</span>),</span><br><span class="line">    LOGIN_ERROR(<span class="number">111003</span>,<span class="string">"login error"</span>),</span><br><span class="line">    UNAUTHORIZED(<span class="number">111004</span>, <span class="string">"unauthorized"</span>),</span><br><span class="line">    SERVICE_ERROR(<span class="number">111005</span>,<span class="string">"service error."</span>),</span><br><span class="line">    FORBIDDEN(<span class="number">114003</span>, <span class="string">"forbidden"</span>),</span><br><span class="line">    TIMEOUT(<span class="number">114000</span>, <span class="string">"timeout"</span>),</span><br><span class="line">    REJECT(<span class="number">114001</span>, <span class="string">"reject"</span>),</span><br><span class="line">    EMAIL_CONFLICT(<span class="number">114002</span>, <span class="string">"email conflict"</span>),</span><br><span class="line">    EMAIL_VERIFY_FAIL(<span class="number">114004</span>, <span class="string">"email verify fail"</span>),</span><br><span class="line">    DB_OPTIMISTIC_LOCK(<span class="number">114008</span>, <span class="string">"update fail"</span>),<span class="comment">// 数据库乐观锁</span></span><br><span class="line">    EMAIL_SEND_FAIL(<span class="number">114011</span>, <span class="string">"email send fail"</span>),</span><br><span class="line">    DATA_NOT_FOUND(<span class="number">114012</span>, <span class="string">"data not found"</span>),</span><br><span class="line">    LOGIN_TOKEN_VERIFY_FAIL(<span class="number">114014</span>, <span class="string">"login token verify fail"</span>),</span><br><span class="line">    ;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> code;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回消息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String message;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/test"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> ApiResponse&lt;String&gt; <span class="title">test</span><span class="params">(String value)</span> </span>&#123;</span><br><span class="line">    ResponseEnum.SERVICE_ERROR.assertNotNull(value);</span><br><span class="line">    <span class="keyword">return</span> ApiResponse.success(<span class="string">"true"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="全局异常管理器"><a href="#全局异常管理器" class="headerlink" title="全局异常管理器"></a>全局异常管理器</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@ControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GlobalExceptionHandler</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生产环境</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> String ENV_PROD = <span class="string">"production"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 当前环境</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;env&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String profile;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 业务异常</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> e 异常</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 异常结果</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ExceptionHandler</span>(value = BusinessException.class)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ApiResponse&lt;String&gt; <span class="title">handleBusinessException</span><span class="params">(BaseException e)</span> </span>&#123;</span><br><span class="line">        log.error(e.getMessage(), e);</span><br><span class="line">        log.error(<span class="string">"BusinessException"</span>);</span><br><span class="line">        <span class="keyword">return</span> ApiResponse.fail(e.getCode(), e.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 非错误编码类系统异常</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> e 异常</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 异常结果</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ExceptionHandler</span>(value = SystemException.class)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ApiResponse&lt;String&gt; <span class="title">handleBaseException</span><span class="params">(SystemException e)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getServerErrorApiResponse(e);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Controller 上一层相关异常</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> e 异常</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 异常结果</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ExceptionHandler</span>(&#123;NoHandlerFoundException.class,</span><br><span class="line">            HttpRequestMethodNotSupportedException.class,</span><br><span class="line">            HttpMediaTypeNotSupportedException.class,</span><br><span class="line">            MissingPathVariableException.class,</span><br><span class="line">            MissingServletRequestParameterException.class,</span><br><span class="line">            TypeMismatchException.class,</span><br><span class="line">            HttpMessageNotReadableException.class,</span><br><span class="line">            HttpMessageNotWritableException.class,</span><br><span class="line">            <span class="comment">// BindException.class,</span></span><br><span class="line">            <span class="comment">// MethodArgumentNotValidException.class</span></span><br><span class="line">            HttpMediaTypeNotAcceptableException.class,</span><br><span class="line">            ServletRequestBindingException.class,</span><br><span class="line">            ConversionNotSupportedException.class,</span><br><span class="line">            MissingServletRequestPartException.class,</span><br><span class="line">            AsyncRequestTimeoutException.class</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ApiResponse&lt;String&gt; <span class="title">handleServletException</span><span class="params">(Exception e)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getServerErrorApiResponse(e);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 未定义异常。相当于全局异常捕获处理器。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> e 异常</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 异常结果</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ExceptionHandler</span>(value = Exception.class)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ApiResponse&lt;String&gt; <span class="title">handleException</span><span class="params">(Exception e)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getServerErrorApiResponse(e);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> ApiResponse&lt;String&gt; <span class="title">getServerErrorApiResponse</span><span class="params">(Exception e)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> code = ResponseEnum.SERVER_ERROR.getCode();</span><br><span class="line">        String productShowMessage = ResponseEnum.SERVER_ERROR.getMessage();</span><br><span class="line">        <span class="keyword">if</span> (ENV_PROD.equals(profile)) &#123;</span><br><span class="line">            <span class="keyword">return</span> ApiResponse.fail(code, productShowMessage);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ApiResponse.fail(code, e.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>@ControllerAdvice</code> + <code>@ExceptionHandler</code> 实现对指定异常的捕获。此时运行时异常和 Error 也能被捕获。</p>
+<h2 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h2><ul>
+<li><a href="https://www.liaoxuefeng.com/wiki/1252599548343744/1264734349295520" target="_blank" rel="noopener">Java 的异常</a></li>
+</ul>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1707703738443946" crossorigin="anonymous"></script>
+<!-- 文章内 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1707703738443946" data-ad-slot="6330017668" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      deppwang
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://depp.wang/2020/11/06/customize-global-exception-handler-java/" title="自定义全局异常处理器（Java）">https://depp.wang/2020/11/06/customize-global-exception-handler-java/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Exception/" rel="tag"># Exception</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/11/02/github-open-feign-use-summary/" rel="next" title="GitHub Open Feign  使用总结">
+                <i class="fa fa-chevron-left"></i> GitHub Open Feign  使用总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/11/07/treeset-in-java/" rel="prev" title="Java 中的 TreeSet">
+                Java 中的 TreeSet <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
+          <p class="site-author-name" itemprop="name">deppwang</p>
+           
+              <p class="site-description motion-element" itemprop="description">每个人都需要有自己的哈姆雷特</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">120</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">247</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DeppWang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/deppwang1" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://space.bilibili.com/336707243" target="_blank" title="BiliBili">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  BiliBili
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.youtube.com/channel/UCpjV96uJBtbf64eDaJjUkkQ" target="_blank" title="YouTube">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  YouTube
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coolshell.cn" title="CoolShell" target="_blank">CoolShell</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的网络日志" target="_blank">阮一峰的网络日志</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://1byte.io" title="1byte" target="_blank">1byte</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://catcoding.me/" title="程序员的喵" target="_blank">程序员的喵</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://blog.douchi.space/" title="椒盐豆豉" target="_blank">椒盐豆豉</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#异常"><span class="nav-number">1.</span> <span class="nav-text">异常</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#抛异常"><span class="nav-number">1.1.</span> <span class="nav-text">抛异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打印异常"><span class="nav-number">1.2.</span> <span class="nav-text">打印异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试-Error"><span class="nav-number">1.3.</span> <span class="nav-text">测试 Error</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局异常处理器"><span class="nav-number">2.</span> <span class="nav-text">全局异常处理器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义异常"><span class="nav-number">2.1.</span> <span class="nav-text">自定义异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局异常管理器"><span class="nav-number">2.2.</span> <span class="nav-text">全局异常管理器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延伸阅读"><span class="nav-number">3.</span> <span class="nav-text">延伸阅读</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">deppwang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://deppwang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://depp.wang/2020/11/06/customize-global-exception-handler-java/';
+          this.page.identifier = '2020/11/06/customize-global-exception-handler-java/';
+          this.page.title = '自定义全局异常处理器（Java）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://deppwang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI","app_key":"AjFBNu3SKV0SwMNsiIxA0mQv","server_url":"https://ycdssag0.api.lncldglobal.com"};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

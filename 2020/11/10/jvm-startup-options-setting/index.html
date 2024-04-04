@@ -1,0 +1,1144 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="hOzwzcL7Td1p_evvLmRBasbQKy5-i5AgJwNLD2vHKJ8">
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Bookerly:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="JVM Options,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="德普王's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="JVM 参数的含义公司项目 jdk 版本为 1.8， JVM 参数是自定义设置的，gradle 中 JVM 配置如下（默认内存为 8 G）： applicationDefaultJvmArgs = [&quot;-Xms1G&quot;, &quot;-Xmx2G&quot;, &quot;-Xss256k&quot;, &quot;-Djava.awt.headless=true&quot;, &quot;-Dfile.encoding=UTF-8&quot;,">
+<meta name="keywords" content="JVM Options">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM 启动参数设置">
+<meta property="og:url" content="https://depp.wang/2020/11/10/jvm-startup-options-setting/index.html">
+<meta property="og:site_name" content="德普王&#39;s Blog">
+<meta property="og:description" content="JVM 参数的含义公司项目 jdk 版本为 1.8， JVM 参数是自定义设置的，gradle 中 JVM 配置如下（默认内存为 8 G）： applicationDefaultJvmArgs = [&quot;-Xms1G&quot;, &quot;-Xmx2G&quot;, &quot;-Xss256k&quot;, &quot;-Djava.awt.headless=true&quot;, &quot;-Dfile.encoding=UTF-8&quot;,">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-11-10-072145.jpg">
+<meta property="og:updated_time" content="2023-12-21T03:42:36.015Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JVM 启动参数设置">
+<meta name="twitter:description" content="JVM 参数的含义公司项目 jdk 版本为 1.8， JVM 参数是自定义设置的，gradle 中 JVM 配置如下（默认内存为 8 G）： applicationDefaultJvmArgs = [&quot;-Xms1G&quot;, &quot;-Xmx2G&quot;, &quot;-Xss256k&quot;, &quot;-Djava.awt.headless=true&quot;, &quot;-Dfile.encoding=UTF-8&quot;,">
+<meta name="twitter:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-11-10-072145.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'IQPKMP0VXO',
+      apiKey: 'd3e6a74afaebeb6b9c3a26eee410f08e',
+      indexName: 'deppwang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://depp.wang/2020/11/10/jvm-startup-options-setting/">
+
+
+
+
+
+  <title>JVM 启动参数设置 | 德普王's Blog</title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3HG6GE96C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3HG6GE96C');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">德普王's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Draft, Edit, Proofread, Publish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/2019/08/22/tools/" rel="section">
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-decorate">
+          <a href="/tags/装修/" rel="section">
+            
+            装修
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAPF8TuhkibCKuDf" data-callback="javascriptCallback"></div>
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2020/11/10/jvm-startup-options-setting/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JVM 启动参数设置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-10T21:48:08+08:00">
+                2020-11-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2023-08-21T19:24:37+08:00">
+                2023-08-21
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/11/10/jvm-startup-options-setting/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/11/10/jvm-startup-options-setting/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/11/10/jvm-startup-options-setting/" class="leancloud_visitors" data-flag-title="JVM 启动参数设置">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="JVM-参数的含义"><a href="#JVM-参数的含义" class="headerlink" title="JVM 参数的含义"></a>JVM 参数的含义</h2><p>公司项目 jdk 版本为 1.8， JVM 参数是自定义设置的，gradle 中 JVM 配置如下（默认内存为 8 G）：</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">applicationDefaultJvmArgs = [<span class="string">"-Xms1G"</span>, <span class="string">"-Xmx2G"</span>, <span class="string">"-Xss256k"</span>, <span class="string">"-Djava.awt.headless=true"</span>, <span class="string">"-Dfile.encoding=UTF-8"</span>,</span><br><span class="line">                             <span class="string">"-XX:MetaspaceSize=256M"</span>, <span class="string">"-XX:+UseG1GC"</span>, <span class="string">"-XX:MaxGCPauseMillis=200"</span>, <span class="string">"-XX:G1HeapRegionSize=2M"</span>,</span><br><span class="line">                             <span class="string">"-XX:+UseStringDeduplication"</span>, <span class="string">"-XX:+PrintStringDeduplicationStatistics"</span>,</span><br><span class="line">                             <span class="string">"-XX:ParallelGCThreads=4"</span>, <span class="string">"-XX:ConcGCThreads=2"</span>, <span class="string">"-XX:MaxDirectMemorySize=1024M"</span>,</span><br><span class="line">                             <span class="string">"-XX:+PrintGCDetails"</span>, <span class="string">"-XX:+PrintGCDateStamps"</span>, <span class="string">"-Xloggc:/tmp/gc.log"</span>, <span class="string">"-XX:+PrintTenuringDistribution"</span>,</span><br><span class="line">                             <span class="string">"-XX:+DoEscapeAnalysis"</span>, <span class="string">"-XX:+EliminateAllocations"</span>, <span class="string">"-Dlogging.config=File:/config/logback.xml"</span>]</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>各个参数的含义：</p>
+<ul>
+<li>-Xms1G：堆的初始内存容量为 1G，也是</li>
+<li>-Xmx2G：堆的最大内存容量为 2G</li>
+<li>-Xss256k：Java 栈的容量为 256K（不区分虚拟机栈和本地方法栈），<a href="https://depp.wang/2020/11/06/customize-global-exception-handler-java/#%E6%B5%8B%E8%AF%95-Error">经测试</a>，此时栈的高度可以达到 1500+</li>
+<li>-Djava.awt.headless=true：java.awt 下的类使用无头模式，<a href="https://stackoverflow.com/questions/41067235/what-is-the-benefit-of-setting-java-awt-headless-true" target="_blank" rel="noopener">跟 GUI 相关</a></li>
+<li>-Dfile.encoding=UTF-8：文件编码为 UTF-8，<a href="https://stackoverflow.com/questions/1006276/what-is-the-default-encoding-of-the-jvm" target="_blank" rel="noopener">不指定时默认使用系统的文件编码</a></li>
+<li>MetaspaceSize=256M：元数据区容量为 256M，默认是-1，即不限制，或者说只受限于本地内存大小</li>
+<li>-XX:+UseG1GC：堆回收使用 G1 垃圾收集器</li>
+<li>-XX:MaxGCPauseMillis=200：G1 参数，GC 发生之前最大停顿时间为 200 ms，这是一个软目标，JVM 将尽最大努力实现</li>
+<li>-XX:+UseStringDeduplication：消除具有相同字符的重复 String 对象</li>
+<li>-XX:+PrintStringDeduplicationStatistics：String 重复数据删除统计分析，相关统计分析将输出到错误控制台</li>
+<li>-XX:ParallelGCThreads=4：G1 参数，垃圾收集器并行阶段使用线程为 4 个，默认值根据 JVM 运行的平台而定</li>
+<li>-XX:ConcGCThreads=2：G1 参数，并发垃圾收集器将使用的线程数为 2 个，默认值根据 JVM 运行的平台而定</li>
+<li>-XX:MaxDirectMemorySize=1024M：最大直接内存为 1024M，默认与 Java 堆最大值（由-Xmx 指定）一致</li>
+<li>-XX:+PrintGCDetails：每次垃圾回收完成后，打印一条带有更多详细信息的长消息</li>
+<li>-XX:+PrintGCDateStamps：发生垃圾回收时，打印相对于 JVM 启动时间的时间戳，默认关闭</li>
+<li>-Xloggc:/tmp/gc.log：将 GC 详细输出记录到指定文件 /tmp/gc.log，</li>
+<li>-XX:+PrintTenuringDistribution：开启可打印任职（存活）年龄信息，默认关闭</li>
+<li>-XX:+DoEscapeAnalysis：关闭<a href="https://stackoverflow.com/questions/771430/escape-analysis-in-java" target="_blank" rel="noopener">转义分析的使用</a>，默认开启</li>
+<li>-XX:+EliminateAllocations：关闭<a href="https://stackoverflow.com/questions/38613390/what-does-the-java-option-xx-eliminateallocations-do" target="_blank" rel="noopener">变量替换优化</a>，默认开启</li>
+<li>-Dlogging.config=File:/config/logback.xml：log 日志使用 config 下的 logback.xml 配置文件</li>
+</ul>
+<p>参数含义来源：</p>
+<ul>
+<li><a href="https://www.oracle.com/java/technologies/javase/vmoptions-jsp.html" target="_blank" rel="noopener">Java HotSpot VM Options</a></li>
+<li><a href="https://weread.qq.com/web/reader/cf1320d071a1a78ecf19254k4e73277021a4e732ced3b55" target="_blank" rel="noopener">3.7.4 垃圾收集器参数总结</a></li>
+<li><a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html" target="_blank" rel="noopener">Java Platform, Standard Edition Tools Reference</a></li>
+</ul>
+<p>查看 <code>-X</code> 开头参数：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> java -X</span></span><br><span class="line"></span><br><span class="line">    -Xms&lt;size&gt;        set initial Java heap size</span><br><span class="line">    -Xmx&lt;size&gt;        set maximum Java heap size</span><br><span class="line">    -Xss&lt;size&gt;        set java thread stack size</span><br></pre></td></tr></table></figure>
+
+<p>查看所有 <code>-XX:</code> 开头参数的配置：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> java -XX:+PrintFlagsFinal -version</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="查看当前进程使用的-JVM-参数"><a href="#查看当前进程使用的-JVM-参数" class="headerlink" title="查看当前进程使用的 JVM 参数"></a>查看当前进程使用的 JVM 参数</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">jps -l # 查看进程 ID</span><br><span class="line">jinfo &lt;pid&gt; # 查看进程的 JVM 参数</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [\</span></span><br><span class="line"><span class="bash">  <span class="string">"java"</span>, <span class="string">"-Duser.timezone=Asia/Shanghai"</span>, \</span></span><br><span class="line"><span class="bash">  <span class="string">"-javaagent:/data/skywalking-agent/skywalking-agent/skywalking-agent.jar=agent.service_name=dev::file-service,collector.backend_service=172.16.1.17:11800"</span>,\</span></span><br><span class="line"><span class="bash">  <span class="string">"-Xms3076m"</span>, <span class="string">"-Xmx3076m"</span>, <span class="string">"-XX:HeapDumpPath=/data/soft/file-service/logs/"</span>,\</span></span><br><span class="line"><span class="bash">  <span class="string">"-Dspring.config.location=/data/soft/file-service/bootstrap.yaml"</span>,\</span></span><br><span class="line"><span class="bash">  <span class="string">"-jar"</span>, <span class="string">"/data/soft/file-service/file-service-biz.jar"</span>\</span></span><br><span class="line"><span class="bash">  ]</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> jinfo 1</span></span><br><span class="line">Non-default VM flags: -XX:CICompilerCount=2 -XX:HeapDumpPath=null -XX:InitialHeapSize=3225419776 -XX:MaxHeapSize=3225419776 -XX:MaxNewSize=1074790400 -XX:MinHeapDeltaBytes=524288 -XX:NewSize=1074790400 -XX:OldSize=2150629376 -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseParallelGC</span><br><span class="line">Command line:  -Duser.timezone=Asia/Shanghai -javaagent:/data/skywalking-agent/skywalking-agent/skywalking-agent.jar=agent.service_name=dev::file-service,collector.backend_service=172.16.1.17:11800 -Xms3076m -Xmx3076m -XX:HeapDumpPath=/data/soft/file-service/logs/ -Dspring.config.location=/data/soft/file-service/bootstrap.yaml</span><br></pre></td></tr></table></figure>
+
+<p>查看指定的 JVM 参数，如 MaxDirectMemorySize</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">jinfo -flag MaxDirectMemorySize 1 # 1 是 &lt;pid&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><p>64 位的虚拟机默认使用的就是<code>服务端模式</code>，通过 <code>java -version</code> 可以看出（Server）：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> java -version</span></span><br><span class="line">java version "1.8.0_191"</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_191-b12)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.191-b12, mixed mode)</span><br></pre></td></tr></table></figure>
+
+<p>JDK 1.8 默认 JVM 参数：初始容量 Xms 128M，最大容量 Xmx 2G，使用 <code>-XX:+UseParallelGC</code>。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> java -XX:+PrintCommandLineFlags -version</span></span><br><span class="line">-XX:InitialHeapSize=134217728 -XX:MaxHeapSize=2147483648 -XX:+PrintCommandLineFlags -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseParallelGC</span><br><span class="line">java version "1.8.0_191"</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_191-b12)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.191-b12, mixed mode)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>InitialHeapSize 对应 Xms</li>
+<li>MaxHeapSize 对应 Xmx</li>
+</ul>
+<p>根据 <a href="https://www.zhihu.com/question/56344485" target="_blank" rel="noopener">RednaxelaFX</a> 的回答，虽然 jconsole 显示使用 <code>-XX:+UseParallelGC</code> 时，但 jdk 1.8 默认会开启 <code>XX:+UseParallelOldGC</code>。  此时收集器使用 <code>Parallel Scavenge + Parallel Old</code> 组合。</p>
+<p>此种组合适用于注重吞吐量或者处理器资源较为稀缺的场合。</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-11-10-072145.jpg" alt="img"></p>
+<p>jdk1.8 可以使用更为先进的收集器 G1（Garbage First），它是 JDK 9 服务端模式默认的垃圾收集器。G1 也是遵循分代收集理论设计，它将内存分为大小相等的独立区域（Region），每个 Region 都可以根据需要，扮演新生代的 Eden 空间、Survivor 空间，或者老年代空间。回收时，不像其他收集器，只针对某个区域，Major GC（新生代）或 Full GC（老年代）或 Full GC（整个堆），而是将多个 Region 组成回收集（Collection Set）进行回收（MixedGC）。</p>
+<p>G1 收集器跟踪每个 Region 里面的垃圾堆积的「价值」大小，价值即回收所获得的空间大小以及回收所需时间的经验值，然后在后台维护一个优先列表，再根据用户设定允许的收集停顿时间（MaxGCPauseMillis），优先处理回收价值收益最大的那些 Region，这也就是 「Garbage First」名字的由来。回收时，不追求一次把 Java 堆全部清理干净，而是追求能够应付应用的内存分配速率（Allocation Rate），只要收集的速度能跟得上对象分配的速度就行。</p>
+<p>G1 相比 <code>Parallel Scavenge + Parallel Old</code> 组合的最大优点：可以指定最大收集停顿时间来调节。</p>
+<h2 id="Maven-项目如何使用这些参数"><a href="#Maven-项目如何使用这些参数" class="headerlink" title="Maven 项目如何使用这些参数"></a>Maven 项目如何使用这些参数</h2><p>利用 Maven Wrapper，在 <code>.mvn/jvm.config</code> 中配置：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">-Xms1G -Xmx2G -Xss256k -Djava.awt.<span class="attribute">headless</span>=<span class="literal">true</span> -Dfile.<span class="attribute">encoding</span>=UTF-8 -XX:<span class="attribute">MetaspaceSize</span>=256M -XX:+UseG1GC -XX:<span class="attribute">MaxGCPauseMillis</span>=200 <span class="built_in">..</span>.</span><br></pre></td></tr></table></figure>
+
+<p>打包时使用 <code>mvnw</code> 命令，如：<code>mvnw clean package</code></p>
+<h2 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h2><ul>
+<li><a href="http://alvinalexander.com/blog/post/java/java-xmx-xms-memory-heap-size-control/" target="_blank" rel="noopener">How to control Java heap size (memory) allocation (xmx, xms)</a></li>
+<li><a href="https://www.cnblogs.com/grey-wolf/p/9217497.html" target="_blank" rel="noopener">查看 JVM 使用的默认的垃圾收集器</a></li>
+<li><a href="https://dzone.com/articles/usestringdeduplication" target="_blank" rel="noopener">UseStringDeduplication: Pros and Cons</a></li>
+<li><a href="http://www.herongyang.com/JVM/Memory-PrintGCDetails-Garbage-Collection-Logging.html" target="_blank" rel="noopener">“-XX:+PrintGCDetails” - Garbage Collection Logging</a></li>
+<li><a href="https://www.logicbig.com/how-to/java-command/jvm-option-list.html" target="_blank" rel="noopener">Java - Print list of all -XX JVM options</a></li>
+<li><a href="https://docs.oracle.com/cd/E26576_01/doc.312/e24938/list-jvm-options.htm#GSRFM00180" target="_blank" rel="noopener">list-jvm-options</a></li>
+<li><a href="https://geekflare.com/important-jvm-options/" target="_blank" rel="noopener">10 Important JVM Options for Production JAVA Application System</a></li>
+</ul>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1707703738443946" crossorigin="anonymous"></script>
+<!-- 文章内 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1707703738443946" data-ad-slot="6330017668" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      deppwang
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://depp.wang/2020/11/10/jvm-startup-options-setting/" title="JVM 启动参数设置">https://depp.wang/2020/11/10/jvm-startup-options-setting/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JVM-Options/" rel="tag"># JVM Options</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/11/07/treeset-in-java/" rel="next" title="Java 中的 TreeSet">
+                <i class="fa fa-chevron-left"></i> Java 中的 TreeSet
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/11/17/django-getting-started-notes/" rel="prev" title="Django 入门笔记">
+                Django 入门笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
+          <p class="site-author-name" itemprop="name">deppwang</p>
+           
+              <p class="site-description motion-element" itemprop="description">每个人都需要有自己的哈姆雷特</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">120</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">247</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DeppWang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/deppwang1" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://space.bilibili.com/336707243" target="_blank" title="BiliBili">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  BiliBili
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.youtube.com/channel/UCpjV96uJBtbf64eDaJjUkkQ" target="_blank" title="YouTube">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  YouTube
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coolshell.cn" title="CoolShell" target="_blank">CoolShell</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的网络日志" target="_blank">阮一峰的网络日志</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://1byte.io" title="1byte" target="_blank">1byte</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://catcoding.me/" title="程序员的喵" target="_blank">程序员的喵</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://blog.douchi.space/" title="椒盐豆豉" target="_blank">椒盐豆豉</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM-参数的含义"><span class="nav-number">1.</span> <span class="nav-text">JVM 参数的含义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看当前进程使用的-JVM-参数"><span class="nav-number">2.</span> <span class="nav-text">查看当前进程使用的 JVM 参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾收集器"><span class="nav-number">3.</span> <span class="nav-text">垃圾收集器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Maven-项目如何使用这些参数"><span class="nav-number">4.</span> <span class="nav-text">Maven 项目如何使用这些参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延伸阅读"><span class="nav-number">5.</span> <span class="nav-text">延伸阅读</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">deppwang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://deppwang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://depp.wang/2020/11/10/jvm-startup-options-setting/';
+          this.page.identifier = '2020/11/10/jvm-startup-options-setting/';
+          this.page.title = 'JVM 启动参数设置';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://deppwang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI","app_key":"AjFBNu3SKV0SwMNsiIxA0mQv","server_url":"https://ycdssag0.api.lncldglobal.com"};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

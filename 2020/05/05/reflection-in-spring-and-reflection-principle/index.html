@@ -1,0 +1,1206 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="hOzwzcL7Td1p_evvLmRBasbQKy5-i5AgJwNLD2vHKJ8">
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Bookerly:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="反射,Spring,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="德普王's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="作者：DeppWang、原文地址   在造轮子：实现一个简易的 Spring IoC 容器一文中提到 Spring 在创建 Bean 实例和依赖注入时使用了反射，本文来具体分析一下 Spring 中的反射以及反射的原理。">
+<meta name="keywords" content="反射,Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring 中的反射与反射的原理">
+<meta property="og:url" content="https://depp.wang/2020/05/05/reflection-in-spring-and-reflection-principle/index.html">
+<meta property="og:site_name" content="德普王&#39;s Blog">
+<meta property="og:description" content="作者：DeppWang、原文地址   在造轮子：实现一个简易的 Spring IoC 容器一文中提到 Spring 在创建 Bean 实例和依赖注入时使用了反射，本文来具体分析一下 Spring 中的反射以及反射的原理。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-29-154427.jpg">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-05-123303.png">
+<meta property="og:updated_time" content="2023-12-21T03:42:36.019Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring 中的反射与反射的原理">
+<meta name="twitter:description" content="作者：DeppWang、原文地址   在造轮子：实现一个简易的 Spring IoC 容器一文中提到 Spring 在创建 Bean 实例和依赖注入时使用了反射，本文来具体分析一下 Spring 中的反射以及反射的原理。">
+<meta name="twitter:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-29-154427.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'IQPKMP0VXO',
+      apiKey: 'd3e6a74afaebeb6b9c3a26eee410f08e',
+      indexName: 'deppwang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://depp.wang/2020/05/05/reflection-in-spring-and-reflection-principle/">
+
+
+
+
+
+  <title>Spring 中的反射与反射的原理 | 德普王's Blog</title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3HG6GE96C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3HG6GE96C');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">德普王's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Draft, Edit, Proofread, Publish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/2019/08/22/tools/" rel="section">
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-decorate">
+          <a href="/tags/装修/" rel="section">
+            
+            装修
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAPF8TuhkibCKuDf" data-callback="javascriptCallback"></div>
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2020/05/05/reflection-in-spring-and-reflection-principle/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring 中的反射与反射的原理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-05T08:09:37+08:00">
+                2020-05-05
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-06-30T12:30:58+08:00">
+                2020-06-30
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/05/05/reflection-in-spring-and-reflection-principle/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/05/05/reflection-in-spring-and-reflection-principle/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/05/05/reflection-in-spring-and-reflection-principle/" class="leancloud_visitors" data-flag-title="Spring 中的反射与反射的原理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>作者：<a href="https://depp.wang">DeppWang</a>、<a href="https://depp.wang/2020/05/05/reflection-in-spring-and-reflection-principle/">原文地址</a></p>
+</blockquote>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-29-154427.jpg" alt="image source: https://coderius.biz.ua/blog/article/vvedenie-v-php-reflection-api"></p>
+<p>在<a href="https://depp.wang/2020/04/19/realize-a-simple-spring-ioc-container/">造轮子：实现一个简易的 Spring IoC 容器</a>一文中提到 Spring 在创建 Bean 实例和依赖注入时使用了反射，本文来具体分析一下 Spring 中的反射以及反射的原理。</p>
+<!--[造轮子：实现一个简易的 Spring IoC 容器](https://mp.weixin.qq.com/s/0kfeHOK6FjbGQ0PwzWe58A)-->
+
+<a id="more"></a>
+
+<h2 id="一、Spring-中的反射"><a href="#一、Spring-中的反射" class="headerlink" title="一、Spring 中的反射"></a>一、Spring 中的反射</h2><h3 id="1-1、创建-Bean-实例时的反射"><a href="#1-1、创建-Bean-实例时的反射" class="headerlink" title="1.1、创建 Bean 实例时的反射"></a>1.1、创建 Bean 实例时的反射</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 通过类加载器，根据 class 路径，得到其类对象</span></span><br><span class="line">Class&lt;?&gt; clz = Thread.currentThread().getContextClassLoader().loadClass(<span class="string">"org.deppwang.litespring.v1.service.PetStoreService"</span>);</span><br><span class="line"><span class="comment">// 根据类对象生成 Bean 实例</span></span><br><span class="line"><span class="keyword">return</span> clz.newInstance();</span><br></pre></td></tr></table></figure>
+
+<p>反射体现在 <code>clz.newInstance();</code> 中，核心代码可分为两部分：</p>
+<p>1、<strong>利用反射</strong>获取当前类 PetStoreService 的所有构造方法信息（Constructor 对象）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// java.lang.Class.java</span></span><br><span class="line"><span class="comment">// 调用 native 方法，此时 publicOnly 为 false</span></span><br><span class="line">res = getDeclaredConstructors0(publicOnly);</span><br><span class="line"><span class="comment">// native 方法，从 jvm 中的 class 文件中获取构造方法信息，再转换为 Constructor 对象</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">native</span> Constructor&lt;T&gt;[] getDeclaredConstructors0(<span class="keyword">boolean</span> publicOnly);</span><br></pre></td></tr></table></figure>
+
+<p>2、<strong>利用反射</strong>通过默认构造方法生成实例</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// sun.reflect.NativeConstructorAccessorImpl.java</span></span><br><span class="line"><span class="comment">// 调用 native 方法，var1 代表构造方法的参数，此时为 null</span></span><br><span class="line"><span class="keyword">return</span> newInstance0(<span class="keyword">this</span>.c, var1);</span><br><span class="line"><span class="comment">// native 方法，真正生成实例的方法，执行 class 文件的构造方法 &lt;init&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">native</span> Object <span class="title">newInstance0</span><span class="params">(Constructor&lt;?&gt; var0, Object[] var1)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<!--new 指令-->
+
+<h3 id="1-2、构造方法依赖注入时的反射"><a href="#1-2、构造方法依赖注入时的反射" class="headerlink" title="1.2、构造方法依赖注入时的反射"></a>1.2、构造方法依赖注入时的反射</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 通过反射获取当前类所有的构造方法信息（Constructor 对象）</span></span><br><span class="line">Constructor&lt;?&gt;[] candidates = beanClass.getDeclaredConstructors();</span><br><span class="line"><span class="comment">// 设置构造方法参数实例</span></span><br><span class="line">Object[] argsToUse = <span class="keyword">new</span> Object[parameterTypes.length];</span><br><span class="line">argsToUse[i] = getBean(beanNames.get(i));</span><br><span class="line"><span class="comment">// 使用带有参数的 Constructor 对象实现实例化 Bean。此时使用反射跟上面一样（newInstance0），只是多了参数</span></span><br><span class="line"><span class="keyword">return</span> constructorToUse.newInstance(argsToUse);</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3、setter-方法依赖注入时的反射"><a href="#1-3、setter-方法依赖注入时的反射" class="headerlink" title="1.3、setter() 方法依赖注入时的反射"></a>1.3、setter() 方法依赖注入时的反射</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 通过反射获取当前类所有的方法信息（Method 对象）</span></span><br><span class="line">Method[] methods = bean.getClass().getDeclaredMethods();</span><br><span class="line"><span class="comment">// 获得方法参数实例</span></span><br><span class="line">Object propertyBean = getBean(propertyName);</span><br><span class="line"><span class="comment">// 通过反射执行调用 setter() 方法。invoke：调用方法，propertyBean 作为方法的参数</span></span><br><span class="line">method.invoke(bean, propertyBean);</span><br></pre></td></tr></table></figure>
+
+<p>bean.getClass().getDeclaredMethods(); 中的核心代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// java.lang.Class.java</span></span><br><span class="line"><span class="comment">// 调用 native 方法，publicOnly 为 false</span></span><br><span class="line">getDeclaredMethods0(publicOnly);</span><br><span class="line"><span class="comment">// native 方法，从 jvm 中的 class 文件中获取方法信息，再转换为 Method</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">native</span> Method[]      getDeclaredMethods0(<span class="keyword">boolean</span> publicOnly);</span><br></pre></td></tr></table></figure>
+
+<p>method.invoke(bean, propertyBean); 中的核心代码：</p>
+<!--根据 var0 找到 class 文件的 setter() 方法，执行 setter() 方法？-->
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// sun.reflect.NativeMethodAccessorImpl.java</span></span><br><span class="line"><span class="comment">// 调用 native 方法，var1: bean、var2: propertyBean</span></span><br><span class="line"><span class="keyword">return</span> invoke0(<span class="keyword">this</span>.method, var1, var2);</span><br><span class="line"><span class="comment">// native 方法，运行 class 文件中的字节码指令</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">native</span> Object <span class="title">invoke0</span><span class="params">(Method var0, Object var1, Object[] var2)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-4、-Autowired-依赖注入时的反射"><a href="#1-4、-Autowired-依赖注入时的反射" class="headerlink" title="1.4、@Autowired 依赖注入时的反射"></a>1.4、@Autowired 依赖注入时的反射</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 通过反射得到当前类所有的字段信息（Field 对象）</span></span><br><span class="line">Field[] fields = bean.getClass().getDeclaredFields();</span><br><span class="line"><span class="comment">// 判断字段是否有 @Autowired 注解</span></span><br><span class="line">Annotation ann = field.getAnnotation(Autowired.class);</span><br><span class="line"><span class="comment">// 设置字段可连接，相当于将非 public（private、default、protect）更改为 public</span></span><br><span class="line">field.setAccessible(<span class="keyword">true</span>);</span><br><span class="line"><span class="comment">// 通过反射设置字段的值</span></span><br><span class="line">field.set(bean, getBean(field.getName()));</span><br></pre></td></tr></table></figure>
+
+<p>bean.getClass().getDeclaredFields(); 中的核心代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// java.lang.Class.java</span></span><br><span class="line"><span class="comment">// 调用 native 方法，此时 publicOnly 为 false</span></span><br><span class="line">getDeclaredFields0(publicOnly);</span><br><span class="line"><span class="comment">// native 方法，从 jvm 中获取 class 文件的字段信息，再转换为 Field</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">native</span> Field[]       getDeclaredFields0(<span class="keyword">boolean</span> publicOnly);</span><br></pre></td></tr></table></figure>
+
+<p>field.set(bean, getBean(field.getName())); 中的核心代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// sun.reflect.UnsafeObjectFieldAccessorImpl.java</span></span><br><span class="line"><span class="comment">// 调用 native 方法，将目标对象 var1 指定偏移量 fieldOffset 处的字段值设置（修改）为 var2。var1 为 bean, var2 为参数实例</span></span><br><span class="line">unsafe.putObject(var1, <span class="keyword">this</span>.fieldOffset, var2);</span><br><span class="line"></span><br><span class="line"><span class="comment">// sun.misc.Unsafe.java</span></span><br><span class="line"><span class="comment">// native 方法，直接修改堆中对象字段的数据</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">putObject</span><span class="params">(Object var1, <span class="keyword">long</span> var2, Object var4)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、class-文件与类对象"><a href="#二、class-文件与类对象" class="headerlink" title="二、class 文件与类对象"></a>二、class 文件与类对象</h2><p>class 文件由 java 文件编译而来，class 文件包含字段表、方法表、<code>&lt;init&gt;</code> 方法（构造方法）等。</p>
+<p>当类加载器将 class 文件加载进虚拟机元空间（Meta-space，jdk 1.8）时，虚拟机在元空间中创建一个与之对应的类对象（Class 实例）。并将 class 文件由存放在磁盘的静态结构转换为存放在内存的运行时结构。</p>
+<!--（在元数据中？）-->
+
+<p>我们可以认为一个类（class 文件）对应一个类对象，当前类的所有对象共用一个类对象。<strong>类对象作为访问存放在 jvm 的 class 文件的入口。</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> java.lang;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Class</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">native</span> Field[]       getDeclaredFields0(<span class="keyword">boolean</span> publicOnly);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">native</span> Method[]      getDeclaredMethods0(<span class="keyword">boolean</span> publicOnly);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">native</span> Constructor&lt;T&gt;[] getDeclaredConstructors0(<span class="keyword">boolean</span> publicOnly);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ReflectionData 缓存反射对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ReflectionData</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">        <span class="keyword">volatile</span> Field[] declaredFields;</span><br><span class="line">        <span class="keyword">volatile</span> Field[] publicFields;</span><br><span class="line">        <span class="keyword">volatile</span> Method[] declaredMethods;</span><br><span class="line">        <span class="keyword">volatile</span> Method[] publicMethods;</span><br><span class="line">        <span class="keyword">volatile</span> Constructor&lt;T&gt;[] declaredConstructors;</span><br><span class="line">        <span class="keyword">volatile</span> Constructor&lt;T&gt;[] publicConstructors;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1、获得类对象的方式"><a href="#2-1、获得类对象的方式" class="headerlink" title="2.1、获得类对象的方式"></a>2.1、获得类对象的方式</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1、通过对象</span></span><br><span class="line">Class cls = object.getClass();</span><br><span class="line"><span class="comment">// Object.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> Class&lt;?&gt; getClass();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、通过类加载器</span></span><br><span class="line">Class cls = Thread.currentThread().getContextClassLoader().loadClass(<span class="string">"org.deppwang.litespring.v1.service.PetStoreService"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3、通过 Class 类，本质上也是通过类加载器</span></span><br><span class="line">Class cls = Class.forName(<span class="string">"org.deppwang.litespring.v1.service.PetStoreService"</span>);</span><br><span class="line"><span class="comment">// Class.java</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">native</span> Class&lt;?&gt; forName0(String name, <span class="keyword">boolean</span> initialize,</span><br><span class="line">                                            ClassLoader loader,</span><br><span class="line">                                            Class&lt;?&gt; caller)</span><br></pre></td></tr></table></figure>
+
+<!--// 4、直接用类名Class cls = String.class;-->
+
+<h2 id="三、反射方法"><a href="#三、反射方法" class="headerlink" title="三、反射方法"></a>三、反射方法</h2><p>以下是常用的反射方法。</p>
+<h3 id="3-1、Feild-相关"><a href="#3-1、Feild-相关" class="headerlink" title="3.1、Feild 相关"></a>3.1、Feild 相关</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Field[] fields = cls.getFields(); <span class="comment">// 获取所有公共的 Field（包括父类）</span></span><br><span class="line">Field[] fields = cls.getDeclaredFields(); <span class="comment">// 获取当前类的所有 Field（不包括父类），包括公共和非公共</span></span><br><span class="line">Field field = cls.getDeclaredField(<span class="string">"fieldName"</span>); <span class="comment">// 指定获取当前类某个 Field</span></span><br><span class="line">field.set(Object, Object); <span class="comment">// 设置（修改）字段值</span></span><br><span class="line">field.get(Object); <span class="comment">// 获取字段值</span></span><br></pre></td></tr></table></figure>
+
+<p>field.get(Object) 核心代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 调用 native 方法，获取字段对应的值</span></span><br><span class="line"><span class="keyword">return</span> unsafe.getObject(var1, <span class="keyword">this</span>.fieldOffset);</span><br><span class="line"></span><br><span class="line"><span class="comment">// native 方法，从堆中获取对象指定位置的对象</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> Object <span class="title">getObject</span><span class="params">(Object var1, <span class="keyword">long</span> var2)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2、Method-相关"><a href="#3-2、Method-相关" class="headerlink" title="3.2、Method 相关"></a>3.2、Method 相关</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Method[] methods = cls.getMethods(); <span class="comment">// 获取所有公共的 Method（包括父类）</span></span><br><span class="line">Method[] methods = cls.getDeclaredMethods(); <span class="comment">// 获取当前类的所有 Method（不包括父类），包括公共和非公共</span></span><br><span class="line">method.invoke(Object instance, Object... parameters); <span class="comment">// 运行方法</span></span><br></pre></td></tr></table></figure>
+
+<p>运行方法使用场景：要么是修改对象的数据，如 void setter() 方法；要么是获得执行方法的返回结果。</p>
+<figure class="highlight oxygene"><table><tr><td class="code"><pre><span class="line">String <span class="keyword">result</span> = <span class="function"><span class="keyword">method</span>.<span class="title">invoke</span><span class="params">()</span>.<span class="title">toString</span><span class="params">()</span>;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3、Constructor-相关"><a href="#3-3、Constructor-相关" class="headerlink" title="3.3、Constructor 相关"></a>3.3、Constructor 相关</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Constructor&lt;?&gt;[] constructors = cls.getConstructors(); <span class="comment">// 获取所有公共的 Constructor（包括父类）</span></span><br><span class="line">Constructor&lt;?&gt;[] constructors = cls.getDeclaredConstructors(); <span class="comment">// 获取当前类的所有Constructor（不包括父类），包括公共和非公共</span></span><br><span class="line">constructor.newInstance(Object... parameters); <span class="comment">// 运行构造方法</span></span><br></pre></td></tr></table></figure>
+
+<!--默认包含一个无参公有构造方法，当存在自定义构造方法时，就没有默认构造方法-->
+
+<p>当没有明确编写构造方法，Java 编译器将为该类构建一个默认构造函数 <code>&lt;init&gt;</code></p>
+<h2 id="四、native-方法"><a href="#四、native-方法" class="headerlink" title="四、native 方法"></a>四、native 方法</h2><p>Java 1.1 新增「Java 本地接口」(Java Native Interface，JNI)，JNI 是一种包容极广的编程接口，允许我们从 Java 应用程序里调用 native 方法，native 方法由其它语言（C 、C++ 或汇编语言等）编写。native 方法用于实现 Java 无法处理的功能。</p>
+<h3 id="4-1、简单示例"><a href="#4-1、简单示例" class="headerlink" title="4.1、简单示例"></a>4.1、简单示例</h3><p>一个在 Java 中使用 Java 本地接口（JNI）的简单示例。</p>
+<ul>
+<li>环境：<strong>jdk8、macOS 10.15</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Main.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">intMethod</span><span class="params">(<span class="keyword">int</span> i)</span></span>;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">// 启动时载入 libMain.dylib</span></span><br><span class="line">        System.loadLibrary(<span class="string">"Main"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="keyword">new</span> Main().intMethod(<span class="number">2</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Main.c:</span></span><br><span class="line"><span class="comment">// 将 Main.h 引入</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Main.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 相当于继承 "Main.h" 的 Java_Main_intMethod</span></span><br><span class="line"><span class="function">JNIEXPORT jint JNICALL <span class="title">Java_Main_intMethod</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    JNIEnv *env, jobject obj, jint i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> i * i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译与运行:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 同时生成 Main.class 和 Main.h</span></span><br><span class="line">javac Main.java -h .</span><br><span class="line"><span class="comment">// 根据 Main.c 生成 libMain.dylib</span></span><br><span class="line">gcc -dynamiclib -O3 \</span><br><span class="line">    -I/usr/include \</span><br><span class="line">    -I$JAVA_HOME/include \</span><br><span class="line">    -I$JAVA_HOME/include/darwin \</span><br><span class="line">    Main.c -o libMain.dylib</span><br><span class="line"><span class="comment">// 指定 library 的路径为当前路径</span></span><br><span class="line">java -cp . -Djava.library.path=$(pwd) Main</span><br></pre></td></tr></table></figure>
+
+<p>输出:</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* Main.h .h 作为头文件*/</span></span><br><span class="line"><span class="comment">/* DO NOT EDIT THIS FILE - it is machine generated */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;jni.h&gt;</span></span></span><br><span class="line"><span class="comment">/* Header for class Main */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _Included_Main</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _Included_Main</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     Main</span></span><br><span class="line"><span class="comment"> * Method:    intMethod</span></span><br><span class="line"><span class="comment"> * Signature: (I)I</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">JNIEXPORT jint JNICALL Java_Main_intMethod</span><br><span class="line">  (JNIEnv *, jobject, jint);</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">javac Main.java -h .</span><br><span class="line"><span class="comment">// 可拆分为两个命令</span></span><br><span class="line">javac Main.java</span><br><span class="line">javah -jni Main</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2、原理"><a href="#4-2、原理" class="headerlink" title="4.2、原理"></a>4.2、原理</h3><p>运行 Main.class 时，将 libMain.dylib 载入虚拟机，JVM 调用 libMain.dylib 的 Java_Main_intMethod，传入参数，libMain.dylib 由系统直接运行，返回结果。</p>
+<ul>
+<li>*env 用于将 java 类型数据与本地（此处为 C 语言）类型数据之间的转换</li>
+<li>jint 还是 Java 数据类型，Java 基本数据类型可以映射（使用），不用通过 *env 转换</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*C code*/</span></span><br><span class="line">JNIEXPORT <span class="keyword">void</span> JNICALL Java_ClassName_MethodName</span><br><span class="line">  (JNIEnv *env, jobject obj, jstring javaString)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/*Get the native string from javaString*/</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *nativeString = (*env)-&gt;GetStringUTFChars(env, javaString, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*Do something with the nativeString*/</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*DON'T FORGET THIS LINE!!!*/</span></span><br><span class="line">    (*env)-&gt;ReleaseStringUTFChars(env, javaString, nativeString);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<!--Unsafe 类-->
+
+<!-- - 存放 native 方法的类？-->
+
+<h3 id="4-3、参考"><a href="#4-3、参考" class="headerlink" title="4.3、参考"></a>4.3、参考</h3><ul>
+<li><a href="https://medium.com/@bschlining/a-simple-java-native-interface-jni-example-in-java-and-scala-68fdafe76f5f" target="_blank" rel="noopener">A Simple Java Native Interface (JNI) example in Java and Scala</a></li>
+<li><a href="https://www.codejava.net/java-core/the-java-language/native-keyword#" target="_blank" rel="noopener">Java native keyword example</a></li>
+<li><a href="https://www.protechtraining.com/blog/post/java-native-interface-jni-example-65" target="_blank" rel="noopener">Java Native Interface: JNI Example</a></li>
+<li><a href="https://depp.wang/Java-Books/docs/Java编程思想.pdf">Java 编程思想 - 附录<strong>A</strong> 使用非<strong>JAVA</strong>代码</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/Java本地接口" target="_blank" rel="noopener">Java本地接口 - WiKi</a></li>
+</ul>
+<h2 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h2><p>反射反射，哪里体现反射字面意思？</p>
+<p>可以这么理解，通过 native 方法得到反射对象，操作反射对象，像镜子一样，将反射到原对象上。</p>
+<p>我们发现，反射和 native 方法的关系：</p>
+<ul>
+<li>获取字段、方法、构造方法对象，native() 方法实现</li>
+<li>获取字段值、设置修改字段值，native() 方法实现</li>
+<li>运行方法，native() 方法实现</li>
+<li>运行构造方法，native() 方法实现</li>
+</ul>
+<p>我们可以得出结论，<strong>反射由 native 方法实现</strong>。</p>
+<p>我们说通过反射实现一个功能，我们也可以说：</p>
+<ul>
+<li>通过反射方法实现</li>
+<li>通过反射 API 实现</li>
+<li>通过 native 方法实现</li>
+</ul>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-05-123303.png" alt=""></p>
+<p>反射是一种非常规（native 方法实现）方式获取 class 文件信息、运行 class 文件字节码指令和操作对象数据的能力。</p>
+<!--我们可以认为反射就是 native() 方法，可以把它看做一组 API，通过反射 API，可以运行时获取对象的信息，如字段、方法和构造函数，也可以修改字段值和运行方法和构造方法。-->
+
+<p>一句话总结 ：反射是一种运行时<strong>获取和修改</strong>对象数据的能力。</p>
+<p>关于运行时：Java 是静态语言，先编译，后运行。编译时不执行代码，代码都是运行时执行。</p>
+<h2 id="六、延伸阅读"><a href="#六、延伸阅读" class="headerlink" title="六、延伸阅读"></a>六、延伸阅读</h2><ul>
+<li><a href="https://www.cnblogs.com/techspace/p/6931397.html" target="_blank" rel="noopener">JAVA 反射原理</a></li>
+<li><a href="https://www.liaoxuefeng.com/wiki/1252599548343744/1255945147512512" target="_blank" rel="noopener">廖雪峰 Java 教程 - 反射</a></li>
+<li><a href="https://www.geeksforgeeks.org/reflection-in-java/" target="_blank" rel="noopener">Reflection in Java</a></li>
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/package-summary.html" target="_blank" rel="noopener">oracle reflect docs</a></li>
+<li><a href="https://stackoverflow.com/questions/37628/what-is-reflection-and-why-is-it-useful" target="_blank" rel="noopener">What is reflection and why is it useful?</a></li>
+<li><a href="https://dzone.com/articles/understanding-sunmiscunsafe" target="_blank" rel="noopener">Understanding sun.misc.Unsafe</a></li>
+<li><a href="https://www.baeldung.com/java-unsafe" target="_blank" rel="noopener">Guide to sun.misc.Unsafe</a></li>
+</ul>
+<!--运行期类型鉴定 (RTTI)-->
+
+<!--全限定名：指编译后的 class 文件在 jar 包中的路径，package 路径的 . 转换为 /-->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1707703738443946" crossorigin="anonymous"></script>
+<!-- 文章内 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1707703738443946" data-ad-slot="6330017668" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      deppwang
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://depp.wang/2020/05/05/reflection-in-spring-and-reflection-principle/" title="Spring 中的反射与反射的原理">https://depp.wang/2020/05/05/reflection-in-spring-and-reflection-principle/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/反射/" rel="tag"># 反射</a>
+          
+            <a href="/tags/Spring/" rel="tag"># Spring</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/19/realize-a-simple-spring-ioc-container/" rel="next" title="造轮子：实现一个简易的 Spring IoC 容器">
+                <i class="fa fa-chevron-left"></i> 造轮子：实现一个简易的 Spring IoC 容器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/06/find-the-k-th-smallest-odd-number-in-the-array-arr/" rel="prev" title="一道算法题：查找数组 arr 中第 k 小的奇数">
+                一道算法题：查找数组 arr 中第 k 小的奇数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
+          <p class="site-author-name" itemprop="name">deppwang</p>
+           
+              <p class="site-description motion-element" itemprop="description">每个人都需要有自己的哈姆雷特</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">120</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">247</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DeppWang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/deppwang1" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://space.bilibili.com/336707243" target="_blank" title="BiliBili">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  BiliBili
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.youtube.com/channel/UCpjV96uJBtbf64eDaJjUkkQ" target="_blank" title="YouTube">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  YouTube
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coolshell.cn" title="CoolShell" target="_blank">CoolShell</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的网络日志" target="_blank">阮一峰的网络日志</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://1byte.io" title="1byte" target="_blank">1byte</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://catcoding.me/" title="程序员的喵" target="_blank">程序员的喵</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://blog.douchi.space/" title="椒盐豆豉" target="_blank">椒盐豆豉</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、Spring-中的反射"><span class="nav-number">1.</span> <span class="nav-text">一、Spring 中的反射</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1、创建-Bean-实例时的反射"><span class="nav-number">1.1.</span> <span class="nav-text">1.1、创建 Bean 实例时的反射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2、构造方法依赖注入时的反射"><span class="nav-number">1.2.</span> <span class="nav-text">1.2、构造方法依赖注入时的反射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3、setter-方法依赖注入时的反射"><span class="nav-number">1.3.</span> <span class="nav-text">1.3、setter() 方法依赖注入时的反射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4、-Autowired-依赖注入时的反射"><span class="nav-number">1.4.</span> <span class="nav-text">1.4、@Autowired 依赖注入时的反射</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、class-文件与类对象"><span class="nav-number">2.</span> <span class="nav-text">二、class 文件与类对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1、获得类对象的方式"><span class="nav-number">2.1.</span> <span class="nav-text">2.1、获得类对象的方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、反射方法"><span class="nav-number">3.</span> <span class="nav-text">三、反射方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1、Feild-相关"><span class="nav-number">3.1.</span> <span class="nav-text">3.1、Feild 相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2、Method-相关"><span class="nav-number">3.2.</span> <span class="nav-text">3.2、Method 相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3、Constructor-相关"><span class="nav-number">3.3.</span> <span class="nav-text">3.3、Constructor 相关</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、native-方法"><span class="nav-number">4.</span> <span class="nav-text">四、native 方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1、简单示例"><span class="nav-number">4.1.</span> <span class="nav-text">4.1、简单示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2、原理"><span class="nav-number">4.2.</span> <span class="nav-text">4.2、原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3、参考"><span class="nav-number">4.3.</span> <span class="nav-text">4.3、参考</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、总结"><span class="nav-number">5.</span> <span class="nav-text">五、总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、延伸阅读"><span class="nav-number">6.</span> <span class="nav-text">六、延伸阅读</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">deppwang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://deppwang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://depp.wang/2020/05/05/reflection-in-spring-and-reflection-principle/';
+          this.page.identifier = '2020/05/05/reflection-in-spring-and-reflection-principle/';
+          this.page.title = 'Spring 中的反射与反射的原理';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://deppwang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI","app_key":"AjFBNu3SKV0SwMNsiIxA0mQv","server_url":"https://ycdssag0.api.lncldglobal.com"};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

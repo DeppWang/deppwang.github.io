@@ -1,0 +1,1166 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="hOzwzcL7Td1p_evvLmRBasbQKy5-i5AgJwNLD2vHKJ8">
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Bookerly:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="NAS,Mac-mini,磁盘阵列,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="德普王's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="我日常没有什么大容量储存需求，连硬盘也没有买，一些需要数据备份与远程同步的场景我使用 iCloud，200G 的空间也够用了。前些天电脑突然启动不了，因为没有使用「时间机器」备份系统，只能重装系统，虽然数据基本没有丢失，但软件安装、软件配置等也断断续续搞了几天。不想再次出现这个问题，时间机器备份得马上安排上，因为时间机器需要外置硬盘，现在也出现一些大容量存储需求，索性一步到位，整个 NAS。 NA">
+<meta name="keywords" content="NAS,Mac-mini,磁盘阵列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Mac mini 兼做 NAS">
+<meta property="og:url" content="https://depp.wang/2023/11/28/mac-mini-doubles-as-a-nas/index.html">
+<meta property="og:site_name" content="德普王&#39;s Blog">
+<meta property="og:description" content="我日常没有什么大容量储存需求，连硬盘也没有买，一些需要数据备份与远程同步的场景我使用 iCloud，200G 的空间也够用了。前些天电脑突然启动不了，因为没有使用「时间机器」备份系统，只能重装系统，虽然数据基本没有丢失，但软件安装、软件配置等也断断续续搞了几天。不想再次出现这个问题，时间机器备份得马上安排上，因为时间机器需要外置硬盘，现在也出现一些大容量存储需求，索性一步到位，整个 NAS。 NA">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231211113111.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231128102849.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231128103149.png">
+<meta property="og:updated_time" content="2023-12-30T03:47:01.799Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 Mac mini 兼做 NAS">
+<meta name="twitter:description" content="我日常没有什么大容量储存需求，连硬盘也没有买，一些需要数据备份与远程同步的场景我使用 iCloud，200G 的空间也够用了。前些天电脑突然启动不了，因为没有使用「时间机器」备份系统，只能重装系统，虽然数据基本没有丢失，但软件安装、软件配置等也断断续续搞了几天。不想再次出现这个问题，时间机器备份得马上安排上，因为时间机器需要外置硬盘，现在也出现一些大容量存储需求，索性一步到位，整个 NAS。 NA">
+<meta name="twitter:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231211113111.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'IQPKMP0VXO',
+      apiKey: 'd3e6a74afaebeb6b9c3a26eee410f08e',
+      indexName: 'deppwang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://depp.wang/2023/11/28/mac-mini-doubles-as-a-nas/">
+
+
+
+
+
+  <title>使用 Mac mini 兼做 NAS | 德普王's Blog</title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3HG6GE96C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3HG6GE96C');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">德普王's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Draft, Edit, Proofread, Publish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/2019/08/22/tools/" rel="section">
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-decorate">
+          <a href="/tags/装修/" rel="section">
+            
+            装修
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAPF8TuhkibCKuDf" data-callback="javascriptCallback"></div>
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2023/11/28/mac-mini-doubles-as-a-nas/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用 Mac mini 兼做 NAS</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-11-28T22:47:04+08:00">
+                2023-11-28
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2023-12-30T11:02:33+08:00">
+                2023-12-30
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2023/11/28/mac-mini-doubles-as-a-nas/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/11/28/mac-mini-doubles-as-a-nas/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2023/11/28/mac-mini-doubles-as-a-nas/" class="leancloud_visitors" data-flag-title="使用 Mac mini 兼做 NAS">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我日常没有什么大容量储存需求，连硬盘也没有买，一些需要数据备份与远程同步的场景我使用 iCloud，200G 的空间也够用了。前些天电脑突然启动不了，因为没有使用「时间机器」备份系统，只能重装系统，虽然数据基本没有丢失，但软件安装、软件配置等也断断续续搞了几天。不想再次出现这个问题，时间机器备份得马上安排上，因为时间机器需要外置硬盘，现在也出现一些大容量存储需求，索性一步到位，整个 NAS。</p>
+<p>NAS，全名 Network Attached Storage，网络附加存储。硬盘也叫 DAS（Direct Attached Storage ），直接附加存储。DAS 是通过数据线直接连接在电脑上使用，而 NAS 是可以不用数据线，直接通过网络使用的 DAS。</p>
+<a id="more"></a>
+
+<h2 id="配置家里所有设备在一个局域网中"><a href="#配置家里所有设备在一个局域网中" class="headerlink" title="配置家里所有设备在一个局域网中"></a>配置家里所有设备在一个局域网中</h2><p>局域网中使用 NAS 的前提是需要所有设备在一个局域网中，我使用路由器 Mesh 实现，我用到的设备是 2 个「<a href="https://u.jd.com/Zz1YQGx" target="_blank" rel="noopener">小米路由器 AX3000T</a>」与 1 个「<a href="https://u.jd.com/ZbgpIRt" target="_blank" rel="noopener">绿联 5 口千兆交换机</a>」，我家的局域网配置如下：</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231211113111.png" alt=""></p>
+<h2 id="我为什么没有选择成品-NAS"><a href="#我为什么没有选择成品-NAS" class="headerlink" title="我为什么没有选择成品 NAS"></a>我为什么没有选择成品 NAS</h2><p>成品 NAS 我理解为带有硬件和操作系统的主要作为 NAS 功能的电脑，成品 NAS 一般的选择：</p>
+<ol>
+<li>ARM 低性能成品 NAS，如极空间的 Q2C</li>
+<li>X86 高性能成品 NAS，如群晖的 DS224+</li>
+<li>DIY  NAS，自己购买硬件，再装个 NAS 系统，如群晖系统（黑群晖）</li>
+</ol>
+<p>我开始买了极空间的 Q2C，虽然价格不贵，但试用一段时间后，发现并不适合我。下面我说说原因：</p>
+<ol>
+<li>数据安全问题<ul>
+<li>虽然数据是保存在自己的硬盘中，但极空间也是可以读取到用户数据的。而<a href="https://www.chiphell.com/forum.php?extra=&mobile=no&mod=viewthread&tid=2459641&utm_source=pocket_saves" target="_blank" rel="noopener">其用户隐私协议</a>不是那么令人满意</li>
+</ul>
+</li>
+<li>外网访问（内网穿透）功能<ul>
+<li>这是我认为极空间最有优势的一个功能</li>
+<li>使用极空间的客户端可实现外网访问，但如果想利用 WebDAV 挂载为网络硬盘，我还得自己折腾家里网络实现外网访问功能才行。所以这个功能也比较鸡肋</li>
+</ul>
+</li>
+<li>其他功能<ul>
+<li>极相册：不用。我使用 Apple 设备的「照片」，查看/管理/同步也方便易用</li>
+<li>影视：不用。我使用 Infuse + 阿里云盘</li>
+<li>数据同步：不用。还需要手动设置同步文件夹，不能直接挂载，不方便</li>
+<li>自动（远程）下载：不喜欢。下载使用迅雷，迅雷还要单独登录，没有集成到一起，不方便</li>
+</ul>
+</li>
+<li>其它问题<ol>
+<li>不可以命令行访问磁盘文件，只能通过极空间 APP 来使用</li>
+<li>也不可以不用其操作系统只当磁盘阵列柜使用</li>
+</ol>
+</li>
+</ol>
+<p>当然，极空间 Q2C 只是不适合我，相比其它 NAS 他也有自己的优势，如可以一个 APP（极空间）控制所有功能，各个平台也有自己的 APP，当「私有云盘」使用还是可以的，主要看自己需求。</p>
+<p>最近我买了一直放上家里不断电的 Mac mini，Mac mini 也可以兼做 NAS，也就没有必要花钱购买 NAS 的硬件与操作系统了，所以也不考虑「X86 高性能成品 NAS」与「DIY NAS」了。这样也不用纠结「成品 NAS 是否需要具有 Docker 功能、是否还需要可扩展内存」这些问题了。</p>
+<h2 id="Mac-mini-兼做-NAS"><a href="#Mac-mini-兼做-NAS" class="headerlink" title="Mac mini 兼做 NAS"></a>Mac mini 兼做 NAS</h2><p>Mac mini 兼做 NAS，还需要硬盘，西数红盘 Plus 是极空间 Q2C 配套的硬盘，应该还可以，再加上「硬盘容量一般最好不少于 4TB，少于 4 T 更建议买固态」的言论，所以我选择了 2 块 3.5 寸的 4T <a href="https://u.jd.com/ZQDvUx2" target="_blank" rel="noopener">西数红盘 Plus</a>。虽然硬盘最好「国行、非叠瓦、高转速 7200、氦气填充」，但这种硬盘一般容量比较高，不太适合我。我使用 RAID1 磁盘阵列模式，1 个硬盘作为另 1 个硬盘镜像备份，目前对存储空间要求不高，最终 4T 空间对我来说也是够用了，价格也便宜点。</p>
+<p>硬盘确定了，我开始纠结是用 2 个外置硬盘盒？还是 1 个双盘位的硬盘底座？或者是 1 个 双盘位的硬盘阵列柜？看说硬盘底座容易导致硬盘故障，加上硬盘没有移动的需求，就选择了「<a href="https://u.jd.com/ZQDNOeP" target="_blank" rel="noopener">绿联双盘位硬盘柜</a>」。因为 macOS 系统支持设置「软磁盘阵列模式」RAID1，所以我选择的「不带 RAID 功能」的这款，RAID1 由 macOS 系统来设置。</p>
+<p>Mac 提供设置磁盘阵列的<a href="https://support.apple.com/zh-cn/guide/disk-utility/dskua23150fd/mac" target="_blank" rel="noopener">教程</a>，设置磁盘阵列时，会将硬盘格式化。设置时格式我选择的是「APFS」，块大小选择的是「256K」。因为使用的软阵列，但不知道将磁盘阵列柜接到操作系统版本一样的另一台 Mac 电脑上，磁盘阵列柜是否还可以正常使用，后面测试一下。</p>
+<p>在设置磁盘阵列后，需要硬盘设置功能分区，因为一块硬盘一旦用于时间机器备份，就不能用于其他场景。RAID 磁盘阵列本身的分区功能不可用，但可以通完「宗卷」功能实现同样的效果。</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231128102849.png" alt=""></p>
+<p>还需要在「系统设置 - 通用 - 共享」中开启「<a href="https://support.apple.com/zh-cn/guide/mac-help/mh17131/mac" target="_blank" rel="noopener">文件共享</a>」，共享磁盘阵列的文件夹，文件夹就可以被局域网上设备访问了，NAS 就设置好了。</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231128103149.png" alt=""><br>关于外网访问，请看我这篇文章「<a href="https://depp.wang/2023/12/12/ipv6-and-tailscale-remote-access-nas/">使用 IPv6 + Tailscale 实现 NAS 外网访问</a>」</p>
+<p>折腾一段时间，我希望 Mac mini 兼做 NAS可以满足以下要求，但发现基本可以满足，但有的还是不能满足：</p>
+<ol>
+<li>数据备份<ul>
+<li>电脑系统备份，可以满足<ul>
+<li>分配一个专门的宗卷，利用时间机器定期备份。</li>
+</ul>
+</li>
+<li>个人博客图片备份/相册备份/小米门锁视频备份<ul>
+<li>个人博客图片备份，利用 ossutil 批量下载到 NAS 指定目录，后面再定期手动备份。可以满足</li>
+<li>小米/ OPPO 相册备份，利用小米云服务客户端批量所有数据下载到 NAS 指定目录。可以满足</li>
+<li>小米门锁视频备份，安装米家 iPad 版后，可以下载到 Mac mini 中，但不能直接指定目录。不能满足</li>
+</ul>
+</li>
+<li>手机系统备份，不能满足<ul>
+<li>可以利用 iCloud 备份，但不能直接备份到 NAS 中</li>
+</ul>
+</li>
+<li>WeChat 数据备份，不能满足<ul>
+<li>手机端可以备份和「迁移」聊天记录到 macOS 版 WeChat 中，但不能直接备份到 NAS 中</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>数据同步，多端使用<ul>
+<li>其他电脑可直接存放数据到 NAS，解决电脑磁盘不够用的问题。可以满足</li>
+<li>手机直接访问 Obsidian 数据，无需手动 Git pull / push，解决 Obsidian 在手机编辑不方便的问题。可以满足<ul>
+<li>在 iOS 「文件 APP」中的「连接服务器」中添加 NAS，再使用 1Writer 编辑</li>
+</ul>
+</li>
+<li>替代 iCloud，不能满足<ul>
+<li>iCloud 的手机备份与相册功能不可替代</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>大容量视频存放<ul>
+<li>影视资源存放与播放，可以满足<ul>
+<li>目前我使用阿里云盘 + NAS + Infuse。 阿里云盘不用下载，存放马上要看的视频，可反复观看的视频在阿里云盘客户端中下载存放到 NAS 中，目前阿里云盘下载速度平均有 2M/s。局域网中 NAS 中视频播放也不受带宽的影响，取决于硬盘的最大读写速度与网口，一般可以跑满千兆</li>
+</ul>
+</li>
+<li>手机拍摄视频存放，可以满足<ul>
+<li>可以在相册中将视频保存到「文件 APP」的 NAS 中，再删除原文件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>远程管理<ul>
+<li>另一个 Mac 电脑控制<ul>
+<li>同一个局域网网内：另一个 Mac 电脑可以<a href="https://support.apple.com/zh-cn/guide/mac-help/mh14066/mac" target="_blank" rel="noopener">利用「屏幕共享」APP 来控制</a>。可以满足</li>
+<li>外网：可以满足</li>
+</ul>
+</li>
+<li>另一个 iPhone 手机控制<ul>
+<li>同一个局域网网内：另一个 iPhone 手机可以利用「RVNC Viewer」APP 来远程控制。可以满足</li>
+<li>外网：可以满足</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>个人远程服务器，可以满足</li>
+</ol>
+<p>最后，我发现使用 Mac mini 兼做 NAS，Mac mini 还有 2 个优势，1、接口丰富，它有网口 / HDMI / 4 个雷电 / 2 个 USB，也不用购买外接扩展坞了；2、还可以做「<a href="https://support.apple.com/zh-cn/guide/mac-help/mchl3b6c3720/mac" target="_blank" rel="noopener">内容缓存</a>」，这是 Mac mini 独有的优势。除了使用 Mac mini 兼做 NAS，闲置电脑等，只要可以 24 小时开机，都可以兼做 NAS。以上只是我个人配置经验，并没有提供过多的配置步骤，可多看一些相关视频，对我有帮助的视频我也放文末了。</p>
+<h2 id="相关视频"><a href="#相关视频" class="headerlink" title="相关视频"></a>相关视频</h2><ul>
+<li><a href="https://www.bilibili.com/video/BV1kZ4y1F733/" target="_blank" rel="noopener">【硬核科普】NAS 究竟是什么东西？你需要一台 NAS 吗？</a></li>
+<li><a href="https://www.youtube.com/watch?v=er6O-0vPA9s" target="_blank" rel="noopener">【新手向】什么是 NAS？NAS 有哪几种？哪种 NAS 适合我？</a></li>
+<li><a href="https://www.youtube.com/watch?v=Q3nlw5H-vOs&t=160s" target="_blank" rel="noopener">2023 年双十一成品 NAS 选购指南</a></li>
+<li><a href="https://www.youtube.com/watch?v=CITHNloGlnU&t=486s" target="_blank" rel="noopener">「黑貓」把 M2 Mac mini 用作家用伺服器 | 入門教程 + 體驗感受</a></li>
+<li><a href="https://www.youtube.com/watch?v=jSCKwKRn6-0" target="_blank" rel="noopener">【硬盘怎么玩】指条‘明’路・硬盘究竟怎么买？</a></li>
+<li><a href="https://youtube.com/watch?v=EZMgsyasAwU&t=145s" target="_blank" rel="noopener">什么是磁盘阵列？15 种 RAID 优缺点详解 (RAID5 RAID6 RAID10 RAIDZ SHR UNRAID)</a></li>
+<li><a href="https://www.youtube.com/watch?v=rqhoCROUKts" target="_blank" rel="noopener">Vedio Talk | MAC 下打造廉价的 RAID0 磁盘阵列</a></li>
+</ul>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1707703738443946" crossorigin="anonymous"></script>
+<!-- 文章内 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1707703738443946" data-ad-slot="6330017668" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      deppwang
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://depp.wang/2023/11/28/mac-mini-doubles-as-a-nas/" title="使用 Mac mini 兼做 NAS">https://depp.wang/2023/11/28/mac-mini-doubles-as-a-nas/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NAS/" rel="tag"># NAS</a>
+          
+            <a href="/tags/Mac-mini/" rel="tag"># Mac-mini</a>
+          
+            <a href="/tags/磁盘阵列/" rel="tag"># 磁盘阵列</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/11/15/single-node-rolling-deployment-in-k8s-and-nacos-cluster/" rel="next" title="在 K8s + Nacos  的集群中实现单节点滚动部署">
+                <i class="fa fa-chevron-left"></i> 在 K8s + Nacos  的集群中实现单节点滚动部署
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/12/12/ipv6-and-tailscale-remote-access-nas/" rel="prev" title="使用 IPv6 + Tailscale 实现 NAS 外网访问">
+                使用 IPv6 + Tailscale 实现 NAS 外网访问 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
+          <p class="site-author-name" itemprop="name">deppwang</p>
+           
+              <p class="site-description motion-element" itemprop="description">每个人都需要有自己的哈姆雷特</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">120</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">247</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DeppWang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/deppwang1" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://space.bilibili.com/336707243" target="_blank" title="BiliBili">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  BiliBili
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.youtube.com/channel/UCpjV96uJBtbf64eDaJjUkkQ" target="_blank" title="YouTube">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  YouTube
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coolshell.cn" title="CoolShell" target="_blank">CoolShell</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的网络日志" target="_blank">阮一峰的网络日志</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://1byte.io" title="1byte" target="_blank">1byte</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://catcoding.me/" title="程序员的喵" target="_blank">程序员的喵</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://blog.douchi.space/" title="椒盐豆豉" target="_blank">椒盐豆豉</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置家里所有设备在一个局域网中"><span class="nav-number">1.</span> <span class="nav-text">配置家里所有设备在一个局域网中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我为什么没有选择成品-NAS"><span class="nav-number">2.</span> <span class="nav-text">我为什么没有选择成品 NAS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mac-mini-兼做-NAS"><span class="nav-number">3.</span> <span class="nav-text">Mac mini 兼做 NAS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关视频"><span class="nav-number">4.</span> <span class="nav-text">相关视频</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">deppwang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://deppwang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://depp.wang/2023/11/28/mac-mini-doubles-as-a-nas/';
+          this.page.identifier = '2023/11/28/mac-mini-doubles-as-a-nas/';
+          this.page.title = '使用 Mac mini 兼做 NAS';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://deppwang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI","app_key":"AjFBNu3SKV0SwMNsiIxA0mQv","server_url":"https://ycdssag0.api.lncldglobal.com"};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

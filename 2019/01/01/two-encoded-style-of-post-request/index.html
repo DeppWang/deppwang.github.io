@@ -1,0 +1,1144 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="hOzwzcL7Td1p_evvLmRBasbQKy5-i5AgJwNLD2vHKJ8">
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Bookerly:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="POST,application/x-www-form-urlencoded,multipart/form-data,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="德普王's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="在常见业务开发中，POST 请求常常在这些地方使用：前端表单提交时、调用接口代码时和使用 Postman 测试接口时。我们下面来一一了解：">
+<meta name="keywords" content="POST,application&#x2F;x-www-form-urlencoded,multipart&#x2F;form-data">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP POST 请求的两种编码格式：application&#x2F;x-www-form-urlencoded 和 multipart&#x2F;form-data">
+<meta property="og:url" content="https://depp.wang/2019/01/01/two-encoded-style-of-post-request/index.html">
+<meta property="og:site_name" content="德普王&#39;s Blog">
+<meta property="og:description" content="在常见业务开发中，POST 请求常常在这些地方使用：前端表单提交时、调用接口代码时和使用 Postman 测试接口时。我们下面来一一了解：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135214.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135218.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135220.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135222.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135225.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135227.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135229.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135237.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135243.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135252.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135258.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135310.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135323.png">
+<meta property="og:updated_time" content="2023-12-21T03:42:36.014Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTP POST 请求的两种编码格式：application&#x2F;x-www-form-urlencoded 和 multipart&#x2F;form-data">
+<meta name="twitter:description" content="在常见业务开发中，POST 请求常常在这些地方使用：前端表单提交时、调用接口代码时和使用 Postman 测试接口时。我们下面来一一了解：">
+<meta name="twitter:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135214.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'IQPKMP0VXO',
+      apiKey: 'd3e6a74afaebeb6b9c3a26eee410f08e',
+      indexName: 'deppwang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://depp.wang/2019/01/01/two-encoded-style-of-post-request/">
+
+
+
+
+
+  <title>HTTP POST 请求的两种编码格式：application/x-www-form-urlencoded 和 multipart/form-data | 德普王's Blog</title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3HG6GE96C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3HG6GE96C');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">德普王's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Draft, Edit, Proofread, Publish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/2019/08/22/tools/" rel="section">
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-decorate">
+          <a href="/tags/装修/" rel="section">
+            
+            装修
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAPF8TuhkibCKuDf" data-callback="javascriptCallback"></div>
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2019/01/01/two-encoded-style-of-post-request/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HTTP POST 请求的两种编码格式：application/x-www-form-urlencoded 和 multipart/form-data</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-01T14:25:08+08:00">
+                2019-01-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-08-04T14:06:37+08:00">
+                2020-08-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/HTTP/" itemprop="url" rel="index">
+                    <span itemprop="name">HTTP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/01/two-encoded-style-of-post-request/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/01/01/two-encoded-style-of-post-request/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/01/01/two-encoded-style-of-post-request/" class="leancloud_visitors" data-flag-title="HTTP POST 请求的两种编码格式：application/x-www-form-urlencoded 和 multipart/form-data">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在常见业务开发中，POST 请求常常在这些地方使用：前端表单提交时、调用接口代码时和使用 Postman 测试接口时。我们下面来一一了解：</p>
+<a id="more"></a>
+
+<h2 id="一、前端表单提交时"><a href="#一、前端表单提交时" class="headerlink" title="一、前端表单提交时"></a>一、前端表单提交时</h2><h3 id="application-x-www-form-urlencoded"><a href="#application-x-www-form-urlencoded" class="headerlink" title="application/x-www-form-urlencoded"></a>application/x-www-form-urlencoded</h3><p>表单代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"http://localhost:8888/task/"</span> <span class="attr">method</span>=<span class="string">"POST"</span>&gt;</span></span><br><span class="line">First name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"firstName"</span> <span class="attr">value</span>=<span class="string">"Mickey&amp;"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">Last name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"lastName"</span> <span class="attr">value</span>=<span class="string">"Mouse "</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">" 提交 "</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>通过测试发现可以正常访问接口，在 Chrome 的开发者工具中可以看出，表单上传编码格式为 <code>application/x-www-form-urlencoded</code>(Request Headers 中)，参数的格式为 <code>key=value&amp;key=value</code>。</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135214.png" alt="image.png"></p>
+<p>我们可以看出，服务器知道参数用符号 <code>&amp;</code> 间隔，如果参数值中需要 <code>&amp;</code>，则必须对其进行编码。编码格式就是 <code>application/x-www-form-urlencoded</code>（<strong>将键值对的参数用 &amp; 连接起来，如果有空格，将空格转换为 <code>+</code> 加号；有特殊符号，将特殊符号转换为 <code>ASCII HEX</code> 值</strong>）。</p>
+<p><code>application/x-www-form-urlencoded</code> 是浏览器默认的编码格式。对于 Get 请求，是将参数转换 <code>?key=value&amp;key=value</code> 格式，连接到 url 后</p>
+<p>ps：可以在这个网址测试表单：<a href="http://www.runoob.com/try/try.php?filename=tryhtml_form_submit" target="_blank" rel="noopener">http://www.runoob.com/try/try.php?filename=tryhtml_form_submit</a></p>
+<h3 id="multipart-form-data"><a href="#multipart-form-data" class="headerlink" title="multipart/form-data"></a>multipart/form-data</h3><p>那么当服务器使用 <code>multipart/form-data</code> 接收 POST 请求时，服务器怎么知道每个参数的开始位置和结束位置呢？</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"http://localhost:8888/task/"</span> <span class="attr">method</span>=<span class="string">"POST"</span> <span class="attr">enctype</span>=<span class="string">"multipart/form-data"</span>&gt;</span></span><br><span class="line">First name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"firstName"</span> <span class="attr">value</span>=<span class="string">"Mickey&amp;"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">Last name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"lastName"</span> <span class="attr">value</span>=<span class="string">"Mouse "</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">" 提交 "</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>我们在开发者工具中可以看出 <code>multipart/form-data</code> 不会对参数编码，使用的 <code>boundary</code>(分割线)，相当于 <code>&amp;</code>，<code>boundary</code> 的值是 <code>----Web*AJv3</code>。</strong></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135218.png" alt="image.png"></p>
+<h4 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h4><p>上传文件也要指定编码格式为 <code>multipart/form-data</code>。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"http://localhost:8888/testFile"</span> <span class="attr">enctype</span>=<span class="string">"multipart/form-data"</span> <span class="attr">method</span>=<span class="string">"POST"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"file"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">" 提交 "</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果是 SpringMVC 项目，要服务器能接受 <code>multipart/form-data</code> 类型参数，还要在 spring 上下文配置以下内容，<strong>SpringBoot 项目则不需要</strong>。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"multipartResolver"</span> <span class="attr">class</span>=<span class="string">"org.springframework.web.multipart.commons.CommonsMultipartResolver"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"defaultEncoding"</span> <span class="attr">value</span>=<span class="string">"utf-8"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>我们可以通过 FormData 对象模拟表单提交，用原始的 XMLHttpRequest 来发送数据，让我们可以在 Chrome 开发工具中查看到具体格式：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"form"</span>&gt;</span></span><br><span class="line">    First name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"firstName"</span> <span class="attr">value</span>=<span class="string">"Mickey"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    Last name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"lastName"</span> <span class="attr">value</span>=<span class="string">"Mouse"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"file"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"submitForm()"</span>&gt;</span> 提交 <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="actionscript">    <span class="function"><span class="keyword">function</span> <span class="title">submitForm</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> formElement = <span class="built_in">document</span>.getElementById(<span class="string">"form"</span>);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="actionscript">        <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line"><span class="actionscript">        xhr.open(<span class="string">"POST"</span>, <span class="string">"/task/testFile"</span>);</span></span><br><span class="line"><span class="actionscript">        xhr.send(<span class="keyword">new</span> FormData(formElement));</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>格式如下：</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135220.png" alt="image.png"></p>
+<h2 id="二、调用接口代码时"><a href="#二、调用接口代码时" class="headerlink" title="二、调用接口代码时"></a>二、调用接口代码时</h2><p>1、在代码中使用 <code>application/x-www-form-urlencoded</code> 编码格式设置 Request 属性调用接口，可以如下实现：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">doPost</span><span class="params">(String strUrl, String content)</span> </span>&#123;</span><br><span class="line">        String result = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            URL url = <span class="keyword">new</span> URL(strUrl);</span><br><span class="line">            <span class="comment">// 通过调用 url.openConnection() 来获得一个新的 URLConnection 对象，并且将其结果强制转换为 HttpURLConnection.</span></span><br><span class="line">            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();</span><br><span class="line">            urlConnection.setRequestMethod(<span class="string">"POST"</span>);</span><br><span class="line">            <span class="comment">// 设置连接的超时值为 30000 毫秒，超时将抛出 SocketTimeoutException 异常</span></span><br><span class="line">            urlConnection.setConnectTimeout(<span class="number">30000</span>);</span><br><span class="line">            <span class="comment">// 设置读取的超时值为 30000 毫秒，超时将抛出 SocketTimeoutException 异常</span></span><br><span class="line">            urlConnection.setReadTimeout(<span class="number">30000</span>);</span><br><span class="line">            <span class="comment">// 将 url 连接用于输出，这样才能使用 getOutputStream()。getOutputStream() 返回的输出流用于传输数据</span></span><br><span class="line">            urlConnection.setDoOutput(<span class="keyword">true</span>);</span><br><span class="line">            <span class="comment">// 设置通用请求属性为默认浏览器编码类型</span></span><br><span class="line">            urlConnection.setRequestProperty(<span class="string">"content-type"</span>, <span class="string">"application/x-www-form-urlencoded"</span>);</span><br><span class="line">            <span class="comment">//getOutputStream() 返回的输出流，用于写入参数数据。</span></span><br><span class="line">            OutputStream outputStream = urlConnection.getOutputStream();</span><br><span class="line">            outputStream.write(content.getBytes());</span><br><span class="line">            outputStream.flush();</span><br><span class="line">            outputStream.close();</span><br><span class="line">            <span class="comment">// 此时将调用接口方法。getInputStream() 返回的输入流可以读取返回的数据。</span></span><br><span class="line">            InputStream inputStream = urlConnection.getInputStream();</span><br><span class="line">            <span class="keyword">byte</span>[] data = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">            <span class="comment">//inputStream 每次就会将读取 1024 个 byte 到 data 中，当 inputSteam 中没有数据时，inputStream.read(data) 值为 - 1</span></span><br><span class="line">            <span class="keyword">while</span> (inputStream.read(data) != -<span class="number">1</span>) &#123;</span><br><span class="line">                String s = <span class="keyword">new</span> String(data, Charset.forName(<span class="string">"utf-8"</span>));</span><br><span class="line">                sb.append(s);</span><br><span class="line">            &#125;</span><br><span class="line">            result = sb.toString();</span><br><span class="line">            inputStream.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String str = doPost(<span class="string">"http://localhost:8888/task/"</span>, <span class="string">"firstName=Mickey%26&amp;lastName=Mouse "</span>);</span><br><span class="line">        System.out.println(str);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>2、在代码中使用 <code>multipart/form-data</code> 编码格式设置 Request 属性调用接口时，其中 <code>boundary</code> 的值可以在设置 Content-Type 时指定，让服务器知道如何拆分它接受的参数。通过以下代码的调用接口：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">doPost</span><span class="params">(String strUrl, Map&lt;String, String&gt; params, String boundary)</span> </span>&#123;</span><br><span class="line">    String result = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        URL url = <span class="keyword">new</span> URL(strUrl);</span><br><span class="line">        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();</span><br><span class="line">        urlConnection.setRequestMethod(<span class="string">"POST"</span>);</span><br><span class="line">        urlConnection.setConnectTimeout(<span class="number">30000</span>);</span><br><span class="line">        urlConnection.setReadTimeout(<span class="number">30000</span>);</span><br><span class="line">        urlConnection.setDoOutput(<span class="keyword">true</span>);</span><br><span class="line">        <span class="comment">// 设置通用请求属性为 multipart/form-data</span></span><br><span class="line">        urlConnection.setRequestProperty(<span class="string">"content-type"</span>, <span class="string">"multipart/form-data;boundary="</span> + boundary);</span><br><span class="line">        DataOutputStream dataOutputStream = <span class="keyword">new</span> DataOutputStream(urlConnection.getOutputStream());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (String key : params.keySet()) &#123;</span><br><span class="line">            String value = params.get(key);</span><br><span class="line">            <span class="comment">// 注意！此处是 \r(回车：将当前位置移到本行开头)、\n(换行：将当前位置移到下行开头) 要一起使用</span></span><br><span class="line">            dataOutputStream.writeBytes(<span class="string">"--"</span> + boundary + <span class="string">"\r\n"</span>);</span><br><span class="line">            dataOutputStream.writeBytes(<span class="string">"Content-Disposition: form-data; name=\""</span> + encode(key) + <span class="string">"\"\r\n"</span>);</span><br><span class="line">            dataOutputStream.writeBytes(<span class="string">"\r\n"</span>);</span><br><span class="line">            dataOutputStream.writeBytes(encode(value) + <span class="string">"\r\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 最后一个分隔符的结尾后面要跟 "--"</span></span><br><span class="line">        dataOutputStream.writeBytes(<span class="string">"--"</span> + boundary + <span class="string">"--"</span>);</span><br><span class="line">        dataOutputStream.flush();</span><br><span class="line">        dataOutputStream.close();</span><br><span class="line">        InputStream inputStream = urlConnection.getInputStream();</span><br><span class="line">        <span class="keyword">byte</span>[] data = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">while</span> (inputStream.read(data) != -<span class="number">1</span>) &#123;</span><br><span class="line">            String s = <span class="keyword">new</span> String(data, Charset.forName(<span class="string">"utf-8"</span>));</span><br><span class="line">            sb.append(s);</span><br><span class="line">        &#125;</span><br><span class="line">        result = sb.toString();</span><br><span class="line">        inputStream.close();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">encode</span><span class="params">(String value)</span> <span class="keyword">throws</span> UnsupportedEncodingException </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> URLEncoder.encode(value, <span class="string">"UTF-8"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Map&lt;String, String&gt; params = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    params.put(<span class="string">"firstName"</span>, <span class="string">"Mickey"</span>);</span><br><span class="line">    params.put(<span class="string">"lastName"</span>, <span class="string">"Mouse"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 自定义 boundary，有两个要求：使用不会出现在发送到服务器的 HTTP 数据中的值；并在请求消息中的分割位置都使用相同的值</span></span><br><span class="line">    String boundary = <span class="string">"abcdefg"</span>;</span><br><span class="line">    String str = doPost(<span class="string">"http://localhost:8888/testFile"</span>, params, boundary);</span><br><span class="line">    System.out.println(str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过 debug，可以看出 dataOutputStream 的值如下：</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135222.png" alt="image.png"></p>
+<h2 id="三、使用-Postman-测试接口时"><a href="#三、使用-Postman-测试接口时" class="headerlink" title="三、使用 Postman 测试接口时"></a>三、使用 Postman 测试接口时</h2><h3 id="1、POST-请求-gt-Body-gt-x-www-form-urlencoded"><a href="#1、POST-请求-gt-Body-gt-x-www-form-urlencoded" class="headerlink" title="1、POST 请求 -&gt; Body -&gt; x-www-form-urlencoded"></a>1、POST 请求 -&gt; Body -&gt; x-www-form-urlencoded</h3><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135225.png" alt="image.png"></p>
+<p>当切换为 <code>x-www-form-urlencoded</code> 时，Headers 会自动添加 <code>Content-Type:application/x-www-form-urlencoded</code></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135227.png" alt="image.png"></p>
+<p>当请求 Send 后，此时点 <code>Code</code>，可以查看到和 Chrome 开发工具中 (Request Headers 处的 Content-Type 和 Form Data) 一样的数据</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135229.png" alt="image.png"></p>
+<h3 id="2、POST-请求-gt-Body-gt-form-data"><a href="#2、POST-请求-gt-Body-gt-form-data" class="headerlink" title="2、POST 请求 -&gt; Body -&gt; form-data"></a>2、POST 请求 -&gt; Body -&gt; form-data</h3><p>相当于 html 表单请求，value 可为 Text 或文件。</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135237.png" alt="image.png"></p>
+<p>可以不用手动指定编码格式，也可以指定编码为 <code>multipart/form-data</code></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135243.png" alt="image.png"></p>
+<p>划线处的分割线应该是被省略了。</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135252.png" alt="image.png"></p>
+<p>可以更改左上角的类型，来查看相应的 Headers 代码，常见的是下面三种：</p>
+<p><strong>Java OK HTTP</strong>：</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135258.png" alt="image.png"></p>
+<p><strong>JavaScript Jquery AJAX</strong>：</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135310.png" alt=""></p>
+<p><strong>JavaScript XHR</strong>：</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135323.png" alt="image.png"></p>
+<h2 id="接口代码"><a href="#接口代码" class="headerlink" title="接口代码"></a>接口代码</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/task"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TaskController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">index</span><span class="params">(String firstName, String lastName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> firstName + lastName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/testFile"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">testFile</span><span class="params">(String firstName, String lastName, MultipartFile file)</span> </span>&#123;</span><br><span class="line">        String result = firstName + lastName;</span><br><span class="line">        <span class="keyword">if</span> (file != <span class="keyword">null</span>) &#123;</span><br><span class="line">            result += (file.getOriginalFilename() != <span class="keyword">null</span>) ? file.getOriginalFilename() : <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>POST 请求的两种编码格式：<code>application/x-www-urlencoded</code> 是浏览器默认的编码格式，用于键值对参数，参数之间用 <code>&amp;</code> 间隔；<code>multipart/form-data</code> 常用于文件等二进制，也可用于键值对参数，最后连接成一串字符传输 (参考 Java OK HTTP)。除了这两个编码格式，还有 <code>application/json</code> 也经常使用。</p>
+<h2 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h2><ul>
+<li><a href="http://www.w3school.com.cn/tags/att_form_enctype.asp" target="_blank" rel="noopener">HTML <code>&lt;form&gt;</code> 标签的 enctype 属性</a></li>
+<li><a href="https://www.cnblogs.com/libertycode/p/5979260.html" target="_blank" rel="noopener">HttpUrlConnection 基础使用</a></li>
+<li><a href="https://www.cnblogs.com/ifindu-san/p/8251370.html#undefined" target="_blank" rel="noopener">SpringMvc 接收 multipart/form-data 传输的数据 及 PostMan 各类数据类型的区别</a></li>
+<li><a href="https://stackoverflow.com/questions/3508338/what-is-the-boundary-in-multipart-form-data" target="_blank" rel="noopener">What is the boundary in multipart/form-data?</a></li>
+</ul>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1707703738443946" crossorigin="anonymous"></script>
+<!-- 文章内 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1707703738443946" data-ad-slot="6330017668" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      deppwang
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://depp.wang/2019/01/01/two-encoded-style-of-post-request/" title="HTTP POST 请求的两种编码格式：application/x-www-form-urlencoded 和 multipart/form-data">https://depp.wang/2019/01/01/two-encoded-style-of-post-request/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/POST/" rel="tag"># POST</a>
+          
+            <a href="/tags/application-x-www-form-urlencoded/" rel="tag"># application/x-www-form-urlencoded</a>
+          
+            <a href="/tags/multipart-form-data/" rel="tag"># multipart/form-data</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/28/the-morning-peak-of-the-subway-from-dongsanqi-to-xierqi/" rel="next" title="东三旗到西二旗的地铁早高峰">
+                <i class="fa fa-chevron-left"></i> 东三旗到西二旗的地铁早高峰
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/11/share-a-few-useful-websites/" rel="prev" title="分享几个用了就离不开的实用网站">
+                分享几个用了就离不开的实用网站 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
+          <p class="site-author-name" itemprop="name">deppwang</p>
+           
+              <p class="site-description motion-element" itemprop="description">每个人都需要有自己的哈姆雷特</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">120</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">247</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DeppWang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/deppwang1" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://space.bilibili.com/336707243" target="_blank" title="BiliBili">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  BiliBili
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.youtube.com/channel/UCpjV96uJBtbf64eDaJjUkkQ" target="_blank" title="YouTube">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  YouTube
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coolshell.cn" title="CoolShell" target="_blank">CoolShell</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的网络日志" target="_blank">阮一峰的网络日志</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://1byte.io" title="1byte" target="_blank">1byte</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://catcoding.me/" title="程序员的喵" target="_blank">程序员的喵</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://blog.douchi.space/" title="椒盐豆豉" target="_blank">椒盐豆豉</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、前端表单提交时"><span class="nav-number">1.</span> <span class="nav-text">一、前端表单提交时</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#application-x-www-form-urlencoded"><span class="nav-number">1.1.</span> <span class="nav-text">application/x-www-form-urlencoded</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#multipart-form-data"><span class="nav-number">1.2.</span> <span class="nav-text">multipart/form-data</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文件上传"><span class="nav-number">1.2.1.</span> <span class="nav-text">文件上传</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、调用接口代码时"><span class="nav-number">2.</span> <span class="nav-text">二、调用接口代码时</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、使用-Postman-测试接口时"><span class="nav-number">3.</span> <span class="nav-text">三、使用 Postman 测试接口时</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、POST-请求-gt-Body-gt-x-www-form-urlencoded"><span class="nav-number">3.1.</span> <span class="nav-text">1、POST 请求 -&gt; Body -&gt; x-www-form-urlencoded</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、POST-请求-gt-Body-gt-form-data"><span class="nav-number">3.2.</span> <span class="nav-text">2、POST 请求 -&gt; Body -&gt; form-data</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口代码"><span class="nav-number">4.</span> <span class="nav-text">接口代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延伸阅读"><span class="nav-number">6.</span> <span class="nav-text">延伸阅读</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">deppwang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://deppwang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://depp.wang/2019/01/01/two-encoded-style-of-post-request/';
+          this.page.identifier = '2019/01/01/two-encoded-style-of-post-request/';
+          this.page.title = 'HTTP POST 请求的两种编码格式：application/x-www-form-urlencoded 和 multipart/form-data';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://deppwang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI","app_key":"AjFBNu3SKV0SwMNsiIxA0mQv","server_url":"https://ycdssag0.api.lncldglobal.com"};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

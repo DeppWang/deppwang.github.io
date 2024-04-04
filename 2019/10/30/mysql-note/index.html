@@ -1,0 +1,1472 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="hOzwzcL7Td1p_evvLmRBasbQKy5-i5AgJwNLD2vHKJ8">
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Bookerly:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="MySQL,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="德普王's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="主键选取主键的一个基本原则是：不使用任何业务相关的字段（id）作为主键。修改了主键，会造成一系列的影响 类型：  自增整数类型（id）：BIGINT NOT NULL AUTO_INCREMENT。 全局唯一 GUID 类型  注意：如果使用 INT 自增类型，那么当一张表的记录数超过 2147483647（约21亿）时，会达到上限而出错。使用 BIGINT自增类型则可以最多约 922 亿亿条记录">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL 的 SQL 笔记">
+<meta property="og:url" content="https://depp.wang/2019/10/30/mysql-note/index.html">
+<meta property="og:site_name" content="德普王&#39;s Blog">
+<meta property="og:description" content="主键选取主键的一个基本原则是：不使用任何业务相关的字段（id）作为主键。修改了主键，会造成一系列的影响 类型：  自增整数类型（id）：BIGINT NOT NULL AUTO_INCREMENT。 全局唯一 GUID 类型  注意：如果使用 INT 自增类型，那么当一张表的记录数超过 2147483647（约21亿）时，会达到上限而出错。使用 BIGINT自增类型则可以最多约 922 亿亿条记录">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135809.jpg">
+<meta property="og:updated_time" content="2023-12-30T11:34:37.757Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL 的 SQL 笔记">
+<meta name="twitter:description" content="主键选取主键的一个基本原则是：不使用任何业务相关的字段（id）作为主键。修改了主键，会造成一系列的影响 类型：  自增整数类型（id）：BIGINT NOT NULL AUTO_INCREMENT。 全局唯一 GUID 类型  注意：如果使用 INT 自增类型，那么当一张表的记录数超过 2147483647（约21亿）时，会达到上限而出错。使用 BIGINT自增类型则可以最多约 922 亿亿条记录">
+<meta name="twitter:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135809.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'IQPKMP0VXO',
+      apiKey: 'd3e6a74afaebeb6b9c3a26eee410f08e',
+      indexName: 'deppwang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://depp.wang/2019/10/30/mysql-note/">
+
+
+
+
+
+  <title>MySQL 的 SQL 笔记 | 德普王's Blog</title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3HG6GE96C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3HG6GE96C');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">德普王's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Draft, Edit, Proofread, Publish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/2019/08/22/tools/" rel="section">
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-decorate">
+          <a href="/tags/装修/" rel="section">
+            
+            装修
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAPF8TuhkibCKuDf" data-callback="javascriptCallback"></div>
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2019/10/30/mysql-note/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MySQL 的 SQL 笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-30T14:25:08+08:00">
+                2019-10-30
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2022-02-27T16:33:28+08:00">
+                2022-02-27
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/10/30/mysql-note/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/10/30/mysql-note/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/10/30/mysql-note/" class="leancloud_visitors" data-flag-title="MySQL 的 SQL 笔记">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="主键"><a href="#主键" class="headerlink" title="主键"></a>主键</h2><p>选取主键的一个基本原则是：不使用任何业务相关的字段（id）作为主键。修改了主键，会造成一系列的影响</p>
+<p>类型：</p>
+<ol>
+<li>自增整数类型（id）：<code>BIGINT NOT NULL AUTO_INCREMENT</code>。</li>
+<li>全局唯一 GUID 类型</li>
+</ol>
+<p>注意：如果使用 INT 自增类型，那么当一张表的记录数超过 2147483647（约21亿）时，会达到上限而出错。使用 BIGINT自增类型则可以最多约 922 亿亿条记录。</p>
+<a id="more"></a>
+
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>主键默认含有索引。</p>
+<p>即该列的值如果越互不相同，那么索引效率越高。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> students</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">INDEX</span> idx_score (score);</span><br></pre></td></tr></table></figure>
+
+<p>多个索引</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> students</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">INDEX</span> idx_name_score (<span class="keyword">name</span>, score);</span><br></pre></td></tr></table></figure>
+
+<p>唯一索引保证唯一约束，又是索引，如身份证号、邮箱等字段</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> students</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">UNIQUE</span> <span class="keyword">INDEX</span> uni_email (email)</span><br></pre></td></tr></table></figure>
+
+<p>只建唯一约束，不建索引</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> students</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> uni_email <span class="keyword">UNIQUE</span> (email)</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h2><p>条件查询</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> &lt;表名&gt; <span class="keyword">WHERE</span> &lt;条件表达式&gt; (<span class="keyword">AND</span> / <span class="keyword">OR</span>)</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">条件</th>
+<th align="left">表达式举例1</th>
+<th align="left">表达式举例2</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">使用 &lt;&gt; 判断不相等</td>
+<td align="left">score &lt;&gt; 80</td>
+<td align="left">name &lt;&gt; ‘abc’</td>
+<td align="left">常用 &lt;&gt; 代替 Not</td>
+</tr>
+<tr>
+<td align="left">使用 LIKE 判断相似</td>
+<td align="left">name LIKE ‘ab%’</td>
+<td align="left">name LIKE ‘%bc%’</td>
+<td align="left">%表示任意字符，例如’ab%’将匹配’ab’，’abc’，’abcd’</td>
+</tr>
+</tbody></table>
+<p>投影查询</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>, score points, <span class="keyword">name</span> <span class="keyword">FROM</span> students; // points 为别名</span><br></pre></td></tr></table></figure>
+
+<p>排序</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>, <span class="keyword">name</span>, gender, score <span class="keyword">FROM</span> students <span class="keyword">ORDER</span> <span class="keyword">BY</span> score <span class="keyword">DESC</span>, gender; // 表示先按 score 列倒序，如果有相同分数的，再按 gender 列排序。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ORDER BY 默认正序，从小到大，DESC descend 倒序</li>
+</ul>
+<p>分页查询</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>, <span class="keyword">name</span>, gender, score</span><br><span class="line"><span class="keyword">FROM</span> students</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> score <span class="keyword">DESC</span></span><br><span class="line"><span class="keyword">LIMIT</span> <span class="number">3</span> <span class="keyword">OFFSET</span> <span class="number">0</span>; // 第 1 页，每页 3 条</span><br><span class="line"></span><br><span class="line">LIMIT 3 OFFSET 3; // 第 2 页，每页 3 条</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>LIMIT &lt;M&gt; OFFSET &lt;N&gt;</code> 显示从 N+1 行开始，后 M 条记录。</li>
+</ul>
+<p>聚合查询</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) boys <span class="keyword">FROM</span> students <span class="keyword">WHERE</span> gender = <span class="string">'M'</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>COUNT(*)、COUNT(id)、可用 WHERE 条件</li>
+<li>其他函数：SUM、AVG、MAX、MIN</li>
+<li>如果是字符类型，MAX() 和 MIN() 会返回排序最后和排序最前的字符</li>
+<li>结合 GROUP BY 分组：<code>SELECT class_id, COUNT(*) num FROM students GROUP BY class_id;</code></li>
+<li>多个列分组：<code>SELECT class_id, gender, COUNT(*) num FROM students GROUP BY class_id, gender;</code></li>
+</ul>
+<p>多表查询</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> students, classes; // 同时查询 students 表和 classes 表的“乘积”</span><br></pre></td></tr></table></figure>
+
+<p>连接查询</p>
+<ul>
+<li><p>先确定一个主表作为结果集，然后，把其他表的行有选择性地「连接」在主表结果集上。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> s.id, s.name, s.class_id, c.name class_name, s.gender, s.score</span><br><span class="line"><span class="keyword">FROM</span> students s</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> classes c</span><br><span class="line"><span class="keyword">ON</span> s.class_id = c.id;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>内连接：只查询符合两个表的结果，取交集</p>
+</li>
+<li><p>右外连接 RIGHT OUTER JOIN：查询符合右边表所有结果，空余用 NULL 填充</p>
+</li>
+<li><p>左外连接 LEFT OUTER JOIN：查询符合主表所有结果，空余用 NULL 填充</p>
+</li>
+<li><p>FULL OUTER JOIN，并集</p>
+</li>
+</ul>
+<h2 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h2><p>INSERT </p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> &lt;表名&gt; (字段<span class="number">1</span>, 字段<span class="number">2</span>, ...) <span class="keyword">VALUES</span> (值<span class="number">1</span>, 值<span class="number">2</span>, ...);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> students (class_id, <span class="keyword">name</span>, gender, score) <span class="keyword">VALUES</span></span><br><span class="line">  (<span class="number">1</span>, <span class="string">'大宝'</span>, <span class="string">'M'</span>, <span class="number">87</span>),</span><br><span class="line">  (<span class="number">2</span>, <span class="string">'二宝'</span>, <span class="string">'M'</span>, <span class="number">81</span>);</span><br></pre></td></tr></table></figure>
+
+<p>UPDATE</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> &lt;表名&gt; <span class="keyword">SET</span> 字段<span class="number">1</span>=值<span class="number">1</span>, 字段<span class="number">2</span>=值<span class="number">2</span>, ... <span class="keyword">WHERE</span> ...;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>WHERE 跟 SELECT 的 WHERE 一样使用</li>
+<li><code>UPDATE students SET score=60;</code> 修改表的所有数据，先用 SELECT 语句测试</li>
+</ul>
+<p>DELETE</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> &lt;表名&gt; <span class="keyword">WHERE</span> ...;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>DELETE FROM students;</code> 删除表所有数据</li>
+</ul>
+<h2 id="库-表-列-SQL"><a href="#库-表-列-SQL" class="headerlink" title="库/表/列 SQL"></a>库/表/列 SQL</h2><p>也可以只安装 MySQL Client，然后连接到远程 MySQL Server。假设远程 MySQL Server 的 IP 地址是 10.0.1.99，那么就使用 -h 指定 IP 或域名：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql -h 10.0.1.99 -u root -p</span><br></pre></td></tr></table></figure>
+
+<p><strong>库</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">DATABASES</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> <span class="keyword">test</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="keyword">test</span>;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">DATABASE</span> <span class="keyword">test</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>表</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">TABLES</span>; </span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`students`</span> (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">"ID"</span>,</span><br><span class="line">  <span class="string">`class_id`</span> <span class="built_in">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="number">0</span> <span class="keyword">COMMENT</span> <span class="string">"班级 ID"</span>,</span><br><span class="line">  <span class="string">`name`</span> <span class="built_in">varchar</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">''</span> <span class="keyword">COMMENT</span> <span class="string">"姓名"</span>,</span><br><span class="line">  <span class="string">`gender`</span> <span class="built_in">varchar</span>(<span class="number">1</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">'男'</span> <span class="keyword">COMMENT</span> <span class="string">"性别"</span>,</span><br><span class="line">  <span class="string">`score`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="number">100</span> <span class="keyword">COMMENT</span> <span class="string">"分数"</span>,</span><br><span class="line">  <span class="string">`created_time`</span> datetime <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">COMMENT</span> <span class="string">'创建时间'</span>,</span><br><span class="line">  <span class="string">`updated_time`</span> datetime <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">COMMENT</span> <span class="string">'更新时间'</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8 <span class="keyword">COMMENT</span> <span class="string">"学生表"</span>;</span><br><span class="line"></span><br><span class="line">DESC students; // <span class="keyword">describe</span>，查看表结构</span><br><span class="line"></span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> students; // 查看创建表的语句</span><br><span class="line"></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> students; // 删除表</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>bigint(20) 后面的 20 指的是字段最长长度，只是起提示作用，即使为 bigint(1)，也能存 20 位。bigint 8 字节，最长不超过 20 位（922亿亿）。当 id 为 1 时，也是占 8 个字节。</p>
+</li>
+<li><p>varchar 为可变长度，varchar(10) 后面的 10 也指的是字段最长长度。</p>
+<ul>
+<li><p>varchar(10) 最多能保存 10 个字符，varchar(100) 最多能保存 100 个字符。name 定义为 varchar(10)，当数据为「张三」时，占用 6 个字节（每个汉字 3 字节），而不会占用 30 个字节。</p>
+</li>
+<li><p>定义时最好只冗余 10%，不要冗余太多，查询时会创建临时表，将 varchar 转为 char，对性能有损耗</p>
+</li>
+<li><p>当字符长度没有变化时，推荐用 char</p>
+</li>
+</ul>
+</li>
+<li><p>NOT NULL：插入数据时，必须有值</p>
+</li>
+<li><p>CHARSET( character set ) <a href="https://www.eversql.com/mysql-utf8-vs-utf8mb4-whats-the-difference-between-utf8-and-utf8mb4/" target="_blank" rel="noopener">utf8 与 utf8mb4 的区别</a>，char utf8 默认为 3 个字节，utf8mb4 默认为 4 个字节</p>
+</li>
+<li><p>COLLATE=<a href="https://www.monolune.com/what-is-the-utf8mb4_0900_ai_ci-collation/" target="_blank" rel="noopener">utf8mb4_0900_ai_ci</a></p>
+</li>
+<li><p>ENGINE=InnoDB DEFAULT：默认引擎 InnoDB</p>
+</li>
+</ul>
+<p><strong>列</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> students <span class="keyword">ADD</span> <span class="keyword">COLUMN</span> birth <span class="built_in">VARCHAR</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>; // 给 students 表新增一列 birth</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> students <span class="keyword">CHANGE</span> <span class="keyword">COLUMN</span> birth birthday <span class="built_in">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>; // 把列名改为 birthday，类型改为 VARCHAR(20)</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> students <span class="keyword">MODIFY</span> <span class="keyword">COLUMN</span> birth <span class="built_in">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="string">''</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>; // 设置默认值为 ''</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> studens <span class="keyword">DROP</span> <span class="keyword">COLUMN</span> birthday; // 删除 birthday 列</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><a href="https://www.w3schools.com/sql/sql_alter.asp" target="_blank" rel="noopener">https://www.w3schools.com/sql/sql_alter.asp</a></li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">EXIT // 退出</span><br></pre></td></tr></table></figure>
+
+<h2 id="实用-SQL"><a href="#实用-SQL" class="headerlink" title="实用 SQL"></a>实用 SQL</h2><p>插入或替换</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">REPLACE</span> <span class="keyword">INTO</span> students (<span class="keyword">id</span>, class_id, <span class="keyword">name</span>, gender, score) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="number">1</span>, <span class="string">'小明'</span>, <span class="string">'F'</span>, <span class="number">99</span>);</span><br></pre></td></tr></table></figure>
+
+<p>插入或更新</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> students (<span class="keyword">id</span>, class_id, <span class="keyword">name</span>, gender, score) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="number">1</span>, <span class="string">'小明'</span>, <span class="string">'F'</span>, <span class="number">99</span>) <span class="keyword">ON</span> <span class="keyword">DUPLICATE</span> <span class="keyword">KEY</span> <span class="keyword">UPDATE</span> <span class="keyword">name</span>=<span class="string">'小明'</span>, gender=<span class="string">'F'</span>, score=<span class="number">99</span>;</span><br></pre></td></tr></table></figure>
+
+<p>插入或忽略：存在就忽略</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">IGNORE</span> <span class="keyword">INTO</span> students (<span class="keyword">id</span>, class_id, <span class="keyword">name</span>, gender, score) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="number">1</span>, <span class="string">'小明'</span>, <span class="string">'F'</span>, <span class="number">99</span>);</span><br></pre></td></tr></table></figure>
+
+<p>快照：复制当前表的数据到一个新表</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 对 class_id=1 的记录进行快照，并存储为新表 students_of_class1:</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> students_of_class1 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> students <span class="keyword">WHERE</span> class_id=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>写入查询结果集</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">statistics</span> (class_id, average) <span class="keyword">SELECT</span> class_id, <span class="keyword">AVG</span>(score) <span class="keyword">FROM</span> students <span class="keyword">GROUP</span> <span class="keyword">BY</span> class_id;</span><br></pre></td></tr></table></figure>
+
+<p>处理数据表被锁</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">show open tables where in_use&gt;0; // 查看表是否被锁</span><br><span class="line">show processlist // 查看所有进程</span><br><span class="line">kill id // 杀进程</span><br></pre></td></tr></table></figure>
+
+<p>用户</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> <span class="keyword">concat</span>(<span class="string">'User:'''</span>,<span class="keyword">USER</span>,<span class="string">'''@'''</span>,HOST,<span class="string">''';'</span>) <span class="keyword">AS</span> <span class="keyword">QUERY</span> <span class="keyword">FROM</span> mysql. <span class="keyword">USER</span>; // 查看数据库的所有用户</span><br><span class="line"><span class="keyword">show</span> <span class="keyword">grants</span> <span class="keyword">for</span> <span class="string">'label'</span>@<span class="string">'%'</span> // 查看用户所有表的权限</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'label'</span>@<span class="string">'%'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'label123'</span>;  // 创建用户</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'label'</span>@<span class="string">'localhost'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'label123'</span>; // 创建用户</span><br></pre></td></tr></table></figure>
+
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>这种把多条语句作为一个整体进行操作的功能，被称为数据库 「事务」。</p>
+<p>对于单条SQL语句，数据库系统自动将其作为一个事务执行，这种事务被称为<em>隐式事务</em>。</p>
+<p>使用<code>BEGIN</code>开启一个事务，使用<code>COMMIT</code>提交一个事务，这种事务被称为 <em>显式事务</em></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">BEGIN</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> accounts <span class="keyword">SET</span> balance = balance - <span class="number">100</span> <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> accounts <span class="keyword">SET</span> balance = balance + <span class="number">100</span> <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">COMMIT</span>; // 如果 <span class="keyword">COMMIT</span> 语句执行失败了，整个事务也会失败。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">BEGIN</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> accounts <span class="keyword">SET</span> balance = balance - <span class="number">100</span> <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> accounts <span class="keyword">SET</span> balance = balance + <span class="number">100</span> <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">ROLLBACK</span>; // 回滚前面执行的 sql</span><br></pre></td></tr></table></figure>
+
+<p>事务有四大特性：</p>
+<ul>
+<li>原子性（Atomicity）：不可分割，要么成功，要么失败；</li>
+<li>一致性（Consistency）：事务完成后，所有数据的状态是一致的；</li>
+<li>隔离性（Isolation）：并发执行的事务，对数据的操作要具有隔离性；</li>
+<li>持久性（Durability）：事务完成后，数据就持久化到数据库中</li>
+</ul>
+<p>事务有隔离性有级别，共 4 种，隔离级别由低到高</p>
+<table>
+<thead>
+<tr>
+<th align="left">Isolation Level</th>
+<th align="left">脏读（Dirty Read）</th>
+<th align="left">不可重复读（Non Repeatable Read）</th>
+<th align="left">幻读（Phantom Read）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Read Uncommitted</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+</tr>
+<tr>
+<td align="left">Read Committed</td>
+<td align="left">-</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+</tr>
+<tr>
+<td align="left">Repeatable Read</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">Yes</td>
+</tr>
+<tr>
+<td align="left">Serializable</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">-</td>
+</tr>
+</tbody></table>
+<p>默认测试数据库</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql&gt; select * from students;</span><br><span class="line">+<span class="comment">----+-------+</span></span><br><span class="line">| id | name  |</span><br><span class="line">+<span class="comment">----+-------+</span></span><br><span class="line">|  1 | Alice |</span><br><span class="line">+<span class="comment">----+-------+</span></span><br><span class="line">1 row in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> students(<span class="keyword">id</span>, <span class="keyword">name</span>) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">'Alice'</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> @@session.transaction_isolation; <span class="comment"># 查看隔离级别</span></span><br><span class="line"><span class="keyword">SELECT</span> @@TX_ISOLATION; <span class="comment"># 查看隔离级别</span></span><br><span class="line"><span class="keyword">SET</span> @@session.transaction_isolation = <span class="string">'READ-UNCOMMITTED'</span>; <span class="comment"># 切换隔离级别读为提交</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Read-Uncommitted（读未提交）"><a href="#Read-Uncommitted（读未提交）" class="headerlink" title="Read Uncommitted（读未提交）"></a>Read Uncommitted（读未提交）</h3><p>一个事务可以读到另一个事务更新，但未提交的数据。如果另一个事务回滚，当前读取的值就是脏数据，称为脏读。</p>
+<table>
+<thead>
+<tr>
+<th align="left">时刻</th>
+<th align="left">事务 A</th>
+<th align="left">事务 B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;</td>
+<td align="left">SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">BEGIN;</td>
+<td align="left">BEGIN;</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">UPDATE students SET name = ‘Bob’ WHERE id = 1;</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left"></td>
+<td align="left">SELECT * FROM students WHERE id = 1; // ‘Bob’</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">ROLLBACK;</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left"></td>
+<td align="left">SELECT * FROM students WHERE id = 1; // ‘Alice’</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left"></td>
+<td align="left">COMMIT;</td>
+</tr>
+</tbody></table>
+<h3 id="Read-Commited（读已提交）"><a href="#Read-Commited（读已提交）" class="headerlink" title="Read Commited（读已提交）"></a>Read Commited（读已提交）</h3><p>存在不可重复读的问题，事务重复读时，可能数据不一致。</p>
+<table>
+<thead>
+<tr>
+<th align="left">时刻</th>
+<th align="left">事务A</th>
+<th align="left">事务B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">SET TRANSACTION ISOLATION LEVEL READ COMMITTED;</td>
+<td align="left">SET TRANSACTION ISOLATION LEVEL READ COMMITTED;</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">BEGIN;</td>
+<td align="left">BEGIN;</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left"></td>
+<td align="left">SELECT * FROM students WHERE id = 1; // ‘Alice’</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">UPDATE students SET name = ‘Bob’ WHERE id = 1;</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">COMMIT;</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left"></td>
+<td align="left">SELECT * FROM students WHERE id = 1; // ‘Bob’</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left"></td>
+<td align="left">COMMIT;</td>
+</tr>
+</tbody></table>
+<ul>
+<li>读已提交隔离级别使用读未提交的测试用例的结果：两次读取都是 Alice</li>
+</ul>
+<h3 id="Repeatable-Commited（可重复读）"><a href="#Repeatable-Commited（可重复读）" class="headerlink" title="Repeatable Commited（可重复读）"></a>Repeatable Commited（可重复读）</h3><p>存在幻读的问题，幻读就是没有读取到的记录，以为不存在，但<a href="https://www.zhihu.com/question/47007926/answer/222348887" target="_blank" rel="noopener">插入</a>时将失败，再次读取时又能读取到数据。</p>
+<table>
+<thead>
+<tr>
+<th align="left">时刻</th>
+<th align="left">事务A</th>
+<th align="left">事务B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;</td>
+<td align="left">SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">BEGIN;</td>
+<td align="left">BEGIN;</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left"></td>
+<td align="left">SELECT * FROM students WHERE id = 99; // Empty</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">INSERT INTO students (id, name) VALUES (99, ‘Bob’);</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">COMMIT;</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left"></td>
+<td align="left">SELECT * FROM students WHERE id = 99; // Empty</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left"></td>
+<td align="left">INSERT INTO students(id, name) values(99, Alice) // 失败</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left"></td>
+<td align="left">SELECT * FROM students WHERE id = 99; // Alice</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left"></td>
+<td align="left">COMMIT;</td>
+</tr>
+</tbody></table>
+<p>其实幻读影响不大，没有脏读和不可重复读的问题，Mysql 默认隔离级别就是 Repeatable Commited。</p>
+<ul>
+<li>可重复读隔离级别使用读未提交的测试用例的结果：两次读取都是 Alice</li>
+<li>可重复读隔离级别使用读已提交的测试用例的结果：两次读取都是 Alice</li>
+</ul>
+<h3 id="Serializable（串行化）"><a href="#Serializable（串行化）" class="headerlink" title="Serializable（串行化）"></a>Serializable（串行化）</h3><p>串行操作，没有并发。</p>
+<table>
+<thead>
+<tr>
+<th align="left">时刻</th>
+<th align="left">事务A</th>
+<th align="left">事务B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">SET TRANSACTION ISOLATION LEVEL Serializable;</td>
+<td align="left">SET TRANSACTION ISOLATION LEVEL Serializable;</td>
+</tr>
+</tbody></table>
+<p>上面三种情况均会报错。</p>
+<h2 id="MVVC"><a href="#MVVC" class="headerlink" title="MVVC"></a>MVVC</h2><hr>
+<p>数据库语句顺序</p>
+<ul>
+<li>写的顺序：select … from… where…. group by… having… order by.. limit [offset,] (rows)</li>
+<li>执行顺序：from… where…group by… having…. select … order by… limit</li>
+</ul>
+<figure class="highlight n1ql"><table><tr><td class="code"><pre><span class="line">mysql&gt; <span class="keyword">select</span> host,<span class="keyword">user</span> <span class="keyword">from</span> <span class="keyword">user</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135809.jpg" alt=""></p>
+<figure class="highlight n1ql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> host,<span class="keyword">user</span>,<span class="keyword">password</span> <span class="keyword">FROM</span> <span class="keyword">user</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h2><ul>
+<li><a href="https://www.liaoxuefeng.com/wiki/1177760294764384" target="_blank" rel="noopener">《廖雪峰 SQL 笔记》</a></li>
+<li><a href="https://developer.ibm.com/zh/articles/os-mysql-transaction-isolation-levels-and-locks/" target="_blank" rel="noopener">MySQL 事务隔离级别和锁</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1595188" target="_blank" rel="noopener">一篇文章看懂 mysql 中 varchar 能存多少汉字、数字，以及 varchar (100) 和 varchar (10) 的区别</a></li>
+</ul>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1707703738443946" crossorigin="anonymous"></script>
+<!-- 文章内 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1707703738443946" data-ad-slot="6330017668" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      deppwang
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://depp.wang/2019/10/30/mysql-note/" title="MySQL 的 SQL 笔记">https://depp.wang/2019/10/30/mysql-note/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/08/what-is-the-test-driven-development/" rel="next" title="什么是测试驱动开发？（TDD）">
+                <i class="fa fa-chevron-left"></i> 什么是测试驱动开发？（TDD）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/10/translate-alfred-workflows-help/" rel="prev" title="<译> Alfred 官网 的 Workflows 帮助">
+                <译> Alfred 官网 的 Workflows 帮助 <i class="fa fa-chevron-right"></i>
+              </译></a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
+          <p class="site-author-name" itemprop="name">deppwang</p>
+           
+              <p class="site-description motion-element" itemprop="description">每个人都需要有自己的哈姆雷特</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">120</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">247</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DeppWang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/deppwang1" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://space.bilibili.com/336707243" target="_blank" title="BiliBili">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  BiliBili
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.youtube.com/channel/UCpjV96uJBtbf64eDaJjUkkQ" target="_blank" title="YouTube">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  YouTube
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coolshell.cn" title="CoolShell" target="_blank">CoolShell</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的网络日志" target="_blank">阮一峰的网络日志</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://1byte.io" title="1byte" target="_blank">1byte</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://catcoding.me/" title="程序员的喵" target="_blank">程序员的喵</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://blog.douchi.space/" title="椒盐豆豉" target="_blank">椒盐豆豉</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主键"><span class="nav-number">1.</span> <span class="nav-text">主键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引"><span class="nav-number">2.</span> <span class="nav-text">索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询数据"><span class="nav-number">3.</span> <span class="nav-text">查询数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改数据"><span class="nav-number">4.</span> <span class="nav-text">修改数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#库-表-列-SQL"><span class="nav-number">5.</span> <span class="nav-text">库/表/列 SQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实用-SQL"><span class="nav-number">6.</span> <span class="nav-text">实用 SQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务"><span class="nav-number">7.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Read-Uncommitted（读未提交）"><span class="nav-number">7.1.</span> <span class="nav-text">Read Uncommitted（读未提交）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Read-Commited（读已提交）"><span class="nav-number">7.2.</span> <span class="nav-text">Read Commited（读已提交）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Repeatable-Commited（可重复读）"><span class="nav-number">7.3.</span> <span class="nav-text">Repeatable Commited（可重复读）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Serializable（串行化）"><span class="nav-number">7.4.</span> <span class="nav-text">Serializable（串行化）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVVC"><span class="nav-number">8.</span> <span class="nav-text">MVVC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延伸阅读"><span class="nav-number">9.</span> <span class="nav-text">延伸阅读</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">deppwang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://deppwang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://depp.wang/2019/10/30/mysql-note/';
+          this.page.identifier = '2019/10/30/mysql-note/';
+          this.page.title = 'MySQL 的 SQL 笔记';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://deppwang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI","app_key":"AjFBNu3SKV0SwMNsiIxA0mQv","server_url":"https://ycdssag0.api.lncldglobal.com"};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

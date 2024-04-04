@@ -1,0 +1,1117 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="hOzwzcL7Td1p_evvLmRBasbQKy5-i5AgJwNLD2vHKJ8">
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Bookerly:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="狄克斯特拉算法,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="德普王's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="题目来源灵感来自于《算法图解》第 7 章 「狄克斯特拉算法」，图片和代码也是来自该书。 题目描述假设你住起点，公司在终点。坐地铁上班路线有三条，起点 -&amp;gt; A -&amp;gt; 终点；起点 -&amp;gt; B -&amp;gt; A -&amp;gt; 终点；起点 -&amp;gt; B -&amp;gt; 终点。请用狄克斯特拉算法，计算出早上坐地铁上班，最短用时多久就能到公司（不算换乘时间）？2 代表 20 分钟。路线图如下：">
+<meta name="keywords" content="狄克斯特拉算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解狄克斯特拉算法：早上坐地铁最短用时多久就能到公司？">
+<meta property="og:url" content="https://depp.wang/2019/09/09/how-long-is-the-shortest-time/index.html">
+<meta property="og:site_name" content="德普王&#39;s Blog">
+<meta property="og:description" content="题目来源灵感来自于《算法图解》第 7 章 「狄克斯特拉算法」，图片和代码也是来自该书。 题目描述假设你住起点，公司在终点。坐地铁上班路线有三条，起点 -&amp;gt; A -&amp;gt; 终点；起点 -&amp;gt; B -&amp;gt; A -&amp;gt; 终点；起点 -&amp;gt; B -&amp;gt; 终点。请用狄克斯特拉算法，计算出早上坐地铁上班，最短用时多久就能到公司（不算换乘时间）？2 代表 20 分钟。路线图如下：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135451.jpg">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135452.jpg">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135455.jpg">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135457.jpg">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135459.jpg">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135502.jpg">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135507.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135509.jpg">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135525.jpg">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135537.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/09/09/kFR8KNyZMw4PbDG.jpg">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135540.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135543.jpg">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135545.jpg">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135547.jpg">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135549.jpg">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-140551.jpg">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-140558.jpg">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135553.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135555.jpg">
+<meta property="og:updated_time" content="2023-12-21T03:42:36.014Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="理解狄克斯特拉算法：早上坐地铁最短用时多久就能到公司？">
+<meta name="twitter:description" content="题目来源灵感来自于《算法图解》第 7 章 「狄克斯特拉算法」，图片和代码也是来自该书。 题目描述假设你住起点，公司在终点。坐地铁上班路线有三条，起点 -&amp;gt; A -&amp;gt; 终点；起点 -&amp;gt; B -&amp;gt; A -&amp;gt; 终点；起点 -&amp;gt; B -&amp;gt; 终点。请用狄克斯特拉算法，计算出早上坐地铁上班，最短用时多久就能到公司（不算换乘时间）？2 代表 20 分钟。路线图如下：">
+<meta name="twitter:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135451.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'IQPKMP0VXO',
+      apiKey: 'd3e6a74afaebeb6b9c3a26eee410f08e',
+      indexName: 'deppwang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://depp.wang/2019/09/09/how-long-is-the-shortest-time/">
+
+
+
+
+
+  <title>理解狄克斯特拉算法：早上坐地铁最短用时多久就能到公司？ | 德普王's Blog</title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3HG6GE96C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3HG6GE96C');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">德普王's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Draft, Edit, Proofread, Publish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/2019/08/22/tools/" rel="section">
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-decorate">
+          <a href="/tags/装修/" rel="section">
+            
+            装修
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAPF8TuhkibCKuDf" data-callback="javascriptCallback"></div>
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2019/09/09/how-long-is-the-shortest-time/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">理解狄克斯特拉算法：早上坐地铁最短用时多久就能到公司？</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-09T13:26:55+08:00">
+                2019-09-09
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-03-13T10:44:28+08:00">
+                2020-03-13
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithms</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/09/how-long-is-the-shortest-time/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/09/09/how-long-is-the-shortest-time/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/09/09/how-long-is-the-shortest-time/" class="leancloud_visitors" data-flag-title="理解狄克斯特拉算法：早上坐地铁最短用时多久就能到公司？">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="题目来源"><a href="#题目来源" class="headerlink" title="题目来源"></a>题目来源</h2><p>灵感来自于<a href="https://depp.wang/Java-Books/%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3.epub">《算法图解》</a>第 7 章 「狄克斯特拉算法」，图片和代码也是来自该书。</p>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>假设你住起点，公司在终点。坐地铁上班路线有三条，<code>起点 -&gt; A -&gt; 终点</code>；<code>起点 -&gt; B -&gt; A -&gt; 终点</code>；<code>起点 -&gt; B -&gt; 终点</code>。请用狄克斯特拉算法，计算出早上坐地铁上班，最短用时多久就能到公司（不算换乘时间）？<code>2</code> 代表 <code>20 分钟</code>。路线图如下：</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135451.jpg" alt=""></p>
+<a id="more"></a>
+
+<p>提示：可用三个散列表来表示各节点之间的关系：</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135452.jpg" alt=""></p>
+<ul>
+<li>GRAPH 表：记录所有节点到相邻节点（邻居）的时间</li>
+<li>COSTS 表：记录起点到其他节点的时间（开销）</li>
+<li>PARENTS 表：记录除起点以外的所有节点和其父节点（终点的父节点不确定）</li>
+</ul>
+<h2 id="解题方案"><a href="#解题方案" class="headerlink" title="解题方案"></a>解题方案</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ul>
+<li>标签：<code>狄克斯特拉算法</code>、<code>哈希表</code></li>
+<li>狄克斯特拉算法：用于计算单源最短路径的算法</li>
+<li>从 COSTS 表中找出离起点用时最短（开销最低）的相邻节点（B）</li>
+<li>遍历 B 节点的邻居，如果起点经 B 到邻居的开销更低，更新 COSTS 表中此邻居的开销</li>
+<li>同时更新 PARENTS 表此邻居的父节点</li>
+<li>遍历完所有邻居后，将节点标记为已处理过</li>
+<li>继续从 COSTS 表中找出未被处理过的、离起点开销最低的节点，循环，直到所有节点都被处理过</li>
+<li>最终 COSTS 表中终点对应的值，就是结果</li>
+<li>时间复杂度：O (n^2^)  (n 节点) * (n 邻居)</li>
+</ul>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Python3</span></span><br><span class="line">graph = &#123;&#125;</span><br><span class="line">graph[<span class="string">"start"</span>] = &#123;&#125;</span><br><span class="line">graph[<span class="string">"start"</span>][<span class="string">"a"</span>] = <span class="number">6</span></span><br><span class="line">graph[<span class="string">"start"</span>][<span class="string">"b"</span>] = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">graph[<span class="string">"a"</span>] = &#123;&#125;</span><br><span class="line">graph[<span class="string">"a"</span>][<span class="string">"fin"</span>] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">graph[<span class="string">"b"</span>] = &#123;&#125;</span><br><span class="line">graph[<span class="string">"b"</span>][<span class="string">"a"</span>] = <span class="number">3</span></span><br><span class="line">graph[<span class="string">"b"</span>][<span class="string">"fin"</span>] = <span class="number">5</span>  <span class="comment"># ←------ fin -&gt; finally</span></span><br><span class="line"></span><br><span class="line">graph[<span class="string">"fin"</span>] = &#123;&#125;  <span class="comment"># ←------终点没有任何邻居</span></span><br><span class="line"></span><br><span class="line">infinity = float(<span class="string">"inf"</span>)  <span class="comment"># ←------表示无穷大</span></span><br><span class="line">costs = &#123;&#125;</span><br><span class="line">costs[<span class="string">"a"</span>] = <span class="number">6</span></span><br><span class="line">costs[<span class="string">"b"</span>] = <span class="number">2</span></span><br><span class="line">costs[<span class="string">"fin"</span>] = infinity</span><br><span class="line"></span><br><span class="line">parents = &#123;&#125;</span><br><span class="line">parents[<span class="string">"a"</span>] = <span class="string">"start"</span></span><br><span class="line">parents[<span class="string">"b"</span>] = <span class="string">"start"</span></span><br><span class="line">parents[<span class="string">"fin"</span>] = <span class="keyword">None</span>  <span class="comment"># ←------终点父节点不确定</span></span><br><span class="line"></span><br><span class="line">processed = []  <span class="comment"># ←------存放处理过的节点</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_lowest_cost_node</span><span class="params">(costs)</span>:</span></span><br><span class="line">    lowest_cost = float(<span class="string">"inf"</span>)</span><br><span class="line">    lowest_cost_node = <span class="keyword">None</span></span><br><span class="line">    <span class="keyword">for</span> node <span class="keyword">in</span> costs:  <span class="comment"># ←------遍历所有的节点</span></span><br><span class="line">        cost = costs[node]</span><br><span class="line">        <span class="keyword">if</span> cost &lt; lowest_cost <span class="keyword">and</span> node <span class="keyword">not</span> <span class="keyword">in</span> processed:  <span class="comment"># ←------如果当前节点的开销更低且未处理过，</span></span><br><span class="line">            lowest_cost = cost  <span class="comment"># ←------就将其视为开销最低的节点</span></span><br><span class="line">            lowest_cost_node = node</span><br><span class="line">    <span class="keyword">return</span> lowest_cost_node</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">node = find_lowest_cost_node(costs)  <span class="comment"># ←------找出离起点用时最短（开销最低）的相邻节点（B）</span></span><br><span class="line"><span class="keyword">while</span> node <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:  <span class="comment"># ←------这个 while 循环在所有节点都被处理过后结束</span></span><br><span class="line">    cost = costs[node]</span><br><span class="line">    neighbors = graph[node]</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> neighbors.keys():  <span class="comment"># ←------遍历当前节点的所有邻居</span></span><br><span class="line">        new_cost = cost + neighbors[n]</span><br><span class="line">        <span class="keyword">if</span> costs[n] &gt; new_cost:  <span class="comment"># ←------如果经当前节点前往该邻居开销更低</span></span><br><span class="line">            costs[n] = new_cost  <span class="comment"># ←------就更新该邻居的开销</span></span><br><span class="line">            parents[n] = node  <span class="comment"># ←------同时将该邻居的父节点设置为当前节点</span></span><br><span class="line">    processed.append(node)  <span class="comment"># ←------将当前节点标记为处理过</span></span><br><span class="line">    node = find_lowest_cost_node(costs)  <span class="comment"># ←------找出接下来要处理的节点，并循环</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">"早上用时最短到公司的时间：%s0 分钟"</span> % costs[<span class="string">'fin'</span>])</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><a href="https://github.com/egonSchiele/grokking_algorithms/blob/master/07_dijkstras_algorithm/java/01_dijkstras_algorithm/src/DijkstrasAlgorithm.java" target="_blank" rel="noopener">Java</a></li>
+<li><a href="https://github.com/egonSchiele/grokking_algorithms/blob/master/07_dijkstras_algorithm/javascript/01_dijkstras_algorithm.js" target="_blank" rel="noopener">JavaScript</a></li>
+</ul>
+<h3 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h3><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135455.jpg" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135457.jpg" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135459.jpg" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135502.jpg" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135507.png" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135509.jpg" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135525.jpg" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135537.jpg" alt=""><br><img src="https://i.loli.net/2019/09/09/kFR8KNyZMw4PbDG.jpg" style="zoom:108.2%;"><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135540.png" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135543.jpg" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135545.jpg" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135547.jpg" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135549.jpg" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-140551.jpg" style="zoom:115.5%;"><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-140558.jpg" style="zoom:103%;"><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135553.png" alt=""><br><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135555.jpg" alt=""></p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>如果要问：「早上地铁坐那条路线耗时最短？」应该怎样修改代码？</p>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1707703738443946" crossorigin="anonymous"></script>
+<!-- 文章内 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1707703738443946" data-ad-slot="6330017668" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      deppwang
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://depp.wang/2019/09/09/how-long-is-the-shortest-time/" title="理解狄克斯特拉算法：早上坐地铁最短用时多久就能到公司？">https://depp.wang/2019/09/09/how-long-is-the-shortest-time/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/狄克斯特拉算法/" rel="tag"># 狄克斯特拉算法</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/08/what-is-otosclerosis/" rel="next" title="什么是耳硬化症？">
+                <i class="fa fa-chevron-left"></i> 什么是耳硬化症？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/11/introduction-to-redis-install-cli-commands-and-data-types/" rel="prev" title="<译> Redis 入门：安装、客户端命令和数据类型">
+                <译> Redis 入门：安装、客户端命令和数据类型 <i class="fa fa-chevron-right"></i>
+              </译></a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
+          <p class="site-author-name" itemprop="name">deppwang</p>
+           
+              <p class="site-description motion-element" itemprop="description">每个人都需要有自己的哈姆雷特</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">120</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">247</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DeppWang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/deppwang1" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://space.bilibili.com/336707243" target="_blank" title="BiliBili">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  BiliBili
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.youtube.com/channel/UCpjV96uJBtbf64eDaJjUkkQ" target="_blank" title="YouTube">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  YouTube
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coolshell.cn" title="CoolShell" target="_blank">CoolShell</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的网络日志" target="_blank">阮一峰的网络日志</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://1byte.io" title="1byte" target="_blank">1byte</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://catcoding.me/" title="程序员的喵" target="_blank">程序员的喵</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://blog.douchi.space/" title="椒盐豆豉" target="_blank">椒盐豆豉</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目来源"><span class="nav-number">1.</span> <span class="nav-text">题目来源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">2.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题方案"><span class="nav-number">3.</span> <span class="nav-text">解题方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">3.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">3.2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图解"><span class="nav-number">3.3.</span> <span class="nav-text">图解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思考"><span class="nav-number">4.</span> <span class="nav-text">思考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">deppwang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://deppwang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://depp.wang/2019/09/09/how-long-is-the-shortest-time/';
+          this.page.identifier = '2019/09/09/how-long-is-the-shortest-time/';
+          this.page.title = '理解狄克斯特拉算法：早上坐地铁最短用时多久就能到公司？';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://deppwang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI","app_key":"AjFBNu3SKV0SwMNsiIxA0mQv","server_url":"https://ycdssag0.api.lncldglobal.com"};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
