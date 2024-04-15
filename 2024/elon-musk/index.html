@@ -99,7 +99,7 @@
 <meta property="og:site_name" content="德普王&#39;s Blog">
 <meta property="og:description" content="本文涉及剧透！ 《埃隆·马斯克传》一直没有上微信读书（以上。因为我一直没有更新微信读书 APP，所以搜不到），我就淘宝低价买了正版纸质书，16 元。书挺厚，有约 60 万字，断断续续读了 20 天才读完，记录下阅读感受。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2024-04-15T07:06:53.018Z">
+<meta property="og:updated_time" content="2024-04-15T15:32:18.923Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="读《埃隆·马斯克传》">
 <meta name="twitter:description" content="本文涉及剧透！ 《埃隆·马斯克传》一直没有上微信读书（以上。因为我一直没有更新微信读书 APP，所以搜不到），我就淘宝低价买了正版纸质书，16 元。书挺厚，有约 60 万字，断断续续读了 20 天才读完，记录下阅读感受。">
@@ -364,7 +364,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-04-14T11:32:21+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2024-04-14T11:34:23+08:00">
                 2024-04-14
               </time>
             
@@ -573,7 +573,7 @@
 <li>如果你认为是对的，也要对抗 Musk - 做正确的事</li>
 <li>精神的力量，我们也需要个宏伟的目标（愿景思维）在头脑中要驱动自己吗</li>
 <li>做喜欢的事，忙起来，应该也会取得一点成绩</li>
-<li>多看看书，可以huanhuan脑子</li>
+<li>多看看书，可以换换脑子</li>
 <li>Twitter 与 AI 用起来</li>
 </ol>
 
@@ -684,16 +684,35 @@
 
 
           
-  <p>本博客评论默认使用 <button id="giscus-btn" onclick="onSelectGiscus()" class="active" control-id="control-id-1">giscus</button>，你也可以切换到 <button id="giscus-btn" onclick="onSelectDisqus()" class="" control-id="control-id-2">disqus</button> 来留言。</p>
+  <script type="text/javascript">
+    function onSelectGiscus() {
+      document.getElementById('giscus-btn').style = 'background-color: #666; color: #fff;';
+      document.getElementsByClassName('giscus')[0].style = '';
+      document.getElementById('disqus_thread').style.display = 'none';
+      document.getElementById('disqus-btn').style = '';
+    }
+
+    function onSelectDisqus() {
+      document.getElementById('disqus-btn').style = 'background-color: #666; color: #fff;';
+      document.getElementById('disqus_thread').style = '';
+      document.getElementsByClassName('giscus')[0].style.display = 'none';
+      document.getElementById('giscus-btn').style = '';
+    }
+  </script>
+
+  <p>评论默认使用 <button id="giscus-btn" onclick="onSelectGiscus()" style="
+  background-color: #666; color: #fff;
+  ">giscus</button>，你也可以切换到 <button id="disqus-btn" onclick="onSelectDisqus()">disqus</button> 来留言。</p>
+  
   <div class="comments" id="comments">
     <script src="https://giscus.app/client.js" data-repo="deppwang/deppwang.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnk5MDUwNTE0Nw==" data-category="Discuss" data-category-id="DIC_kwDOBWT_u84CesZv" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async>
     </script>
     
-      <div id="disqus_thread">
+      <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
+          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+        
       </div>
     
   </div>

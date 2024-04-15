@@ -73,7 +73,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Git,Zsh,Aliases,macOS,别名,Bash,缩写,zshrc,小技巧,软件小技巧,命令行,效率技巧,Linux,">
+  <meta name="keywords" content="Git,Zsh,Aliases,macOS,别名,Bash,缩写,zshrc,Linux,小技巧,软件小技巧,命令行,效率技巧,">
 
 
 
@@ -92,7 +92,7 @@
 
 
 <meta name="description" content="使用命令行操作 Git、Docker 等时，命令较长，容易输错，影响效率，推荐配置别名（缩写），以提升效率。以下是在 Zsh 和 Bash 中配置别名教程 配置 Git 别名git config --global alias.st status  # git stgit config --global alias.co checkoutgit config --global alias.ci co">
-<meta name="keywords" content="Git,Zsh,Aliases,macOS,别名,Bash,缩写,zshrc,小技巧,软件小技巧,命令行,效率技巧,Linux">
+<meta name="keywords" content="Git,Zsh,Aliases,macOS,别名,Bash,缩写,zshrc,Linux,小技巧,软件小技巧,命令行,效率技巧">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux Bash 和 Zsh 中配置命令别名提升效率">
 <meta property="og:url" content="https://depp.wang/2022/10/26/configing-command-aliases-in-bash-and-zsh/index.html">
@@ -501,6 +501,8 @@
           
             <a href="/tags/zshrc/" rel="tag"># zshrc</a>
           
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
             <a href="/tags/小技巧/" rel="tag"># 小技巧</a>
           
             <a href="/tags/软件小技巧/" rel="tag"># 软件小技巧</a>
@@ -508,8 +510,6 @@
             <a href="/tags/命令行/" rel="tag"># 命令行</a>
           
             <a href="/tags/效率技巧/" rel="tag"># 效率技巧</a>
-          
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
           
         </div>
       
@@ -558,16 +558,35 @@
 
 
           
-  <p>本博客评论默认使用 <button id="giscus-btn" onclick="onSelectGiscus()" class="active" control-id="control-id-1">giscus</button>，你也可以切换到 <button id="giscus-btn" onclick="onSelectDisqus()" class="" control-id="control-id-2">disqus</button> 来留言。</p>
+  <script type="text/javascript">
+    function onSelectGiscus() {
+      document.getElementById('giscus-btn').style = 'background-color: #666; color: #fff;';
+      document.getElementsByClassName('giscus')[0].style = '';
+      document.getElementById('disqus_thread').style.display = 'none';
+      document.getElementById('disqus-btn').style = '';
+    }
+
+    function onSelectDisqus() {
+      document.getElementById('disqus-btn').style = 'background-color: #666; color: #fff;';
+      document.getElementById('disqus_thread').style = '';
+      document.getElementsByClassName('giscus')[0].style.display = 'none';
+      document.getElementById('giscus-btn').style = '';
+    }
+  </script>
+
+  <p>评论默认使用 <button id="giscus-btn" onclick="onSelectGiscus()" style="
+  background-color: #666; color: #fff;
+  ">giscus</button>，你也可以切换到 <button id="disqus-btn" onclick="onSelectDisqus()">disqus</button> 来留言。</p>
+  
   <div class="comments" id="comments">
     <script src="https://giscus.app/client.js" data-repo="deppwang/deppwang.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnk5MDUwNTE0Nw==" data-category="Discuss" data-category-id="DIC_kwDOBWT_u84CesZv" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async>
     </script>
     
-      <div id="disqus_thread">
+      <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
+          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+        
       </div>
     
   </div>
