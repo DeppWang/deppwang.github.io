@@ -102,7 +102,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240408160730.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231128102849.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231128103149.png">
-<meta property="og:updated_time" content="2024-04-18T01:21:48.548Z">
+<meta property="og:updated_time" content="2024-04-18T09:18:55.263Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 Mac mini 兼做 NAS">
 <meta name="twitter:description" content="我日常没有什么大容量储存需求，连硬盘也没有买，一些需要数据备份与远程同步的场景我使用 iCloud，200G 的空间也够用了。前些天电脑突然启动不了，因为没有使用「时间机器」备份系统，只能重装系统，虽然数据基本没有丢失，但软件安装、软件配置等也断断续续搞了几天。不想再次出现这个问题，时间机器备份得马上安排上，因为时间机器需要外置硬盘，现在也出现一些大容量存储需求，索性一步到位，整个 NAS。 NA">
@@ -368,7 +368,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-04-18T09:21:01+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2024-04-18T17:18:06+08:00">
                 2024-04-18
               </time>
             
@@ -466,7 +466,7 @@
 <p>还需要在「系统设置 - 通用 - 共享」中开启「<a href="https://support.apple.com/zh-cn/guide/mac-help/mh17131/mac" target="_blank" rel="noopener">文件共享</a>」，共享磁盘阵列的文件夹，文件夹就可以被局域网上设备访问了，NAS 就设置好了。</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231128103149.png" alt=""></p>
 <p>关于外网访问，请看我这篇文章「<a href="https://depp.wang/2023/12/12/ipv6-and-tailscale-remote-access-nas/">使用 IPv6 + Tailscale 实现 NAS 外网访问</a>」</p>
-<p>折腾一段时间，我希望 Mac mini 兼做 NAS可以满足以下要求，但发现基本可以满足，但有的还是不能满足：</p>
+<h2 id="NAS-可以满足的功能"><a href="#NAS-可以满足的功能" class="headerlink" title="NAS 可以满足的功能"></a>NAS 可以满足的功能</h2><p>折腾一段时间，我希望 Mac mini 兼做 NAS 可以满足以下要求，但发现基本可以满足，但有的还是不能满足：</p>
 <ol>
 <li>数据备份<ul>
 <li>电脑系统备份，可以满足<ul>
@@ -490,9 +490,9 @@
 </ul>
 </li>
 <li>数据同步，多端使用<ul>
-<li>其他电脑可直接存放数据到 NAS，解决电脑磁盘不够用的问题。可以满足</li>
-<li>手机直接访问 Obsidian 数据，无需手动 Git pull / push，解决 Obsidian 在手机编辑不方便的问题。可以满足<ul>
-<li>在 iOS 「文件 APP」中的「连接服务器」中添加 NAS，再使用 1Writer 编辑</li>
+<li>设备可直接存放数据到 NAS ，解决磁盘不够用的问题，方便访问 NAS 中数据。可以满足<ul>
+<li>局域网内设备可通过直接使用局域网 IP 连接</li>
+<li>外网设备可使用 Tailscale 工具访问</li>
 </ul>
 </li>
 <li>替代 iCloud，不能满足<ul>
@@ -527,7 +527,7 @@
 </li>
 <li>个人远程服务器，可以满足</li>
 </ol>
-<p>最后，我发现使用 Mac mini 兼做 NAS，Mac mini 还有 2 个优势，1、接口丰富，它有网口 / HDMI / 4 个雷电 / 2 个 USB，也不用购买外接扩展坞了；2、还可以做「<a href="https://support.apple.com/zh-cn/guide/mac-help/mchl3b6c3720/mac" target="_blank" rel="noopener">内容缓存</a>」，这是 Mac mini 独有的优势。除了使用 Mac mini 兼做 NAS，闲置电脑等，只要可以 24 小时开机，都可以兼做 NAS。以上只是我个人配置经验，并没有提供过多的配置步骤，可多看一些相关视频，对我有帮助的视频我也放文末了。</p>
+<p>NAS 可以满足部分功能，但还需要和其它服务配合使用。最后，我发现使用 Mac mini 兼做 NAS，Mac mini 还有 2 个优势，1、接口丰富，它有网口 / HDMI / 4 个雷电 / 2 个 USB，也不用购买外接扩展坞了；2、还可以做「<a href="https://support.apple.com/zh-cn/guide/mac-help/mchl3b6c3720/mac" target="_blank" rel="noopener">内容缓存</a>」，这是 Mac mini 独有的优势。除了使用 Mac mini 兼做 NAS，闲置电脑等，只要可以 24 小时开机，都可以兼做 NAS。以上只是我个人配置经验，并没有提供过多的配置步骤，可多看一些相关视频，对我有帮助的视频我也放文末了。</p>
 <h2 id="相关视频"><a href="#相关视频" class="headerlink" title="相关视频"></a>相关视频</h2><ul>
 <li><a href="https://www.bilibili.com/video/BV1kZ4y1F733/" target="_blank" rel="noopener">【硬核科普】NAS 究竟是什么东西？你需要一台 NAS 吗？</a></li>
 <li><a href="https://www.youtube.com/watch?v=er6O-0vPA9s" target="_blank" rel="noopener">【新手向】什么是 NAS？NAS 有哪几种？哪种 NAS 适合我？</a></li>
@@ -846,7 +846,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置家里所有设备在一个局域网中"><span class="nav-number">1.</span> <span class="nav-text">配置家里所有设备在一个局域网中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我为什么没有选择成品-NAS"><span class="nav-number">2.</span> <span class="nav-text">我为什么没有选择成品 NAS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mac-mini-兼做-NAS"><span class="nav-number">3.</span> <span class="nav-text">Mac mini 兼做 NAS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关视频"><span class="nav-number">4.</span> <span class="nav-text">相关视频</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置家里所有设备在一个局域网中"><span class="nav-number">1.</span> <span class="nav-text">配置家里所有设备在一个局域网中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我为什么没有选择成品-NAS"><span class="nav-number">2.</span> <span class="nav-text">我为什么没有选择成品 NAS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mac-mini-兼做-NAS"><span class="nav-number">3.</span> <span class="nav-text">Mac mini 兼做 NAS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NAS-可以满足的功能"><span class="nav-number">4.</span> <span class="nav-text">NAS 可以满足的功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关视频"><span class="nav-number">5.</span> <span class="nav-text">相关视频</span></a></li></ol></div>
             
 
           </div>
