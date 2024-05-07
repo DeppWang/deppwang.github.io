@@ -99,7 +99,7 @@
 <meta property="og:site_name" content="德普王&#39;s Blog">
 <meta property="og:description" content="HTTP 是无状态协议，所以服务端如果需要记住登录用户，就需要维护一个 SessionId(Cookie) - Session 的键值对。Session 存放用户信息对象。用户信息对象作为 Session 的一个 Attribute。当浏览器请求中包含 Cookie 时，服务器就能识别出具体是哪个用户了。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2024-04-28T07:59:04.188Z">
+<meta property="og:updated_time" content="2024-05-07T01:28:55.199Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 实现一个自定义分布式 Session">
 <meta name="twitter:description" content="HTTP 是无状态协议，所以服务端如果需要记住登录用户，就需要维护一个 SessionId(Cookie) - Session 的键值对。Session 存放用户信息对象。用户信息对象作为 Session 的一个 Attribute。当浏览器请求中包含 Cookie 时，服务器就能识别出具体是哪个用户了。">
@@ -139,7 +139,7 @@
   <title>Java 实现一个自定义分布式 Session | 德普王's Blog</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -173,7 +173,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -318,16 +318,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2020/10/26/java-implements-a-custom-distributed-session/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王's Blog">
     </span>
 
@@ -382,7 +382,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Java/" itemprop="url" rel="index">
                     <span itemprop="name">Java</span>
                   </a>
@@ -460,7 +460,7 @@
 <p>此部分代码对应 <a href="https://github.com/DeppWang/springboot-demos/tree/master/springboot-session/src/main/java/wang/depp/session/web/v1" target="_blank" rel="noopener">v1</a></p>
 <h2 id="使用-Redis"><a href="#使用-Redis" class="headerlink" title="使用 Redis"></a>使用 Redis</h2><p>当存在跨域问题时，即多个服务都需要用到 Session 判断登录状态时，就需要将 Session 在每个服务中复制一份，或做成分布式 Session。一般使用 Redis 实现。</p>
 <p>下面使用 Redis 来维护这个 SessionId - Session 的键值对，或者说维护一个 SessionId - Attributes 的键值对。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(getClass());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">long</span> EXPIRE_TIME = <span class="number">1800</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> HttpServletRequest <span class="title">getRequest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ServletRequestAttributes attrs = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();</span><br><span class="line">        <span class="keyword">return</span> attrs.getRequest();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">setAttribute</span><span class="params">(String name, Object value)</span> </span>&#123;</span><br><span class="line">        String sessionId = getRequest().getSession().getId();</span><br><span class="line">        Map&lt;String, Object&gt; attributes = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        attributes.put(name, value);</span><br><span class="line">        RedisUtils.setKey(sessionId, JsonUtils.getJson(attributes), EXPIRE_TIME, TimeUnit.SECONDS);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Object <span class="title">getAttribute</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        String sessionId = getRequest().getSession().getId();</span><br><span class="line">        String attributesJson = RedisUtils.getKey(sessionId);</span><br><span class="line">        Map&lt;String, Object&gt; attributes = JsonUtils.fromJson(attributesJson, Map.class);</span><br><span class="line">        <span class="keyword">return</span> attributes.get(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> User <span class="title">getKeyUser</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        Object user = getAttribute(name);</span><br><span class="line">        <span class="keyword">return</span> JsonUtils.fromJson(user.toString(), User.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">removeAttribute</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        String sessionId = getRequest().getSession().getId();</span><br><span class="line">        String attributesJson = RedisUtils.getKey(sessionId);</span><br><span class="line">        Map&lt;String, Object&gt; attributes = JsonUtils.fromJson(attributesJson, HashMap.class);</span><br><span class="line">        attributes.remove(name);</span><br><span class="line">        RedisUtils.setKey(sessionId, JsonUtils.getJson(attributes), EXPIRE_TIME, TimeUnit.SECONDS);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(getClass());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">long</span> EXPIRE_TIME = <span class="number">1800</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> HttpServletRequest <span class="title">getRequest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ServletRequestAttributes attrs = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();</span><br><span class="line">        <span class="keyword">return</span> attrs.getRequest();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">setAttribute</span><span class="params">(String name, Object value)</span> </span>&#123;</span><br><span class="line">        String sessionId = getRequest().getSession().getId();</span><br><span class="line">        Map&lt;String, Object&gt; attributes = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        attributes.put(name, value);</span><br><span class="line">        RedisUtils.setKey(sessionId, JsonUtils.getJson(attributes), EXPIRE_TIME, TimeUnit.SECONDS);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Object <span class="title">getAttribute</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        String sessionId = getRequest().getSession().getId();</span><br><span class="line">        String attributesJson = RedisUtils.getKey(sessionId);</span><br><span class="line">        Map&lt;String, Object&gt; attributes = JsonUtils.fromJson(attributesJson, Map<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        <span class="keyword">return</span> attributes.get(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> User <span class="title">getKeyUser</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        Object user = getAttribute(name);</span><br><span class="line">        <span class="keyword">return</span> JsonUtils.fromJson(user.toString(), User<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">removeAttribute</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        String sessionId = getRequest().getSession().getId();</span><br><span class="line">        String attributesJson = RedisUtils.getKey(sessionId);</span><br><span class="line">        Map&lt;String, Object&gt; attributes = JsonUtils.fromJson(attributesJson, HashMap<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        attributes.remove(name);</span><br><span class="line">        RedisUtils.setKey(sessionId, JsonUtils.getJson(attributes), EXPIRE_TIME, TimeUnit.SECONDS);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>自定义 RedisUtils，使用静态方法</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisUtils</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> StringRedisTemplate stringRedisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StringRedisTemplate autowiredStringRedisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        stringRedisTemplate = <span class="keyword">this</span>.autowiredStringRedisTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setKey</span><span class="params">(String key, String value, <span class="keyword">long</span> timeout, TimeUnit unit)</span> </span>&#123;</span><br><span class="line">        stringRedisTemplate.opsForValue().set(addKeyPrefix(key), value, timeout, unit);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getKey</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> stringRedisTemplate.opsForValue().get(addKeyPrefix(key));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Boolean <span class="title">deleteKey</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> stringRedisTemplate.opsForValue().getOperations().delete(addKeyPrefix(key));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Long <span class="title">incrementKey</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> stringRedisTemplate.opsForValue().increment(addKeyPrefix(key));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">addKeyPrefix</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> String.format(<span class="string">"session:%s"</span>, key);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -643,7 +643,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
         
       </div>
     
@@ -679,7 +679,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
@@ -691,7 +691,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">123</span>
+                <span class="site-state-item-count">124</span>
                 <span class="site-state-item-name">文章</span>
               </a>
             </div>
@@ -705,7 +705,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">269</span>
+                <span class="site-state-item-count">272</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

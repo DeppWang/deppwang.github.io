@@ -109,7 +109,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226233120.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226233313.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231227210506.png">
-<meta property="og:updated_time" content="2024-04-28T07:59:04.196Z">
+<meta property="og:updated_time" content="2024-05-07T01:28:55.207Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="订阅（自动保存）阿里云盘正在连载的资源">
 <meta name="twitter:description" content="自从我设置了 Infuse + 阿里云盘 + NAS 观看影视，我媳妇追剧更方便了，但有个问题，当剧集还在连载时，最新剧集每次需要手动保存到自己阿里云盘。因为懒，试着搜了下有没有自动化工具，没想到还真有。 工具地址：https://github.com/adminpass/aliyundrive-subscribe 工具截图：  这是一个在 Docker 运行的本地 WEB 程序">
@@ -150,7 +150,7 @@
   <title>订阅（自动保存）阿里云盘正在连载的资源 | 德普王's Blog</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -184,7 +184,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -329,16 +329,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2023/12/26/aliyundrive-subscribe/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王's Blog">
     </span>
 
@@ -430,33 +430,33 @@
         <p>自从我设置了 Infuse + 阿里云盘 + NAS 观看影视，我媳妇追剧更方便了，但有个问题，当剧集还在连载时，最新剧集每次需要手动保存到自己阿里云盘。因为懒，试着搜了下有没有自动化工具，没想到还真有。</p>
 <p>工具地址：<a href="https://github.com/adminpass/aliyundrive-subscribe" target="_blank" rel="noopener">https://github.com/adminpass/aliyundrive-subscribe</a></p>
 <p>工具截图：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226233335.png" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226233335.png" alt></p>
 <p>这是一个在 Docker 运行的本地 WEB 程序</p>
 <a id="more"></a>
 
 <h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><h3 id="一、pull-项目-docker-镜像"><a href="#一、pull-项目-docker-镜像" class="headerlink" title="一、pull 项目 docker 镜像"></a>一、pull 项目 docker 镜像</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker pull looby/aliyundrive-subscribe:latest</span><br></pre></td></tr></table></figure>
 
 <h3 id="二、下载程序与配置文件"><a href="#二、下载程序与配置文件" class="headerlink" title="二、下载程序与配置文件"></a>二、下载程序与配置文件</h3><p>下载程序与配置文件 <code>app.ini</code></p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226232010.png" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226232010.png" alt></p>
 <p>地址：<a href="https://github.com/adminpass/aliyundrive-subscribe/releases/tag/V2.9.5_20231122" target="_blank" rel="noopener">https://github.com/adminpass/aliyundrive-subscribe/releases/tag/V2.9.5_20231122</a></p>
 <h3 id="三、启动"><a href="#三、启动" class="headerlink" title="三、启动"></a>三、启动</h3><p>使用命令启动：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run -d -p 8002:8002 --name aliyundrive-subscribe -v /Volumes/NAS/Projects/aliyundrive-subscribe/docker-conf:/app/conf looby/aliyundrive-subscribe</span><br></pre></td></tr></table></figure>
 
 <p><code>/Volumes/NAS/Projects/aliyundrive-subscribe/docker-conf</code> 是我 <code>aliyundrive-subscribe_linux_arm64</code> 和 <code>app.ini</code> 配置文件的路径</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226232328.png" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226232328.png" alt></p>
 <p>启动后地址：<a href="http://127.0.0.1:8002/" target="_blank" rel="noopener">http://127.0.0.1:8002/</a></p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226233335.png" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226233335.png" alt></p>
 <h3 id="四、配置"><a href="#四、配置" class="headerlink" title="四、配置"></a>四、配置</h3><h4 id="1、获取一个阿里云盘-refresh-token"><a href="#1、获取一个阿里云盘-refresh-token" class="headerlink" title="1、获取一个阿里云盘 refresh_token"></a>1、获取一个阿里云盘 refresh_token</h4><p>这是阿里云盘给三方客户端的 token，可以在<a href="https://alist.nn.ci/zh/guide/drivers/aliyundrive.html" target="_blank" rel="noopener">这里</a>获取，没有验证其安全性（我阿里云盘没有存放重要资料）</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226232556.png" alt=""></p>
-<h4 id="2、设置-refresh-token"><a href="#2、设置-refresh-token" class="headerlink" title="2、设置 refresh_token"></a>2、设置 refresh_token</h4><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226232829.png" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226232556.png" alt></p>
+<h4 id="2、设置-refresh-token"><a href="#2、设置-refresh-token" class="headerlink" title="2、设置 refresh_token"></a>2、设置 refresh_token</h4><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226232829.png" alt></p>
 <h4 id="3、获取你要保存目录的-ID-与资源的地址"><a href="#3、获取你要保存目录的-ID-与资源的地址" class="headerlink" title="3、获取你要保存目录的 ID 与资源的地址"></a>3、获取你要保存目录的 ID 与资源的地址</h4><p>目录的 ID：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226233101.png" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226233101.png" alt></p>
 <p>你要订阅的资源的地址：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226233120.png" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226233120.png" alt></p>
 <h4 id="4、设置订阅"><a href="#4、设置订阅" class="headerlink" title="4、设置订阅"></a>4、设置订阅</h4><p>订阅清单中添加订阅：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226233313.png" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231226233313.png" alt></p>
 <p>将订阅设置为打开：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231227210506.png" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231227210506.png" alt></p>
 <h2 id="相关视频"><a href="#相关视频" class="headerlink" title="相关视频"></a>相关视频</h2><ul>
 <li><a href="https://www.youtube.com/watch?v=mqRYKg_aB3I&amp;t=104s" target="_blank" rel="noopener">https://www.youtube.com/watch?v=mqRYKg_aB3I&amp;t=104s</a></li>
 </ul>
@@ -594,7 +594,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
         
       </div>
     
@@ -630,7 +630,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
@@ -642,7 +642,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">123</span>
+                <span class="site-state-item-count">124</span>
                 <span class="site-state-item-name">文章</span>
               </a>
             </div>
@@ -656,7 +656,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">269</span>
+                <span class="site-state-item-count">272</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
