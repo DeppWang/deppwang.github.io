@@ -1,0 +1,1270 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="hOzwzcL7Td1p_evvLmRBasbQKy5-i5AgJwNLD2vHKJ8">
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Bookerly:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Django,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="德普王" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="WSGIWSGI：（Web Server Gateway Interface，Web 服务端网关接口）。在不借助框架的情况下，直接使用 WSGI 来开发简易服务端。">
+<meta name="keywords" content="Django">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django 入门笔记">
+<meta property="og:url" content="https://depp.wang/2020/11/17/django-getting-started-notes/index.html">
+<meta property="og:site_name" content="德普王">
+<meta property="og:description" content="WSGIWSGI：（Web Server Gateway Interface，Web 服务端网关接口）。在不借助框架的情况下，直接使用 WSGI 来开发简易服务端。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-11-16-133323.png">
+<meta property="og:updated_time" content="2024-05-09T07:31:04.925Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Django 入门笔记">
+<meta name="twitter:description" content="WSGIWSGI：（Web Server Gateway Interface，Web 服务端网关接口）。在不借助框架的情况下，直接使用 WSGI 来开发简易服务端。">
+<meta name="twitter:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-11-16-133323.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'IQPKMP0VXO',
+      apiKey: 'd3e6a74afaebeb6b9c3a26eee410f08e',
+      indexName: 'deppwang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://depp.wang/2020/11/17/django-getting-started-notes/">
+
+
+
+
+
+  <title>Django 入门笔记 | 德普王</title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3HG6GE96C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3HG6GE96C');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">德普王</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Draft, Edit, Proofread, Publish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-decorate">
+          <a href="/tags/装修/" rel="section">
+            
+            装修
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAPF8TuhkibCKuDf" data-callback="javascriptCallback"></div>
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2020/11/17/django-getting-started-notes/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Django 入门笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-17T17:25:24+08:00">
+                2020-11-17
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-12-04T00:08:08+08:00">
+                2020-12-04
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/11/17/django-getting-started-notes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/11/17/django-getting-started-notes/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/11/17/django-getting-started-notes/" class="leancloud_visitors" data-flag-title="Django 入门笔记">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <!--学习 Django 前的疑问：-->
+
+<!--1.Django 如何工作的-->
+<!--2.Python 的 Django 和 Java 的 SpringBoot 有什么区别-->
+<!--3.Django 和 Flask 有什么区别-->
+
+<h2 id="WSGI"><a href="#WSGI" class="headerlink" title="WSGI"></a>WSGI</h2><p>WSGI：（Web Server Gateway Interface，Web 服务端网关接口）。在不借助框架的情况下，直接使用 WSGI 来开发简易服务端。</p>
+<a id="more"></a>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># hello.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">application</span><span class="params">(environ, start_response)</span>:</span></span><br><span class="line">    start_response(<span class="string">'200 OK'</span>, [(<span class="string">'Content-Type'</span>, <span class="string">'text/html'</span>)])  <span class="comment"># 设置 Header</span></span><br><span class="line">    <span class="keyword">return</span> [<span class="string">b'&lt;h1&gt;Hello, web!&lt;/h1&gt;'</span>]  <span class="comment"># 响应内容</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># server.py</span></span><br><span class="line"><span class="comment"># 从 wsgiref 模块导入:</span></span><br><span class="line"><span class="keyword">from</span> wsgiref.simple_server <span class="keyword">import</span> make_server</span><br><span class="line"><span class="comment"># 导入我们自己编写的 application 函数:</span></span><br><span class="line"><span class="keyword">from</span> hello <span class="keyword">import</span> application</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个服务器，IP 地址为空，端口是 8000，处理函数是 application:</span></span><br><span class="line">httpd = make_server(<span class="string">''</span>, <span class="number">8000</span>, application)</span><br><span class="line">print(<span class="string">'Serving HTTP on port 8000...'</span>)</span><br><span class="line"><span class="comment"># 开始监听 HTTP 请求:</span></span><br><span class="line">httpd.serve_forever()</span><br></pre></td></tr></table></figure>
+
+<p>运行：<code>python3 server.py</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[21:32:30] ~/workspace/demo ❱❱❱ python3 server.py</span><br><span class="line">Serving HTTP on port 8000...</span><br></pre></td></tr></table></figure>
+
+<p><code>http://localhost:8000/</code></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-11-16-133323.png" alt=""></p>
+<ul>
+<li><a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017806472608512" target="_blank" rel="noopener">WSGI 接口</a></li>
+<li><a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017806472608512" target="_blank" rel="noopener">使用 Web 框架</a></li>
+</ul>
+<h2 id="macOS-安装-Django"><a href="#macOS-安装-Django" class="headerlink" title="macOS 安装 Django"></a>macOS 安装 Django</h2><ul>
+<li><a href="https://docs.djangoproject.com/zh-hans/3.1/intro/overview/" target="_blank" rel="noopener">官方中文教程 3.1</a>、<a href="https://docs.djangoproject.com/en/1.11/" target="_blank" rel="noopener">英文教程 1.11</a></li>
+</ul>
+<p>Python 版本与 Django 版本的<a href="https://docs.djangoproject.com/zh-hans/3.1/faq/install/#faq-python-version-support" target="_blank" rel="noopener">关系</a></p>
+<p>安装 Django 1.11，对应 Python2：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo python -m pip install Django</span></span><br></pre></td></tr></table></figure>
+
+<p>安装最新版 Django 3.1，对应 Python3：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python3 -m pip install Django</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><a href="https://docs.djangoproject.com/zh-hans/3.1/intro/install/" target="_blank" rel="noopener">快速安装指南</a></li>
+</ul>
+<p>查看版本：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python -m django --version</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python3 -m django --version</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="创建-Django-项目"><a href="#创建-Django-项目" class="headerlink" title="创建 Django 项目"></a>创建 Django 项目</h2><ul>
+<li><a href="https://docs.djangoproject.com/zh-hans/3.1/intro/tutorial01/" target="_blank" rel="noopener">第 1 节：请求和响应</a></li>
+</ul>
+<p>创建一个名为 mysite 的 Django 项目</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> django-admin startproject mysite</span></span><br></pre></td></tr></table></figure>
+
+<p>在没有安装 1.11 版本的 Django 时，提示未找到命令：<code>zsh: command not found: django-admin</code></p>
+<p>解决方式：使用 <code>python3 -m django</code> 替代 <code>django-admin</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python3 -m django startproject mysite</span></span><br></pre></td></tr></table></figure>
+
+<p>原因：运行命令 <code>django-admin startproject mysite</code> 时，系统将去 <code>/usr/local/bin</code> 目录找可执行文件 django-admin，安装 Django 3.1 时，没有自动将可执行文件<code>django-admin</code> <a href="https://zh.wikipedia.org/wiki/%E7%AC%A6%E5%8F%B7%E9%93%BE%E6%8E%A5" target="_blank" rel="noopener">软链（符号链接）</a>到 <code>/usr/local/bin</code>，所以直接运行不好使，而使用 <code>python3 -m django</code>，m 含义module，将在 <code>/Library/Frameworks/Python.framework/Versions/3.7</code> 下的site-package 中查找</p>
+<p>的 目录找此命令，找不到。安装 Django 1.11 后，此命令可以使用</p>
+<ul>
+<li>命令关键字：<strong>startproject</strong></li>
+</ul>
+<p>mysite 结构：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysite/</span><br><span class="line">    manage.py  # 项目管理</span><br><span class="line">    mysite/    # 包名</span><br><span class="line">        __init__.py  # 作为 Python 包的标记</span><br><span class="line">        settings.py  # 项目设置</span><br><span class="line">        urls.py      # 相当于 Spring 的 Controller</span><br><span class="line">        asgi.py</span><br><span class="line">        wsgi.py</span><br></pre></td></tr></table></figure>
+
+<p>启动项目：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python3 manage.py runserver</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python manage.py runserver 8001</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>runserver：Django 根据 manage.py 后的参数来启动</li>
+</ul>
+<p>查看是否启动成功：</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">http:</span><span class="comment">//127.0.0.1:8000/</span></span><br><span class="line"><span class="symbol">http:</span><span class="comment">//127.0.0.1:8001/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="创建投票应用"><a href="#创建投票应用" class="headerlink" title="创建投票应用"></a>创建投票应用</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python3 manage.py startapp polls</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python manage.py startapp polls</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>命令关键字：<strong>startapp</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysite/</span><br><span class="line">    manage.py  # </span><br><span class="line">    mysite/    # 包名</span><br><span class="line">        __init__.py  # 作为 Python 包的标记</span><br><span class="line">        settings.py</span><br><span class="line">        urls.py      # 相当于 Spring 的 Controller</span><br><span class="line">        asgi.py</span><br><span class="line">        wsgi.py</span><br><span class="line">    polls/     # 应用目录</span><br><span class="line">    	migrations/  # 存放「迁移」文件</span><br><span class="line">        urls.py</span><br><span class="line">        apps.py</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># apps.py</span></span><br><span class="line"><span class="keyword">from</span> django.apps <span class="keyword">import</span> AppConfig</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PollsConfig</span><span class="params">(AppConfig)</span>:</span></span><br><span class="line">    name = <span class="string">'polls'</span>  <span class="comment"># Python 包名</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="视图层"><a href="#视图层" class="headerlink" title="视图层"></a>视图层</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># views.py</span></span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">"Hello, world. You're at the polls index."</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Django 3.1</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># polls/urls.py</span></span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">''</span>, views.index, name=<span class="string">'index'</span>),  <span class="comment"># '' 对应 /polls/</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mysite/urls.py</span></span><br><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> include, path</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">'polls/'</span>, include(<span class="string">'polls.urls'</span>)),</span><br><span class="line">    path(<span class="string">'admin/'</span>, admin.site.urls),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Django 3.1 path() 第一个参数为 route</li>
+</ul>
+<p>Django 1.11 需要新增 urls.py，path 格式略微不同</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># polls/urls.py</span></span><br><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> url</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^$'</span>, views.index, name=<span class="string">'index'</span>), <span class="comment"># ^ 表示行的开头，$ 表示行的结束</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mysite/urls.py</span></span><br><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> include, url</span><br><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^polls/'</span>, include(<span class="string">'polls.urls'</span>)),</span><br><span class="line">    url(<span class="string">r'^admin/'</span>, admin.site.urls),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Django 1.11 path() 第一个参数为 regex</li>
+</ul>
+<p>启动：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python3 manage.py runsever</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python manage.py runsever</span></span><br></pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">http:<span class="regexp">//</span>localhost:<span class="number">8000</span><span class="regexp">/polls/</span>  <span class="comment"># polls/ 对应 polls.urls</span></span><br><span class="line">http:<span class="regexp">//</span>localhost:<span class="number">8001</span><span class="regexp">/polls/</span>  <span class="comment"># polls/ 对应 polls.urls</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="模型层"><a href="#模型层" class="headerlink" title="模型层"></a>模型层</h2><ul>
+<li><a href="https://docs.djangoproject.com/zh-hans/3.1/intro/tutorial02/" target="_blank" rel="noopener">编写你的第一个 Django 应用，第 2 部分</a></li>
+<li><a href="https://docs.djangoproject.com/zh-hans/3.1/topics/db/models/#meta-options" target="_blank" rel="noopener">模型</a></li>
+</ul>
+<p>在 Django 里写一个使用数据库的 Web 应用的第一步是定义模型，Django 遵循 <a href="https://docs.djangoproject.com/zh-hans/3.1/misc/design-philosophies/#dry" target="_blank" rel="noopener">DRY Principle</a>（不要重复地造轮子 Don’t repeat yourself）。Django 默认使用  SQLite 数据库。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mysite/settings.py</span></span><br><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">'default'</span>: &#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.sqlite3'</span>,</span><br><span class="line">        <span class="string">'NAME'</span>: BASE_DIR / <span class="string">'db.sqlite3'</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># polls/models.py</span></span><br><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Question</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    question_text = models.CharField(max_length=<span class="number">200</span>)  <span class="comment"># char，最长长度为 200</span></span><br><span class="line">    pub_date = models.DateTimeField(<span class="string">'date published'</span>)  <span class="comment"># date_time，默认值为 date published?</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Choice</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    question = models.ForeignKey(Question, on_delete=models.CASCADE)  <span class="comment"># 外键，Choice 关联 Question</span></span><br><span class="line">    choice_text = models.CharField(max_length=<span class="number">300</span>)  <span class="comment"># char，最长长度为 200</span></span><br><span class="line">    votes = models.IntegerField(default=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<p>一个 Model（模型）对应一个表，一个 Field 对应一个表字段</p>
+<blockquote>
+<p>Question 为 <a href="https://docs.djangoproject.com/zh-hans/3.1/ref/models/instances/#django.db.models.Model" target="_blank" rel="noopener"><code>django.db.models.Model</code></a> 类的子类，question_text 为 Field 的子类</p>
+</blockquote>
+<p>在 settings.py 中配置我们添加的 polls App</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># settings.py</span></span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">'polls.apps.PollsConfig'</span>,  <span class="comment"># PollsConfig 类写在文件 polls/apps.py 中</span></span><br><span class="line">    <span class="string">'django.contrib.admin'</span>,</span><br><span class="line">	...</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h3 id="migrate「迁移」"><a href="#migrate「迁移」" class="headerlink" title="migrate「迁移」"></a>migrate「迁移」</h3><p>执行 makemigrations 命令，将根据 models.py 生成一个对数据库修改的记录，称为「迁移」，修改 models.py 后，多次执行，将生成多个「迁移」</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python3 manage.py makemigrations polls</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python manage.py makemigrations polls</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">mysite/</span><br><span class="line">    manage.py  # </span><br><span class="line">    mysite/    # 包名</span><br><span class="line">		...</span><br><span class="line">    polls/</span><br><span class="line">    	migrations/</span><br><span class="line">        	<span class="number">0001</span>_initial.py</span><br><span class="line">        	<span class="number">0002</span>_auto_20201116_1316.py</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 0001_initial.py</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Migration</span><span class="params">(migrations.Migration)</span>:</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<p>可通过 sqlmigrate 命令查看「迁移」对应的 SQL</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python3 manage.py sqlmigrate polls 0001</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python manage.py sqlmigrate polls 0001</span></span><br></pre></td></tr></table></figure>
+
+<p>执行迁移文件，相当于执行对应 sql，将更新数据库</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python3 manage.py migrate</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python manage.py migrate</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>数据保存在 db.sqlite3 这个文件中？</li>
+<li>项目启动后，将直接执行对 model 的修改。相当于执行 migrate，但不执行 makemigrations？重启项目不会自动执行 migrate 相关命令（修改了 comment 改为了 artical_comment，直接修改 comment 报错）</li>
+<li>使用 migrate 的好处是？</li>
+</ul>
+<!--需要首先执行一下：`python3 manage.py migrate` 否则将报下面这个错误?-->
+
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">(ENV) [18:50:42] ~/workspace/demo-project git(master) ❱❱❱ python manage.py runserver</span><br><span class="line">WARNING:root:[cy_settings] IS_FOR_TESTCASE=True, configcenter setup for testcase</span><br><span class="line">WARNING:root:[cy_settings] IS_FOR_TESTCASE=True, configcenter setup for testcase</span><br><span class="line">Performing system checks...</span><br><span class="line"></span><br><span class="line">System <span class="keyword">check</span> <span class="keyword">identified</span> <span class="keyword">no</span> issues (<span class="number">0</span> silenced).</span><br><span class="line"></span><br><span class="line">You have <span class="number">13</span> unapplied <span class="keyword">migration</span>(s). Your <span class="keyword">project</span> may <span class="keyword">not</span> <span class="keyword">work</span> properly <span class="keyword">until</span> you <span class="keyword">apply</span> the migrations <span class="keyword">for</span> app(s): <span class="keyword">admin</span>, auth, contenttypes, sessions.</span><br><span class="line">Run <span class="string">'python manage.py migrate'</span> <span class="keyword">to</span> <span class="keyword">apply</span> them.</span><br></pre></td></tr></table></figure>
+
+<h2 id="Admin"><a href="#Admin" class="headerlink" title="Admin"></a>Admin</h2><p>Admin 为 Django 自带应用，默认在启动时也将启动</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># settings.py</span></span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">'polls.apps.PollsConfig'</span>,  </span><br><span class="line">    <span class="string">'django.contrib.admin'</span>,   </span><br><span class="line">	...</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mysite/urls.py</span></span><br><span class="line">urlpatterns = [</span><br><span class="line">    ...</span><br><span class="line">    path(<span class="string">'admin/'</span>, admin.site.urls),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>所以使用 <a href="http://localhost:8000/admin/" target="_blank" rel="noopener">http://localhost:8000/admin/</a> 可打开 admin</li>
+</ul>
+<p>创建管理员账号：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python3 manage.py createsuperuser</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python manage.py createsuperuser</span></span><br></pre></td></tr></table></figure>
+
+<p>在 admin 中显示模型，用于图形化管理模型</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># admin.py</span></span><br><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"></span><br><span class="line"><span class="comment"># Register your models here.</span></span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Question</span><br><span class="line"></span><br><span class="line">admin.site.register(Question)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>不用重启</li>
+</ul>
+<p>在视图层使用模型</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># views.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Question</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span></span><br><span class="line">    latest_question_list = Question.objects.order_by(<span class="string">'-pub_date'</span>)[:<span class="number">5</span>]</span><br><span class="line">    output = <span class="string">', '</span>.join([q.question_text <span class="keyword">for</span> q <span class="keyword">in</span> latest_question_list])</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(output)</span><br></pre></td></tr></table></figure>
+
+<p><a href="http://localhost:8000/polls/，浏览器输出" target="_blank" rel="noopener">http://localhost:8000/polls/，浏览器输出</a></p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">What<span class="symbol">'s</span> up</span><br></pre></td></tr></table></figure>
+
+<h2 id="API-Shell"><a href="#API-Shell" class="headerlink" title="API / Shell"></a>API / Shell</h2><ul>
+<li><a href="https://docs.djangoproject.com/zh-hans/3.1/intro/tutorial02/#playing-with-the-api" target="_blank" rel="noopener">初试 API</a></li>
+</ul>
+<p>进入 shell</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python3 manage.py shell</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python manage.py shell</span></span><br></pre></td></tr></table></figure>
+
+<p>shell 命令：查、增、改</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; from polls.models import Choice, Question</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; Question.objects.all()  <span class="comment"># 显示 Question 所有数据</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; from django.utils import timezone</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; q = Question(question_text=<span class="string">"What's new?"</span>, pub_date=timezone.now())</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; q.save() <span class="comment"># 插入一条数据</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; q.id</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; q.question_text</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; q.pub_date</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; q.question_text = <span class="string">"What's up?"</span> <span class="comment"># 修改字段</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; q.save()</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; Question.objects.all()</span></span><br></pre></td></tr></table></figure>
+
+<p>为模型添加自定义方法</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># models.py</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Question</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.question_text</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">was_published_recently</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.pub_date &gt;= timezone.now() - datetime.timedelta(days=<span class="number">1</span>) <span class="comment"># 时间小于一天</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Choice</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.choice_text</span><br></pre></td></tr></table></figure>
+
+<p>使用自定义方法，shell 命令：查、增、外键</p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; from polls.models import Choice, Question</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; Question.objects.all()</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; Question.objects.filter(id=<span class="number">1</span>)  <span class="comment"># 根据 id 过滤</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; Question.objects.filter(question_text__startswith=<span class="string">'What'</span>)  <span class="comment"># question_text 匹配开始字符</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; from django.utils import timezone</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; current_year = timezone.now().year</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; Question.objects.get(pub_date__year=current_year) <span class="comment"># 匹配年限</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; Question.objects.get(id=<span class="number">2</span>) <span class="comment"># DoesNotExist</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; Question.objects.get(pk=<span class="number">1</span>) <span class="comment"># primary-key 为 1</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; q = Question.objects.get(pk=<span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; q.was_published_recently() <span class="comment"># 间隔年限小于 1 年，True</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; q.choice_set.all()         <span class="comment"># 跟 q 相关的 Choice 集合</span></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; q.choice_set.create(choice_text=<span class="string">'Not much'</span>, votes=<span class="number">0</span>)</span><br><span class="line">&lt;<span class="symbol">Choice:</span> Not much&gt;</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; q.choice_set.create(choice_text=<span class="string">'The sky'</span>, votes=<span class="number">0</span>)</span><br><span class="line">&lt;<span class="symbol">Choice:</span> The sky&gt;</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; c = q.choice_set.create(choice_text=<span class="string">'Just hacking again'</span>, votes=<span class="number">0</span>)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; c.question </span><br><span class="line">&lt;<span class="symbol">Question:</span> What<span class="string">'s up?&gt;         # 3 个 choice 都关联 question</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; Choice.objects.all()</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; q.choice_set.all()</span></span><br><span class="line"><span class="string">&lt;QuerySet [&lt;Choice: Not much&gt;, &lt;Choice: The sky&gt;, &lt;Choice: Just hacking again&gt;]&gt;  # 关联 q 的有 3 个 choice</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; q.choice_set.count()</span></span><br><span class="line"><span class="string">3</span></span><br></pre></td></tr></table></figure>
+
+<!--解决疑问-->
+
+
+
+<!--1、First Steps；2、The Model Layer；3、The View Layer；4、The Admin-->
+
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1707703738443946" crossorigin="anonymous"></script>
+<!-- 左侧固定位置 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1707703738443946" data-ad-slot="4472926340" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      deppwang
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://depp.wang/2020/11/17/django-getting-started-notes/" title="Django 入门笔记">https://depp.wang/2020/11/17/django-getting-started-notes/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Django/" rel="tag"># Django</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/11/10/jvm-startup-options-setting/" rel="next" title="JVM 启动参数设置">
+                <i class="fa fa-chevron-left"></i> JVM 启动参数设置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/03/check-python-code-before-commit/" rel="prev" title="Commit 前检查 Python 代码格式.md">
+                Commit 前检查 Python 代码格式.md <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <script type="text/javascript">
+    function onSelectGiscus() {
+      document.getElementById('giscus-btn').style = 'background-color: #666; color: #fff;';
+      document.getElementsByClassName('giscus')[0].style = '';
+      document.getElementById('disqus_thread').style.display = 'none';
+      document.getElementById('disqus-btn').style = '';
+    }
+
+    function onSelectDisqus() {
+      document.getElementById('disqus-btn').style = 'background-color: #666; color: #fff;';
+      document.getElementById('disqus_thread').style = '';
+      document.getElementsByClassName('giscus')[0].style.display = 'none';
+      document.getElementById('giscus-btn').style = '';
+    }
+  </script>
+
+  <p>评论默认使用 <button id="giscus-btn" onclick="onSelectGiscus()" style="
+  background-color: #666; color: #fff;
+  ">giscus</button>，你也可以切换到 <button id="disqus-btn" onclick="onSelectDisqus()">disqus</button> 来留言。</p>
+  
+  <div class="comments" id="comments">
+    <script src="https://giscus.app/client.js" data-repo="deppwang/deppwang.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnk5MDUwNTE0Nw==" data-category="Comments" data-category-id="DIC_kwDOBWT_u84CesZv" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async>
+    </script>
+    
+      <div id="disqus_thread" style="display: none;>
+        <noscript>
+          Please enable JavaScript to view the
+          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
+          <p class="site-author-name" itemprop="name">deppwang</p>
+           
+              <p class="site-description motion-element" itemprop="description">每个人都需要有自己的哈姆雷特</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">124</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">273</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DeppWang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/deppwang1" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://space.bilibili.com/336707243" target="_blank" title="BiliBili">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  BiliBili
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.youtube.com/@deppwang" target="_blank" title="YouTube">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  YouTube
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coolshell.cn" title="CoolShell" target="_blank">CoolShell</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的网络日志" target="_blank">阮一峰的网络日志</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://1byte.io" title="1byte" target="_blank">1byte</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://catcoding.me/" title="程序员的喵" target="_blank">程序员的喵</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://blog.douchi.space/" title="椒盐豆豉" target="_blank">椒盐豆豉</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://hutusi.com/" title="胡涂说" target="_blank">胡涂说</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#WSGI"><span class="nav-number">1.</span> <span class="nav-text">WSGI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macOS-安装-Django"><span class="nav-number">2.</span> <span class="nav-text">macOS 安装 Django</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-Django-项目"><span class="nav-number">3.</span> <span class="nav-text">创建 Django 项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建投票应用"><span class="nav-number">4.</span> <span class="nav-text">创建投票应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视图层"><span class="nav-number">5.</span> <span class="nav-text">视图层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型层"><span class="nav-number">6.</span> <span class="nav-text">模型层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#migrate「迁移」"><span class="nav-number">6.1.</span> <span class="nav-text">migrate「迁移」</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Admin"><span class="nav-number">7.</span> <span class="nav-text">Admin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API-Shell"><span class="nav-number">8.</span> <span class="nav-text">API / Shell</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">deppwang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://deppwang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://depp.wang/2020/11/17/django-getting-started-notes/';
+          this.page.identifier = '2020/11/17/django-getting-started-notes/';
+          this.page.title = 'Django 入门笔记';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://deppwang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI","app_key":"AjFBNu3SKV0SwMNsiIxA0mQv","server_url":"https://ycdssag0.api.lncldglobal.com"};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

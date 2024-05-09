@@ -1,0 +1,1114 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="hOzwzcL7Td1p_evvLmRBasbQKy5-i5AgJwNLD2vHKJ8">
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Bookerly:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="博客,Hexo,NexT,技术,LeanCloud,不蒜子,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="德普王" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="前置提示：Hexo 版本为 3.9.0，NexT 版本为  5.1.1（不是最新版）  LeanCloud 统计单篇博文的阅读量，即统计单篇博文的阅读量是多少。 不蒜子 统计站点的总访问量，即统计浏览了多少次；有多少人访问，在 footer 显示。 因为统计不准，现已弃用">
+<meta name="keywords" content="博客,Hexo,NexT,技术,LeanCloud,不蒜子">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo 添加不蒜子和 LeanCloud 统计">
+<meta property="og:url" content="https://depp.wang/2017/06/14/hexo-statistical/index.html">
+<meta property="og:site_name" content="德普王">
+<meta property="og:description" content="前置提示：Hexo 版本为 3.9.0，NexT 版本为  5.1.1（不是最新版）  LeanCloud 统计单篇博文的阅读量，即统计单篇博文的阅读量是多少。 不蒜子 统计站点的总访问量，即统计浏览了多少次；有多少人访问，在 footer 显示。 因为统计不准，现已弃用">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20230502152459.png">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20230502152936.png">
+<meta property="og:updated_time" content="2024-05-09T07:31:04.921Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo 添加不蒜子和 LeanCloud 统计">
+<meta name="twitter:description" content="前置提示：Hexo 版本为 3.9.0，NexT 版本为  5.1.1（不是最新版）  LeanCloud 统计单篇博文的阅读量，即统计单篇博文的阅读量是多少。 不蒜子 统计站点的总访问量，即统计浏览了多少次；有多少人访问，在 footer 显示。 因为统计不准，现已弃用">
+<meta name="twitter:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20230502152459.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'IQPKMP0VXO',
+      apiKey: 'd3e6a74afaebeb6b9c3a26eee410f08e',
+      indexName: 'deppwang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://depp.wang/2017/06/14/hexo-statistical/">
+
+
+
+
+
+  <title>Hexo 添加不蒜子和 LeanCloud 统计 | 德普王</title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3HG6GE96C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3HG6GE96C');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">德普王</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Draft, Edit, Proofread, Publish</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-decorate">
+          <a href="/tags/装修/" rel="section">
+            
+            装修
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAPF8TuhkibCKuDf" data-callback="javascriptCallback"></div>
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2017/06/14/hexo-statistical/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hexo 添加不蒜子和 LeanCloud 统计</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-14T14:11:03+08:00">
+                2017-06-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2024-04-03T21:35:28+08:00">
+                2024-04-03
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/14/hexo-statistical/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/14/hexo-statistical/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/06/14/hexo-statistical/" class="leancloud_visitors" data-flag-title="Hexo 添加不蒜子和 LeanCloud 统计">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>前置提示：Hexo 版本为 3.9.0，NexT 版本为  5.1.1（不是最新版）</p>
+<p> <a href="https://leancloud.app/" target="_blank" rel="noopener">LeanCloud</a> 统计单篇博文的阅读量，即统计单篇博文的阅读量是多少。</p>
+<p><a href="http://ibruce.info/2015/04/04/busuanzi/" target="_blank" rel="noopener">不蒜子</a> 统计站点的总访问量，即统计浏览了多少次；有多少人访问，在 footer 显示。 <strong>因为统计不准，现已弃用</strong></p>
+<a id="more"></a>
+
+<h2 id="LeanCloud-配置使用"><a href="#LeanCloud-配置使用" class="headerlink" title="LeanCloud 配置使用"></a>LeanCloud 配置使用</h2><p>不蒜子也可以统计单篇博文的阅读量，但是有两个缺点：</p>
+<ol>
+<li>用用户翻墙后才能调用其接口</li>
+<li>不能管理相关博文的阅读量（我认为是缺点）。</li>
+</ol>
+<p>我使用 LeanCloud。原来使用 leancloud.cn，但因为 LeanCloud 的 <a href="https://forum.leancloud.cn/t/lncld-net/24985" target="_blank" rel="noopener">lncld.net 域名 2022 年 1 月 27 日 被禁</a>，导致其 SDK 无法直接使用，需要绑定自定义域名，而自定义域名国内又需要备案，所以转而使用国际版 <a href="https://leancloud.app" target="_blank" rel="noopener">leancloud.app</a>。因为 NexT 版本较老，所以需要修改 NexT 源文件。</p>
+<h3 id="1、创建应用、新建-Class"><a href="#1、创建应用、新建-Class" class="headerlink" title="1、创建应用、新建 Class"></a>1、创建应用、新建 Class</h3><p><a href="https://leancloud.app" target="_blank" rel="noopener">leancloud.app</a>注册登录后，进入控制台，创建一个新应用，如 Hexo。点击 <code>存储</code>，按下图标记新建一个 Class，Class 名称必须为 <code>Counter</code>（NexT 代码写死为了 Counter）。</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20230502152459.png" alt=""></p>
+<h3 id="获取应用凭证"><a href="#获取应用凭证" class="headerlink" title="获取应用凭证"></a>获取应用凭证</h3><p>按下图标记复制 <code>App ID</code>、<code>App Key</code> 和 <code>REST API 服务器地址</code>。</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20230502152936.png" alt=""></p>
+<p>复制后，更改 <code>主题配置文件</code> 的  <code>leancloud_visitors:</code> 。注意将 <code>enable</code> 设为 <code>true</code>。</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Show number of visitors to each article.</span></span><br><span class="line"><span class="comment"># You can visit https://leancloud.cn get AppID and AppKey.</span></span><br><span class="line"><span class="attr">leancloud_visitors:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  app_id:</span> <span class="comment">#your App ID</span></span><br><span class="line"><span class="attr">  app_key:</span> <span class="comment">#your App Key</span></span><br><span class="line"><span class="attr">  server_url:</span> <span class="comment">#your 上图的 REST API 服务器地址。没有这一行的话新增</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="优化-NexT-的-LeanCloud-脚本"><a href="#优化-NexT-的-LeanCloud-脚本" class="headerlink" title="优化 NexT 的 LeanCloud 脚本"></a>优化 NexT 的 LeanCloud 脚本</h3><p>如果你 NexT 中有 <code>lean-analytics.swig</code>（<code>themes/next/layout/_third-party/analytics/lean-analytics.swig</code>）这个文件，需将其修改为以下内容：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;%- <span class="keyword">if</span> theme.leancloud_visitors.enable and not theme.valine.visitor %&#125;  </span><br><span class="line">&lt;script&#123;&#123; pjax &#125;&#125;&gt;  　</span><br><span class="line">  (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">leancloudSelector</span>(<span class="params">url</span>) </span>&#123;  </span><br><span class="line">      url = <span class="built_in">encodeURI</span>(url);  </span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">document</span>.getElementById(url).querySelector(<span class="string">'.leancloud-visitors-count'</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">addCount</span>(<span class="params">Counter</span>) </span>&#123;  </span><br><span class="line">      <span class="keyword">var</span> visitors = <span class="built_in">document</span>.querySelector(<span class="string">'.leancloud_visitors'</span>);  </span><br><span class="line">      <span class="keyword">var</span> url = <span class="built_in">decodeURI</span>(visitors.id);  </span><br><span class="line">      <span class="keyword">var</span> title = visitors.dataset.flagTitle;  </span><br><span class="line">  </span><br><span class="line">      Counter(<span class="string">'get'</span>, <span class="string">'/classes/Counter?where='</span> + <span class="built_in">encodeURIComponent</span>(<span class="built_in">JSON</span>.stringify(&#123; url &#125;)))  </span><br><span class="line">        .then(<span class="function"><span class="params">response</span> =&gt;</span> response.json())  </span><br><span class="line">        .then(<span class="function">(<span class="params">&#123; results &#125;</span>) =&gt;</span> &#123;  </span><br><span class="line">          <span class="keyword">if</span> (results.length &gt; <span class="number">0</span>) &#123;  </span><br><span class="line">            <span class="keyword">var</span> counter = results[<span class="number">0</span>];  </span><br><span class="line">            leancloudSelector(url).innerText = counter.time + <span class="number">1</span>;  </span><br><span class="line">            Counter(<span class="string">'put'</span>, <span class="string">'/classes/Counter/'</span> + counter.objectId, &#123; <span class="attr">time</span>: &#123; <span class="string">'__op'</span>: <span class="string">'Increment'</span>, <span class="string">'amount'</span>: <span class="number">1</span> &#125; &#125;)  </span><br><span class="line">              .catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;  </span><br><span class="line">                <span class="built_in">console</span>.error(<span class="string">'Failed to save visitor count'</span>, error);  </span><br><span class="line">              &#125;);  </span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">            &#123;%- <span class="keyword">if</span> theme.leancloud_visitors.security %&#125;  </span><br><span class="line">              leancloudSelector(url).innerText = <span class="string">'Counter not initialized! More info at console err msg.'</span>;  </span><br><span class="line">              <span class="built_in">console</span>.error(<span class="string">'ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.'</span>);  </span><br><span class="line">            &#123;% <span class="keyword">else</span> %&#125;  </span><br><span class="line">              Counter(<span class="string">'post'</span>, <span class="string">'/classes/Counter'</span>, &#123; title, url, <span class="attr">time</span>: <span class="number">1</span> &#125;)  </span><br><span class="line">                .then(<span class="function"><span class="params">response</span> =&gt;</span> response.json())  </span><br><span class="line">                .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;  </span><br><span class="line">                  leancloudSelector(url).innerText = <span class="number">1</span>;  </span><br><span class="line">                &#125;)  </span><br><span class="line">                .catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;  </span><br><span class="line">                  <span class="built_in">console</span>.error(<span class="string">'Failed to create'</span>, error);  </span><br><span class="line">                &#125;);  </span><br><span class="line">            &#123;%- endif %&#125;  </span><br><span class="line">          &#125;  </span><br><span class="line">        &#125;)  </span><br><span class="line">        .catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;  </span><br><span class="line">          <span class="built_in">console</span>.error(<span class="string">'LeanCloud Counter Error'</span>, error);  </span><br><span class="line">        &#125;);  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">showTime</span>(<span class="params">Counter</span>) </span>&#123;  </span><br><span class="line">      <span class="keyword">var</span> visitors = <span class="built_in">document</span>.querySelectorAll(<span class="string">'.leancloud_visitors'</span>);  </span><br><span class="line">      <span class="keyword">var</span> entries = [...visitors].map(<span class="function"><span class="params">element</span> =&gt;</span> &#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">decodeURI</span>(element.id);  </span><br><span class="line">      &#125;);  </span><br><span class="line">  </span><br><span class="line">      Counter(<span class="string">'get'</span>, <span class="string">'/classes/Counter?where='</span> + <span class="built_in">encodeURIComponent</span>(<span class="built_in">JSON</span>.stringify(&#123; <span class="attr">url</span>: &#123; <span class="string">'$in'</span>: entries &#125; &#125;)))  </span><br><span class="line">        .then(<span class="function"><span class="params">response</span> =&gt;</span> response.json())  </span><br><span class="line">        .then(<span class="function">(<span class="params">&#123; results &#125;</span>) =&gt;</span> &#123;  </span><br><span class="line">          <span class="keyword">for</span> (<span class="keyword">let</span> url <span class="keyword">of</span> entries) &#123;  </span><br><span class="line">            <span class="keyword">let</span> target = results.find(<span class="function"><span class="params">item</span> =&gt;</span> item.url === url);  </span><br><span class="line">            leancloudSelector(url).innerText = target ? target.time : <span class="number">0</span>;  </span><br><span class="line">          &#125;  </span><br><span class="line">        &#125;)  </span><br><span class="line">        .catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;  </span><br><span class="line">          <span class="built_in">console</span>.error(<span class="string">'LeanCloud Counter Error'</span>, error);  </span><br><span class="line">        &#125;);  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">let</span> &#123; app_id, app_key, server_url &#125; = &#123;&#123; theme.leancloud_visitors | json &#125;&#125;;  </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">fetchData</span>(<span class="params">api_server</span>) </span>&#123;  </span><br><span class="line">      <span class="keyword">var</span> Counter = <span class="function">(<span class="params">method, url, data</span>) =&gt;</span> &#123;  </span><br><span class="line">        <span class="keyword">return</span> fetch(<span class="string">`<span class="subst">$&#123;api_server&#125;</span>/1.1<span class="subst">$&#123;url&#125;</span>`</span>, &#123;  </span><br><span class="line">          method,  </span><br><span class="line">          headers: &#123;  </span><br><span class="line">            <span class="string">'X-LC-Id'</span>     : app_id,  </span><br><span class="line">            <span class="string">'X-LC-Key'</span>    : app_key,  </span><br><span class="line">            <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>,  </span><br><span class="line">          &#125;,  </span><br><span class="line">          body: <span class="built_in">JSON</span>.stringify(data)  </span><br><span class="line">        &#125;);  </span><br><span class="line">      &#125;;  </span><br><span class="line">      <span class="keyword">if</span> ($(<span class="string">'.leancloud_visitors'</span>).length == <span class="number">1</span>) &#123;  </span><br><span class="line">        addCount(Counter);  </span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ($(<span class="string">'.post-title-link'</span>).length &gt; <span class="number">1</span>) &#123;  </span><br><span class="line">        showTime(Counter);  </span><br><span class="line">      &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">let</span> api_server = app_id.slice(<span class="number">-9</span>) !== <span class="string">'-MdYXbMMI'</span> ? server_url : <span class="string">`https://<span class="subst">$&#123;app_id.slice(<span class="number">0</span>, <span class="number">8</span>).toLowerCase()&#125;</span>.api.lncldglobal.com`</span>;  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">if</span> (api_server) &#123;  </span><br><span class="line">      fetchData(api_server);  </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">      fetch(<span class="string">'https://app-router.leancloud.cn/2/route?appId='</span> + app_id)  </span><br><span class="line">        .then(<span class="function"><span class="params">response</span> =&gt;</span> response.json())  </span><br><span class="line">        .then(<span class="function">(<span class="params">&#123; api_server &#125;</span>) =&gt;</span> &#123;  </span><br><span class="line">          fetchData(<span class="string">'https://'</span> + api_server);  </span><br><span class="line">        &#125;);  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;)();  </span><br><span class="line">&lt;<span class="regexp">/script&gt;  </span></span><br><span class="line"><span class="regexp"> </span></span><br><span class="line"><span class="regexp">&#123;%- endif %&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>我的 NexT 版本是 5.1.1，原来默认使用 <a href="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js" target="_blank" rel="noopener">https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js</a> ，这个链接已不能使用，我想找到一个备份，但没有找到。</p>
+<p>我就切换策略，找其 NexT 新版本的 LeanCloud <a href="https://sourcegraph.com/github.com/theme-next/hexo-theme-next@v7.8.0/-/blob/layout/_third-party/statistics/lean-analytics.swig" target="_blank" rel="noopener">脚本代码</a>，将 <code>lean-analytics.swig</code> 替换，最后去除了 <code>CONFIG</code> 变量，就可以正常使用了。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo clean</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo g</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo d</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="不蒜子配置使用"><a href="#不蒜子配置使用" class="headerlink" title="不蒜子配置使用"></a>不蒜子配置使用</h2><p>下面教程针对 <code>NexT</code> 主题设置。</p>
+<p>找到站点的 <code>themes/next/layout/_partials</code> 目录下的 <code>footer.swig</code> 文件。插入代码如下。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% if theme.copyright %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"powered-by"</span>&gt;</span></span><br><span class="line">  &#123;&#123; __('footer.powered', '<span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"theme-link"</span> <span class="attr">href</span>=<span class="string">"https://hexo.io"</span>&gt;</span>Hexo<span class="tag">&lt;/<span class="name">a</span>&gt;</span>') &#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"theme-info"</span>&gt;</span></span><br><span class="line">  &#123;&#123; __('footer.theme') &#125;&#125; -</span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"theme-link"</span> <span class="attr">href</span>=<span class="string">"https://github.com/iissnan/hexo-theme-next"</span>&gt;</span></span><br><span class="line">    NexT.&#123;&#123; theme.scheme &#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"># 此位置插入以下代码</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">async</span> <span class="attr">src</span>=<span class="string">"//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">本站总访问量 <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"busuanzi_value_site_pv"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span> 次 &amp; nbsp&amp;nbsp&amp;nbsp</span><br><span class="line">本站访客数 <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"busuanzi_value_site_uv"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span> &gt;</span> 人次</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="http://zhiho.github.io/2015/09/29/hexo-next/" target="_blank" rel="noopener">Hexo 搭建 GitHub 博客（三）- NexT 主题配置使用</a></li>
+<li><a href="https://lfwen.site/2016/05/31/add-count-for-hexo-next/" target="_blank" rel="noopener">Hexo 博客 - NexT 主题：使用 leancloud 进行页面访客统计</a></li>
+<li><a href="https://leancloud.github.io/javascript-sdk/docs/" target="_blank" rel="noopener">https://leancloud.github.io/javascript-sdk/docs/</a></li>
+<li><a href="https://docs.leancloud.cn/sdk/storage/guide/js/" target="_blank" rel="noopener">https://docs.leancloud.cn/sdk/storage/guide/js/</a></li>
+</ul>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1707703738443946" crossorigin="anonymous"></script>
+<!-- 左侧固定位置 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1707703738443946" data-ad-slot="4472926340" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      deppwang
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://depp.wang/2017/06/14/hexo-statistical/" title="Hexo 添加不蒜子和 LeanCloud 统计">https://depp.wang/2017/06/14/hexo-statistical/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/博客/" rel="tag"># 博客</a>
+          
+            <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+          
+            <a href="/tags/NexT/" rel="tag"># NexT</a>
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/LeanCloud/" rel="tag"># LeanCloud</a>
+          
+            <a href="/tags/不蒜子/" rel="tag"># 不蒜子</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/13/hexo4/" rel="next" title="购买域名与域名配置使用">
+                <i class="fa fa-chevron-left"></i> 购买域名与域名配置使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/15/hexo-disqus/" rel="prev" title="Hexo 添加 Disqus 评论">
+                Hexo 添加 Disqus 评论 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <script type="text/javascript">
+    function onSelectGiscus() {
+      document.getElementById('giscus-btn').style = 'background-color: #666; color: #fff;';
+      document.getElementsByClassName('giscus')[0].style = '';
+      document.getElementById('disqus_thread').style.display = 'none';
+      document.getElementById('disqus-btn').style = '';
+    }
+
+    function onSelectDisqus() {
+      document.getElementById('disqus-btn').style = 'background-color: #666; color: #fff;';
+      document.getElementById('disqus_thread').style = '';
+      document.getElementsByClassName('giscus')[0].style.display = 'none';
+      document.getElementById('giscus-btn').style = '';
+    }
+  </script>
+
+  <p>评论默认使用 <button id="giscus-btn" onclick="onSelectGiscus()" style="
+  background-color: #666; color: #fff;
+  ">giscus</button>，你也可以切换到 <button id="disqus-btn" onclick="onSelectDisqus()">disqus</button> 来留言。</p>
+  
+  <div class="comments" id="comments">
+    <script src="https://giscus.app/client.js" data-repo="deppwang/deppwang.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnk5MDUwNTE0Nw==" data-category="Comments" data-category-id="DIC_kwDOBWT_u84CesZv" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async>
+    </script>
+    
+      <div id="disqus_thread" style="display: none;>
+        <noscript>
+          Please enable JavaScript to view the
+          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
+          <p class="site-author-name" itemprop="name">deppwang</p>
+           
+              <p class="site-description motion-element" itemprop="description">每个人都需要有自己的哈姆雷特</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">124</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">273</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DeppWang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/deppwang1" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://space.bilibili.com/336707243" target="_blank" title="BiliBili">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  BiliBili
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.youtube.com/@deppwang" target="_blank" title="YouTube">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  YouTube
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coolshell.cn" title="CoolShell" target="_blank">CoolShell</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的网络日志" target="_blank">阮一峰的网络日志</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://1byte.io" title="1byte" target="_blank">1byte</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://catcoding.me/" title="程序员的喵" target="_blank">程序员的喵</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://blog.douchi.space/" title="椒盐豆豉" target="_blank">椒盐豆豉</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://hutusi.com/" title="胡涂说" target="_blank">胡涂说</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeanCloud-配置使用"><span class="nav-number">1.</span> <span class="nav-text">LeanCloud 配置使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、创建应用、新建-Class"><span class="nav-number">1.1.</span> <span class="nav-text">1、创建应用、新建 Class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取应用凭证"><span class="nav-number">1.2.</span> <span class="nav-text">获取应用凭证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化-NexT-的-LeanCloud-脚本"><span class="nav-number">1.3.</span> <span class="nav-text">优化 NexT 的 LeanCloud 脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不蒜子配置使用"><span class="nav-number">2.</span> <span class="nav-text">不蒜子配置使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">deppwang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://deppwang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://depp.wang/2017/06/14/hexo-statistical/';
+          this.page.identifier = '2017/06/14/hexo-statistical/';
+          this.page.title = 'Hexo 添加不蒜子和 LeanCloud 统计';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://deppwang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI","app_key":"AjFBNu3SKV0SwMNsiIxA0mQv","server_url":"https://ycdssag0.api.lncldglobal.com"};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
