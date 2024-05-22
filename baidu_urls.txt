@@ -79,8 +79,8 @@ https://depp.wang/2019/09/23/git-note/
 https://depp.wang/2019/09/18/linux-note/
 https://depp.wang/2019/09/11/introduction-to-redis-install-cli-commands-and-data-types/
 https://depp.wang/2019/09/09/how-long-is-the-shortest-time/
-https://depp.wang/2019/09/08/how-to-lawsuit/
 https://depp.wang/2019/09/08/what-is-otosclerosis/
+https://depp.wang/2019/09/08/how-to-lawsuit/
 https://depp.wang/2019/09/07/do-you-have-a-friend-who-is-a-mango-dealer/
 https://depp.wang/2019/09/07/the-truth-about-carbs/
 https://depp.wang/2019/08/24/a-tool-that-can-export-the-youdaonote-specified-folder/
