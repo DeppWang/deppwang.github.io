@@ -2,20 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://depp.wang/2017/06/26/introduction-to-computer/</loc>
-    
-    <lastmod>2017-06-26</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://depp.wang/2019/09/08/what-is-otosclerosis/</loc>
-    
-    <lastmod>2019-09-08</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://depp.wang/2019/09/08/how-to-lawsuit/</loc>
     
     <lastmod>2019-09-08</lastmod>
@@ -103,13 +89,6 @@
     <loc>https://depp.wang/2024/01/09/create-a-song/</loc>
     
     <lastmod>2024-01-09</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://depp.wang/2023/12/12/ipv6-and-tailscale-remote-access-nas/</loc>
-    
-    <lastmod>2023-12-12</lastmod>
     
   </url>
   
@@ -359,6 +338,13 @@
   </url>
   
   <url>
+    <loc>https://depp.wang/2023/12/12/ipv6-and-tailscale-remote-access-nas/</loc>
+    
+    <lastmod>2023-12-12</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://depp.wang/googlec27ee4754ff2e800.html</loc>
     
     <lastmod>2024-05-22</lastmod>
@@ -383,13 +369,6 @@
     <loc>https://depp.wang/tags/index.html</loc>
     
     <lastmod>2017-05-07</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://depp.wang/2020/05/06/static-block-method-and-constructor-method/</loc>
-    
-    <lastmod>2020-05-06</lastmod>
     
   </url>
   
@@ -723,16 +702,16 @@
   </url>
   
   <url>
-    <loc>https://depp.wang/2019/06/02/java-primitive-types-and-warpper/</loc>
+    <loc>https://depp.wang/2017/06/26/introduction-to-computer/</loc>
     
-    <lastmod>2019-06-02</lastmod>
+    <lastmod>2017-06-26</lastmod>
     
   </url>
   
   <url>
-    <loc>https://depp.wang/2020/04/10/singleton-pattern/</loc>
+    <loc>https://depp.wang/2019/09/08/what-is-otosclerosis/</loc>
     
-    <lastmod>2020-04-10</lastmod>
+    <lastmod>2019-09-08</lastmod>
     
   </url>
   
@@ -740,6 +719,13 @@
     <loc>https://depp.wang/2017/08/15/hashmap-put-method-source-code/</loc>
     
     <lastmod>2017-08-15</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://depp.wang/2019/06/02/java-primitive-types-and-warpper/</loc>
+    
+    <lastmod>2019-06-02</lastmod>
     
   </url>
   
@@ -761,13 +747,6 @@
     <loc>https://depp.wang/2020/06/18/several-implementations-of-quick-sort/</loc>
     
     <lastmod>2020-06-18</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://depp.wang/2017/07/18/reverse-String/</loc>
-    
-    <lastmod>2017-07-18</lastmod>
     
   </url>
   
@@ -807,16 +786,9 @@
   </url>
   
   <url>
-    <loc>https://depp.wang/2020/11/17/django-getting-started-notes/</loc>
+    <loc>https://depp.wang/2017/07/18/reverse-String/</loc>
     
-    <lastmod>2020-11-17</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://depp.wang/2018/10/09/how-to-use-dubbo-directlink-and-group/</loc>
-    
-    <lastmod>2018-10-09</lastmod>
+    <lastmod>2017-07-18</lastmod>
     
   </url>
   
@@ -887,6 +859,34 @@
     <loc>https://depp.wang/2020/11/07/treeset-in-java/</loc>
     
     <lastmod>2020-11-07</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://depp.wang/2020/05/06/static-block-method-and-constructor-method/</loc>
+    
+    <lastmod>2020-05-06</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://depp.wang/2020/11/17/django-getting-started-notes/</loc>
+    
+    <lastmod>2020-11-17</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://depp.wang/2018/10/09/how-to-use-dubbo-directlink-and-group/</loc>
+    
+    <lastmod>2018-10-09</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://depp.wang/2020/04/10/singleton-pattern/</loc>
+    
+    <lastmod>2020-04-10</lastmod>
     
   </url>
   
