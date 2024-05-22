@@ -1,3 +1,4 @@
+https://depp.wang/2024/emeishan/
 https://depp.wang/2024/reply-1988/
 https://depp.wang/2024/what-is-nas/
 https://depp.wang/2024/elon-musk/
@@ -97,4 +98,3 @@ https://depp.wang/2018/10/09/how-to-use-dubbo-directlink-and-group/
 https://depp.wang/2018/09/17/idea-ssr-wunderlist-wox/
 https://depp.wang/2018/08/29/chrome-extensions/
 https://depp.wang/2018/08/14/idea's-common-shortcuts-plugins-and-settings/
-https://depp.wang/2018/08/09/a-tutorial-that-installation-centos7-and-use-xshell6-links/
