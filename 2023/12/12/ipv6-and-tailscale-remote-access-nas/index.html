@@ -106,7 +106,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231211232018.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240220190015.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231210224113.png">
-<meta property="og:updated_time" content="2024-05-23T03:52:09.159Z">
+<meta property="og:updated_time" content="2024-05-23T07:29:17.398Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 IPv6 + Tailscale 实现 NAS 外网访问">
 <meta name="twitter:description" content="在上一篇文章中写到我搭建了 NAS，但没有折腾外网访问功能。这篇文章就写一下我如何实现 NAS 外网访问。 外网访问的方式外部设备要访问家里局域网中设备，最好局域网有一个公网 IP，如果没有公网 IP，就只能使用内网穿透的方式。">
@@ -364,8 +364,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-05-22T08:35:40+08:00">
-                2024-05-22
+              <time title="更新于" itemprop="dateModified" datetime="2024-05-23T15:28:27+08:00">
+                2024-05-23
               </time>
             
           </span>
@@ -435,15 +435,15 @@
 <p>Tailscale 内网穿透示意图：</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231212103459.png" alt="图片来自：https://www.youtube.com/watch?v=l7pRuK0oEPc&amp;t=2s"></p>
 <p>也可以利用 Cloudflare Tunnel 来实现内网穿透，和 ZeroTier、Tailscale 一样，也有速度不理想的问题。</p>
-<h2 id="设置-IPv6-防火墙"><a href="#设置-IPv6-防火墙" class="headerlink" title="设置 IPv6 防火墙"></a>设置 IPv6 防火墙</h2><p>因为宽带有 IPv6 公网 IP，也不想购买中转服务器来实现内网穿透了，所以我就直接用 IPv6 来实现外网访问。这种方式也有一个弊端，就是双方都要 IPv6 公网 IP，假如一方没有 IPv6 地址也不行（如公司网络没有开 IPv6）。当开启 IPv6 后，局域网中每个设备都会有一个 IPv6 公网 IP，此时需要开启 IPv6 防火墙，不然就是大门不上锁，有安全隐患。IPv4 因为没有公网 IP，运营商使用 NAT，防火墙由运营商设置，所以我们不用设置。正常来说，运营商已经屏蔽 IPv6 公网 IP 的 80 和 443 接口。而光猫和路由器也会自己的 IPv6 防火墙设置，默认情况下防火墙是开启的，可以<a href="https://port.tools/port-checker-ipv6/" target="_blank" rel="noopener">在线测试防火墙</a>。或者使用以下命令测试：</p>
+<h2 id="设置-IPv6-防火墙"><a href="#设置-IPv6-防火墙" class="headerlink" title="设置 IPv6 防火墙"></a>设置 IPv6 防火墙</h2><p>因为宽带有 IPv6 公网 IP，也不想购买中转服务器来实现内网穿透了，所以我就直接用 IPv6 来实现外网访问。这种方式也有一个弊端，就是双方都要 IPv6 公网 IP，假如一方没有 IPv6 地址也不行（如公司网络没有开 IPv6）。当开启 IPv6 后，局域网中每个设备都会有一个 IPv6 公网 IP，此时需要开启 IPv6 防火墙，不然就是大门不上锁，有安全隐患。IPv4 因为没有公网 IP，运营商使用 NAT，防火墙由运营商设置，所以我们不用设置。正常来说，运营商已经屏蔽 IPv6 公网 IP 的 80 和 443 接口。而光猫和路由器也会自己的 IPv6 防火墙设置，默认情况下防火墙是开启的，可以<a href="https://port.tools/port-checker-ipv6/" target="_blank" rel="noopener">在线测试防火墙</a>。或者使用以下类似命令测试：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">telnet -6 240e:330:2dc7:8c04:a874:a432:ed19:47af 445</span><br></pre></td></tr></table></figure>
 
-<p>如果通过 VPN 的方式来实现外网访问，即使防火墙完全打开，也没有影响，所以可以直接「使用路由器打开防火墙」。我考虑到后面可能使用 DDNS 或 WebDAV，这些功能需要指定端口放开，不能打开所有防火墙，所以我「使用软路由设置防火墙」。</p>
+<p>通过 VPN（Virtual Private Network）的方式来实现外网访问，即使防火墙完全打开，也没有影响，所以可以直接「使用路由器打开防火墙」。我考虑到后面可能使用 DDNS 或 WebDAV，这些功能需要指定端口放开，不能打开所有防火墙，所以我「使用软路由设置防火墙」。</p>
 <h3 id="使用路由器打开防火墙"><a href="#使用路由器打开防火墙" class="headerlink" title="使用路由器打开防火墙"></a>使用路由器打开防火墙</h3><p>某些路由器，如 <a href="https://u.jd.com/Zz1YQGx" target="_blank" rel="noopener">小米路由器 AX3000T</a> 可以配置开启 IPv6 防火墙：</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231211232018.png" alt=""></p>
 <h3 id="使用软路由设置防火墙"><a href="#使用软路由设置防火墙" class="headerlink" title="使用软路由设置防火墙"></a>使用软路由设置防火墙</h3><p>宽带安装时，一般默认设置的光猫拨号（宽带账号+密码），这样路由器默认插上光猫就可以联网，不用额外设置，这种情况，光猫有自己防火墙配置。要使用软路由设置防火墙，则需要使用软路由拨号，此时光猫只是桥接，做一个光信号转电信号的作用。光猫拨号改桥接也很简单，我给客服打电话，客服反应由宽带师傅更改，宽带师傅直接远程就改了，很快。再让宽带师傅把宽带账号密码给你。我使用的<a href="https://detail.tmall.com/item.htm?abbucket=8&id=719602311765&ns=1&spm=a21n57.1.0.0.714b523cCkuHP4&skuId=5188517075573" target="_blank" rel="noopener">电犀牛 R68s</a>软路由，它默认刷了 iStoreOS 系统（基于 OpenWRT），防火墙也配置好了，只需要设置宽带拨号，再将路由器插到软路由上就可以了，此时的软路由相当于原来的光猫，这样智能家居等也不需要重新配置。</p>
 <h2 id="使用-Tailscale-点对点直连"><a href="#使用-Tailscale-点对点直连" class="headerlink" title="使用 Tailscale 点对点直连"></a>使用 Tailscale 点对点直连</h2><p>当有 IPv6 公网 IP，并且设置了防火墙，就可以通过直连实现外网访问。 ZeroTier 和 Tailscale 可以通过中转服务实现内网穿透，当节点都有公网 IP，它们也可以建立点对点的加密隧道，让两个节点直连，不走中转服务，此时网络速度取决于双方的带宽。这提供了更稳定快速的体验。此时外网节点可以访问已连接内网节点所有端口的服务，内网节点也不再需要通过端口暴露服务。 </p>
-<p>我使用下来，发现 Tailscale 比 ZeroTier 更稳定一点，可能是 Tailscale 底层用了 WireGuard 协议。ZeroTier 和 Tailscale 都需要使用 VPN（Virtual Private Network），在 iPhone 中，VPN 同一时间只能使用一个，所以 Tailscale 我使用 AppleID 注册，没有使用 Gmail。</p>
+<p>我使用下来，发现 Tailscale 比 ZeroTier 更稳定一点，可能是 Tailscale 底层用了 WireGuard 协议。ZeroTier 和 Tailscale 都需要使用 VPN，在 iPhone 中，VPN 同一时间只能使用一个，所以 Tailscale 我使用 AppleID 注册，没有使用 Gmail。</p>
 <p>点对点直连外网访问延迟在 100ms 以内：</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240220190015.png" alt=""></p>
 <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>使用 Tailscale + IPv6，基本可以跑满上行带宽（30M），看一些小一点的 NAS 中视频基本没有问题。</p>
