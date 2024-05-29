@@ -73,7 +73,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Exception,Try-Catch,">
+  <meta name="keywords" content="Exception,Java,finally,">
 
 
 
@@ -91,18 +91,18 @@
 
 
 
-<meta name="description" content="作者：DeppWang、原文地址  finally 块用来执行即使有异常也能执行的代码，常用于出现异常时关闭流，或者释放锁。finally 总会执行。 关闭流的栗子：       InputStream is = null;try &amp;#123;	is = new FileInputStream(&quot;inputfile.txt&quot;);&amp;#125; catch (Exception e) &amp;#123;">
-<meta name="keywords" content="Exception,Try-Catch">
+<meta name="description" content="作者：DeppWang、原文地址 finally 块用来执行即使有异常也能执行的代码，常用于出现异常时关闭流，或者释放锁。finally 总会执行。 关闭流的栗子：       InputStream is = null;try &amp;#123;	is = new FileInputStream(&quot;inputfile.txt&quot;);&amp;#125; catch (Exception e) &amp;#123;">
+<meta name="keywords" content="Exception,Java,finally">
 <meta property="og:type" content="article">
 <meta property="og:title" content="finally 代码块的执行情况">
 <meta property="og:url" content="https://depp.wang/2017/10/01/execution-of-finally-code-block/index.html">
 <meta property="og:site_name" content="德普王">
-<meta property="og:description" content="作者：DeppWang、原文地址  finally 块用来执行即使有异常也能执行的代码，常用于出现异常时关闭流，或者释放锁。finally 总会执行。 关闭流的栗子：       InputStream is = null;try &amp;#123;	is = new FileInputStream(&quot;inputfile.txt&quot;);&amp;#125; catch (Exception e) &amp;#123;">
+<meta property="og:description" content="作者：DeppWang、原文地址 finally 块用来执行即使有异常也能执行的代码，常用于出现异常时关闭流，或者释放锁。finally 总会执行。 关闭流的栗子：       InputStream is = null;try &amp;#123;	is = new FileInputStream(&quot;inputfile.txt&quot;);&amp;#125; catch (Exception e) &amp;#123;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2024-05-28T03:11:22.537Z">
+<meta property="og:updated_time" content="2024-05-29T02:13:25.904Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="finally 代码块的执行情况">
-<meta name="twitter:description" content="作者：DeppWang、原文地址  finally 块用来执行即使有异常也能执行的代码，常用于出现异常时关闭流，或者释放锁。finally 总会执行。 关闭流的栗子：       InputStream is = null;try &amp;#123;	is = new FileInputStream(&quot;inputfile.txt&quot;);&amp;#125; catch (Exception e) &amp;#123;">
+<meta name="twitter:description" content="作者：DeppWang、原文地址 finally 块用来执行即使有异常也能执行的代码，常用于出现异常时关闭流，或者释放锁。finally 总会执行。 关闭流的栗子：       InputStream is = null;try &amp;#123;	is = new FileInputStream(&quot;inputfile.txt&quot;);&amp;#125; catch (Exception e) &amp;#123;">
 
 
 
@@ -356,34 +356,12 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-05-08T00:00:00+08:00">
-                2020-05-08
+              <time title="更新于" itemprop="dateModified" datetime="2024-05-28T11:09:06+08:00">
+                2024-05-28
               </time>
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -430,9 +408,7 @@
       
 
       
-        <blockquote>
-<p>作者：<a href="https://depp.wang">DeppWang</a>、<a href="https://depp.wang/2017/10/01/execution-of-finally-code-block/">原文地址</a></p>
-</blockquote>
+        <p>作者：<a href="https://depp.wang">DeppWang</a>、<a href="https://depp.wang/2017/10/01/execution-of-finally-code-block/">原文地址</a></p>
 <p>finally 块用来执行即使有异常也能执行的代码，常用于出现异常时关闭流，或者释放锁。finally 总会执行。</p>
 <p>关闭流的栗子：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">      InputStream is = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	is = <span class="keyword">new</span> FileInputStream(<span class="string">"inputfile.txt"</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">          e.printStackTrace();</span><br><span class="line">      &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> (is != <span class="keyword">null</span>) &#123;</span><br><span class="line">              <span class="keyword">try</span> &#123;</span><br><span class="line">                  is.close();</span><br><span class="line">              &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                  e.printStackTrace();</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -483,7 +459,8 @@
 <!--[ java 中 finally 语句是否一定会被执行](https://blog.csdn.net/tt_man/article/details/52355736)-->
 <!--[finally 块中的代码什么时候被执行？finally 是不是一定会被执行？](https://blog.csdn.net/dove_knowledge/article/details/71077512)-->
 <!--[Java 中的值传递与引用传递详解](http://blog.csdn.net/dove_knowledge/article/details/71038511)-->
-<!--[finally 代码块不会执行的情况总结-->](https://www.cnblogs.com/fudashi/p/6498205.html)
+<!--[finally 代码块不会执行的情况总结](https://www.cnblogs.com/fudashi/p/6498205.html)-->
+
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1707703738443946" crossorigin="anonymous"></script>
 <!-- 左侧固定位置 -->
 <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1707703738443946" data-ad-slot="4472926340" data-ad-format="auto" data-full-width-responsive="true"></ins>
@@ -535,7 +512,9 @@
           
             <a href="/tags/Exception/" rel="tag"># Exception</a>
           
-            <a href="/tags/Try-Catch/" rel="tag"># Try-Catch</a>
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/finally/" rel="tag"># finally</a>
           
         </div>
       

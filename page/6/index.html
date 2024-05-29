@@ -1255,34 +1255,12 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-05-08T00:00:00+08:00">
-                2020-05-08
+              <time title="更新于" itemprop="dateModified" datetime="2024-05-28T11:09:06+08:00">
+                2024-05-28
               </time>
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -1330,9 +1308,7 @@
 
       
         
-          <blockquote>
-<p>作者：<a href="https://depp.wang">DeppWang</a>、<a href="https://depp.wang/2017/10/01/execution-of-finally-code-block/">原文地址</a></p>
-</blockquote>
+          <p>作者：<a href="https://depp.wang">DeppWang</a>、<a href="https://depp.wang/2017/10/01/execution-of-finally-code-block/">原文地址</a></p>
 <p>finally 块用来执行即使有异常也能执行的代码，常用于出现异常时关闭流，或者释放锁。finally 总会执行。</p>
 <p>关闭流的栗子：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">      InputStream is = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	is = <span class="keyword">new</span> FileInputStream(<span class="string">"inputfile.txt"</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">          e.printStackTrace();</span><br><span class="line">      &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> (is != <span class="keyword">null</span>) &#123;</span><br><span class="line">              <span class="keyword">try</span> &#123;</span><br><span class="line">                  is.close();</span><br><span class="line">              &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                  e.printStackTrace();</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
