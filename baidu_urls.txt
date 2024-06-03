@@ -1,4 +1,4 @@
-https://depp.wang/2024/fastapi-async-io/
+https://depp.wang/2024/python-async-io/
 https://depp.wang/2024/decoration-design/
 https://depp.wang/2024/emeishan/
 https://depp.wang/2024/reply-1988/
