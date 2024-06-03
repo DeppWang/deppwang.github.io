@@ -91,22 +91,22 @@
 
 
 
-<meta name="description" content="因为 Python 是解释型语言，当使用 Python 做后端开发时，如 Python + Django，相比 Java + Spring，其响应时间会长一点，但只要代码合理，差别也不太大。但 Django 即使使用多进程模式，其并发处理能力还是会差不少。Python 有一些提升并发处理能力的方案，比如使用异步框架 FastAPI，借助其异步能力，可以大大提升 IO 密集型任务的并发处理能力。F">
+<meta name="description" content="因为 Python 是解释型语言，当使用 Python 做后端开发时，如 Python + Django，相比 Java + Spring，其响应时间会长一点，但只要代码合理，差别也不太大。但 Django 即使使用多进程模式，其并发处理能力还是会差不少。Python 有一些提升并发处理能力的方案，比如使用异步框架 FastAPI，借助其异步能力，可以大大提升 IO 密集型任务的并发处理能力。Fa">
 <meta name="keywords" content="Python,FastAPI,AsyncIO,IO">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从 FastAPI 说起，理解 Python 异步 IO 的原理">
 <meta property="og:url" content="https://depp.wang/2024/python-async-io/index.html">
 <meta property="og:site_name" content="德普王">
-<meta property="og:description" content="因为 Python 是解释型语言，当使用 Python 做后端开发时，如 Python + Django，相比 Java + Spring，其响应时间会长一点，但只要代码合理，差别也不太大。但 Django 即使使用多进程模式，其并发处理能力还是会差不少。Python 有一些提升并发处理能力的方案，比如使用异步框架 FastAPI，借助其异步能力，可以大大提升 IO 密集型任务的并发处理能力。F">
+<meta property="og:description" content="因为 Python 是解释型语言，当使用 Python 做后端开发时，如 Python + Django，相比 Java + Spring，其响应时间会长一点，但只要代码合理，差别也不太大。但 Django 即使使用多进程模式，其并发处理能力还是会差不少。Python 有一些提升并发处理能力的方案，比如使用异步框架 FastAPI，借助其异步能力，可以大大提升 IO 密集型任务的并发处理能力。Fa">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/1_50wqD04jyUiujKlIgQY47w.webp">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240602232755.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240602215253.png">
-<meta property="og:updated_time" content="2024-06-03T04:12:49.621Z">
+<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/1_50wqD04jyUiujKlIgQY47w.webp">
+<meta property="og:updated_time" content="2024-06-03T05:42:22.415Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从 FastAPI 说起，理解 Python 异步 IO 的原理">
-<meta name="twitter:description" content="因为 Python 是解释型语言，当使用 Python 做后端开发时，如 Python + Django，相比 Java + Spring，其响应时间会长一点，但只要代码合理，差别也不太大。但 Django 即使使用多进程模式，其并发处理能力还是会差不少。Python 有一些提升并发处理能力的方案，比如使用异步框架 FastAPI，借助其异步能力，可以大大提升 IO 密集型任务的并发处理能力。F">
-<meta name="twitter:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/1_50wqD04jyUiujKlIgQY47w.webp">
+<meta name="twitter:description" content="因为 Python 是解释型语言，当使用 Python 做后端开发时，如 Python + Django，相比 Java + Spring，其响应时间会长一点，但只要代码合理，差别也不太大。但 Django 即使使用多进程模式，其并发处理能力还是会差不少。Python 有一些提升并发处理能力的方案，比如使用异步框架 FastAPI，借助其异步能力，可以大大提升 IO 密集型任务的并发处理能力。Fa">
+<meta name="twitter:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240602232755.png">
 
 
 
@@ -360,7 +360,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-06-03T12:12:03+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2024-06-03T12:16:10+08:00">
                 2024-06-03
               </time>
             
@@ -412,8 +412,7 @@
       
 
       
-        <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/1_50wqD04jyUiujKlIgQY47w.webp" alt="图片来源：medium - pythoniq"></p>
-<p>因为 Python 是解释型语言，当使用 Python 做后端开发时，如 Python + Django，相比 Java + Spring，其响应时间会长一点，但只要代码合理，差别也不太大。但 Django 即使使用多进程模式，其并发处理能力还是会差不少。Python 有一些提升并发处理能力的方案，比如使用异步框架 FastAPI，借助其异步能力，可以大大提升 IO 密集型任务的并发处理能力。FastAPI 算是<a href="https://www.techempower.com/benchmarks/#hw=ph&test=query&section=data-r22" target="_blank" rel="noopener">最快的 Python 框架之一</a>。</p>
+        <p>因为 Python 是解释型语言，当使用 Python 做后端开发时，如 Python + Django，相比 Java + Spring，其响应时间会长一点，但只要代码合理，差别也不太大。但 Django 即使使用多进程模式，其并发处理能力还是会差不少。Python 有一些提升并发处理能力的方案，比如使用异步框架 FastAPI，借助其异步能力，可以大大提升 IO 密集型任务的并发处理能力。FastAPI 算是<a href="https://www.techempower.com/benchmarks/#hw=ph&test=query&section=data-r22" target="_blank" rel="noopener">最快的 Python 框架之一</a>。</p>
 <a id="more"></a>
 
 <h2 id="FastAPI"><a href="#FastAPI" class="headerlink" title="FastAPI"></a>FastAPI</h2><p>我们先简单看看 FastAPI 怎么用。</p>
@@ -484,6 +483,7 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">2024-06-03 09:53:36.711732 Waiting for a connection...</span><br><span class="line">2024-06-03 09:54:30.715928 Got connection from ('127.0.0.1', 64361)</span><br><span class="line">Received: GET / HTTP/1.1</span><br><span class="line">Host: 127.0.0.1:8001</span><br><span class="line">User-Agent: curl/8.4.0</span><br><span class="line">Accept: */*</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2024-06-03 09:54:30.716046 Waiting for a connection...</span><br></pre></td></tr></table></figure>
 
 <h2 id="一句话总结"><a href="#一句话总结" class="headerlink" title="一句话总结"></a>一句话总结</h2><p>异步 IO 底层使用「协程」与「事件循环」实现。「协程」保证当线程执行时遇到标记的 IO 操作时，可以不用等待 IO 完成，而是暂停，让线程可以执行其他任务，不阻塞线程。「事件循环」使用 IO 多路复用技术，一直循环监控 IO 事件，当某个 IO 事件完成时，触发对应的回调，使协程继续执行。</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/1_50wqD04jyUiujKlIgQY47w.webp" alt=""></p>
 <h2 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h2><ul>
 <li><a href="https://fastapi.tiangolo.com/zh/async/" target="_blank" rel="noopener">FastAPI - 并发 async / await</a></li>
 <li><a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017959540289152" target="_blank" rel="noopener">廖雪峰 - Python 教程 - 异步 IO</a></li>
