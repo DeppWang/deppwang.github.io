@@ -8,8 +8,25 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>每个人都需要有自己的哈姆雷特</description>
-    <pubDate>Sat, 08 Jun 2024 13:32:51 GMT</pubDate>
+    <pubDate>Tue, 11 Jun 2024 13:12:05 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>实现 GPT4o 使用自由</title>
+      <link>https://depp.wang/2024/gpt4o-free-use/</link>
+      <guid>https://depp.wang/2024/gpt4o-free-use/</guid>
+      <pubDate>Tue, 11 Jun 2024 13:11:41 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;国外大模型三方评测网站 &lt;a href=&quot;https://artificialanalysis.ai/models&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Artificial Analysis&lt;/a&gt; 的评测结果显示：GPT4o 质量是目前所有大模型中最好的，速度比 GPT-3.5 Turbo 快，API 的价格相比 GPT4 也降低了一半。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240611190755.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p>国外大模型三方评测网站 <a href="https://artificialanalysis.ai/models" target="_blank" rel="noopener">Artificial Analysis</a> 的评测结果显示：GPT4o 质量是目前所有大模型中最好的，速度比 GPT-3.5 Turbo 快，API 的价格相比 GPT4 也降低了一半。</p><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240611190755.png" alt=""></p><a id="more"></a><h2 id="有网络条件，可以免费使用-GPT4o"><a href="#有网络条件，可以免费使用-GPT4o" class="headerlink" title="有网络条件，可以免费使用 GPT4o"></a>有网络条件，可以免费使用 GPT4o</h2><p>目前有一些方式可以免费使用 GPT4o，但都有自己的局限性。</p><ol><li><p>ChatGPT 注册用户在<a href="https://chatgpt.com/" target="_blank" rel="noopener">网页端</a>与客户端每日免费限量使用。这种方式对网络要求比较高</p></li><li><p><a href="https://poe.com/GPT-4o" target="_blank" rel="noopener">Poe</a>网络要求相对低一点，但每天只能免费使用 10 次</p></li><li><p><a href="https://copilot.microsoft.com/" target="_blank" rel="noopener">Microsoft Copilot</a> 可免费使用，手机客户端网络要求低点，网页端的网络要求比较高</p><p><a href="https://www.coze.com/home" target="_blank" rel="noopener">Coze</a> 通过配置自定义机器人的方式显示可以免费使用 GPT4o，但实际上我测试发现其模型应该是 GPT-3.5。</p></li></ol><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240611210411.png" alt=""></p><h2 id="没有网络条件，可以通过-API-Key-使用-GPT4o"><a href="#没有网络条件，可以通过-API-Key-使用-GPT4o" class="headerlink" title="没有网络条件，可以通过 API Key 使用 GPT4o"></a>没有网络条件，可以通过 API Key 使用 GPT4o</h2><p>如果你能解决网络问题，ChatGPT 注册用户的免费额度应该够你用了。如果你不能解决网络问题，那可以通过 API Key 的方式来使用，使用 API Key 的价格相比买 ChatGPT Plus 还是更实惠一点。</p><p>如果你没有 OpenAI 的 API Key，你可以在专门售卖的 OpenAI API 能力的服务商处购买，如 <a href="https://aiproxy.io/pricing" target="_blank" rel="noopener">aiproxy.io</a>。直接充值积分，我在这个服务商买过，价格还是比较合理，也是真的 OpenAI 的 API。</p><p>建议自己搭建一个基于 API Key 自用的网页服务来使用，使用其它人搭建的网页服务还是有一定的 API Key 泄露的风险。</p><p>目前可以搭建基于 API Key 的网页服务的开源项目有很多，我使用的 <a href="https://github.com/Yidadaa/ChatGPT-Next-Web" target="_blank" rel="noopener">ChatGPT-Next-Web</a>，它可以一键部署到  <a href="https://vercel.com/" target="_blank" rel="noopener">Vercel</a> 上。Vercel 每月有一定的额度可以免费使用，不用购买云主机。因为 Vercel 是国外公司，所以你国内访问时，网络性能不是很好。你可以利用自定义域名，使用 <a href="https://dash.cloudflare.com/" target="_blank" rel="noopener">Cloudflare</a> 免费配置域名转发，加快国内网络访问的速度。</p><p>以下是我基于 ChatGPT-Next-Web 搭建的自用网页服务，部署在 Vercel，使用了自定义域名 <a href="https://chatgpt.depp.wang" target="_blank" rel="noopener">https://chatgpt.depp.wang</a></p><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240611201010.png" alt=""></p><p>区分 GPT-3.5 和 GPT4o 可以问：「为什么父母结婚没有邀请我」，GPT4o 会回答可能因为你还没有出生。也可以直接问它是不是基于 GPT4o。</p><p>如果你想免费使用 API Key。你可以通过 Mircosoft Azure 免费使用  OpenAI API 服务。有 2 个条件：</p><ol><li>你是新注册用户</li><li>需要公司信息，公司要求有官网地址</li></ol><h2 id="国内可以直接使用的大语言模型"><a href="#国内可以直接使用的大语言模型" class="headerlink" title="国内可以直接使用的大语言模型"></a>国内可以直接使用的大语言模型</h2><p>如果你日常对模型要求没有那么高，你也可以直接使用国内网络条件就可以用的国内公司开发的大语言模型。</p><ul><li><a href="https://www.coze.cn/" target="_blank" rel="noopener">扣子</a> - 字节跳动推出的 AI Bot 开发平台</li><li><a href="https://www.doubao.com/" target="_blank" rel="noopener">豆包</a> - 抖音旗下 AI 智能助手</li><li><a href="https://tongyi.aliyun.com/qianwen/" target="_blank" rel="noopener">通义千问</a>- 阿里巴巴开发的 AI 大语言模型</li><li><a href="https://yiyan.baidu.com/" target="_blank" rel="noopener">文心一言</a> - 百度开发的 AI 大语言模型</li><li><a href="https://hailuoai.com/" target="_blank" rel="noopener">海螺 AI</a> - MiniMax 旗下生产力产品</li></ul>]]></content:encoded>
+      
+      <comments>https://depp.wang/2024/gpt4o-free-use/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>从 FastAPI 说起，理解 Python 异步 IO 的原理</title>
@@ -352,23 +369,6 @@
       <content:encoded><![CDATA[<p>现代家庭的家庭用电一般都设计为多个回路，比如一般冰箱单独一个回路，在关闭家庭其它电源时冰箱能保持工作。有时一个回路会同时存在开关与插座，那么一个回路是如何实现开关、插座同时一起工作的。你是否有过同样的疑问，今天一起来了解一下吧。</p><p>我们先从简单的问题开始。电器插头插在插座上后为何就有电了？这是因为插座一个孔接到了零线，一个孔接到了火线，当插头插入插座时，火线和零线形成闭合电路，电流就能流过这个电路，电器就有电了。</p><a id="more"></a><table><thead><tr><th>插头接线图</th><th>电器插头插在插座上</th></tr></thead><tbody><tr><td><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240115181240.png" alt=""></td><td><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240115185951.png" alt=""></td></tr></tbody></table><ul><li>火线，英文简写 L (LIVE)</li><li>零线，英文简写 N (NEUTRAL)</li></ul><h2 id="一个回路中多个插座为何可以同时工作"><a href="#一个回路中多个插座为何可以同时工作" class="headerlink" title="一个回路中多个插座为何可以同时工作"></a>一个回路中多个插座为何可以同时工作</h2><p>当一个回路中有多个插座时，前面插座回路不影响后面插座，插座之间是并联关系。PS：黄线代表闭合电路中电流通路</p><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240115191431.png" alt=""></p><p>插座接线示意图：</p><table><thead><tr><th>4 孔</th><th>5 孔</th><th>5 孔带 1 开</th></tr></thead><tbody><tr><td><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/810D7EC8-4261-43D0-815A-AC33E39D42D1_1_105_c.jpeg" alt=""></td><td><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/7585861B-9C49-4DB7-BAE8-1CB6EE776D0D_1_105_c-20240306223652654.jpeg" alt=""></td><td><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/97C296AE-3C0C-4439-9158-73741808D1B7_1_105_c.jpeg" alt=""></td></tr></tbody></table><h2 id="开关如何控制灯"><a href="#开关如何控制灯" class="headerlink" title="开关如何控制灯"></a>开关如何控制灯</h2><p>开关控制灯的方式：开关和灯串联，当开关断开，线路不闭合，没有电流通过，灯就不亮了</p><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240115192404.png" alt=""></p><p>以下是 Aqara（绿米）D1 智能开关接线示意图：</p><table><thead><tr><th>单火单键</th><th>零火单键</th><th>零线双键</th></tr></thead><tbody><tr><td><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240111215731.png" alt=""></td><td><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240111215804.png" alt=""></td><td><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240111215825.png" alt=""></td></tr></tbody></table><p>PS：只要底盒中有零线，就都可以用「零火智能开关」</p><h2 id="双控开关如何工作"><a href="#双控开关如何工作" class="headerlink" title="双控开关如何工作"></a>双控开关如何工作</h2><h3 id="普通双控开关"><a href="#普通双控开关" class="headerlink" title="普通双控开关"></a>普通双控开关</h3><table><thead><tr><th>接线</th><th>原理</th></tr></thead><tbody><tr><td><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240115184617.png" alt=""></td><td><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240115184750.png" alt=""></td></tr></tbody></table><h3 id="智能双控开关"><a href="#智能双控开关" class="headerlink" title="智能双控开关"></a>智能双控开关</h3><p>两个智能开关实现双控的方式：一个智能开头（A）与灯线相连，可直接控制灯。另一个智能开头（B）只需通电，在软件上添加「点击时操控开关 A 控制灯」的自动化任务，来实现双控。</p><p>以下是 Aqara（绿米）D1 智能开关实现双控接线示意图：</p><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240111213402.png" alt=""></p><h3 id="多种双控开关接线"><a href="#多种双控开关接线" class="headerlink" title="多种双控开关接线"></a>多种双控开关接线</h3><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240115192745.png" alt=""></p><h2 id="完整电回路示意"><a href="#完整电回路示意" class="headerlink" title="完整电回路示意"></a>完整电回路示意</h2><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240112115516.png" alt=""></p>]]></content:encoded>
       
       <comments>https://depp.wang/2024/01/15/electric-circuit/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>使用 ChatGPT + Suno 写一首小歌</title>
-      <link>https://depp.wang/2024/01/09/create-a-song/</link>
-      <guid>https://depp.wang/2024/01/09/create-a-song/</guid>
-      <pubDate>Tue, 09 Jan 2024 02:36:28 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;昨晚上做梦，梦见学校的一个晚自习时间，几个小伙伴来唱歌，突然来了一个胖胖的学弟，开启麦霸模式，唱了一首歌，那饱满的情感，朴实真诚的歌词，掷地有声的演唱方式，瞬间变成了学校演唱会。&lt;/p&gt;
-&lt;p&gt;醒来后，我还隐隐那首歌记得最后一句好像是：「最重要的是，我从未改变过你」。&lt;/p&gt;
-      
-      </description>
-      
-      <content:encoded><![CDATA[<p>昨晚上做梦，梦见学校的一个晚自习时间，几个小伙伴来唱歌，突然来了一个胖胖的学弟，开启麦霸模式，唱了一首歌，那饱满的情感，朴实真诚的歌词，掷地有声的演唱方式，瞬间变成了学校演唱会。</p><p>醒来后，我还隐隐那首歌记得最后一句好像是：「最重要的是，我从未改变过你」。</p><a id="more"></a><p>想到前两天在 Twitter 上看见<a href="https://twitter.com/jesselaunz" target="_blank" rel="noopener">遁一子</a>使用「ChatGPT + <a href="https://suno.ai" target="_blank" rel="noopener">Suno</a>」创建过音乐。我也抓住情绪的尾巴，用 ChatGPT 辅助写了歌词，再用 suno.ai 生成了一首小歌。</p><iframe width="560" height="315" src="https://www.youtube.com/embed/_REJckVvMUU?si=0gsjLuhwVPZ8Ihc2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><p>歌词：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">在这复杂的世界里，我们学会了沉默，  </span><br><span class="line">看着日升月落，感受时间婆娑。  </span><br><span class="line"></span><br><span class="line">每一次挑战，每一次困惑，  </span><br><span class="line">在无声中体会着生活。</span><br><span class="line"></span><br><span class="line">虽被磨平了棱角，我依旧向前奔跑，</span><br><span class="line">抬头望向星空， 寻找自由的光芒。</span><br><span class="line"></span><br><span class="line">和我相恋的爱人啊，我们一起经历了很多。</span><br><span class="line">我有很多缺点，你可能对我有很多抱怨。</span><br><span class="line"></span><br><span class="line">我希望你能找到你的那片土地，我从未想改变你。（块改为片）</span><br></pre></td></tr></table></figure><p>ChatGPT 生成的歌词还是太浅显直白了，基本不可用，可能是我提示词没写好。Suno 生成的第一首歌感觉最好，就是最后这句没有唱完，婆娑的娑 suo 发音错了。</p>]]></content:encoded>
-      
-      <comments>https://depp.wang/2024/01/09/create-a-song/#disqus_thread</comments>
     </item>
     
   </channel>
