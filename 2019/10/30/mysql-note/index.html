@@ -100,7 +100,7 @@
 <meta property="og:description" content="主键选取主键的一个基本原则是：不使用任何业务相关的字段（id）作为主键。修改了主键，会造成一系列的影响 类型：  自增整数类型（id）：BIGINT NOT NULL AUTO_INCREMENT。 全局唯一 GUID 类型  注意：如果使用 INT 自增类型，那么当一张表的记录数超过 2147483647（约21亿）时，会达到上限而出错。使用 BIGINT自增类型则可以最多约 922 亿亿条记录">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135809.jpg">
-<meta property="og:updated_time" content="2024-06-12T12:15:37.051Z">
+<meta property="og:updated_time" content="2024-06-14T14:35:23.614Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL 的 SQL 笔记">
 <meta name="twitter:description" content="主键选取主键的一个基本原则是：不使用任何业务相关的字段（id）作为主键。修改了主键，会造成一系列的影响 类型：  自增整数类型（id）：BIGINT NOT NULL AUTO_INCREMENT。 全局唯一 GUID 类型  注意：如果使用 INT 自增类型，那么当一张表的记录数超过 2147483647（约21亿）时，会达到上限而出错。使用 BIGINT自增类型则可以最多约 922 亿亿条记录">
@@ -358,8 +358,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-06-07T15:55:29+08:00">
-                2024-06-07
+              <time title="更新于" itemprop="dateModified" datetime="2024-06-13T23:09:02+08:00">
+                2024-06-13
               </time>
             
           </span>
@@ -746,7 +746,7 @@
 <tr>
 <td align="left">3</td>
 <td align="left"></td>
-<td align="left">SELECT * FROM students WHERE id = 99; // Empty</td>
+<td align="left">SELECT * FROM students WHERE id = 99; – empty</td>
 </tr>
 <tr>
 <td align="left">4</td>
@@ -761,25 +761,29 @@
 <tr>
 <td align="left">6</td>
 <td align="left"></td>
-<td align="left">SELECT * FROM students WHERE id = 99; // Empty</td>
+<td align="left">SELECT * FROM students WHERE id = 99; – empty</td>
 </tr>
 <tr>
 <td align="left">7</td>
 <td align="left"></td>
-<td align="left">INSERT INTO students(id, name) values(99, Alice) // 失败</td>
+<td align="left">UPDATE students SET name = ‘Alice’ WHERE id = 99; – 1 row affected</td>
 </tr>
 <tr>
 <td align="left">8</td>
 <td align="left"></td>
-<td align="left">SELECT * FROM students WHERE id = 99; // Alice</td>
+<td align="left">SELECT * FROM students WHERE id = 99; – Alice</td>
 </tr>
 <tr>
 <td align="left">9</td>
 <td align="left"></td>
 <td align="left">COMMIT;</td>
 </tr>
+<tr>
+<td align="left">其实幻读影响不大，没有脏读和不可重复读的问题，Mysql 默认隔离级别就是 Repeatable Commited。</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
 </tbody></table>
-<p>其实幻读影响不大，没有脏读和不可重复读的问题，Mysql 默认隔离级别就是 Repeatable Commited。</p>
 <ul>
 <li>可重复读隔离级别使用读未提交的测试用例的结果：两次读取都是 Alice</li>
 <li>可重复读隔离级别使用读已提交的测试用例的结果：两次读取都是 Alice</li>
