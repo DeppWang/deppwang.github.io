@@ -1,3 +1,4 @@
+https://depp.wang/2024/software-payment/
 https://depp.wang/2024/gpt4o-free-use/
 https://depp.wang/2024/python-async-io/
 https://depp.wang/2024/decoration-design/
@@ -97,4 +98,3 @@ https://depp.wang/2019/01/26/springboot2-apache-shiro/
 https://depp.wang/2019/01/11/share-a-few-useful-websites/
 https://depp.wang/2019/01/01/two-encoded-style-of-post-request/
 https://depp.wang/2018/11/28/the-morning-peak-of-the-subway-from-dongsanqi-to-xierqi/
-https://depp.wang/2018/10/09/how-to-use-dubbo-directlink-and-group/
