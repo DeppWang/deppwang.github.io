@@ -1,39 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://depp.wang/2023/12/26/aliyundrive-subscribe/</loc>
-    <lastmod>2024-06-16</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2023/01/28/a-jenkins-email-failure-troubleshooting-process/</loc>
-    <lastmod>2024-06-16</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2022/12/04/read-1984/</loc>
-    <lastmod>2024-06-16</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2024/elon-musk/</loc>
-    <lastmod>2024-06-16</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2024/03/19/google-analytics/</loc>
-    <lastmod>2024-06-16</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2017/07/21/object-funciton/</loc>
-    <lastmod>2024-06-16</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2017/07/15/String-ByteCode/</loc>
-    <lastmod>2024-06-16</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2017/07/05/Eliminate-Expired-Object-References/</loc>
-    <lastmod>2024-06-16</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2017/06/26/introduction-to-computer/</loc>
-    <lastmod>2024-06-16</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2019/09/08/what-is-otosclerosis/</loc>
-    <lastmod>2024-06-16</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2019/09/08/how-to-lawsuit/</loc>
-    <lastmod>2024-06-16</lastmod>
-  </url>  <url>
     <loc>https://depp.wang/2019/09/07/the-truth-about-carbs/</loc>
     <lastmod>2024-06-16</lastmod>
   </url>  <url>
@@ -175,19 +142,19 @@
     <loc>https://depp.wang/2024/03/13/attack-on-titan/</loc>
     <lastmod>2024-06-16</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2020/08/20/hashmap-9-question/</loc>
+    <loc>https://depp.wang/2023/12/26/aliyundrive-subscribe/</loc>
     <lastmod>2024-06-16</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2020/10/26/java-implements-a-custom-distributed-session/</loc>
+    <loc>https://depp.wang/2023/01/28/a-jenkins-email-failure-troubleshooting-process/</loc>
     <lastmod>2024-06-16</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2020/01/11/java-operator/</loc>
+    <loc>https://depp.wang/2022/12/04/read-1984/</loc>
     <lastmod>2024-06-16</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2020/11/07/treeset-in-java/</loc>
+    <loc>https://depp.wang/2024/elon-musk/</loc>
     <lastmod>2024-06-16</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2020/05/06/static-block-method-and-constructor-method/</loc>
+    <loc>https://depp.wang/2024/03/19/google-analytics/</loc>
     <lastmod>2024-06-16</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2018/01/07/js-how-to-use-the-Date-object-addition-and-subtraction-dates/</loc>
@@ -322,7 +289,22 @@
     <loc>https://depp.wang/2017/07/26/java-parameter-passing/</loc>
     <lastmod>2024-06-16</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2020/04/10/singleton-pattern/</loc>
+    <loc>https://depp.wang/2017/07/21/object-funciton/</loc>
+    <lastmod>2024-06-16</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2017/07/15/String-ByteCode/</loc>
+    <lastmod>2024-06-16</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2017/07/05/Eliminate-Expired-Object-References/</loc>
+    <lastmod>2024-06-16</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2017/06/26/introduction-to-computer/</loc>
+    <lastmod>2024-06-16</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2019/09/08/what-is-otosclerosis/</loc>
+    <lastmod>2024-06-16</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2019/09/08/how-to-lawsuit/</loc>
     <lastmod>2024-06-16</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2019/06/02/java-primitive-types-and-warpper/</loc>
@@ -380,6 +362,24 @@
     <lastmod>2024-06-16</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2020/11/10/jvm-startup-options-setting/</loc>
+    <lastmod>2024-06-16</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2020/08/20/hashmap-9-question/</loc>
+    <lastmod>2024-06-16</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2020/10/26/java-implements-a-custom-distributed-session/</loc>
+    <lastmod>2024-06-16</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2020/01/11/java-operator/</loc>
+    <lastmod>2024-06-16</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2020/11/07/treeset-in-java/</loc>
+    <lastmod>2024-06-16</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2020/05/06/static-block-method-and-constructor-method/</loc>
+    <lastmod>2024-06-16</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2020/04/10/singleton-pattern/</loc>
     <lastmod>2024-06-16</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2017/07/24/string-initialization/</loc>
