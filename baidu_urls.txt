@@ -1,3 +1,4 @@
+https://depp.wang/2024/simple-youdaonote-pull/
 https://depp.wang/2024/software-payment/
 https://depp.wang/2024/gpt4o-free-use/
 https://depp.wang/2024/python-async-io/
@@ -97,4 +98,3 @@ https://depp.wang/2019/03/29/deal-miniprogram-video-cann't-play-question/
 https://depp.wang/2019/01/26/springboot2-apache-shiro/
 https://depp.wang/2019/01/11/share-a-few-useful-websites/
 https://depp.wang/2019/01/01/two-encoded-style-of-post-request/
-https://depp.wang/2018/11/28/the-morning-peak-of-the-subway-from-dongsanqi-to-xierqi/
