@@ -20,12 +20,13 @@ NexT.utils = NexT.$u = {
         $imageWrapLink.addClass('fancybox fancybox.image');
         $imageWrapLink.attr('rel', 'group');
 
-        if (imageTitle) {
-          $imageWrapLink.append('<p class="image-caption">' + imageTitle + '</p>');
+        // 微信公众号不显示图片标题
+        // if (imageTitle) {
+        //   $imageWrapLink.append('<p class="image-caption">' + imageTitle + '</p>');
 
-          //make sure img title tag will show correctly in fancybox
-          $imageWrapLink.attr('title', imageTitle);
-        }
+        //   //make sure img title tag will show correctly in fancybox
+        //   $imageWrapLink.attr('title', imageTitle);
+        // }
       });
 
     $('.fancybox').fancybox({
