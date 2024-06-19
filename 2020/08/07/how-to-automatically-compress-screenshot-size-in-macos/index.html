@@ -111,7 +111,7 @@
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/2020-08-07-101336.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/2020-08-07-101537.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/2020-08-07-101616.png">
-<meta property="og:updated_time" content="2024-06-19T15:15:11.136Z">
+<meta property="og:updated_time" content="2024-06-19T15:56:16.221Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 macOS 中，如何自动压缩截屏图片大小">
 <meta name="twitter:description" content="错误的误会我是这样在 Markdown 中插入截屏图片的：截屏到剪贴板后，直接在 Typora 中粘贴，iPic 将自动将图片上传到阿里云图床（对象存储）。我一直使用 Alfred 的 Clipboard History 功能查看截图大小，发现图片占内存都很大，全屏截图有 10 多 MB，就想着一定要找到一种方法来缩小截屏大小，不然我的阿里云图床费用得嗖嗖涨。">
@@ -369,7 +369,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-06-19T23:10:49+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2024-06-19T23:55:18+08:00">
                 2024-06-19
               </time>
             
@@ -438,7 +438,7 @@
 <p>下面要介绍的这种方式可以类似看作是第 1 条。</p>
 <p>对于第 2 条，如果你使用 iPic，iPic 有提供可选的有损压缩的功能，先压缩再上传，我大概测试了一下，一般能压缩 60% 多吧（具体视情况而定）。但如果在 Typora 中复制，<a href="https://toolinbox.net/iPic/#comment-4743566071" target="_blank" rel="noopener">不支持压缩</a>，曲线救国的方式是先使用快捷键上传，再在 Typora 中粘贴返回的 URL。个人觉得体验有分裂，没有截屏时就压缩方便，所以才用第 1 种实现。</p>
 <p>对于第 3 条，七牛云对象存储提供自动图片压缩功能，不过是收费功能。</p>
-<h2 id="使用-pngquant-压缩"><a href="#使用-pngquant-压缩" class="headerlink" title="使用 pngquant 压缩"></a>使用 pngquant 压缩</h2><h3 id="pngquant"><a href="#pngquant" class="headerlink" title="pngquant"></a>pngquant</h3><p><a href="https://pngquant.org/" target="_blank" rel="noopener">pngquant</a> 就是一个可以几乎不损害图片质量，通过减少像素大小来压缩 PNG 图片的命令行程序（库），属于有损压缩。</p>
+<h2 id="使用-pngquant-压缩"><a href="#使用-pngquant-压缩" class="headerlink" title="使用 pngquant 压缩"></a>使用 pngquant 压缩</h2><h3 id="pngquant"><a href="#pngquant" class="headerlink" title="pngquant"></a>pngquant</h3><p><a href="https://pngquant.org/" target="_blank" rel="noopener">pngquant</a> 是一个可以几乎不损害图片质量，通过减少像素大小来压缩 PNG 图片的命令行程序（库），属于有损压缩。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用 HomeBrew 安装 pngquant</span></span><br><span class="line">brew install pngquant</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将 32 位的 RGBA PNG 数字转换为 8 位（或更小）的 RGBA 调色板</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> pngquant [颜色数量] [参数] input.png</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   --skip-if-larger  仅保存转化后比原文件小的文件</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   --strip           去除可选的元数据</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   --ext=.png        设置压缩后图片名和原图片名一样</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   --force           覆盖原文件</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 示例：压缩 example.png，压缩后图片仍叫 example.png</span></span><br><span class="line">pngquant 256 --skip-if-larger --strip --ext=.png --force example.png</span><br></pre></td></tr></table></figure>
 
 <p>当 pngqunt 压缩后，还可以通过 <a href="https://github.com/google/zopfli" target="_blank" rel="noopener">zopfli</a> 进一步无损压缩，但耗时较长，压缩比例也不高，我就没做这步操作。zopfli 的原理使用 <a href="https://en.wikipedia.org/wiki/DEFLATE" target="_blank" rel="noopener">DEFLATE</a> 算法来实现无损压缩。</p>
@@ -469,7 +469,7 @@
 <ul>
 <li>脚本内容：</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for f in "$@"</span><br><span class="line">do</span><br><span class="line">	/opt/homebrew/bin/pngquant 256 --skip-if-larger --strip --ext=.png --force "$f"</span><br><span class="line">	osascript -e "set the clipboard to (read (POSIX file \"$(perl -e "print glob('$f')")\") as &#123;«class PNGf»&#125;)"</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 发送通知</span></span><br><span class="line">osascript -e 'display notification "图片已压缩并复制到剪贴板" with title "图片已压缩并复制到剪贴板"'</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for f in "$@"</span><br><span class="line">do</span><br><span class="line">    # 压缩</span><br><span class="line">    /opt/homebrew/bin/pngquant 256 --skip-if-larger --strip --ext=.png --force "$f"</span><br><span class="line">    </span><br><span class="line">    # 获取压缩后文件大小</span><br><span class="line">    compressed_file_size=$(stat -f%z "$f")</span><br><span class="line">    </span><br><span class="line">    # 复制到剪贴板</span><br><span class="line">    osascript -e "set the clipboard to (read (POSIX file \"$(perl -e "print glob('$f')")\") as &#123;«class PNGf»&#125;)"</span><br><span class="line">    </span><br><span class="line">    # 大于 500KB，发送通知</span><br><span class="line">    if [ "$compressed_file_size" -gt 512000 ]; then</span><br><span class="line">        osascript -e 'display notification "压缩后的图片仍然大于 500KB" with title "压缩文件过大"'</span><br><span class="line">    fi</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 发送通知</span></span><br><span class="line">osascript -e 'display notification "图片已压缩并复制到剪贴板" with title "图片已压缩并复制到剪贴板"'</span><br></pre></td></tr></table></figure>
 
 <p>PS：使用 Automator，可能需在 Security &amp; Privay（安全与隐私）-&gt; Accessibility（辅助功能）里面开启权限。</p>
 <h3 id="Hazel-设置工作流："><a href="#Hazel-设置工作流：" class="headerlink" title="Hazel 设置工作流："></a>Hazel 设置工作流：</h3><p>1、添加指定文件夹，设置触发条件，条件为对文件夹中最近一分钟新增的 PNG 文件执行脚本</p>
