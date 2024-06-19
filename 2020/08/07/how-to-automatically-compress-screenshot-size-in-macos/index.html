@@ -73,7 +73,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="macOS,自动压缩,截屏图片,">
+  <meta name="keywords" content="macOS,工具,图片,截图,图片压缩,">
 
 
 
@@ -92,31 +92,31 @@
 
 
 <meta name="description" content="一、错误的误会我是这样在 Markdown 中插入截屏图片的：截屏到剪贴板后，直接在 Typora 中粘贴，iPic 将自动将图片上传到阿里云图床（对象存储）。我一直使用 Alfred 的 Clipboard History 功能查看截图大小，发现图片占内存都很大，全屏截图有 10 多 MB，就想着一定要找到一种方法来缩小截屏大小，不然我的阿里云图床费用得嗖嗖涨。">
-<meta name="keywords" content="macOS,自动压缩,截屏图片">
+<meta name="keywords" content="macOS,工具,图片,截图,图片压缩">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在 macOS 中，如何自动压缩截屏图片大小">
 <meta property="og:url" content="https://depp.wang/2020/08/07/how-to-automatically-compress-screenshot-size-in-macos/index.html">
 <meta property="og:site_name" content="德普王">
 <meta property="og:description" content="一、错误的误会我是这样在 Markdown 中插入截屏图片的：截屏到剪贴板后，直接在 Typora 中粘贴，iPic 将自动将图片上传到阿里云图床（对象存储）。我一直使用 Alfred 的 Clipboard History 功能查看截图大小，发现图片占内存都很大，全屏截图有 10 多 MB，就想着一定要找到一种方法来缩小截屏大小，不然我的阿里云图床费用得嗖嗖涨。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-02-024029.png">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-02-023939.png">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-04-073500.png">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-04-073506.png">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-07-092800.png">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-07-102228.png">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-04-073544.png">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-07-135926.png">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-04-073539.png">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-07-101445.png">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-07-101336.png">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-07-101537.png">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-07-101616.png">
-<meta property="og:updated_time" content="2024-06-19T13:37:44.733Z">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/2020-08-02-024029.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/2020-08-02-023939.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/2020-08-04-073500.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/2020-08-04-073506.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/2020-08-07-092800.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/2020-08-07-102228.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/2020-08-04-073544.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/2020-08-07-135926.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/2020-08-04-073539.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/2020-08-07-101445.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/2020-08-07-101336.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/2020-08-07-101537.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/2020-08-07-101616.png">
+<meta property="og:updated_time" content="2024-06-19T14:37:13.411Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 macOS 中，如何自动压缩截屏图片大小">
 <meta name="twitter:description" content="一、错误的误会我是这样在 Markdown 中插入截屏图片的：截屏到剪贴板后，直接在 Typora 中粘贴，iPic 将自动将图片上传到阿里云图床（对象存储）。我一直使用 Alfred 的 Clipboard History 功能查看截图大小，发现图片占内存都很大，全屏截图有 10 多 MB，就想着一定要找到一种方法来缩小截屏大小，不然我的阿里云图床费用得嗖嗖涨。">
-<meta name="twitter:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-02-024029.png">
+<meta name="twitter:image" content="https://hexoblog.r2.depp.wang/2020-08-02-024029.png">
 
 
 
@@ -370,34 +370,12 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-08-10T11:12:17+08:00">
-                2020-08-10
+              <time title="更新于" itemprop="dateModified" datetime="2024-06-19T22:28:43+08:00">
+                2024-06-19
               </time>
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tools/" itemprop="url" rel="index">
-                    <span itemprop="name">Tools</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -447,32 +425,27 @@
         <h2 id="一、错误的误会"><a href="#一、错误的误会" class="headerlink" title="一、错误的误会"></a>一、错误的误会</h2><p>我是这样在 Markdown 中插入截屏图片的：截屏到剪贴板后，直接在 <a href="https://typora.io/" target="_blank" rel="noopener">Typora</a> 中粘贴，<a href="https://apps.apple.com/us/app/ipic-image-file-upload-tool/id1101244278?mt=12" target="_blank" rel="noopener">iPic</a> 将自动将图片上传到阿里云图床（对象存储）。我一直使用 <a href="https://www.alfredapp.com/" target="_blank" rel="noopener">Alfred</a> 的 <a href="https://www.alfredapp.com/help/features/clipboard/" target="_blank" rel="noopener">Clipboard History</a> 功能查看截图大小，发现图片占内存都很大，全屏截图有 10 多 MB，就想着一定要找到一种方法来缩小截屏大小，不然我的<a href="https://cn.aliyun.com/price/detail/oss" target="_blank" rel="noopener">阿里云图床费用</a>得嗖嗖涨。</p>
  <a id="more"></a>
 
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-02-024029.png" alt="image" style="zoom:50%;">
+<p><img src="https://hexoblog.r2.depp.wang/2020-08-02-024029.png" alt="image" style="zoom:50%;">
 </p>
 
-<p>昨天，我将截图不保存到剪贴板，而直接保存到本地，发现图片根本没有 10 多 MB，就几百 KB。想着我这个高分辨率超高清 Retain 全屏截图 🐶 ，不能只有几百 KB 呀 ，一定是我电脑显示有问题。</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-02-023939.png" alt="image" style="zoom:50%;"></p>
 
-<p>最后我打开阿里云对象存储在线检查了一下，发现真的只有几百 KB，开始心里默默对 Alfred ***。遂在 Alfred 论坛发<a href="https://www.alfredforum.com/topic/15361-the-copyed-image-in-the-clipboard-that-size-is-a-error-data-between-with-the-actual-size-its-too-large/" target="_blank" rel="noopener">讨论帖</a>，网友回复说，对于剪贴板图片来说，其数据格式是 <a href="https://en.wikipedia.org/wiki/TIFF" target="_blank" rel="noopener">TIFF</a> 数据格式，不是图片本身的内存大小，所以 Clipboard History 数据显示较大。喔霍，原来是个错误的误会呀。</p>
+<p>昨天，我将截图不保存到剪贴板，而直接保存到本地，发现图片根本没有 10 多 MB，就几百 KB。想着我这个高分辨率超高清 Retain 全屏截图 🐶 ，不能只有几百 KB 呀 ，一定是我电脑显示有问题。</p>
+<p><img src="https://hexoblog.r2.depp.wang/2020-08-02-023939.png" alt="image" style="zoom:50%;"></p>
+
+<p>最后我打开阿里云对象存储在线检查了一下，发现真的只有几百 KB，开始心里默默对 Alfred <code>***</code>。遂在 Alfred 论坛发<a href="https://www.alfredforum.com/topic/15361-the-copyed-image-in-the-clipboard-that-size-is-a-error-data-between-with-the-actual-size-its-too-large/" target="_blank" rel="noopener">讨论帖</a>，网友回复说，对于剪贴板图片来说，其数据格式是 <a href="https://en.wikipedia.org/wiki/TIFF" target="_blank" rel="noopener">TIFF</a> 数据格式，不是图片本身的内存大小，所以 Clipboard History 数据显示较大。喔霍，原来是个错误的误会呀。</p>
 <p>虽然几百 KB 相对 10 多 MB 是小多了，现在我这小博客无人问津，图床费用每月也就几毛几分钱，图片大点也无所谓。但为了长远考虑，图片当然越小越好。</p>
 <p>正好搜到一篇关于压缩图片的<a href="https://about.gitlab.com/blog/2020/01/30/simple-trick-for-smaller-screenshots/" target="_blank" rel="noopener">优质教程</a>，还包含视频教程，简单的方式就能实现自动压缩图片，那还等什么，得赶快用起来。<strong>强烈推荐看原文</strong>，很通俗易懂。</p>
-<!--下面是基于这篇文章的总结-->
-
-<h2 id="二、图片压缩"><a href="#二、图片压缩" class="headerlink" title="二、图片压缩"></a>二、图片压缩</h2><h3 id="2-1、压缩时机"><a href="#2-1、压缩时机" class="headerlink" title="2.1、压缩时机"></a>2.1、压缩时机</h3><p>图片压缩有三个时间点，1、截屏时由截屏软件压缩；2、上传到图床时由上传软件压缩；2、上传到图床后由图床压缩。</p>
+<h2 id="二、图片压缩"><a href="#二、图片压缩" class="headerlink" title="二、图片压缩"></a>二、图片压缩</h2><h3 id="2-1、压缩时机"><a href="#2-1、压缩时机" class="headerlink" title="2.1、压缩时机"></a>2.1、压缩时机</h3><p>图片压缩有三个时间点：1、截屏时由截屏软件压缩；2、上传到图床时由上传软件压缩；3、上传到图床后由图床压缩。</p>
 <p>下面要介绍的这种方式可以类似看作是第 1 条。</p>
 <p>对于第 2 条，如果你使用 iPic，iPic 有提供可选的有损压缩的功能，先压缩再上传，我大概测试了一下，一般能压缩 60% 多吧（具体视情况而定）。但如果在 Typora 中复制，<a href="https://toolinbox.net/iPic/#comment-4743566071" target="_blank" rel="noopener">不支持压缩</a>，曲线救国的方式是先使用快捷键上传，再在 Typora 中粘贴返回的 URL。个人觉得体验有分裂，没有截屏时就压缩方便，所以才用第 1 种实现。</p>
-<!--，具体损失效果没有对比。-->
-
 <p>对于第 3 条，七牛云对象存储提供自动图片压缩功能，不过是收费功能。</p>
 <h3 id="2-2、压缩原理"><a href="#2-2、压缩原理" class="headerlink" title="2.2、压缩原理"></a>2.2、压缩原理</h3><p>macOS 默认截屏生成图片的格式为 <a href="https://en.wikipedia.org/wiki/Portable_Network_Graphics" target="_blank" rel="noopener">PNG</a>，更准确的说，是 PNG-32，即每个像素点占 32 位，每个像素点由 4 部分构成，分别是红色（Red）、绿色（Green）、蓝色（Blue）和透明度（Alpha (Transparency)）（简写 RGBA）。所以每种颜色有 2^8（256）个级别，所以图片可以显示 1600 万种颜色（256  ×  256  ×  256, 2^24）。</p>
 <p>截屏一般对颜色要求没那么高，显示 1600 万种颜色与 256 种颜色差别不大，截屏图片基于<a href="https://en.wikipedia.org/wiki/Palette_(computing)" target="_blank" rel="noopener">调色板</a>，可以利用工具将图片显示颜色<a href="http://en.wikipedia.org/wiki/Color_quantization" target="_blank" rel="noopener">更改</a>为 256 种，来实现压缩图片的功能。此时单位像素由 32 位变为 8 位（4 个字节变为 1 个字节），所以大约能压缩 75% 的容量。</p>
 <p>注意：除了 256，还可以选择 128、64、24、16、8、4 等级别，原作者测试 64 跟 256 差不多。这里我选择了 256。</p>
-<h3 id="2-2、pngquant"><a href="#2-2、pngquant" class="headerlink" title="2.2、pngquant"></a>2.2、pngquant</h3><p><a href="https://pngquant.org/" target="_blank" rel="noopener">pngquant</a> 就是一个可以几乎不损害图片质量，通过减少像素大小来压缩 PNG 图片的命令行程序（库），属于有损压缩。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用 HomeBrew 安装 pngquant</span></span><br><span class="line">brew install pngquant</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将 32 位的 RGBA PNG 数字转换为 8 位（或更小）的 RGBA 调色板</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> pngquant [颜色数量] [参数] input.png</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   --skip-if-larger  仅保存转化后比原文件小的文件</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   --strip           去除可选的元数据</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   --ext=.png        设置压缩后图片名和原图片名一样</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   --force           覆盖原文件</span></span><br><span class="line">pngquant 256 --skip-if-larger --strip --ext=.png --force example.png</span><br></pre></td></tr></table></figure>
+<h3 id="2-3、pngquant"><a href="#2-3、pngquant" class="headerlink" title="2.3、pngquant"></a>2.3、pngquant</h3><p><a href="https://pngquant.org/" target="_blank" rel="noopener">pngquant</a> 就是一个可以几乎不损害图片质量，通过减少像素大小来压缩 PNG 图片的命令行程序（库），属于有损压缩。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用 HomeBrew 安装 pngquant</span></span><br><span class="line">brew install pngquant</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将 32 位的 RGBA PNG 数字转换为 8 位（或更小）的 RGBA 调色板</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> pngquant [颜色数量] [参数] input.png</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   --skip-if-larger  仅保存转化后比原文件小的文件</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   --strip           去除可选的元数据</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   --ext=.png        设置压缩后图片名和原图片名一样</span></span><br><span class="line"><span class="meta">#</span><span class="bash">   --force           覆盖原文件</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 示例：压缩 example.png，压缩后图片仍叫 example.png</span></span><br><span class="line">pngquant 256 --skip-if-larger --strip --ext=.png --force example.png</span><br></pre></td></tr></table></figure>
 
-<p>当 pngqunt 压缩后，还可以通过 <a href="https://github.com/google/zopfli" target="_blank" rel="noopener">zopfli</a> 进一步无损压缩，但耗时较长，压缩比例也不高，我就没做这步操作。</p>
-<!--zopfli 的原理使用 [DEFLATE](https://en.wikipedia.org/wiki/DEFLATE) 算法来实现无损压缩-->
-
+<p>当 pngqunt 压缩后，还可以通过 <a href="https://github.com/google/zopfli" target="_blank" rel="noopener">zopfli</a> 进一步无损压缩，但耗时较长，压缩比例也不高，我就没做这步操作。zopfli 的原理使用 <a href="https://en.wikipedia.org/wiki/DEFLATE" target="_blank" rel="noopener">DEFLATE</a> 算法来实现无损压缩。</p>
 <p><a href="https://pngmini.com/" target="_blank" rel="noopener">ImageAlpha</a> 是一个集成 <a href="https://pngquant.org/" target="_blank" rel="noopener">pngquant</a> 的 macOS 客户端，可以图形化调整图片显示颜色数量。</p>
 <h3 id="2-4、压缩效果"><a href="#2-4、压缩效果" class="headerlink" title="2.4、压缩效果"></a>2.4、压缩效果</h3><table>
 <thead>
@@ -482,61 +455,35 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="left"><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-04-073500.png" alt="Xnip2020-08-02_20-55-07"></td>
-<td align="left"><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-04-073506.png" alt=""></td>
+<td align="left"><img src="https://hexoblog.r2.depp.wang/2020-08-04-073500.png" alt="Xnip2020-08-02_20-55-07"></td>
+<td align="left"><img src="https://hexoblog.r2.depp.wang/2020-08-04-073506.png" alt=""></td>
 </tr>
 </tbody></table>
 <p>压缩效果：74.8%</p>
-<h3 id="2-5、自动压缩"><a href="#2-5、自动压缩" class="headerlink" title="2.5、自动压缩"></a>2.5、自动压缩</h3><p>现在，只有在本地执行一个命令，就能将图片压缩了。可以将命令作为一个脚本，交给工作流来自动执行，工作流可以选择 Alfred 工作流（<a href="https://www.alfredapp.com/workflows/" target="_blank" rel="noopener">Workflow</a>）、系统自带的 <a href="https://support.apple.com/en-au/guide/automator/welcome/mac" target="_blank" rel="noopener">Automator</a> 和专业工作流软件 <a href="https://www.noodlesoft.com/" target="_blank" rel="noopener">Hazel（</a>试用结束后软件收费）。Alfred 工作流需要关键字或快捷键触发，不符合我们自动压缩的 feelstyle，pass。下面分别演示如何使用 Hazel 和 Automator。 </p>
-<p>Hazel 设置工作流：</p>
-<ol>
-<li>添加指定文件夹，设置触发条件，条件为对文件夹中最近一分钟新增的 PNG 文件执行脚本</li>
-<li>设置脚本，脚本为压缩图片，并复制压缩后的图片到剪贴板</li>
-<li>通知压缩完成</li>
+<h3 id="2-5、自动压缩"><a href="#2-5、自动压缩" class="headerlink" title="2.5、自动压缩"></a>2.5、自动压缩</h3><p>现在，只要在本地执行一个命令，就能将图片压缩了。可以将命令作为一个脚本，交给工作流来自动执行，工作流可以选择 Alfred 工作流（<a href="https://www.alfredapp.com/workflows/" target="_blank" rel="noopener">Workflow</a>）、系统自带的 <a href="https://support.apple.com/en-au/guide/automator/welcome/mac" target="_blank" rel="noopener">Automator</a> 和专业工作流软件 <a href="https://www.noodlesoft.com/" target="_blank" rel="noopener">Hazel</a>（试用结束后软件收费）。Alfred 工作流需要关键字或快捷键触发，不符合我们自动压缩的 feelstyle，pass。下面分别演示如何使用 Hazel 和 Automator。 </p>
+<h4 id="Hazel-设置工作流："><a href="#Hazel-设置工作流：" class="headerlink" title="Hazel 设置工作流："></a>Hazel 设置工作流：</h4><ol>
+<li><p>添加指定文件夹，设置触发条件，条件为对文件夹中最近一分钟新增的 PNG 文件执行脚本</p>
+</li>
+<li><p>设置脚本，脚本为压缩图片，并复制压缩后的图片到剪贴板</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pngquant 256 --skip-if-larger --strip --ext=.png --force "$1"</span><br><span class="line">osascript -e "set the clipboard to (read (POSIX file \"$(perl -e "print glob('$1')")\") as &#123;«class PNGf»&#125;)"</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通知压缩完成</p>
+</li>
 </ol>
-<p>Automator 设置工作流：</p>
-<ol>
-<li>添加 Folder Action，选择指定文件夹，添加 Run  Shell Script</li>
-<li>设置脚本，将新加入图片作为参数，遍历执行脚本</li>
-<li>没有通知功能</li>
+<p>ps：Hazel 官方 UI 真心好看。<code>/usr/local/bin/pngquan</code> 与 <code>pnguant</code> 作用一样。</p>
+<h4 id="Automator-设置工作流："><a href="#Automator-设置工作流：" class="headerlink" title="Automator 设置工作流："></a>Automator 设置工作流：</h4><ol>
+<li><p>添加 <code>Folder Action</code>，选择指定文件夹，添加 <code>Run Shell Script</code></p>
+</li>
+<li><p>设置脚本，将新加入图片作为参数，遍历执行脚本</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for f in "$@"</span><br><span class="line">do</span><br><span class="line">	/opt/homebrew/bin/pngquant 256 --skip-if-larger --strip --ext=.png --force "$f"</span><br><span class="line">	osascript -e "set the clipboard to (read (POSIX file \"$(perl -e "print glob('$f')")\") as &#123;«class PNGf»&#125;)"</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>没有通知功能</p>
+</li>
 </ol>
-<p>设置完成后，我们使用截图工具（如： <a href="https://xnipapp.com/" target="_blank" rel="noopener">Xnip</a>）将截图保存到指定文件夹时，将会触发工作流，完成自动压缩。</p>
-<table>
-<thead>
-<tr>
-<th align="center">Hazel</th>
-<th align="center">Automator</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-07-092800.png" alt=""></td>
-<td align="center"><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-07-102228.png" alt=""></td>
-</tr>
-<tr>
-<td align="center"><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-04-073544.png" alt=""></td>
-<td align="center"><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-07-135926.png" alt=""></td>
-</tr>
-<tr>
-<td align="center"><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-04-073539.png" alt=""></td>
-<td align="center"></td>
-</tr>
-</tbody></table>
+<p>使用 Automator，可能需在 Security &amp; Privay（安全与隐私）-&gt; Accessibility（辅助功能）里面开启权限。</p>
+<h4 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h4><p>设置完成后，我们使用截图工具（如： <a href="https://xnipapp.com/" target="_blank" rel="noopener">Xnip</a>）将截图保存到指定文件夹时，将会触发工作流，完成自动压缩。<br>|                            Hazel                             |                          Automator                           |<br>| :———————————————————-: | :———————————————————-: |<br>| <img src="https://hexoblog.r2.depp.wang/2020-08-07-092800.png" alt=""> | <img src="https://hexoblog.r2.depp.wang/2020-08-07-102228.png" alt=""> |<br>| <img src="https://hexoblog.r2.depp.wang/2020-08-04-073544.png" alt=""> | <img src="https://hexoblog.r2.depp.wang/2020-08-07-135926.png" alt=""> |<br>| <img src="https://hexoblog.r2.depp.wang/2020-08-04-073539.png" alt=""> |                                                              |</p>
 <!--可以选择开源免费的 [fswatch](https://github.com/emcrisostomo/fswatch) 把.-->
 
-<ul>
-<li>使用 Automator，需在 Security &amp; Privay（安全与隐私）-&gt; Accessibility（辅助功能）里面开启权限。</li>
-</ul>
-<p>脚本：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pngquant 256 --skip-if-larger --strip --ext=.png --force "$1"</span><br><span class="line">osascript -e "set the clipboard to (read (POSIX file \"$(perl -e "print glob('$1')")\") as &#123;«class PNGf»&#125;)"</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">The compressed image `<span class="built_in">file</span>` has been copied <span class="keyword">to</span> <span class="built_in">the clipboard</span>.</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for f in "$@"</span><br><span class="line">do</span><br><span class="line">	/usr/local/bin/pngquant 256 --skip-if-larger --strip --ext=.png --force "$f"</span><br><span class="line">	osascript -e "set the clipboard to (read (POSIX file \"$(perl -e "print glob('$f')")\") as &#123;«class PNGf»&#125;)"</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-
-<p>ps：Hazel 官方 UI 真心好看。<code>/usr/local/bin/pngquan</code> 与 <code>pnguant</code> 作用一样。</p>
-<!--试用期过了我还是老老实实切换回系统自带的 Automator 吧。-->
-
-<!--复制到剪贴板-->
 
 <!--你可能注意到了 `cat "$1" | ./impbcopy -` 这行命令，这是一个从命令行复制图片到剪贴板的命令，由于 Hazel  不提供复制到剪贴板功能（反正我没找到），网上很多办法也不好使，找到一个小哥用 objective-c 写的[复制图片代码](http://www.alecjacobson.com/weblog/?p=3816)，挺好使。-->
 
@@ -544,9 +491,7 @@
 
 <!--编译文件，你会看到生成了两个文件，`impbcopy` 和 `impbcopy.dSYM`，命令行执行将用到 `impbcopy`--> 
 
-<h2 id="三、像素与分辨率"><a href="#三、像素与分辨率" class="headerlink" title="三、像素与分辨率"></a>三、像素与分辨率</h2><!--**像素**-->
-
-<p>上面一直说像素，所以深入了解一下。</p>
+<h2 id="三、像素-分辨率-与-PPI"><a href="#三、像素-分辨率-与-PPI" class="headerlink" title="三、像素 / 分辨率 与 PPI"></a>三、像素 / 分辨率 与 PPI</h2><p>上面一直说像素，所以深入了解一下。</p>
 <p><a href="https://en.wikipedia.org/wiki/Pixel" target="_blank" rel="noopener">像素</a>（Pixel，简写 px）分为物理像素和图片像素。</p>
 <p><strong>物理像素</strong>是物理设备上显示颜色的物理点。物理设备如电脑、手机、电视等。</p>
 <ul>
@@ -555,11 +500,7 @@
 </ul>
 <p>我们可以看出，MacBook Rro 和 iPhone XR 屏幕的像素点为正方形。</p>
 <p><strong>图片像素</strong>是图片中最小的单位。同样大小的照片，包含的像素可能不同。小米 10 有一个颗 1 亿像素的摄像头，如果全输出，拍出来的照片，包含像素个数为 12032 × 9024 ，乘积结果为 1.08 亿。iPhone XR 是 1200 万像素，照片像素为 3024  ×  4032。摄像头一般说多少多少像素，对于屏幕，我们一般称分辨率。</p>
-<!--**分辨率 **-->
-
-<p><a href="https://en.wikipedia.org/wiki/Dispute_resolution" target="_blank" rel="noopener">分辨率</a>，也叫显示分辨率（Display Resolution），分辨率指像素的总和，比如我们说 MacBook Pro 屏幕的分辨率是  2560 × 1600 px。分辨率和屏幕大小尺寸没有关系，MacBook Pro 的分辨率是  2560 × 1600 px，一台 75 英寸的 <a href="https://www.mi.com/mitv5/75/specs" target="_blank" rel="noopener">小米电视 5</a> 的分辨率也才 3840 × 2160 px。小米电视 5 自称是 <a href="https://en.wikipedia.org/wiki/4K_resolution" target="_blank" rel="noopener">4K</a>，其实只是接近 4K，4K 的标准是横向像素达到 4000。衡量屏幕显示的是像素密度。</p>
-<!--**像素密度**-->
-
+<p><a href="https://en.wikipedia.org/wiki/Dispute_resolution" target="_blank" rel="noopener">分辨率</a>，也叫显示分辨率（Display Resolution），<strong>分辨率指像素的总和</strong>，比如我们说 MacBook Pro 屏幕的分辨率是  2560 × 1600 px。分辨率和屏幕大小尺寸没有关系，MacBook Pro 的分辨率是  2560 × 1600 px，一台 75 英寸的 <a href="https://www.mi.com/mitv5/75/specs" target="_blank" rel="noopener">小米电视 5</a> 的分辨率也才 3840 × 2160 px。小米电视 5 自称是 <a href="https://en.wikipedia.org/wiki/4K_resolution" target="_blank" rel="noopener">4K</a>，其实只是接近 4K，4K 的标准是横向像素达到 4000。衡量屏幕显示的是像素密度。</p>
 <p><a href="https://en.wikipedia.org/wiki/Pixel_density" target="_blank" rel="noopener">像素密度</a> ，英语为 Pixel Density，也叫 Pixels Per Inch（PPI），即单位英寸像素的多少（个数）。计算公式为 ppi = 像素/英寸。</p>
 <ul>
 <li>以 MacBook Pro 2017 13.3-inch 为例，ppi = √(2560^2 × 1600^2) / 13.3 ≈ 227，即斜对角每英寸有 227 个像素</li>
@@ -576,12 +517,12 @@
 </tr>
 </thead>
 <tbody><tr>
-<td><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-07-101445.png" alt=""></td>
-<td><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-07-101336.png" alt=""></td>
+<td><img src="https://hexoblog.r2.depp.wang/2020-08-07-101445.png" alt=""></td>
+<td><img src="https://hexoblog.r2.depp.wang/2020-08-07-101336.png" alt=""></td>
 </tr>
 <tr>
-<td><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-07-101537.png" alt=""></td>
-<td><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-07-101616.png" alt=""></td>
+<td><img src="https://hexoblog.r2.depp.wang/2020-08-07-101537.png" alt=""></td>
+<td><img src="https://hexoblog.r2.depp.wang/2020-08-07-101616.png" alt=""></td>
 </tr>
 </tbody></table>
 <ul>
@@ -669,9 +610,13 @@
           
             <a href="/tags/macOS/" rel="tag"># macOS</a>
           
-            <a href="/tags/自动压缩/" rel="tag"># 自动压缩</a>
+            <a href="/tags/工具/" rel="tag"># 工具</a>
           
-            <a href="/tags/截屏图片/" rel="tag"># 截屏图片</a>
+            <a href="/tags/图片/" rel="tag"># 图片</a>
+          
+            <a href="/tags/截图/" rel="tag"># 截图</a>
+          
+            <a href="/tags/图片压缩/" rel="tag"># 图片压缩</a>
           
         </div>
       
@@ -935,7 +880,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、错误的误会"><span class="nav-number">1.</span> <span class="nav-text">一、错误的误会</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、图片压缩"><span class="nav-number">2.</span> <span class="nav-text">二、图片压缩</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1、压缩时机"><span class="nav-number">2.1.</span> <span class="nav-text">2.1、压缩时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2、压缩原理"><span class="nav-number">2.2.</span> <span class="nav-text">2.2、压缩原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2、pngquant"><span class="nav-number">2.3.</span> <span class="nav-text">2.2、pngquant</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4、压缩效果"><span class="nav-number">2.4.</span> <span class="nav-text">2.4、压缩效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5、自动压缩"><span class="nav-number">2.5.</span> <span class="nav-text">2.5、自动压缩</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、像素与分辨率"><span class="nav-number">3.</span> <span class="nav-text">三、像素与分辨率</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1、像素的内存大小"><span class="nav-number">3.1.</span> <span class="nav-text">3.1、像素的内存大小</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、PNG-vs-JPEG-JPG"><span class="nav-number">4.</span> <span class="nav-text">四、PNG vs JPEG(JPG)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、结语"><span class="nav-number">5.</span> <span class="nav-text">五、结语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、延伸阅读"><span class="nav-number">6.</span> <span class="nav-text">六、延伸阅读</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、错误的误会"><span class="nav-number">1.</span> <span class="nav-text">一、错误的误会</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、图片压缩"><span class="nav-number">2.</span> <span class="nav-text">二、图片压缩</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1、压缩时机"><span class="nav-number">2.1.</span> <span class="nav-text">2.1、压缩时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2、压缩原理"><span class="nav-number">2.2.</span> <span class="nav-text">2.2、压缩原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3、pngquant"><span class="nav-number">2.3.</span> <span class="nav-text">2.3、pngquant</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4、压缩效果"><span class="nav-number">2.4.</span> <span class="nav-text">2.4、压缩效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5、自动压缩"><span class="nav-number">2.5.</span> <span class="nav-text">2.5、自动压缩</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Hazel-设置工作流："><span class="nav-number">2.5.1.</span> <span class="nav-text">Hazel 设置工作流：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Automator-设置工作流："><span class="nav-number">2.5.2.</span> <span class="nav-text">Automator 设置工作流：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对比"><span class="nav-number">2.5.3.</span> <span class="nav-text">对比</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、像素-分辨率-与-PPI"><span class="nav-number">3.</span> <span class="nav-text">三、像素 / 分辨率 与 PPI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1、像素的内存大小"><span class="nav-number">3.1.</span> <span class="nav-text">3.1、像素的内存大小</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、PNG-vs-JPEG-JPG"><span class="nav-number">4.</span> <span class="nav-text">四、PNG vs JPEG(JPG)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、结语"><span class="nav-number">5.</span> <span class="nav-text">五、结语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、延伸阅读"><span class="nav-number">6.</span> <span class="nav-text">六、延伸阅读</span></a></li></ol></div>
             
 
           </div>
