@@ -91,21 +91,21 @@
 
 
 
-<meta name="description" content="个人网站这两个月访问量增加了不少，导致阿里云对象存储费用涨了很多，1 月 0.09 元、4 月  2.64 元，5 月直接 6.55 元。当初选择阿里云对象存储，就是因为便宜，现在它的这一特性逐渐丧失了。我个人网站部署在 GitHub Pages 上的，使用 Cloudflare 做了缓存。因为网站本身就使用了 Cloudflare，加上 Cloudflare R2 的免费额度还能覆盖到目前我的使">
+<meta name="description" content="个人网站这两个月访问量增加了不少，导致阿里云对象存储（OSS）费用涨了很多，1 月 0.09 元、4 月  2.64 元，5 月直接 6.55 元。当初选择阿里云对象存储，就是因为便宜，现在它的这一特性逐渐丧失了。我个人网站部署在 GitHub Pages 上的，使用 Cloudflare 做了缓存。因为网站本身就使用了 Cloudflare，加上 Cloudflare R2 的免费额度还能覆盖到">
 <meta name="keywords" content="阿里云,对象存储,Cloudflare,Cloudflare-R2,图片,ossutil,awscli">
 <meta property="og:type" content="article">
-<meta property="og:title" content="个人网站图片从阿里云对象存储迁移到 Cloudflare R2">
+<meta property="og:title" content="个人网站图片从 OSS 迁移到 Cloudflare R2">
 <meta property="og:url" content="https://depp.wang/2024/image-from-oss-to-r2/index.html">
 <meta property="og:site_name" content="德普王">
-<meta property="og:description" content="个人网站这两个月访问量增加了不少，导致阿里云对象存储费用涨了很多，1 月 0.09 元、4 月  2.64 元，5 月直接 6.55 元。当初选择阿里云对象存储，就是因为便宜，现在它的这一特性逐渐丧失了。我个人网站部署在 GitHub Pages 上的，使用 Cloudflare 做了缓存。因为网站本身就使用了 Cloudflare，加上 Cloudflare R2 的免费额度还能覆盖到目前我的使">
+<meta property="og:description" content="个人网站这两个月访问量增加了不少，导致阿里云对象存储（OSS）费用涨了很多，1 月 0.09 元、4 月  2.64 元，5 月直接 6.55 元。当初选择阿里云对象存储，就是因为便宜，现在它的这一特性逐渐丧失了。我个人网站部署在 GitHub Pages 上的，使用 Cloudflare 做了缓存。因为网站本身就使用了 Cloudflare，加上 Cloudflare R2 的免费额度还能覆盖到">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202406191718791555.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202406191718791581.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20240618203531.png">
-<meta property="og:updated_time" content="2024-06-19T11:27:16.541Z">
+<meta property="og:updated_time" content="2024-06-19T11:28:03.046Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="个人网站图片从阿里云对象存储迁移到 Cloudflare R2">
-<meta name="twitter:description" content="个人网站这两个月访问量增加了不少，导致阿里云对象存储费用涨了很多，1 月 0.09 元、4 月  2.64 元，5 月直接 6.55 元。当初选择阿里云对象存储，就是因为便宜，现在它的这一特性逐渐丧失了。我个人网站部署在 GitHub Pages 上的，使用 Cloudflare 做了缓存。因为网站本身就使用了 Cloudflare，加上 Cloudflare R2 的免费额度还能覆盖到目前我的使">
+<meta name="twitter:title" content="个人网站图片从 OSS 迁移到 Cloudflare R2">
+<meta name="twitter:description" content="个人网站这两个月访问量增加了不少，导致阿里云对象存储（OSS）费用涨了很多，1 月 0.09 元、4 月  2.64 元，5 月直接 6.55 元。当初选择阿里云对象存储，就是因为便宜，现在它的这一特性逐渐丧失了。我个人网站部署在 GitHub Pages 上的，使用 Cloudflare 做了缓存。因为网站本身就使用了 Cloudflare，加上 Cloudflare R2 的免费额度还能覆盖到">
 <meta name="twitter:image" content="https://hexoblog.r2.depp.wang/202406191718791555.png">
 
 
@@ -140,7 +140,7 @@
 
 
 
-  <title>个人网站图片从阿里云对象存储迁移到 Cloudflare R2 | 德普王</title>
+  <title>个人网站图片从 OSS 迁移到 Cloudflare R2 | 德普王</title>
 </head>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -332,7 +332,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">个人网站图片从阿里云对象存储迁移到 Cloudflare R2</h1>
+          <h1 class="post-title" itemprop="name headline">个人网站图片从 OSS 迁移到 Cloudflare R2</h1>
         
 
         <div class="post-meta">
@@ -360,7 +360,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-06-19T19:26:29+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2024-06-19T19:27:13+08:00">
                 2024-06-19
               </time>
             
@@ -384,7 +384,7 @@
 
           
           
-             <span id="/2024/image-from-oss-to-r2/" class="leancloud_visitors" data-flag-title="个人网站图片从阿里云对象存储迁移到 Cloudflare R2">
+             <span id="/2024/image-from-oss-to-r2/" class="leancloud_visitors" data-flag-title="个人网站图片从 OSS 迁移到 Cloudflare R2">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -412,7 +412,7 @@
       
 
       
-        <p><a href="https://depp.wang">个人网站</a>这两个月访问量增加了不少，导致阿里云对象存储费用涨了很多，1 月 0.09 元、4 月  2.64 元，5 月直接 6.55 元。当初选择阿里云对象存储，就是因为便宜，现在它的这一特性逐渐丧失了。我个人网站部署在 GitHub Pages 上的，使用 Cloudflare 做了缓存。因为网站本身就使用了 Cloudflare，加上 Cloudflare R2 的免费额度还能覆盖到目前我的使用量。所以将图片迁移到 Cloudlare R2。</p>
+        <p><a href="https://depp.wang">个人网站</a>这两个月访问量增加了不少，导致阿里云对象存储（OSS）费用涨了很多，1 月 0.09 元、4 月  2.64 元，5 月直接 6.55 元。当初选择阿里云对象存储，就是因为便宜，现在它的这一特性逐渐丧失了。我个人网站部署在 GitHub Pages 上的，使用 Cloudflare 做了缓存。因为网站本身就使用了 Cloudflare，加上 Cloudflare R2 的免费额度还能覆盖到目前我的使用量。所以将图片迁移到 Cloudlare R2。</p>
 <a id="more"></a>
 
 <h2 id="Cloudflare-R2-免费额度与国内访问效果"><a href="#Cloudflare-R2-免费额度与国内访问效果" class="headerlink" title="Cloudflare R2 免费额度与国内访问效果"></a>Cloudflare R2 免费额度与国内访问效果</h2><table>
@@ -509,7 +509,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://depp.wang/2024/image-from-oss-to-r2/" title="个人网站图片从阿里云对象存储迁移到 Cloudflare R2">https://depp.wang/2024/image-from-oss-to-r2/</a>
+      <a href="https://depp.wang/2024/image-from-oss-to-r2/" title="个人网站图片从 OSS 迁移到 Cloudflare R2">https://depp.wang/2024/image-from-oss-to-r2/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -965,7 +965,7 @@
         var disqus_config = function () {
           this.page.url = 'https://depp.wang/2024/image-from-oss-to-r2/';
           this.page.identifier = '2024/image-from-oss-to-r2/';
-          this.page.title = '个人网站图片从阿里云对象存储迁移到 Cloudflare R2';
+          this.page.title = '个人网站图片从 OSS 迁移到 Cloudflare R2';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://deppwang-1.disqus.com/embed.js';
