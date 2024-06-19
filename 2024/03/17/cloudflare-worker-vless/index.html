@@ -101,7 +101,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202406191718786599.jpg">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20240317170638.png">
-<meta property="og:updated_time" content="2024-06-19T13:08:20.036Z">
+<meta property="og:updated_time" content="2024-06-19T13:36:16.766Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为什么 Cloudflare Worker 部署 VLESS 代理服务可以实现白嫖翻墙">
 <meta name="twitter:description" content="这两天刷推，看见不少推文实现了用 Cloudflare Worker 白嫖翻墙，我也鼓捣了试了一下，确实可以。">
@@ -359,7 +359,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-06-19T17:00:42+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2024-06-19T21:28:54+08:00">
                 2024-06-19
               </time>
             
@@ -422,7 +422,7 @@
 <h2 id="为什么需要优选-IP"><a href="#为什么需要优选-IP" class="headerlink" title="为什么需要优选 IP"></a>为什么需要优选 IP</h2><p>因为国内网络访问 Cloudflare 不是很稳定，国内网络访问优选 IP 更稳定，有优选 IP 时：国内网络 -&gt; 墙 -&gt; 优选 IP -&gt; Worker -&gt; Origin。这样可以提升稳定性与速度。</p>
 <h2 id="为什么需要-proxyIP"><a href="#为什么需要-proxyIP" class="headerlink" title="为什么需要 proxyIP"></a>为什么需要 proxyIP</h2><p>Cloudflare 设计了 Worker 不能访问托管到 Cloudflare 上的网站，如果没有 proxyIP，就不能访问托管到 Cloudflare 上的网站，所以使用 proxyIP 反向代理一下。路径示意：国内网络 -&gt; 墙 -&gt; 优选 IP -&gt; Worker -&gt; proxyIP -&gt; Origin。</p>
 <p>这个 proxyIP 是谁维护的我也不清楚，因为这种翻墙方式只是数据包加了 VLESS Header，所以其安全性我也不知道，建议不要主力使用。</p>
-<h2 id="为什么-cmliu-edgetunnel-的-worker-js-方便易用"><a href="#为什么-cmliu-edgetunnel-的-worker-js-方便易用" class="headerlink" title="为什么 cmliu/edgetunnel 的 _worker.js 方便易用"></a>为什么 cmliu/edgetunnel 的 <code>_worker.js</code> 方便易用</h2><ol>
+<h2 id="为什么-cmliu-edgetunnel-的-worker-js-方便易用"><a href="#为什么-cmliu-edgetunnel-的-worker-js-方便易用" class="headerlink" title="为什么 cmliu/edgetunnel 的 _worker.js 方便易用"></a>为什么 <a href="https://github.com/cmliu/edgetunnel" target="_blank" rel="noopener">cmliu/edgetunnel</a> 的 <code>_worker.js</code> 方便易用</h2><ol>
 <li>其通用订阅地址可以适配各种客户端</li>
 <li>维护了订阅生成服务，可自动更新优选 IP 与 proxyIP</li>
 <li>维护了订阅规则，如果域名没走配置群组，就走「漏网之鱼」</li>
