@@ -73,7 +73,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="阿里云,对象存储,Cloudflare,Cloudflare-R2,图片,ossutil,awscli,">
+  <meta name="keywords" content="Cloudflare,阿里云,对象存储,Cloudflare-R2,图片,ossutil,awscli,">
 
 
 
@@ -92,7 +92,7 @@
 
 
 <meta name="description" content="个人网站这两个月访问量增加了不少，导致阿里云对象存储（OSS）费用涨幅很大，1 月 0.09 元、4 月 2.64 元，5 月直接 6.55 元。当初选择阿里云对象存储，就是因为便宜，现在它的这一特性逐渐丧失了。我个人网站部署在 GitHub Pages 上的，使用 Cloudflare 做了缓存。因为网站本身就使用了 Cloudflare，加上 Cloudflare R2 的免费额度还能覆盖到目">
-<meta name="keywords" content="阿里云,对象存储,Cloudflare,Cloudflare-R2,图片,ossutil,awscli">
+<meta name="keywords" content="Cloudflare,阿里云,对象存储,Cloudflare-R2,图片,ossutil,awscli">
 <meta property="og:type" content="article">
 <meta property="og:title" content="个人网站图片从阿里云 OSS 迁移到 Cloudflare R2">
 <meta property="og:url" content="https://depp.wang/2024/image-from-oss-to-r2/index.html">
@@ -102,7 +102,7 @@
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202406191718791555.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202406191718791581.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20240618203531.png">
-<meta property="og:updated_time" content="2024-06-19T11:40:42.220Z">
+<meta property="og:updated_time" content="2024-06-19T11:46:16.101Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="个人网站图片从阿里云 OSS 迁移到 Cloudflare R2">
 <meta name="twitter:description" content="个人网站这两个月访问量增加了不少，导致阿里云对象存储（OSS）费用涨幅很大，1 月 0.09 元、4 月 2.64 元，5 月直接 6.55 元。当初选择阿里云对象存储，就是因为便宜，现在它的这一特性逐渐丧失了。我个人网站部署在 GitHub Pages 上的，使用 Cloudflare 做了缓存。因为网站本身就使用了 Cloudflare，加上 Cloudflare R2 的免费额度还能覆盖到目">
@@ -360,7 +360,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-06-19T19:39:54+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2024-06-19T19:45:28+08:00">
                 2024-06-19
               </time>
             
@@ -438,14 +438,13 @@
 <td align="left">出口（数据传输到互联网）</td>
 <td>免费</td>
 </tr>
-<tr>
-<td align="left">- <a href="https://developers.cloudflare.com/r2/pricing/#free-tier" target="_blank" rel="noopener">https://developers.cloudflare.com/r2/pricing/#free-tier</a></td>
-<td></td>
-</tr>
 </tbody></table>
+<ul>
+<li><a href="https://developers.cloudflare.com/r2/pricing/#free-tier" target="_blank" rel="noopener">https://developers.cloudflare.com/r2/pricing/#free-tier</a></li>
+</ul>
 <p>Cloudflare R2 国内网络访问速度：</p>
 <p><img src="https://hexoblog.r2.depp.wang/202406191718791555.png" alt=""></p>
-<p>阿里云 OSS 国内访问效果：</p>
+<p>阿里云 OSS 国内网络访问效果：</p>
 <p><img src="https://hexoblog.r2.depp.wang/202406191718791581.png" alt=""></p>
 <p>Cloudflare 的访问速度平均只比阿里云的访问速度慢一倍，还可以接受。</p>
 <h2 id="设置-Cloudflare-R2-存储桶可公网访问"><a href="#设置-Cloudflare-R2-存储桶可公网访问" class="headerlink" title="设置 Cloudflare R2 存储桶可公网访问"></a>设置 Cloudflare R2 存储桶可公网访问</h2><p>设置自定义域，如：<code>hexoblog.r2.depp.wang</code></p>
@@ -466,10 +465,10 @@
 <p>上传</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 上传单个文件</span></span><br><span class="line">aws s3 cp /Volumes/NAS/Documents/阿里云对象存储/deppwang/blog-20240618/cookie-copy.mp4 s3://hexoblog/cookie-copy.mp4</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 上传文件夹</span></span><br><span class="line">aws s3 cp /Volumes/NAS/Documents/阿里云对象存储/deppwang/blog-20240618/ s3://hexoblog/ --recursive</span><br></pre></td></tr></table></figure>
 
-<h2 id="替换指定文件夹中所有文档的图片链接"><a href="#替换指定文件夹中所有文档的图片链接" class="headerlink" title="替换指定文件夹中所有文档的图片链接"></a>替换指定文件夹中所有文档的图片链接</h2><p>使用脚本实现，以下是我替换我 Obsidian 文件夹的 Python 脚本（GPT 生成）</p>
+<h2 id="替换指定文件夹中所有文档中的图片链接"><a href="#替换指定文件夹中所有文档中的图片链接" class="headerlink" title="替换指定文件夹中所有文档中的图片链接"></a>替换指定文件夹中所有文档中的图片链接</h2><p>使用脚本实现，以下是我替换我 Obsidian 文件夹的 Python 脚本（ChatGPT 生成）</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义旧的和新的图床链接</span></span><br><span class="line">old_link = <span class="string">"https://deppwang.oss-cn-beijing.aliyuncs.com/blog/"</span></span><br><span class="line">new_link = <span class="string">"https://hexoblog.r2.depp.wang/"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Obsidian 文件夹路径</span></span><br><span class="line">obsidian_folder = <span class="string">"/Users/depp/Documents/Obsidian"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 正则表达式模式</span></span><br><span class="line">pattern1 = re.compile(<span class="string">r'!\[\]\('</span> + re.escape(old_link) + <span class="string">r'([^\)]+)\)'</span>)</span><br><span class="line">pattern2 = re.compile(<span class="string">r'!\[([^\]]*)\]\('</span> + re.escape(old_link) + <span class="string">r'([^\)]+)\)'</span>)</span><br><span class="line">pattern3 = re.compile(<span class="string">r'&lt;img src="'</span> + re.escape(old_link) + <span class="string">r'([^"]+)"'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">replace_links</span><span class="params">(file_path)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> open(file_path, <span class="string">'r'</span>, encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> file:</span><br><span class="line">        content = file.read()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 替换链接</span></span><br><span class="line">    content = pattern1.sub(<span class="string">r'![]('</span> + new_link + <span class="string">r'\1)'</span>, content)</span><br><span class="line">    content = pattern2.sub(<span class="string">r'![\1]('</span> + new_link + <span class="string">r'\2)'</span>, content)</span><br><span class="line">    content = pattern3.sub(<span class="string">r'&lt;img src="'</span> + new_link + <span class="string">r'\1"'</span>, content)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> open(file_path, <span class="string">'w'</span>, encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> file:</span><br><span class="line">        file.write(content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">traverse_folder</span><span class="params">(folder_path)</span>:</span></span><br><span class="line">    x = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> root, _, files <span class="keyword">in</span> os.walk(folder_path):</span><br><span class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line">            <span class="comment"># if x &gt; 100:</span></span><br><span class="line">            <span class="comment">#     return</span></span><br><span class="line">            <span class="keyword">if</span> file.endswith(<span class="string">".md"</span>):  <span class="comment"># 假设 Obsidian 笔记文件是以 .md 结尾</span></span><br><span class="line">                file_path = os.path.join(root, file)</span><br><span class="line">                replace_links(file_path)</span><br><span class="line">                print(<span class="string">f"Processed: <span class="subst">&#123;file_path&#125;</span>"</span>)</span><br><span class="line">                x += <span class="number">1</span></span><br><span class="line">                </span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始遍历文件夹并替换链接</span></span><br><span class="line">traverse_folder(obsidian_folder)</span><br></pre></td></tr></table></figure>
 
-<p>如果使用 PicGo 图片上传，搜索 <a href="https://github.com/wayjam/picgo-plugin-s3" target="_blank" rel="noopener">s3 插件</a>安装</p>
+<p>如果使用 PicGo 图片上传，搜索 <a href="https://github.com/wayjam/picgo-plugin-s3" target="_blank" rel="noopener">s3 插件</a>安装。</p>
 
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1707703738443946" crossorigin="anonymous"></script>
 <!-- 左侧固定位置 -->
@@ -525,11 +524,11 @@
       
         <div class="post-tags">
           
+            <a href="/tags/Cloudflare/" rel="tag"># Cloudflare</a>
+          
             <a href="/tags/阿里云/" rel="tag"># 阿里云</a>
           
             <a href="/tags/对象存储/" rel="tag"># 对象存储</a>
-          
-            <a href="/tags/Cloudflare/" rel="tag"># Cloudflare</a>
           
             <a href="/tags/Cloudflare-R2/" rel="tag"># Cloudflare-R2</a>
           
@@ -797,7 +796,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cloudflare-R2-免费额度与国内访问效果"><span class="nav-number">1.</span> <span class="nav-text">Cloudflare R2 免费额度与国内访问效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置-Cloudflare-R2-存储桶可公网访问"><span class="nav-number">2.</span> <span class="nav-text">设置 Cloudflare R2 存储桶可公网访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阿里云-OSS-数据下载"><span class="nav-number">3.</span> <span class="nav-text">阿里云 OSS 数据下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据上传到-Cloudflare-R2"><span class="nav-number">4.</span> <span class="nav-text">数据上传到 Cloudflare R2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#替换指定文件夹中所有文档的图片链接"><span class="nav-number">5.</span> <span class="nav-text">替换指定文件夹中所有文档的图片链接</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cloudflare-R2-免费额度与国内访问效果"><span class="nav-number">1.</span> <span class="nav-text">Cloudflare R2 免费额度与国内访问效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置-Cloudflare-R2-存储桶可公网访问"><span class="nav-number">2.</span> <span class="nav-text">设置 Cloudflare R2 存储桶可公网访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阿里云-OSS-数据下载"><span class="nav-number">3.</span> <span class="nav-text">阿里云 OSS 数据下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据上传到-Cloudflare-R2"><span class="nav-number">4.</span> <span class="nav-text">数据上传到 Cloudflare R2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#替换指定文件夹中所有文档中的图片链接"><span class="nav-number">5.</span> <span class="nav-text">替换指定文件夹中所有文档中的图片链接</span></a></li></ol></div>
             
 
           </div>
