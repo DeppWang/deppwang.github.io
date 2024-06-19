@@ -99,14 +99,14 @@
 <meta property="og:site_name" content="德普王">
 <meta property="og:description" content="因为 Python 是解释型语言，当使用 Python 做后端开发时，如 Python + Django，相比 Java + Spring，其响应时间会长一点，但只要代码合理，差别也不太大。但 Django 即使使用多进程模式，其并发处理能力还是会差不少。Python 有一些提升并发处理能力的方案，比如使用异步框架 FastAPI，借助其异步能力，可以大大提升 IO 密集型任务的并发处理能力。Fa">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240602232755.png">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240602215253.png">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/1_50wqD04jyUiujKlIgQY47w.webp">
-<meta property="og:updated_time" content="2024-06-18T11:51:11.648Z">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/20240602232755.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/20240602215253.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/1_50wqD04jyUiujKlIgQY47w.webp">
+<meta property="og:updated_time" content="2024-06-19T09:55:33.745Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从 FastAPI 说起，理解 Python 异步 IO 的原理">
 <meta name="twitter:description" content="因为 Python 是解释型语言，当使用 Python 做后端开发时，如 Python + Django，相比 Java + Spring，其响应时间会长一点，但只要代码合理，差别也不太大。但 Django 即使使用多进程模式，其并发处理能力还是会差不少。Python 有一些提升并发处理能力的方案，比如使用异步框架 FastAPI，借助其异步能力，可以大大提升 IO 密集型任务的并发处理能力。Fa">
-<meta name="twitter:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240602232755.png">
+<meta name="twitter:image" content="https://hexoblog.r2.depp.wang/20240602232755.png">
 
 
 
@@ -360,8 +360,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-06-07T10:31:57+08:00">
-                2024-06-07
+              <time title="更新于" itemprop="dateModified" datetime="2024-06-19T17:00:42+08:00">
+                2024-06-19
               </time>
             
           </span>
@@ -426,13 +426,13 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">uvicorn main:app --reload</span><br></pre></td></tr></table></figure>
 
 <p>效果：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240602232755.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240602232755.png" alt=""></p>
 <p>我们可以看出，FastAPI 的接口相比其它框架，写法只是多了个 async 关键字，async 定义接口是异步的。</p>
 <p>单从返回结果中看不出来 FastAPI 与其它 Python 框架的区别。区别在于并发访问时，FastAPI 的服务器线程处理路由请求，如 <code>http://127.0.0.1:8000/</code>，如果遇到网络 IO，不再等待网络 IO，而是去处理其它请求，当网络 IO 完成时，再恢复继续执行，这个异步能力提升了对 IO 密集型任务的处理能力。</p>
 <h3 id="示例-2：显式网络异步-IO"><a href="#示例-2：显式网络异步-IO" class="headerlink" title="示例 2：显式网络异步 IO"></a>示例 2：显式网络异步 IO</h3><p>再看另一个示例，在业务代码中，显式的发起异步网络请求，这个网络 IO，如同路由请求一样，FastAPI 也会异步的处理。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># main.py</span></span><br><span class="line"><span class="keyword">from</span> fastapi <span class="keyword">import</span> FastAPI, HTTPException</span><br><span class="line"><span class="keyword">import</span> httpx</span><br><span class="line"></span><br><span class="line">app = FastAPI()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 异步 GET 请求示例</span></span><br><span class="line"><span class="meta">@app.get("/external-api")</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">call_external_api</span><span class="params">()</span>:</span></span><br><span class="line">    url = <span class="string">"https://jsonplaceholder.typicode.com/posts/1"</span></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> httpx.AsyncClient() <span class="keyword">as</span> client:</span><br><span class="line">        response = <span class="keyword">await</span> client.get(url)</span><br><span class="line">        <span class="keyword">if</span> response.status_code != <span class="number">200</span>:</span><br><span class="line">            <span class="keyword">raise</span> HTTPException(status_code=response.status_code, detail=<span class="string">"Failed to fetch data"</span>)</span><br><span class="line">        <span class="keyword">return</span> response.json()</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240602215253.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240602215253.png" alt=""></p>
 <p>如果想数据库 IO 异步，需要数据库驱动或 ORM 支持异步操作。</p>
 <h2 id="异步-IO"><a href="#异步-IO" class="headerlink" title="异步 IO"></a>异步 IO</h2><p>FastAPI 异步的核心实现是「异步 IO」，我们可以不用 FastAPI，直接使用异步 IO 来启动一个有异步处理能力的 Server。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> aiohttp <span class="keyword">import</span> web</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(<span class="number">1</span>) <span class="comment"># 模拟 I/O 操作</span></span><br><span class="line">    <span class="keyword">return</span> web.Response(text=<span class="string">'&#123;"Hello": "World"&#125;'</span>, content_type=<span class="string">'application/json'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">init</span><span class="params">(loop)</span>:</span></span><br><span class="line">    <span class="comment"># 使用事件循环监控 web 请求</span></span><br><span class="line">    app = web.Application(loop=loop)</span><br><span class="line">    app.router.add_route(<span class="string">'GET'</span>, <span class="string">'/'</span>, index)</span><br><span class="line">    <span class="comment"># 启动 server，事件循环监控处理 web 请求</span></span><br><span class="line">    srv = <span class="keyword">await</span> loop.create_server(app.make_handler(), <span class="string">'127.0.0.1'</span>, <span class="number">8000</span>)</span><br><span class="line">    print(<span class="string">'Server started at http://127.0.0.1:8000...'</span>)</span><br><span class="line">    <span class="keyword">return</span> srv</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显式获取一个事件循环</span></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line"><span class="comment"># 启动事件循环</span></span><br><span class="line">loop.run_until_complete(init(loop))</span><br><span class="line">loop.run_forever()</span><br></pre></td></tr></table></figure>
@@ -483,7 +483,7 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">2024-06-03 09:53:36.711732 Waiting for a connection...</span><br><span class="line">2024-06-03 09:54:30.715928 Got connection from ('127.0.0.1', 64361)</span><br><span class="line">Received: GET / HTTP/1.1</span><br><span class="line">Host: 127.0.0.1:8001</span><br><span class="line">User-Agent: curl/8.4.0</span><br><span class="line">Accept: */*</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2024-06-03 09:54:30.716046 Waiting for a connection...</span><br></pre></td></tr></table></figure>
 
 <h2 id="一句话总结"><a href="#一句话总结" class="headerlink" title="一句话总结"></a>一句话总结</h2><p>异步 IO 底层使用「协程」与「事件循环」实现。「协程」保证当线程执行时遇到标记的 IO 操作时，可以不用等待 IO 完成，而是暂停，让线程可以执行其他任务，不阻塞线程。「事件循环」使用 IO 多路复用技术，一直循环监控 IO 事件，当某个 IO 事件完成时，触发对应的回调，使协程继续执行。</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/1_50wqD04jyUiujKlIgQY47w.webp" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/1_50wqD04jyUiujKlIgQY47w.webp" alt=""></p>
 <h2 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h2><ul>
 <li><a href="https://fastapi.tiangolo.com/zh/async/" target="_blank" rel="noopener">FastAPI - 并发 async / await</a></li>
 <li><a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017959540289152" target="_blank" rel="noopener">廖雪峰 - Python 教程 - 异步 IO</a></li>

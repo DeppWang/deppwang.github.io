@@ -73,7 +73,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="工具,软件工具,网络,NAS,IPv6,外网访问,公网IP,软路由,内网穿透,Tailscale,">
+  <meta name="keywords" content="工具,网络,软件工具,NAS,IPv6,外网访问,公网IP,软路由,内网穿透,Tailscale,">
 
 
 
@@ -92,25 +92,25 @@
 
 
 <meta name="description" content="在上一篇文章中写到我搭建了 NAS，但没有折腾外网访问功能。这篇文章就写一下我如何实现 NAS 外网访问。 外网访问的方式外部设备要访问家里局域网中设备，最好局域网有一个公网 IP，如果没有公网 IP，就只能使用内网穿透的方式。">
-<meta name="keywords" content="工具,软件工具,网络,NAS,IPv6,外网访问,公网IP,软路由,内网穿透,Tailscale">
+<meta name="keywords" content="工具,网络,软件工具,NAS,IPv6,外网访问,公网IP,软路由,内网穿透,Tailscale">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用 IPv6 + Tailscale 实现 NAS 外网访问">
 <meta property="og:url" content="https://depp.wang/2023/12/12/ipv6-and-tailscale-remote-access-nas/index.html">
 <meta property="og:site_name" content="德普王">
 <meta property="og:description" content="在上一篇文章中写到我搭建了 NAS，但没有折腾外网访问功能。这篇文章就写一下我如何实现 NAS 外网访问。 外网访问的方式外部设备要访问家里局域网中设备，最好局域网有一个公网 IP，如果没有公网 IP，就只能使用内网穿透的方式。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231211221307.png">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231211221720.png">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231212102930.png">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231212103459.png">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231211232018.png">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240220190015.png">
-<meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231210224113.png">
-<meta property="og:updated_time" content="2024-06-18T11:51:11.648Z">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/20231211221307.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/20231211221720.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/20231212102930.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/20231212103459.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/20231211232018.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/20240220190015.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/20231210224113.png">
+<meta property="og:updated_time" content="2024-06-19T09:55:33.745Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 IPv6 + Tailscale 实现 NAS 外网访问">
 <meta name="twitter:description" content="在上一篇文章中写到我搭建了 NAS，但没有折腾外网访问功能。这篇文章就写一下我如何实现 NAS 外网访问。 外网访问的方式外部设备要访问家里局域网中设备，最好局域网有一个公网 IP，如果没有公网 IP，就只能使用内网穿透的方式。">
-<meta name="twitter:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231211221307.png">
+<meta name="twitter:image" content="https://hexoblog.r2.depp.wang/20231211221307.png">
 
 
 
@@ -364,8 +364,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-06-07T10:35:11+08:00">
-                2024-06-07
+              <time title="更新于" itemprop="dateModified" datetime="2024-06-19T17:00:42+08:00">
+                2024-06-19
               </time>
             
           </span>
@@ -421,9 +421,9 @@
 <a id="more"></a>
 
 <h3 id="公网-IP"><a href="#公网-IP" class="headerlink" title="公网 IP"></a>公网 IP</h3><p>由于目前 IPv4 地址不够用，运营商使用 NAT（网络地址转换）技术，可能一个小区才有一个 IPv4 公网 IP，每户只有这个大内网的内网 IP。我使用电信宽带，如果要 IPv4 公网 IP，一个月 100 元。虽然没有 IPv4 公网 IP，但现在宽带基本都分配 IPv6 公网 IP。查看自己宽带是否有 IPv6 公网 IP，可以登录自己路由器后台，看是否有开启 IPv6 按钮。我<a href="https://u.jd.com/Zz1YQGx" target="_blank" rel="noopener">小米 AX3000T</a>路由器开启 IPv6 如图所示：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231211221307.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/20231211221307.png" alt=""></p>
 <p>开启后，如果 IPv6 地址是数字开头，则代表有 IPv6 公网 IP：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231211221720.png" alt=""><br>或者在终端软件中使用这行命令查看（<code>240C::6666</code>  是一个 IPv6 公共 DNS 地址）：</p>
+<p><img src="https://hexoblog.r2.depp.wang/20231211221720.png" alt=""><br>或者在终端软件中使用这行命令查看（<code>240C::6666</code>  是一个 IPv6 公共 DNS 地址）：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ping6 240C::6666</span><br></pre></td></tr></table></figure>
 
 <p>或者访问 <a href="https://www.test-ipv6.com/" target="_blank" rel="noopener">https://www.test-ipv6.com/</a> 在线查看，注意关闭 VPN 等软件。</p>
@@ -431,23 +431,23 @@
 <h3 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a>内网穿透</h3><p>内网穿透也叫 NAT 穿透，是利用具有公网 IP 的服务器做中转，内网设备与中转服务器建立连接，外网通过中转服务器访问大内网 NAT 后面的设备。内网穿透也可以穿透防火墙，因为防火墙只拦截入站，不拦截出站（由内网设备发起请求，外网设备的返回响应，也属于出站请求。只有外网设备主动发起的请求，才属于入站请求）。</p>
 <p>内网穿透可以使用 ZeroTier、Tailscale 的中转服务实现，可以免费使用，但因为其中转服务器不在大陆，速度不是很理想，想获取稳定快速的体验，需要使用一台具有公网 IP 的云服务器做为中转服务器，如：做 ZeroTier 的 Moon 服务器，做 Tailscale 的中转服务器。</p>
 <p>ZeroTier 内网穿透示意图：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231212102930.png" alt="图片来自：https://www.youtube.com/watch?v=5qzYwvotlNg"></p>
+<p><img src="https://hexoblog.r2.depp.wang/20231212102930.png" alt="图片来自：https://www.youtube.com/watch?v=5qzYwvotlNg"></p>
 <p>Tailscale 内网穿透示意图：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231212103459.png" alt="图片来自：https://www.youtube.com/watch?v=l7pRuK0oEPc&amp;t=2s"></p>
+<p><img src="https://hexoblog.r2.depp.wang/20231212103459.png" alt="图片来自：https://www.youtube.com/watch?v=l7pRuK0oEPc&amp;t=2s"></p>
 <p>也可以利用 Cloudflare Tunnel 来实现内网穿透，和 ZeroTier、Tailscale 一样，也有速度不理想的问题。</p>
 <h2 id="设置-IPv6-防火墙"><a href="#设置-IPv6-防火墙" class="headerlink" title="设置 IPv6 防火墙"></a>设置 IPv6 防火墙</h2><p>因为宽带有 IPv6 公网 IP，也不想购买中转服务器来实现内网穿透了，所以我就直接用 IPv6 来实现外网访问。这种方式也有一个弊端，就是双方都要 IPv6 公网 IP，假如一方没有 IPv6 地址也不行（如公司网络没有开 IPv6）。当开启 IPv6 后，局域网中每个设备都会有一个 IPv6 公网 IP，此时需要开启 IPv6 防火墙，不然就是大门不上锁，有安全隐患。IPv4 因为没有公网 IP，运营商使用 NAT，防火墙由运营商设置，所以我们不用设置。正常来说，运营商已经屏蔽 IPv6 公网 IP 的 80 和 443 接口。而光猫和路由器也会自己的 IPv6 防火墙设置，默认情况下防火墙是开启的，可以<a href="https://port.tools/port-checker-ipv6/" target="_blank" rel="noopener">在线测试防火墙</a>。或者使用以下类似命令测试：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">telnet -6 240e:330:2dc7:8c04:a874:a432:ed19:47af 445</span><br></pre></td></tr></table></figure>
 
 <p>通过 VPN（Virtual Private Network）的方式来实现外网访问，即使防火墙完全打开，也没有影响，所以可以直接「使用路由器打开防火墙」。我考虑到后面可能使用 DDNS 或 WebDAV，这些功能需要指定端口放开，不能打开所有防火墙，所以我「使用软路由设置防火墙」。</p>
 <h3 id="使用路由器打开防火墙"><a href="#使用路由器打开防火墙" class="headerlink" title="使用路由器打开防火墙"></a>使用路由器打开防火墙</h3><p>某些路由器，如 <a href="https://u.jd.com/Zz1YQGx" target="_blank" rel="noopener">小米路由器 AX3000T</a> 可以配置开启 IPv6 防火墙：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231211232018.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/20231211232018.png" alt=""></p>
 <h3 id="使用软路由设置防火墙"><a href="#使用软路由设置防火墙" class="headerlink" title="使用软路由设置防火墙"></a>使用软路由设置防火墙</h3><p>宽带安装时，一般默认设置的光猫拨号（宽带账号+密码），这样路由器默认插上光猫就可以联网，不用额外设置，这种情况，光猫有自己防火墙配置。要使用软路由设置防火墙，则需要使用软路由拨号，此时光猫只是桥接，做一个光信号转电信号的作用。光猫拨号改桥接也很简单，我给客服打电话，客服反应由宽带师傅更改，宽带师傅直接远程就改了，很快。再让宽带师傅把宽带账号密码给你。我使用的<a href="https://detail.tmall.com/item.htm?abbucket=8&id=719602311765&ns=1&spm=a21n57.1.0.0.714b523cCkuHP4&skuId=5188517075573" target="_blank" rel="noopener">电犀牛 R68s</a>软路由，它默认刷了 iStoreOS 系统（基于 OpenWRT），防火墙也配置好了，只需要设置宽带拨号，再将路由器插到软路由上就可以了，此时的软路由相当于原来的光猫，这样智能家居等也不需要重新配置。</p>
 <h2 id="使用-Tailscale-点对点直连"><a href="#使用-Tailscale-点对点直连" class="headerlink" title="使用 Tailscale 点对点直连"></a>使用 Tailscale 点对点直连</h2><p>当有 IPv6 公网 IP，并且设置了防火墙，就可以通过直连实现外网访问。 ZeroTier 和 Tailscale 可以通过中转服务实现内网穿透，当节点都有公网 IP，它们也可以建立点对点的加密隧道，让两个节点直连，不走中转服务，此时网络速度取决于双方的带宽。这提供了更稳定快速的体验。此时外网节点可以访问已连接内网节点所有端口的服务，内网节点也不再需要通过端口暴露服务。 </p>
 <p>我使用下来，发现 Tailscale 比 ZeroTier 更稳定一点，可能是 Tailscale 底层用了 WireGuard 协议。ZeroTier 和 Tailscale 都需要使用 VPN，在 iPhone 中，VPN 同一时间只能使用一个，所以 Tailscale 我使用 AppleID 注册，没有使用 Gmail。</p>
 <p>点对点直连外网访问延迟在 100ms 以内：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20240220190015.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240220190015.png" alt=""></p>
 <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>使用 Tailscale + IPv6，基本可以跑满上行带宽（30M），看一些小一点的 NAS 中视频基本没有问题。</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20231210224113.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/20231210224113.png" alt=""></p>
 <h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ul>
 <li><a href="https://www.youtube.com/watch?v=nL0-UZSW_24&t=412s" target="_blank" rel="noopener">【硬核】外网访问？内网穿透！零经验上手！| Youtube | 视频</a></li>
 <li><a href="https://www.youtube.com/watch?v=l7pRuK0oEPc&t=2s" target="_blank" rel="noopener">能与 ZeroTier 齐名的内网穿透工具 Tailscale，比 ZeroTier 还好用？| Youtube | 视频</a></li>
@@ -511,9 +511,9 @@
           
             <a href="/tags/工具/" rel="tag"># 工具</a>
           
-            <a href="/tags/软件工具/" rel="tag"># 软件工具</a>
-          
             <a href="/tags/网络/" rel="tag"># 网络</a>
+          
+            <a href="/tags/软件工具/" rel="tag"># 软件工具</a>
           
             <a href="/tags/NAS/" rel="tag"># NAS</a>
           
