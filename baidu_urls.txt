@@ -1,3 +1,4 @@
+https://depp.wang/2024/silicon-valley/
 https://depp.wang/2024/image-from-oss-to-r2/
 https://depp.wang/2024/simple-youdaonote-pull/
 https://depp.wang/2024/software-payment/
@@ -97,4 +98,3 @@ https://depp.wang/2019/05/17/use-qiniu-jdk-batch-modify-videos-format/
 https://depp.wang/2019/05/17/how-to-direct-download-github-a-file/
 https://depp.wang/2019/03/29/deal-miniprogram-video-cann't-play-question/
 https://depp.wang/2019/01/26/springboot2-apache-shiro/
-https://depp.wang/2019/01/11/share-a-few-useful-websites/
