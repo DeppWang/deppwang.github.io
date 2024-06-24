@@ -8,8 +8,24 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>每个人都需要有自己的哈姆雷特</description>
-    <pubDate>Mon, 24 Jun 2024 12:41:12 GMT</pubDate>
+    <pubDate>Mon, 24 Jun 2024 14:30:30 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>我使用 Obsidian 管理我的个人知识库</title>
+      <link>https://depp.wang/2024/my-obsidian-experience/</link>
+      <guid>https://depp.wang/2024/my-obsidian-experience/</guid>
+      <pubDate>Mon, 24 Jun 2024 14:30:07 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;&lt;img src=&quot;https://hexoblog.r2.depp.wang/202406241719199935.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;我使用 &lt;a href=&quot;https://obsidian.md/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Obsidian&lt;/a&gt; 管理我的个人知识库，选择它的主要原因是因为自己的数据可以掌握在自己手上，另外它支持使用标签、双链（双向链接），搜索也很准确。&lt;/p&gt;
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p><img src="https://hexoblog.r2.depp.wang/202406241719199935.png" alt=""><br>我使用 <a href="https://obsidian.md/" target="_blank" rel="noopener">Obsidian</a> 管理我的个人知识库，选择它的主要原因是因为自己的数据可以掌握在自己手上，另外它支持使用标签、双链（双向链接），搜索也很准确。</p><a id="more"></a><p>我最开始是使用有道云笔记，用了很多年，后面转而使用数据本地保存、所见即所得的 Typora，为了转移笔记，还写了个<a href="https://github.com/DeppWang/youdaonote-pull" target="_blank" rel="noopener">导出有道云笔记的脚本</a>。后面接触到了 Obsidian，因为标签与双链功能，主力就使用 Obsidian 了。Notion 也是一款比较火的笔记工具，也有标签与双链功能，但因为数据不能掌握在自己手中，就没有考虑使用。</p><p>我用的 Obsidian 的版本一直是 <code>0.15.9</code>，没有用最新版，原因是我喜欢只打开一个标签页，这个版本可以只打开一个标签页，而新版不能设置只打开一个标签页，新版特有的画布（Canvas）功能我目前也不用。主题我用的 <a href="https://github.com/whyt-byte/Blue-Topaz_Obsidian-css" target="_blank" rel="noopener">Blue-Topaz</a>，其英文字体我很喜欢。</p><p>目前我所有知识都是通过 Obsidian 管理，文章 / 笔记 / 思考 / 随想等等。我使用标签分类，没有创建文件夹。就 Obsidian 这一处知识库，也可以避免重复记录，也方便查找。还不错的收藏文章的笔记也会记到 Obsidian，相比直接放在收藏工具中，想找的时候更容易找到。</p><p>Obsidian 的插件功能，是 Obsidian 相比其它笔记管理工具最大的优势。插件类似 VS Code 的插件，可以额外实现不少功能。以下是我比较常用的、通过插件实现的功能。</p><h2 id="数据同步"><a href="#数据同步" class="headerlink" title="数据同步"></a>数据同步</h2><p>Obsidian 提供同步功能，费用我觉得有点贵，我没有用。我是使用 iCloud 同步，并 GitHub 私有库备份。iCloud 同步无需手动拉取与推送，比较方便，用于同步。但 iCloud 无法查看历史修改记录，而使用 Git 则可以补充这部分缺陷，GitHub 作一个备份，也不怕 iCloud 同步出问题。我 iOS 手机端使用 1Writer，Obsidian 的 Git 插件我使用的 <a href="https://github.com/denolehov/obsidian-git" target="_blank" rel="noopener">obisidian-git</a>。</p><h2 id="自动发文"><a href="#自动发文" class="headerlink" title="自动发文"></a>自动发文</h2><p>我 Blog 我使用静态博客框架 Hexo。但我文章创建与编辑是在 Obsidian 中完成的，我写了一个脚本，通过 Github 的 Obsidian 的 Action 实现文章<a href="https://github.com/DeppWang/obsidian_to_hexoblog" target="_blank" rel="noopener">自动同步到 Hexo</a> 源文件，再触发<a href="https://depp.wang/2020/02/17/use-github-actions-to-achieve-hexo-blog-auto-deploy/">自动发布</a>。</p><h2 id="图片上传"><a href="#图片上传" class="headerlink" title="图片上传"></a>图片上传</h2><p>图片上传我使用的 PicGo，使用的 <a href="https://github.com/renmu123/obsidian-image-auto-upload-plugin" target="_blank" rel="noopener">obsidian-image-auto-upload-plugin</a> 插件，截图工具我使用的 Xnip，我通过 Automator 配置了一个截图后<a href="https://depp.wang/2020/08/07/how-to-automatically-compress-screenshot-size-in-macos/">自动压缩截图</a>的工作流。</p><h2 id="Obsidian-发推"><a href="#Obsidian-发推" class="headerlink" title="Obsidian 发推"></a>Obsidian 发推</h2><p>我的部分推文也是通过 Obsidian 发送的，借助的 <a href="https://github.com/chhoumann/notetweet_obsidian" target="_blank" rel="noopener">notetweet_obsidian</a> 这个插件，底层使用 Twitter(X) API 实现，Twitter API 目前免费额度只能发布文字，所以无法发送图片等，另外通过这种方式发布的链接也无法识别为卡片。</p><h2 id="自带插件"><a href="#自带插件" class="headerlink" title="自带插件"></a>自带插件</h2><ol><li>自带「快速切换」插件可以实现更快速搜索与切换文件</li><li>自带「命令面板」插件可执行快速一些命令，比如打开「标签列表」</li></ol><p>Obsidian 还有很多功能强大的插件，你也可以自行探索一下。</p>]]></content:encoded>
+      
+      <comments>https://depp.wang/2024/my-obsidian-experience/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>《硅谷》- 一部创业踩坑纪录大全</title>
@@ -353,22 +369,6 @@
       <content:encoded><![CDATA[<p>扫地机器人是现在家庭中一个很常见的清洁电器，购买前还是要做一下功能，看那款更适合自己，买了好用，物有所值。</p><a id="more"></a><h2 id="型号对比"><a href="#型号对比" class="headerlink" title="型号对比"></a>型号对比</h2><h3 id="石头-G10S-Pure、石头-G20、石头-P10-对比"><a href="#石头-G10S-Pure、石头-G20、石头-P10-对比" class="headerlink" title="石头 G10S Pure、石头 G20、石头 P10 对比"></a>石头 G10S Pure、石头 G20、石头 P10 对比</h3><p><img src="https://hexoblog.r2.depp.wang/20230601225142.png" alt=""></p><ul><li><a href="https://www.bilibili.com/video/BV13M411p7sD/" target="_blank" rel="noopener"># 3K+全能王者，石头真的“杀”疯了！石头P10、石头G20、石头G10S Pure</a></li></ul><h3 id="石头-P10、追觅-S20、云鲸-J3-对比"><a href="#石头-P10、追觅-S20、云鲸-J3-对比" class="headerlink" title="石头 P10、追觅 S20、云鲸 J3 对比"></a>石头 P10、追觅 S20、云鲸 J3 对比</h3><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td><img src="https://hexoblog.r2.depp.wang/20230530123223.png" alt=""></td><td><img src="https://hexoblog.r2.depp.wang/20230530123344.png" alt=""></td></tr></tbody></table><ul><li><a href="https://www.bilibili.com/video/BV1sg4y1T7GU/" target="_blank" rel="noopener"># 扫地机器人横向测评、这些缺点咋都没人说？</a></li></ul><h3 id="科沃斯-T10-OMNI、石头-G10S、追觅-S10、云鲸-J3"><a href="#科沃斯-T10-OMNI、石头-G10S、追觅-S10、云鲸-J3" class="headerlink" title="科沃斯 T10 OMNI、石头 G10S、追觅 S10、云鲸 J3"></a>科沃斯 T10 OMNI、石头 G10S、追觅 S10、云鲸 J3</h3><p><img src="https://hexoblog.r2.depp.wang/20230529232107.png" alt=""></p><ul><li><a href="https://www.bilibili.com/video/BV18m4y1w7LL/" target="_blank" rel="noopener"># 【扫地机器人测评】科沃斯T10 OMNI/石头G10S/追觅S10/云鲸J3、18个维度深度横评、到底如何选择？</a></li></ul><h2 id="选购与价格"><a href="#选购与价格" class="headerlink" title="选购与价格"></a>选购与价格</h2><ol><li>购买型号：石头 P10 上下水版</li><li>价格：3392（京东双十一）</li><li>理由：<ol><li>石头相对口碑要好点</li><li>位置限制，只能买瘦长型</li><li>性价比相对较高</li><li>上下水不会频繁换水，更方便</li></ol></li><li>安装时因为水压过高，购买了 1 个降压配件 50 元</li></ol><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td><img src="https://hexoblog.r2.depp.wang/E9FDD128-6D29-45DB-B17B-C794B7C8BCB9_1_105_c.jpeg" alt=""></td><td><img src="https://hexoblog.r2.depp.wang/2D6EF347-DA3B-40B2-8457-9351F9F25AC2_1_105_c.jpeg" alt=""></td></tr></tbody></table><h2 id="使用一段时间的感受"><a href="#使用一段时间的感受" class="headerlink" title="使用一段时间的感受"></a>使用一段时间的感受</h2><ol><li>扫地机器人只能完成 70% 的工作，不能彻底打扫干净，不建议买太贵的</li><li>返回基座集尘时会有几秒时间声音特别大</li><li>使用 4 个来月，耗材还没有换过</li><li>石头 APP 与米家 APP 只能绑定其中一个，换绑时数据不会丢失</li><li>石头 P10 使用胶刷，还是不太容易缠头发</li><li>摄像头非必要可以不用，还是有隐私问题</li><li>可以通过定时功能设置先扫后拖，我是工作日每天下午 2 点扫，周 1 / 3 /5 下午 3 点工作拖</li></ol>]]></content:encoded>
       
       <comments>https://depp.wang/2024/02/26/sweeping-robot/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>净水器选购使用经验</title>
-      <link>https://depp.wang/2024/02/26/water-purifier/</link>
-      <guid>https://depp.wang/2024/02/26/water-purifier/</guid>
-      <pubDate>Mon, 26 Feb 2024 06:20:44 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;住房舒适的 3 个关键：阳光、空气和水。净水器是现代家庭中必不可少的一项电器。我购买前在 BiliBili 上做了一些功课。&lt;/p&gt;
-      
-      </description>
-      
-      <content:encoded><![CDATA[<p>住房舒适的 3 个关键：阳光、空气和水。净水器是现代家庭中必不可少的一项电器。我购买前在 BiliBili 上做了一些功课。</p><a id="more"></a><h2 id="推荐型号"><a href="#推荐型号" class="headerlink" title="推荐型号"></a>推荐型号</h2><p><img src="https://hexoblog.r2.depp.wang/20240226134728.png" alt=""></p><ul><li>现在海尔玉净鲜活水净水器 1000G 已经有了 TDS 屏显</li></ul><h2 id="选购与价格"><a href="#选购与价格" class="headerlink" title="选购与价格"></a>选购与价格</h2><ul><li>购买型号：海尔（Haier）玉净鲜活水净水器 1000G</li><li>价格：1554（京东双十一）</li><li>安装：因为水压较高，额外使用了个降压配件，50 元</li></ul><h2 id="使用一段时间的感受"><a href="#使用一段时间的感受" class="headerlink" title="使用一段时间的感受"></a>使用一段时间的感受</h2><ol><li>使用 4 个来月，第 1 级-前后置复合滤芯还有 83%，第 2 级-反渗透膜滤芯还有 92%。</li><li>双出水还是挺实用，左净水平时生活用水，不经过 2 级滤芯，不需要用电。右纯水经过 2 级滤芯，需要用电，出水会稍微慢点，机器运行有点震动和声音</li><li>我没有用管线机，我喜欢将水烧开后喝，家中有恒温壶，先烧开后再恒温。加上管线机长期使用，内部会有点脏，有点受不了</li><li>对我家来说，1000G 通量够用了。2 个人使用，做饭和喝水时使用</li></ol><h2 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h2><ul><li><a href="https://www.bilibili.com/video/BV12W4y1i7Zb/?spm_id_from=333.999.0.0&vd_source=3b0c3f59d36804169cb134f54acbf701" target="_blank" rel="noopener"># 【净水器选购】2022年净水器到底如何选不踩坑？</a></li><li><a href="https://www.bilibili.com/video/BV1EX4y1h7mi/?spm_id_from=333.788&vd_source=3b0c3f59d36804169cb134f54acbf701" target="_blank" rel="noopener"># 【买前必看】2023年净水器/洗碗机选购攻略！学长手把手教你选购全屋家电</a></li><li><a href="https://www.bilibili.com/video/BV1yh4y1J7yM/?spm_id_from=333.337.search-card.all.click&vd_source=3b0c3f59d36804169cb134f54acbf701" target="_blank" rel="noopener"># 报废级拆解，看透品牌净水器 | 净水器消费者报告（下）</a></li></ul>]]></content:encoded>
-      
-      <comments>https://depp.wang/2024/02/26/water-purifier/#disqus_thread</comments>
     </item>
     
   </channel>
