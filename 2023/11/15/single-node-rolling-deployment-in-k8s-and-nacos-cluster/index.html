@@ -99,7 +99,7 @@
 <meta property="og:site_name" content="德普王">
 <meta property="og:description" content="公司项目使用 Spirng Cloud Alibaba，使用 Nacos 注册中心，部署在华为云的 CCE（基于 K8s）中。为节约资源，开发测试环境的服务只部署了一个节点。这时出现一个问题：每次节点部署，系统就会出现服务短暂不可用的情况。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2024-06-25T15:25:21.372Z">
+<meta property="og:updated_time" content="2024-07-04T02:41:13.039Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 K8s + Nacos  的集群中实现单节点滚动部署">
 <meta name="twitter:description" content="公司项目使用 Spirng Cloud Alibaba，使用 Nacos 注册中心，部署在华为云的 CCE（基于 K8s）中。为节约资源，开发测试环境的服务只部署了一个节点。这时出现一个问题：每次节点部署，系统就会出现服务短暂不可用的情况。">
@@ -139,7 +139,7 @@
   <title>在 K8s + Nacos  的集群中实现单节点滚动部署 | 德普王</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -173,7 +173,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -310,16 +310,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2023/11/15/single-node-rolling-deployment-in-k8s-and-nacos-cluster/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -419,7 +419,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;  </span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;  </span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.actuate.health.Health;  </span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.actuate.health.HealthIndicator;  </span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.client.discovery.DiscoveryClient;  </span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">import</span> java.net.InetAddress;  </span><br><span class="line"><span class="keyword">import</span> java.net.UnknownHostException;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">/**  </span></span><br><span class="line"><span class="comment"> * Description: 自己定义就绪指针处理逻辑  </span></span><br><span class="line"><span class="comment"> * Author:      xingquan.wang  </span></span><br><span class="line"><span class="comment"> * Date:        17/10/2023 </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span>(<span class="string">"nacosReadiness"</span>)  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReadinessHealthIndicator</span> <span class="keyword">implements</span> <span class="title">HealthIndicator</span> </span>&#123;  </span><br><span class="line">  </span><br><span class="line">    <span class="meta">@Autowired</span>  </span><br><span class="line">    DiscoveryClient discoveryClient;  </span><br><span class="line">  </span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.application.name&#125;"</span>)  </span><br><span class="line">    <span class="keyword">private</span> String applicationName;  </span><br><span class="line">  </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Health <span class="title">health</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">if</span> (!isReady()) &#123;  </span><br><span class="line">            <span class="keyword">return</span> Health.outOfService().down().build();  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> Health.up().build();  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">/**  </span></span><br><span class="line"><span class="comment">     * 当前服务已注册进 Nacos，且 Nacos 中已有实例信息，即为就绪状态  </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">     */</span>   </span><br><span class="line">     <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isReady</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="comment">// 已注册返回 true；否则返回 false        </span></span><br><span class="line">        InetAddress localhost;  </span><br><span class="line">        <span class="keyword">try</span> &#123;  </span><br><span class="line">            localhost = InetAddress.getLocalHost();  </span><br><span class="line">        &#125; <span class="keyword">catch</span> (UnknownHostException e) &#123;  </span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);  </span><br><span class="line">        &#125; </span><br><span class="line">        <span class="comment">// 判断当前应用实例的 IP 是否与名为当前应用的已注册实例的 IP 相同，如果相同，则代表已注册成功</span></span><br><span class="line">        <span class="keyword">return</span> discoveryClient.getInstances(applicationName).stream()  </span><br><span class="line">                .anyMatch(instance -&gt; instance.getHost().equals(localhost.getHostAddress()));  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>K8s 具体配置：</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">readinessProbe:</span></span><br><span class="line"><span class="attr">  failureThreshold:</span> <span class="number">10</span>    <span class="comment"># 当就绪探测失败 10 次后将 Pod 标记为不可用</span></span><br><span class="line"><span class="attr">  httpGet:</span></span><br><span class="line"><span class="attr">    path:</span> <span class="string">/actuator/health/nacosReadiness</span></span><br><span class="line"><span class="attr">    port:</span> <span class="number">48088</span></span><br><span class="line"><span class="attr">    scheme:</span> <span class="string">HTTP</span></span><br><span class="line"><span class="attr">  initialDelaySeconds:</span> <span class="number">60</span> <span class="comment"># 容器启动后 60 秒开始进行首次就绪检查</span></span><br><span class="line"><span class="attr">  periodSeconds:</span> <span class="number">10</span>       <span class="comment"># 每10秒执行一次就绪检查</span></span><br><span class="line"><span class="attr">  successThreshold:</span> <span class="number">1</span>     <span class="comment"># 只要有 1 次成功，就将 Pod 标记为可用</span></span><br><span class="line"><span class="attr">  timeoutSeconds:</span> <span class="number">1</span>       <span class="comment"># 就绪检查的超时时间为 1s。如果在此时间内没有收到响应，则将其视为失败</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">readinessProbe:</span></span><br><span class="line">  <span class="attr">failureThreshold:</span> <span class="number">10</span>    <span class="comment"># 当就绪探测失败 10 次后将 Pod 标记为不可用</span></span><br><span class="line">  <span class="attr">httpGet:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">/actuator/health/nacosReadiness</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">48088</span></span><br><span class="line">    <span class="attr">scheme:</span> <span class="string">HTTP</span></span><br><span class="line">  <span class="attr">initialDelaySeconds:</span> <span class="number">60</span> <span class="comment"># 容器启动后 60 秒开始进行首次就绪检查</span></span><br><span class="line">  <span class="attr">periodSeconds:</span> <span class="number">10</span>       <span class="comment"># 每10秒执行一次就绪检查</span></span><br><span class="line">  <span class="attr">successThreshold:</span> <span class="number">1</span>     <span class="comment"># 只要有 1 次成功，就将 Pod 标记为可用</span></span><br><span class="line">  <span class="attr">timeoutSeconds:</span> <span class="number">1</span>       <span class="comment"># 就绪检查的超时时间为 1s。如果在此时间内没有收到响应，则将其视为失败</span></span><br></pre></td></tr></table></figure>
 
 <p>注意：不要设置启动探针（startupProbe），启动探针在检测失败时，会重启容器。存活探针（livenessProbe）首次检查时间也要设置长一点，要预估在服务已就绪之后。</p>
 
@@ -565,7 +565,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
         
       </div>
     
@@ -592,7 +592,7 @@
       
 
       <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
