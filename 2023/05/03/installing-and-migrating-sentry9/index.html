@@ -105,7 +105,7 @@
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20230503215243.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20230503214539.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20230423001132.png">
-<meta property="og:updated_time" content="2024-07-11T10:07:15.868Z">
+<meta property="og:updated_time" content="2024-07-15T10:05:34.488Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安装、迁移基于 Sentry 9 的错误跟踪系统">
 <meta name="twitter:description" content="我给公司搭建错误跟踪系统，方便排查代码问题，技术选型为 Sentry 9，因为其开源、轻量、能满足业务需求，相比最新版 Sentry，其搭建、维护也更容易，最新版 Sentry 在我们业务中有点杀鸡用牛刀了">
@@ -354,8 +354,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-07-10T23:48:36+08:00">
-                2024-07-10
+              <time title="更新于" itemprop="dateModified" datetime="2024-07-14T15:33:18+08:00">
+                2024-07-14
               </time>
             
           </span>
@@ -475,7 +475,7 @@
 <h3 id="可能的坑"><a href="#可能的坑" class="headerlink" title="可能的坑"></a>可能的坑</h3><h4 id="迁移后出现新用户注册报错的情况"><a href="#迁移后出现新用户注册报错的情况" class="headerlink" title="迁移后出现新用户注册报错的情况"></a>迁移后出现新用户注册报错的情况</h4><p><img src="https://hexoblog.r2.depp.wang/20230503214539.png" alt=""></p>
 <p><img src="https://hexoblog.r2.depp.wang/20230423001132.png" alt=""></p>
 <p>原因：用户主键重复</p>
-<p>解决方式：使用 pgAdmin4 工具连接 PostgreSQL 数据库，再执行以下操作</p>
+<p>解决方式：使用 pgAdmin4 等工具连接 PostgreSQL 数据库，再执行以下操作</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> auth_user;</span><br><span class="line"></span><br><span class="line">// 查看当前主键</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">last_value</span> <span class="keyword">FROM</span> <span class="string">"auth_user_id_seq"</span>;</span><br><span class="line"></span><br><span class="line">// 修改</span><br><span class="line"><span class="keyword">SELECT</span> setval(<span class="string">'auth_user_id_seq'</span>, <span class="number">22</span>, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
 
 <h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ul>
