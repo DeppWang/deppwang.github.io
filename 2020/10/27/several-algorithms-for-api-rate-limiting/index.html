@@ -105,7 +105,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-29-145111.jpg">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-27-105409.jpg">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-27-155606.jpg">
-<meta property="og:updated_time" content="2024-07-15T10:05:34.480Z">
+<meta property="og:updated_time" content="2024-07-24T06:46:39.577Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="接口限流的几种算法">
 <meta name="twitter:description" content="今天面试遇到一个关于接口限流的问题：设计一个方案，保证每秒只有 10 个请求可以访问接口。不得不说，此问题可以很好的考察面试高级工程师岗位的候选人的过往经验。不过很遗憾，我原来并没有做过这方面的工作。">
@@ -146,7 +146,7 @@
   <title>接口限流的几种算法 | 德普王</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -171,7 +171,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -308,16 +308,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2020/10/27/several-algorithms-for-api-rate-limiting/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -372,7 +372,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Algorithms/" itemprop="url" rel="index">
                     <span itemprop="name">Algorithms</span>
                   </a>
@@ -474,7 +474,7 @@
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>如果限制请求很低，可以直接使用计数器（固定时间窗口算法）。</p>
 <p>滑动时间窗口算法需要更多的内存。</p>
 <p>令牌桶和漏桶算法当出现峰值后，添加 token 和漏水有速度控制，下一次不能马上达到峰值，所以相比固定时间窗口算法更加平滑。</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-27-155606.jpg" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-27-155606.jpg" alt></p>
 <p>令牌桶算法，当桶满了，可以一下拿走 100 个令牌。漏桶算法，漏完了，一次可以加 100 个请求。所以相比滑动时间窗口算法可应对突发性请求。</p>
 <p>一般来说，也不会直接用代码去实现相应的算法，而是在 ngix 中<a href="http://nginx.org/en/docs/http/ngx_http_limit_req_module.html" target="_blank" rel="noopener">配置</a>，ngix 限流默认使用的漏桶算法。</p>
 <!--所以令牌桶和漏桶算法比较适合阻塞式限流。-->
@@ -630,7 +630,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
         
       </div>
     
@@ -666,7 +666,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
@@ -692,7 +692,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">302</span>
+                <span class="site-state-item-count">303</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

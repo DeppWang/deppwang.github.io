@@ -99,7 +99,7 @@
 <meta property="og:site_name" content="德普王">
 <meta property="og:description" content="安装与启动服务将 MySQL5.6 解压后，使用管理员身份打开命令行，定位到解压目录的 /bin 文件下。使用以下命令安装服务，Mysql5.6 是别名 mysqld --install Mysql5.6  显示 Service successfully installed.，代表服务安装成功。在服务中找到 MySQL5.6，启动并修改为自动。 还是在管理员身份的命令行下，我们也可以使用 net">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2024-07-15T10:05:34.484Z">
+<meta property="og:updated_time" content="2024-07-24T06:46:39.581Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows 如何安装解压版 Mysql5.6">
 <meta name="twitter:description" content="安装与启动服务将 MySQL5.6 解压后，使用管理员身份打开命令行，定位到解压目录的 /bin 文件下。使用以下命令安装服务，Mysql5.6 是别名 mysqld --install Mysql5.6  显示 Service successfully installed.，代表服务安装成功。在服务中找到 MySQL5.6，启动并修改为自动。 还是在管理员身份的命令行下，我们也可以使用 net">
@@ -139,7 +139,7 @@
   <title>Windows 如何安装解压版 Mysql5.6 | 德普王</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -164,7 +164,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -301,16 +301,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2017/12/17/install-mysql5.6/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -365,7 +365,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/MySQL/" itemprop="url" rel="index">
                     <span itemprop="name">MySQL</span>
                   </a>
@@ -428,10 +428,10 @@
 <p>还是在管理员身份的命令行下，我们也可以使用 <code>net start Mysql5.6</code> 和 <code>net stop Mysql5.6</code> 启动和停止服务。</p>
 <p><strong>配置环境变量</strong></p>
 <p>在 Path 中新增 **/bin 路径</p>
-<h2 id="创建新用户并授权"><a href="#创建新用户并授权" class="headerlink" title="创建新用户并授权"></a>创建新用户并授权</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">grant</span> all <span class="keyword">privileges</span> <span class="keyword">on</span> \*.\* <span class="keyword">to</span> 用户名@<span class="string">'主机名或 IP 地址'</span> <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'密码'</span> <span class="keyword">with</span> <span class="keyword">grant</span> <span class="keyword">option</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="创建新用户并授权"><a href="#创建新用户并授权" class="headerlink" title="创建新用户并授权"></a>创建新用户并授权</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> <span class="keyword">privileges</span> <span class="keyword">on</span> \*.\* <span class="keyword">to</span> 用户名@<span class="string">'主机名或 IP 地址'</span> <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'密码'</span> <span class="keyword">with</span> <span class="keyword">grant</span> <span class="keyword">option</span>;</span><br></pre></td></tr></table></figure>
 
 <p>示例：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">grant</span> all <span class="keyword">privileges</span> <span class="keyword">on</span> \*.\* <span class="keyword">to</span> deppwang@<span class="string">'localhost'</span> <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'123456'</span> <span class="keyword">with</span> <span class="keyword">grant</span> <span class="keyword">option</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> <span class="keyword">privileges</span> <span class="keyword">on</span> \*.\* <span class="keyword">to</span> deppwang@<span class="string">'localhost'</span> <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'123456'</span> <span class="keyword">with</span> <span class="keyword">grant</span> <span class="keyword">option</span>;</span><br></pre></td></tr></table></figure>
 
 <p>使用 Navicat，新建连接，新建数据库，运行 <code>**.sql</code> 文件生成数据库</p>
 
@@ -561,7 +561,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
         
       </div>
     
@@ -597,7 +597,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
@@ -623,7 +623,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">302</span>
+                <span class="site-state-item-count">303</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

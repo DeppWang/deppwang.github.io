@@ -73,7 +73,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="基本数据类型,">
+  <meta name="keywords" content="技术,Java,基本数据类型,">
 
 
 
@@ -92,7 +92,7 @@
 
 
 <meta name="description" content="Java 有两种有效的数据类型：  基本 (Primitive) 数据类型（也称为原始数据类型） 引用数据类型：封装类 (Warpper) 的引用">
-<meta name="keywords" content="基本数据类型">
+<meta name="keywords" content="技术,Java,基本数据类型">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅析 Java 基本数据类型与封装类">
 <meta property="og:url" content="https://depp.wang/2019/06/02/java-primitive-types-and-warpper/index.html">
@@ -102,7 +102,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-11-131110.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-11-142758.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135146.png">
-<meta property="og:updated_time" content="2024-07-15T10:05:34.480Z">
+<meta property="og:updated_time" content="2024-07-24T06:46:39.585Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅析 Java 基本数据类型与封装类">
 <meta name="twitter:description" content="Java 有两种有效的数据类型：  基本 (Primitive) 数据类型（也称为原始数据类型） 引用数据类型：封装类 (Warpper) 的引用">
@@ -143,7 +143,7 @@
   <title>浅析 Java 基本数据类型与封装类 | 德普王</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -168,7 +168,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -305,16 +305,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2019/06/02/java-primitive-types-and-warpper/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -351,34 +351,12 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-05-11T00:00:00+08:00">
-                2020-05-11
+              <time title="更新于" itemprop="dateModified" datetime="2024-07-24T14:45:48+08:00">
+                2024-07-24
               </time>
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -536,36 +514,36 @@
 <li>第 1 位表示正负，中间 8 位表示指数，后 23 位储存有效数位（有效数位是 24 位）。最左边 1 位表示 1</li>
 </ul>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-11-131110.png" alt="Float example.svg"></p>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">sign = <span class="number">0</span></span><br><span class="line">exponent = (<span class="number">-127</span>) + <span class="number">124</span> = <span class="number">-3</span></span><br><span class="line">fraction = <span class="number">1</span> + <span class="number">2</span>^<span class="number">-2</span> = <span class="number">1.25</span></span><br><span class="line">value = (<span class="number">-1</span>)^<span class="number">0</span> * <span class="number">2</span>^<span class="number">-3</span> * <span class="number">1.25</span> = <span class="number">0.15625</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line">sign = <span class="number">0</span></span><br><span class="line">exponent = (<span class="number">-127</span>) + <span class="number">124</span> = <span class="number">-3</span></span><br><span class="line">fraction = <span class="number">1</span> + <span class="number">2</span>^<span class="number">-2</span> = <span class="number">1.25</span></span><br><span class="line">value = (<span class="number">-1</span>)^<span class="number">0</span> * <span class="number">2</span>^<span class="number">-3</span> * <span class="number">1.25</span> = <span class="number">0.15625</span></span><br></pre></td></tr></table></figure>
 
 <p>浮点型和二进制之间的相互转换：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">float</span> f = <span class="number">0.15625f</span>;</span><br><span class="line"><span class="keyword">int</span> intBits = Float.floatToIntBits(f);</span><br><span class="line">String binary = Integer.toBinaryString(intBits);</span><br><span class="line">System.out.println(binary);   <span class="comment">// 111110001000000000000000000000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> intBits2 = Integer.parseInt(<span class="string">"111110001000000000000000000000"</span>, <span class="number">2</span>);</span><br><span class="line"><span class="keyword">float</span> myFloat = Float.intBitsToFloat(intBits2);</span><br><span class="line">System.out.println(myFloat); <span class="comment">// 0.15625</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">float</span> f = <span class="number">0.140624f</span>;</span><br><span class="line"><span class="keyword">int</span> intBits = Float.floatToIntBits(f);</span><br><span class="line">String binary = Integer.toBinaryString(intBits);</span><br><span class="line">System.out.println(binary);   <span class="comment">// 111110000011111111111110111101</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> intBits2 = Integer.parseInt(<span class="string">"111110000011111111111110111101"</span>, <span class="number">2</span>);</span><br><span class="line"><span class="keyword">float</span> myFloat = Float.intBitsToFloat(intBits2);</span><br><span class="line">System.out.println(myFloat); <span class="comment">// 0.140624 = 1 * 2^-3 * (1 + 2^-4 + 2^-5 ...)</span></span><br></pre></td></tr></table></figure>
 
 <p>浮点型转二进制过程：</p>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 示例：0.15625</span></span><br><span class="line"><span class="number">0.15625</span> * <span class="number">2</span> = <span class="number">0.3125</span> * <span class="number">2</span> = <span class="number">0.3125</span> = <span class="number">0.625</span> * <span class="number">2</span> = <span class="number">1.25</span> <span class="comment">// 2^-3 * 1.25</span></span><br><span class="line"><span class="number">0.25</span> - <span class="number">0</span> * <span class="number">0.5</span>(<span class="number">2</span>^<span class="number">-1</span>) = <span class="number">0.25</span></span><br><span class="line"><span class="number">0.25</span> - <span class="number">1</span> * <span class="number">0.25</span>(<span class="number">2</span>^<span class="number">-2</span>) = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 示例：0.140624</span></span><br><span class="line"><span class="number">0.140624</span> = <span class="number">2</span>^<span class="number">-3</span> * <span class="number">1.124992</span></span><br><span class="line"><span class="number">0.124992</span> - <span class="number">0</span> * <span class="number">0.5</span>(<span class="number">2</span>^<span class="number">-1</span>) = <span class="number">0.124992</span></span><br><span class="line"><span class="number">0.124992</span> - <span class="number">0</span> * <span class="number">0.25</span>(<span class="number">2</span>^<span class="number">-2</span>) = <span class="number">0.124992</span></span><br><span class="line"><span class="number">0.124992</span> - <span class="number">0</span> * <span class="number">0.125</span>(<span class="number">2</span>^<span class="number">-3</span>) = <span class="number">0.124992</span></span><br><span class="line"><span class="number">0.124992</span> - <span class="number">1</span> * <span class="number">0.0625</span>(<span class="number">2</span>^<span class="number">-4</span>) = <span class="number">0.062492</span></span><br><span class="line"><span class="number">0.062492</span> - <span class="number">1</span> * <span class="number">0.03125</span>(<span class="number">2</span>^<span class="number">-5</span>) = <span class="number">0.031242</span></span><br><span class="line"></span><br><span class="line"><span class="number">0.5</span>(<span class="number">2</span>^<span class="number">-1</span>) + <span class="number">0.25</span>(<span class="number">2</span>^<span class="number">-2</span>) + <span class="number">0.125</span>(<span class="number">2</span>^<span class="number">-3</span>) + <span class="number">0.0625</span>(<span class="number">2</span>^<span class="number">-4</span>) + <span class="number">0.03125</span>(<span class="number">2</span>^<span class="number">-5</span>) + <span class="number">0.015625</span>(<span class="number">2</span>^<span class="number">-6</span>) + ... + <span class="number">0.000000119</span>(<span class="number">2</span>^<span class="number">-23</span>) ≈ <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 示例：0.15625</span></span><br><span class="line"><span class="number">0.15625</span> * <span class="number">2</span> = <span class="number">0.3125</span> * <span class="number">2</span> = <span class="number">0.3125</span> = <span class="number">0.625</span> * <span class="number">2</span> = <span class="number">1.25</span> <span class="comment">// 2^-3 * 1.25</span></span><br><span class="line"><span class="number">0.25</span> - <span class="number">0</span> * <span class="number">0.5</span>(<span class="number">2</span>^<span class="number">-1</span>) = <span class="number">0.25</span></span><br><span class="line"><span class="number">0.25</span> - <span class="number">1</span> * <span class="number">0.25</span>(<span class="number">2</span>^<span class="number">-2</span>) = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 示例：0.140624</span></span><br><span class="line"><span class="number">0.140624</span> = <span class="number">2</span>^<span class="number">-3</span> * <span class="number">1.124992</span></span><br><span class="line"><span class="number">0.124992</span> - <span class="number">0</span> * <span class="number">0.5</span>(<span class="number">2</span>^<span class="number">-1</span>) = <span class="number">0.124992</span></span><br><span class="line"><span class="number">0.124992</span> - <span class="number">0</span> * <span class="number">0.25</span>(<span class="number">2</span>^<span class="number">-2</span>) = <span class="number">0.124992</span></span><br><span class="line"><span class="number">0.124992</span> - <span class="number">0</span> * <span class="number">0.125</span>(<span class="number">2</span>^<span class="number">-3</span>) = <span class="number">0.124992</span></span><br><span class="line"><span class="number">0.124992</span> - <span class="number">1</span> * <span class="number">0.0625</span>(<span class="number">2</span>^<span class="number">-4</span>) = <span class="number">0.062492</span></span><br><span class="line"><span class="number">0.062492</span> - <span class="number">1</span> * <span class="number">0.03125</span>(<span class="number">2</span>^<span class="number">-5</span>) = <span class="number">0.031242</span></span><br><span class="line"></span><br><span class="line"><span class="number">0.5</span>(<span class="number">2</span>^<span class="number">-1</span>) + <span class="number">0.25</span>(<span class="number">2</span>^<span class="number">-2</span>) + <span class="number">0.125</span>(<span class="number">2</span>^<span class="number">-3</span>) + <span class="number">0.0625</span>(<span class="number">2</span>^<span class="number">-4</span>) + <span class="number">0.03125</span>(<span class="number">2</span>^<span class="number">-5</span>) + <span class="number">0.015625</span>(<span class="number">2</span>^<span class="number">-6</span>) + ... + <span class="number">0.000000119</span>(<span class="number">2</span>^<span class="number">-23</span>) ≈ <span class="number">1</span></span><br></pre></td></tr></table></figure>
 
 <p>我们可以看出，float 采用无限逼近的方式来表示小数。</p>
 <p>最多保留 8 位小数？</p>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">≈ <span class="number">1.9999999</span></span><br><span class="line"><span class="number">0</span> <span class="number">01111111</span> <span class="number">11111111111111111111111</span></span><br><span class="line"></span><br><span class="line">≈ <span class="number">1.0000001</span> <span class="comment">// 正常应该是 1.000000119</span></span><br><span class="line"><span class="number">0</span> <span class="number">01111111</span> <span class="number">00000000000000000000001</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">≈</span> <span class="number">1.9999999</span></span><br><span class="line"><span class="number">0</span> <span class="number">01111111</span> <span class="number">11111111111111111111111</span></span><br><span class="line"></span><br><span class="line"><span class="string">≈</span> <span class="number">1.0000001</span> <span class="string">//</span> <span class="string">正常应该是</span> <span class="number">1.000000119</span></span><br><span class="line"><span class="number">0</span> <span class="number">01111111</span> <span class="number">00000000000000000000001</span></span><br></pre></td></tr></table></figure>
 
 <p>浮点型，通过不断接近的方式来得到目标值</p>
 <h4 id="float-类型加："><a href="#float-类型加：" class="headerlink" title="float 类型加："></a>float 类型加：</h4><p>1、5.01 + 4.21</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">float</span> i = <span class="number">5.01f</span>; <span class="comment">// (-1)*0 * 2^2 * 1.2525</span></span><br><span class="line">    <span class="keyword">float</span> j = <span class="number">4.21f</span>; <span class="comment">// (-1)*0 * 2^2 * 1.0525</span></span><br><span class="line">    System.out.println(i + j);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">9.22</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">9<span class="selector-class">.22</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">1.2525</span>        <span class="number">1.01000000101000111101100</span>   <span class="number">101000000101000111101100</span> </span><br><span class="line">                                      +                          +</span><br><span class="line"><span class="number">1.0525</span>        <span class="number">1.00001101011100001010010</span>   <span class="number">100001101011100001010010</span> </span><br><span class="line">              -------------------------   ------------------------</span><br><span class="line">             <span class="number">10.01001110000101000111110</span>  <span class="number">1001001110000101000111110</span></span><br><span class="line">                  进一位，剔除末尾 <span class="number">0</span></span><br><span class="line"><span class="number">1.1525</span> * <span class="number">2</span> =  <span class="number">1.00100111000010100011111</span> * <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"><span class="number">1.2525</span>        <span class="number">1.01000000101000111101100</span>   <span class="number">101000000101000111101100</span> </span><br><span class="line">                                      +                          +</span><br><span class="line"><span class="number">1.0525</span>        <span class="number">1.00001101011100001010010</span>   <span class="number">100001101011100001010010</span> </span><br><span class="line">              -------------------------   ------------------------</span><br><span class="line">             <span class="number">10.01001110000101000111110</span>  <span class="number">1001001110000101000111110</span></span><br><span class="line">                  进一位，剔除末尾 <span class="number">0</span></span><br><span class="line"><span class="number">1.1525</span> * <span class="number">2</span> =  <span class="number">1.00100111000010100011111</span> * <span class="number">2</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">2</span>^<span class="number">2</span> * <span class="number">1.2525</span> + <span class="number">2</span>^<span class="number">2</span> * <span class="number">1.0525</span> = <span class="number">2</span>^<span class="number">2</span> * (<span class="number">1.2525</span> + <span class="number">1.0525</span>) = <span class="number">2</span>^<span class="number">2</span> * <span class="number">2</span> * <span class="number">1.1525</span> = <span class="number">2</span>^<span class="number">3</span> * <span class="number">1.1525</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"><span class="number">2</span>^<span class="number">2</span> * <span class="number">1.2525</span> + <span class="number">2</span>^<span class="number">2</span> * <span class="number">1.0525</span> = <span class="number">2</span>^<span class="number">2</span> * (<span class="number">1.2525</span> + <span class="number">1.0525</span>) = <span class="number">2</span>^<span class="number">2</span> * <span class="number">2</span> * <span class="number">1.1525</span> = <span class="number">2</span>^<span class="number">3</span> * <span class="number">1.1525</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight basic"><table><tr><td class="code"><pre><span class="line"><span class="symbol">0 </span><span class="number">10000001</span> <span class="number">01000000101000111101100</span> = <span class="number">5.01</span>f </span><br><span class="line"><span class="symbol">0 </span><span class="number">10000001</span> <span class="number">00001101011100001010010</span> = <span class="number">4.21</span>f</span><br><span class="line"><span class="symbol">0 </span><span class="number">10000010</span> <span class="number">00100111000010100011111</span> = <span class="number">9.22</span>f</span><br></pre></td></tr></table></figure>
 
 <p>2、4.5 + 58.0</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">float</span> i = <span class="number">4.5f</span>; <span class="comment">// (-1)*0 * 2^2 * 1.0010</span></span><br><span class="line">    <span class="keyword">float</span> j = <span class="number">58.0f</span>; <span class="comment">// (-1)*0 * 2^5 * 1.1101</span></span><br><span class="line">    System.out.println(i + j); <span class="comment">// (-1)*0 * 2^5 * 1.1111010</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">62.5</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">62<span class="selector-class">.5</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">2</span>^<span class="number">2</span> * <span class="number">1.0010</span> = <span class="number">2</span>^<span class="number">5</span> * <span class="number">2</span>^<span class="number">-3</span> * <span class="number">1.0010</span> = <span class="number">2</span>^<span class="number">5</span> * <span class="number">0.0010010</span> <span class="comment">// 正数左移变大，小数左移变小</span></span><br><span class="line"><span class="number">2</span>^<span class="number">2</span> * <span class="number">1.0010</span> + <span class="number">2</span>^<span class="number">5</span> * <span class="number">1.1101</span> = <span class="number">2</span>^<span class="number">5</span> * <span class="number">1.1111010</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"><span class="number">2</span>^<span class="number">2</span> * <span class="number">1.0010</span> = <span class="number">2</span>^<span class="number">5</span> * <span class="number">2</span>^<span class="number">-3</span> * <span class="number">1.0010</span> = <span class="number">2</span>^<span class="number">5</span> * <span class="number">0.0010010</span> <span class="comment">// 正数左移变大，小数左移变小</span></span><br><span class="line"><span class="number">2</span>^<span class="number">2</span> * <span class="number">1.0010</span> + <span class="number">2</span>^<span class="number">5</span> * <span class="number">1.1101</span> = <span class="number">2</span>^<span class="number">5</span> * <span class="number">1.1111010</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line"><span class="code">  1.1101000     11101000</span></span><br><span class="line"><span class="code">          +            +</span></span><br><span class="line"><span class="code">  0.0010010     00010010</span></span><br><span class="line"><span class="code">  ---------     ---------      </span></span><br><span class="line"><span class="section">= 1.1111010   = 11111010</span></span><br></pre></td></tr></table></figure>
 
@@ -580,13 +558,13 @@
 <p>double 类型加乘：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">double</span> i = <span class="number">5.01</span>;</span><br><span class="line">     <span class="keyword">double</span> j = <span class="number">4.21</span>;</span><br><span class="line">     System.out.println(i + j);</span><br><span class="line">     System.out.println(i * j);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">9.219999999999999</span></span><br><span class="line"><span class="number">21.0921</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">9<span class="selector-class">.219999999999999</span></span><br><span class="line">21<span class="selector-class">.0921</span></span><br></pre></td></tr></table></figure>
 
 <p>直接使用 double 加乘，有精度损失的问题，此时使用可使用 BigDecimal。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DoubleMathUtil</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 默认除法运算精度</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEF_DIV_SCALE = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 两个 Double 数相加</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Double <span class="title">add</span><span class="params">(Double v1, Double v2)</span> </span>&#123;</span><br><span class="line">        BigDecimal b1 = <span class="keyword">new</span> BigDecimal(v1.toString());</span><br><span class="line">        BigDecimal b2 = <span class="keyword">new</span> BigDecimal(v2.toString());</span><br><span class="line">        <span class="keyword">return</span> b1.add(b2).doubleValue();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 两个 Double 数相减</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Double <span class="title">sub</span><span class="params">(Double v1, Double v2)</span> </span>&#123;</span><br><span class="line">        BigDecimal b1 = <span class="keyword">new</span> BigDecimal(v1.toString());</span><br><span class="line">        BigDecimal b2 = <span class="keyword">new</span> BigDecimal(v2.toString());</span><br><span class="line">        <span class="keyword">return</span> b1.subtract(b2).doubleValue();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 两个 Double 数相乘</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Double <span class="title">mul</span><span class="params">(Double v1, Double v2)</span> </span>&#123;</span><br><span class="line">        BigDecimal b1 = <span class="keyword">new</span> BigDecimal(v1.toString());</span><br><span class="line">        BigDecimal b2 = <span class="keyword">new</span> BigDecimal(v2.toString());</span><br><span class="line">        <span class="keyword">return</span> b1.multiply(b2).doubleValue();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 两个 Double 数相除</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Double <span class="title">div</span><span class="params">(Double v1, Double v2)</span> </span>&#123;</span><br><span class="line">        BigDecimal b1 = <span class="keyword">new</span> BigDecimal(v1.toString());</span><br><span class="line">        BigDecimal b2 = <span class="keyword">new</span> BigDecimal(v2.toString());</span><br><span class="line">        <span class="keyword">return</span> b1.divide(b2, DEF_DIV_SCALE, BigDecimal.ROUND_HALF_UP).doubleValue();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 两个 Double 数相除，并保留 scale 位小数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Double <span class="title">div</span><span class="params">(Double v1, Double v2, <span class="keyword">int</span> scale)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (scale &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"The scale must be a positive integer or zero"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        BigDecimal b1 = <span class="keyword">new</span> BigDecimal(v1.toString());</span><br><span class="line">        BigDecimal b2 = <span class="keyword">new</span> BigDecimal(v2.toString());</span><br><span class="line">        <span class="keyword">return</span> b1.divide(b2, scale, BigDecimal.ROUND_HALF_UP).doubleValue();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>最多保留 17 位小数？0.18749999999999997</p>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">0.18749999999999997</span></span><br><span class="line"><span class="number">0011111111000111111111111111111111111111111111111111111111111111</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"><span class="number">0.18749999999999997</span></span><br><span class="line"><span class="number">0011111111000111111111111111111111111111111111111111111111111111</span></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><a href="https://zh.wikipedia.org/wiki/雙精度浮點數" target="_blank" rel="noopener">双精度浮点数 - Wiki</a></li>
@@ -618,16 +596,23 @@
 
 <p><code>ASM Bytecode Outline</code> 反编译结果：</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135146.png" alt="image.png"></p>
-<h2 id="三、基本数据类型与其封装类的区别"><a href="#三、基本数据类型与其封装类的区别" class="headerlink" title="三、基本数据类型与其封装类的区别"></a>三、基本数据类型与其封装类的区别</h2><h3 id="1、默认值不同"><a href="#1、默认值不同" class="headerlink" title="1、默认值不同"></a>1、默认值不同</h3><p>int 是基本类型，直接存放数值；Integer 是类，产生对象时用一个引用指向这个对象。<br> <strong>基本类型跟封装类型的默认值是不一样的</strong>。如 int i，i 的预设为 0；Integer j，j 的预设为 null，因为封装类产生的是对象，对象默认值为 null。</p>
+<h2 id="三、基本数据类型与其封装类的区别"><a href="#三、基本数据类型与其封装类的区别" class="headerlink" title="三、基本数据类型与其封装类的区别"></a>三、基本数据类型与其封装类的区别</h2><h3 id="1、默认值不同"><a href="#1、默认值不同" class="headerlink" title="1、默认值不同"></a>1、默认值不同</h3><p>int 是基本类型，直接存放数值；Integer 是类，产生对象时用一个引用指向这个对象。<strong>基本类型跟封装类型的默认值是不一样的</strong>。如 int i，i 的预设为 0；Integer j，j 的预设为 null，因为封装类产生的是对象，对象默认值为 null。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">float</span> f = <span class="number">0f</span>;</span><br><span class="line"><span class="keyword">double</span> d = <span class="number">0</span>d;</span><br><span class="line">System.out.println(i);<span class="comment">//0</span></span><br><span class="line">System.out.println(f);<span class="comment">//0.0</span></span><br><span class="line">System.out.println(d);<span class="comment">//0.0</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="2、存储位置不同"><a href="#2、存储位置不同" class="headerlink" title="2、存储位置不同"></a>2、存储位置不同</h3><p> 基本类型在内存中是存储在 Java 虚拟机栈中，封装类的引用（值的地址）存储在 Java 虚拟机栈中，而实际的对象（值）是存在堆中。</p>
 <h3 id="3、作用不同"><a href="#3、作用不同" class="headerlink" title="3、作用不同"></a>3、作用不同</h3><p>基本数据类型的好处就是速度快（在栈上分配内存效率高，且不涉及到对象的构造和回收），封装类的目的主要是更好的处理数据之间的转换（利用其方法和属性）。</p>
-<h2 id="四、封装类应用场景"><a href="#四、封装类应用场景" class="headerlink" title="四、封装类应用场景"></a>四、封装类应用场景</h2><p>封装类常用于接受参数，当不传参数时，参数为 null？</p>
-<p>封装类作为参数，参数可以为 null。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTimeout</span><span class="params">(Integer timeout)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.timeout = timeout;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">reference.setTimeout(<span class="number">20000</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="四、应用场景"><a href="#四、应用场景" class="headerlink" title="四、应用场景"></a>四、应用场景</h2><h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><ol>
+<li>性能要求高的场景</li>
+<li>临时变量</li>
+</ol>
+<h3 id="封装类"><a href="#封装类" class="headerlink" title="封装类"></a>封装类</h3><ol>
+<li>集合类</li>
+<li>泛型</li>
+<li>对象序列化</li>
+<li>使用 null 值。如前端接口请求参数、方法参数</li>
+</ol>
+<p>封装类作为参数，参数可以为 null：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTimeout</span><span class="params">(Integer timeout)</span> </span>&#123;  </span><br><span class="line">    System.out.println(timeout);  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">this</span>.setTimeout(<span class="keyword">null</span>);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="五、需注意"><a href="#五、需注意" class="headerlink" title="五、需注意"></a>五、需注意</h2><p>要注意自动拆箱出现空指针异常：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;(<span class="number">3</span>);</span><br><span class="line">list.add(<span class="number">0</span>);</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line">list.add(<span class="keyword">null</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> n:list)&#123;</span><br><span class="line">    System.out.println(<span class="string">"n="</span>+n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -694,6 +679,10 @@
     <footer class="post-footer">
       
         <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
           
             <a href="/tags/基本数据类型/" rel="tag"># 基本数据类型</a>
           
@@ -771,7 +760,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
         
       </div>
     
@@ -807,7 +796,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
@@ -833,7 +822,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">302</span>
+                <span class="site-state-item-count">303</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -959,7 +948,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、8-种基本数据类型"><span class="nav-number">1.</span> <span class="nav-text">一、8 种基本数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#byte"><span class="nav-number">1.1.</span> <span class="nav-text">byte</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#char"><span class="nav-number">1.2.</span> <span class="nav-text">char</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#boolean"><span class="nav-number">1.3.</span> <span class="nav-text">boolean</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#float"><span class="nav-number">1.4.</span> <span class="nav-text">float</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#float-类型加："><span class="nav-number">1.4.1.</span> <span class="nav-text">float 类型加：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#double"><span class="nav-number">1.5.</span> <span class="nav-text">double</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#int"><span class="nav-number">1.6.</span> <span class="nav-text">int</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、基本数据类型与封装类的联系"><span class="nav-number">2.</span> <span class="nav-text">二、基本数据类型与封装类的联系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、基本数据类型与其封装类的区别"><span class="nav-number">3.</span> <span class="nav-text">三、基本数据类型与其封装类的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、默认值不同"><span class="nav-number">3.1.</span> <span class="nav-text">1、默认值不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、存储位置不同"><span class="nav-number">3.2.</span> <span class="nav-text">2、存储位置不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、作用不同"><span class="nav-number">3.3.</span> <span class="nav-text">3、作用不同</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、封装类应用场景"><span class="nav-number">4.</span> <span class="nav-text">四、封装类应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、需注意"><span class="nav-number">5.</span> <span class="nav-text">五、需注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、延伸阅读"><span class="nav-number">6.</span> <span class="nav-text">六、延伸阅读</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、8-种基本数据类型"><span class="nav-number">1.</span> <span class="nav-text">一、8 种基本数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#byte"><span class="nav-number">1.1.</span> <span class="nav-text">byte</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#char"><span class="nav-number">1.2.</span> <span class="nav-text">char</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#boolean"><span class="nav-number">1.3.</span> <span class="nav-text">boolean</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#float"><span class="nav-number">1.4.</span> <span class="nav-text">float</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#float-类型加："><span class="nav-number">1.4.1.</span> <span class="nav-text">float 类型加：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#double"><span class="nav-number">1.5.</span> <span class="nav-text">double</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#int"><span class="nav-number">1.6.</span> <span class="nav-text">int</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、基本数据类型与封装类的联系"><span class="nav-number">2.</span> <span class="nav-text">二、基本数据类型与封装类的联系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、基本数据类型与其封装类的区别"><span class="nav-number">3.</span> <span class="nav-text">三、基本数据类型与其封装类的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、默认值不同"><span class="nav-number">3.1.</span> <span class="nav-text">1、默认值不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、存储位置不同"><span class="nav-number">3.2.</span> <span class="nav-text">2、存储位置不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、作用不同"><span class="nav-number">3.3.</span> <span class="nav-text">3、作用不同</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、应用场景"><span class="nav-number">4.</span> <span class="nav-text">四、应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本数据类型"><span class="nav-number">4.1.</span> <span class="nav-text">基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封装类"><span class="nav-number">4.2.</span> <span class="nav-text">封装类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、需注意"><span class="nav-number">5.</span> <span class="nav-text">五、需注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、延伸阅读"><span class="nav-number">6.</span> <span class="nav-text">六、延伸阅读</span></a></li></ol></div>
             
 
           </div>

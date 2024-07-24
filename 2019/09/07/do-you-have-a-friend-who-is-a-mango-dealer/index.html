@@ -102,7 +102,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135742.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135753.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135803.png">
-<meta property="og:updated_time" content="2024-07-15T10:05:34.480Z">
+<meta property="og:updated_time" content="2024-07-24T06:46:39.577Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="理解广度优先搜索算法：你朋友里有芒果销售商吗？">
 <meta name="twitter:description" content="难度： 中等  &amp;nbsp;&amp;nbsp; 相关标签：广度优先搜索算法 题目来源看了《算法图解》第六章后，感觉作者广度优先搜索讲解得很到位，例子和算法都很好，在 LeetCode 没找到类似的题目，就想着将他的例子作为一个题目吧！">
@@ -143,7 +143,7 @@
   <title>理解广度优先搜索算法：你朋友里有芒果销售商吗？ | 德普王</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -168,7 +168,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -305,16 +305,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2019/09/07/do-you-have-a-friend-who-is-a-mango-dealer/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -369,7 +369,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Algorithms/" itemprop="url" rel="index">
                     <span itemprop="name">Algorithms</span>
                   </a>
@@ -430,7 +430,7 @@
 <a id="more"></a>
 
 <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>假设你经营着一个芒果农场，需要寻找芒果销售商，以便将芒果卖给他。可在你的朋友中查找，假设 <code>m</code> 结尾的朋友就是芒果经营商，请编写一个算法，查看你朋友（人际关系网）里是否有芒果销售商？你的朋友是一度关系，朋友的朋友是二度关系，以此类推。</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135742.png" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135742.png" alt></p>
 <p>关系表示方式如下（Python dict）：</p>
 <figure class="highlight prolog"><table><tr><td class="code"><pre><span class="line">graph = &#123;&#125;</span><br><span class="line">graph[<span class="string">"you"</span>] = [<span class="string">"alice"</span>, <span class="string">"bob"</span>, <span class="string">"claire"</span>]</span><br><span class="line">graph[<span class="string">"bob"</span>] = [<span class="string">"anuj"</span>, <span class="string">"peggy"</span>]</span><br><span class="line">graph[<span class="string">"alice"</span>] = [<span class="string">"peggy"</span>]</span><br><span class="line">graph[<span class="string">"claire"</span>] = [<span class="string">"thom"</span>, <span class="string">"jonny"</span>]</span><br><span class="line">graph[<span class="string">"anuj"</span>] = []</span><br><span class="line">graph[<span class="string">"peggy"</span>] = []</span><br><span class="line">graph[<span class="string">"thom"</span>] = []</span><br><span class="line">graph[<span class="string">"jonny"</span>] = []</span><br></pre></td></tr></table></figure>
 
@@ -443,14 +443,14 @@
 <li>时间复杂度：O (V + E) = O (V) + O (E)。 V: vertice 顶点（人数），E: edge 边数（箭头的数量）</li>
 </ul>
 <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><strong>Python:</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(name)</span>:</span></span><br><span class="line">    search_queue = deque()  <span class="comment"># ←------------创建一个队列</span></span><br><span class="line">    search_queue += graph[name]  <span class="comment"># ←------将你的邻居都加入到这个搜索队列中</span></span><br><span class="line">    searched = []  <span class="comment"># ←------------------------------这个数组用于记录检查过的人</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> search_queue:  <span class="comment"># ←------只要队列不为空</span></span><br><span class="line">        person = search_queue.popleft()  <span class="comment"># ←------就取出其中的第一个人</span></span><br><span class="line">        <span class="keyword">if</span> person <span class="keyword">not</span> <span class="keyword">in</span> searched:  <span class="comment"># ←----------仅当这个人没检查过时才检查</span></span><br><span class="line">            <span class="keyword">if</span> person_is_seller(person):  <span class="comment"># ←------检查这个人是否是芒果销售商</span></span><br><span class="line">                print(person + <span class="string">" is a mango seller!"</span>)  <span class="comment"># ←------是芒果销售商</span></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                search_queue += graph[person]  <span class="comment"># ←------不是芒果销售商。将这个人的朋友都加入搜索队列</span></span><br><span class="line">                searched.append(person)  <span class="comment"># ←------将这个人标记为检查过</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">False</span>  <span class="comment"># ←------如果到达了这里，就说明队列中没人是芒果销售商</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">person_is_seller</span><span class="params">(name)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> name[<span class="number">-1</span>] == <span class="string">'m'</span>  <span class="comment"># 以 m 结尾就是芒果商</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">search(<span class="string">'you'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(name)</span>:</span></span><br><span class="line">    search_queue = deque()  <span class="comment"># ←------------创建一个队列</span></span><br><span class="line">    search_queue += graph[name]  <span class="comment"># ←------将你的邻居都加入到这个搜索队列中</span></span><br><span class="line">    searched = []  <span class="comment"># ←------------------------------这个数组用于记录检查过的人</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> search_queue:  <span class="comment"># ←------只要队列不为空</span></span><br><span class="line">        person = search_queue.popleft()  <span class="comment"># ←------就取出其中的第一个人</span></span><br><span class="line">        <span class="keyword">if</span> person <span class="keyword">not</span> <span class="keyword">in</span> searched:  <span class="comment"># ←----------仅当这个人没检查过时才检查</span></span><br><span class="line">            <span class="keyword">if</span> person_is_seller(person):  <span class="comment"># ←------检查这个人是否是芒果销售商</span></span><br><span class="line">                print(person + <span class="string">" is a mango seller!"</span>)  <span class="comment"># ←------是芒果销售商</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                search_queue += graph[person]  <span class="comment"># ←------不是芒果销售商。将这个人的朋友都加入搜索队列</span></span><br><span class="line">                searched.append(person)  <span class="comment"># ←------将这个人标记为检查过</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span>  <span class="comment"># ←------如果到达了这里，就说明队列中没人是芒果销售商</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">person_is_seller</span><span class="params">(name)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> name[<span class="number">-1</span>] == <span class="string">'m'</span>  <span class="comment"># 以 m 结尾就是芒果商</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">search(<span class="string">'you'</span>)</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><a href="https://github.com/egonSchiele/grokking_algorithms/blob/master/06_breadth-first_search/java/01_breadth_first_search/src/BreadthFirstSearch.java" target="_blank" rel="noopener">Java</a></li>
 <li><a href="https://github.com/egonSchiele/grokking_algorithms/blob/master/06_breadth-first_search/javascript/01_breadth-first_search.js" target="_blank" rel="noopener">JavaScript</a></li>
 </ul>
-<h3 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h3><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135753.png" alt=""></p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135803.png" alt=""></p>
+<h3 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h3><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135753.png" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135803.png" alt></p>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>《算法图解》是一本很好的算法入门书，建议想系统学习算法的小伙伴可以先看一下这本书。</p>
 <blockquote>
 <p>广度优先搜索与深度优先搜索区别：</p>
@@ -586,7 +586,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
         
       </div>
     
@@ -622,7 +622,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
@@ -648,7 +648,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">302</span>
+                <span class="site-state-item-count">303</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
