@@ -100,7 +100,7 @@
 <meta property="og:description" content="此文基于 Dubbo 官方文档，结合实际项目讲解几个常用的知识点，建议先根据以下官方文档学习。 http://dubbo.apache.org/zh-cn/docs/user/preface/background.html  Dubbo 概念Dubbo 是一个 RPC 框架，关于什么是 RPC，可看知乎的这个回答： https://www.zhihu.com/question/25536695/a">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135336.png">
-<meta property="og:updated_time" content="2024-07-24T06:46:39.577Z">
+<meta property="og:updated_time" content="2024-07-30T03:13:12.174Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何使用 Dubbo 的直连和服务分组">
 <meta name="twitter:description" content="此文基于 Dubbo 官方文档，结合实际项目讲解几个常用的知识点，建议先根据以下官方文档学习。 http://dubbo.apache.org/zh-cn/docs/user/preface/background.html  Dubbo 概念Dubbo 是一个 RPC 框架，关于什么是 RPC，可看知乎的这个回答： https://www.zhihu.com/question/25536695/a">
@@ -141,7 +141,7 @@
   <title>如何使用 Dubbo 的直连和服务分组 | 德普王</title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -166,7 +166,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -303,16 +303,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2018/10/09/how-to-use-dubbo-directlink-and-group/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -367,7 +367,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
                   <a href="/categories/Dubbo/" itemprop="url" rel="index">
                     <span itemprop="name">Dubbo</span>
                   </a>
@@ -450,18 +450,18 @@
 <p><strong>2</strong>. 增加默认直连的配置文件 (<code>dubbo-resolve.properties</code>)</p>
 <p>Dubbo2.0 以上版本，直连时，会默认加载 <code>${user.home}/dubbo-resolve.properties</code> 配置文件。<code>${user.home}</code> 为用户目录，例如：win10 的 Administrator 用户的目录：<code>C:\Users\Administrator</code>；mac 用户的目录 <code>/Users/userName</code>。</p>
 <p>配置文件的示例内容如下：</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">com<span class="selector-class">.alibaba</span><span class="selector-class">.dubbo</span><span class="selector-class">.demo</span>.DemoService=dubbo:<span class="comment">//localhost:20880</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">com<span class="selector-class">.alibaba</span><span class="selector-class">.dubbo</span><span class="selector-class">.demo</span><span class="selector-class">.DemoService</span>=dubbo:<span class="comment">//localhost:20880</span></span><br></pre></td></tr></table></figure>
 
 <p>通过以上配置，服务消费者会默认去 <code>dubbo://localhost:20880</code>(本地提供者) 查找 DemoServixe，如果没有，再去注册中心查找。</p>
 <h2 id="服务分组-Group"><a href="#服务分组-Group" class="headerlink" title="服务分组 (Group)"></a>服务分组 (Group)</h2><p>提供者通过运行不同的配置文件成为个性化应用，配置文件中包含：数据库；个性化名称等。</p>
 <p>服务消费者配置文件 (<code>dev.properties</code>) 中设置组名：</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">dubbo.group.core</span>=group_core</span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">dubbo<span class="selector-class">.group</span><span class="selector-class">.core</span>=group_core</span><br></pre></td></tr></table></figure>
 
 <p>consumer.xml</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;dubbo:reference <span class="attribute">id</span>=<span class="string">"indexService"</span> <span class="attribute">group</span>=<span class="string">"<span class="variable">$&#123;dubbo.group.core&#125;</span>"</span> <span class="attribute">interface</span>=<span class="string">"com.xxx.IndexService"</span> /&gt;</span><br></pre></td></tr></table></figure>
 
 <p>服务提供者配置文件 (<code>dev.properties</code>) 中设置组名：</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">dubbo.group.core</span>=group_core</span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">dubbo<span class="selector-class">.group</span><span class="selector-class">.core</span>=group_core</span><br></pre></td></tr></table></figure>
 
 <p>provider.xml</p>
 <figure class="highlight cs"><table><tr><td class="code"><pre><span class="line">&lt;dubbo:service <span class="keyword">group</span>=<span class="string">"$&#123;dubbo.group.core&#125;"</span> <span class="keyword">interface</span>=<span class="string">"com.xxx.IndexService"</span> /&gt;</span><br></pre></td></tr></table></figure>
@@ -615,7 +615,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
+          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
         
       </div>
     
@@ -651,7 +651,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            

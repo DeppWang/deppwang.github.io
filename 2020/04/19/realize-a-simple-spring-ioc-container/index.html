@@ -110,7 +110,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074258.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074549.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-18-111026.png">
-<meta property="og:updated_time" content="2024-07-24T06:46:39.585Z">
+<meta property="og:updated_time" content="2024-07-30T03:13:12.186Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="造轮子：实现一个简易的 Spring IoC 容器">
 <meta name="twitter:description" content="作者：DeppWang、原文地址   我通过实现一个简易的 Spring IoC 容器，算是真正入门了 Spring 框架。本文是对实现过程的一个总结提炼，需要配合源码阅读，源码地址。 结合本文和源码，你应该可以学到：Spring 的原理和 Spring Boot 的原理。 Spring 框架是 Java 开发的，Java 是面向对象的语言，所以 Spring 框架本身有大量的抽象、继承、多态。">
@@ -151,7 +151,7 @@
   <title>造轮子：实现一个简易的 Spring IoC 容器 | 德普王</title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -176,7 +176,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -313,16 +313,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2020/04/19/realize-a-simple-spring-ioc-container/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -458,7 +458,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PetStoreService</span> </span>&#123;</span><br><span class="line">    AccountDao accountDao;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>当不默认 new 时，实现实例化 Bean 后，此时成员变量（属性）还为 null：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-17-143303.png" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-17-143303.png" alt=""></p>
 <!--当一个 Bean 的成员变量类型是另一个 Bean 时，我们可以说一个 Bean 依赖于另一个 Bean。当不默认 new 时，就需要使用依赖注入（**D**ependency **I**njection，简称 DI）的方式设置依赖。依赖注入让属性不为 null，所以也可以称为填充属性。-->
 
 <!--Spring 通过依赖注入的方式实现填充属性。-->
@@ -533,7 +533,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String basePackagesStr = ele.attributeValue(<span class="string">"base-package"</span>);</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>如何判断 Class 是否有 @Component：利用字节码技术，获取 Class 文件中的元数据（注解），判断元数据中是否有 @Componet</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">annotationMetadata.hasAnnotation(Component<span class="class">.<span class="keyword">class</span>.<span class="title">getName</span>())</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">annotationMetadata.hasAnnotation(Component.class.getName())</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
@@ -550,7 +550,7 @@
 <p>我们可以使用 @Configuration 替代配置文件，并使用 @ComponentScan 来替代配置文件的  <code>&lt;context:component-scan&gt;</code> 。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span> <span class="comment">// 将类标记为 @Configuration，代表这个类是相当于一个配置文件</span></span><br><span class="line"><span class="meta">@ComponentScan</span> <span class="comment">// ComponentScan 扫描 PetStoreConfig.class 所在路径及其所在路径所有子路径的文件</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PetStoreConfig</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ApplicationContext context = <span class="keyword">new</span> AnnotationConfigApplicationContext(PetStoreConfig<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        PetStoreService userService = context.getBean(PetStoreService<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        userService.getAccountDao();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ApplicationContext context = <span class="keyword">new</span> AnnotationConfigApplicationContext(PetStoreConfig.class);</span><br><span class="line">        PetStoreService userService = context.getBean(PetStoreService.class);</span><br><span class="line">        userService.getAccountDao();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>使用注解其实跟使用 xml 配置文件一样，目的是将配置类作为入口，实现扫描组件，将其加载进 IoC 容器中的功能。</p>
 <p>AnnotationConfigApplicationContext 是专为针对配置类的启动类。其实现机制，可以 Google 查阅。</p>
@@ -583,30 +583,30 @@
 <p>Spring Boot 利用了 @EnableAutoConfiguration 来自动加载<strong>启动类路径（base-package）</strong>下标识为 @Configuration 的配置类到容器中。有时项目引入 jar 包的部分类也需要注入容器，如果引用 jar 包与启动类路径不一致，就需要一个额外标识，一个名为 spring.factories 文件。jar 包将需要自动加载的配置类放在 spring.factories 中，Spring Boot 将自动加载 jar 包 spring.factories 中的配置类。spring.factories 需放置于META-INF 下。</p>
 <p>关于 @EnableAutoConfiguration 的详细工作原理，可以看看<a href="http://tengj.top/2017/03/09/springboot3/" target="_blank" rel="noopener">这篇文章</a></p>
 <p>如 Spring Boot 项目启动时，autocofigure 包中将被自动加载到容器的（部分）配置类如下：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-05-092624.png?ynotemdtimestamp=1587214457308" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-05-092624.png?ynotemdtimestamp=1587214457308" alt=""></p>
 <p>以上也是 Spring Boot 的原理。</p>
 <h3 id="Starter-包"><a href="#Starter-包" class="headerlink" title="Starter 包"></a>Starter 包</h3><p>在 Spring Boot 中，我们引入的部分 jar 包一般包含一个字段，<strong>starter</strong>，我们叫 starter 包。</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-18-151532.png" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-18-151532.png" alt=""></p>
 <p>标识为 starter（启动器），可以看作是一个依赖总集，用于方便引用依赖。starter 包不需要额外配置，相关 Bean 会自动装配到容器。这是如何实现自动装配 Bean 呢。其实很简单，也是利用 spring.factories + 配置类。</p>
 <p>1、starter 包包含自己的 spring.factories。如 spring-cloud-starter-eureka-server：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-18-134518.png" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-18-134518.png" alt=""></p>
 <p>如 druid-spring-boot-starter：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-19-085235.png" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-19-085235.png" alt=""></p>
 <p>2、将相关配置类放在 autocofigure 中，由 autoconfigure 来自动装配。如 spring-boot-starter-jdbc：</p>
-<img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074720.png" alt style="zoom:67%;">
+<img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074720.png" alt="" style="zoom:67%;">
 
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074801.png" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074801.png" alt=""></p>
 <p>如 spring-boot-starter-amqp：</p>
-<img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074258.png" alt style="zoom:50%;">
+<img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074258.png" alt="" style="zoom:50%;">
 
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074549.png" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-10-15-074549.png" alt=""></p>
 <p>一般来说，我们在 application.properties(application.yml) 配置的数据将由相应配置类读取。</p>
 <p>有时候我们还需要自定义 starter 包，比如在 Spring Cloud 中，当某个应用要调用另一个应用的代码时，要么调用方使用 HTTP，要么将被调用方自定义为 starter 包，让调用方依赖引用，再 @Autowired 使用。此时需要在被调用方设置配置类和 spring.factories：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProviderAppConfiguration</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># spring.factories</span></span><br><span class="line"><span class="comment"># Auto Configure</span></span><br><span class="line"><span class="string">org.springframework.boot.autoconfigure.EnableAutoConfiguration=\</span></span><br><span class="line"><span class="string">com.amy.cloud.amycloudact.ProviderAppConfiguration</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-18-111026.png" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-18-111026.png" alt=""></p>
 <p>当然，你也可以把这两个文件放在调用方（此时要指定扫描路径），但一般放在被调用方。注意：如果你两个应用的 base-package 路径一样，那么可以不用这一步。</p>
 <!--[Starter 包官方介绍](https://docs.spring.io/spring-boot/docs/1.2.1.RELEASE/reference/htmlsingle/#using-boot-starter-poms)-->
 
@@ -765,7 +765,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
+          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
         
       </div>
     
@@ -801,7 +801,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
