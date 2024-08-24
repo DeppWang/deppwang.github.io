@@ -105,7 +105,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-141312.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-141314.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-141316.png">
-<meta property="og:updated_time" content="2024-07-30T03:13:12.178Z">
+<meta property="og:updated_time" content="2024-08-24T04:14:39.681Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo 添加 Disqus 评论">
 <meta name="twitter:description" content="Disqus 配置使用Disqus 网址：https://disqus.com/ 打开链接后， 可以直接用 Facebook，Twitter 以及 Google 登录；也可以用邮箱注册后登录。 配置 Disqus登录后，点击首页的 GET STARTED 按钮，点击图示按钮。  Create a new site Website Name 是 主题配置文件(_config.yml) 的 short">
@@ -146,7 +146,7 @@
   <title>Hexo 添加 Disqus 评论 | 德普王</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -171,7 +171,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -308,16 +308,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2017/06/15/hexo-disqus/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -372,7 +372,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Hexo/" itemprop="url" rel="index">
                     <span itemprop="name">Hexo</span>
                   </a>
@@ -446,7 +446,7 @@
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-141314.png" alt="images"></p>
 <p>Website URL 填写博客地址，如果 Website Name 不重复，此 Website Name 就是 shortname。点击 Complete SetUp 完成配置。</p>
 <h2 id="配置-Hexo"><a href="#配置-Hexo" class="headerlink" title="配置 Hexo"></a>配置 Hexo</h2><p>在 <code>主题配置文件</code>(_config.yml) 文件中找到以下代码，添加你 Disqus 设置的 Website Name 在 shortname 处，英文冒号后空格。</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Duoshuo ShortName</span></span><br><span class="line"><span class="comment">#duoshuo_shortname:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加在这里</span></span><br><span class="line"><span class="comment"># Disqus </span></span><br><span class="line"><span class="attr">disqus:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  shortname:</span> <span class="string">deppwang</span>    <span class="comment">#your name</span></span><br><span class="line"><span class="attr">  count:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Hypercomments</span></span><br><span class="line"><span class="comment">#hypercomments_id:</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Duoshuo ShortName</span></span><br><span class="line"><span class="comment">#duoshuo_shortname:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加在这里</span></span><br><span class="line"><span class="comment"># Disqus </span></span><br><span class="line"><span class="attr">disqus:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">shortname:</span> <span class="string">deppwang</span>    <span class="comment">#your name</span></span><br><span class="line">  <span class="attr">count:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Hypercomments</span></span><br><span class="line"><span class="comment">#hypercomments_id:</span></span><br></pre></td></tr></table></figure>
 
 <p>使用如下命令提交到 coding 和 github</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo clean</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo g</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo d</span></span><br></pre></td></tr></table></figure>
@@ -586,7 +586,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
         
       </div>
     
@@ -622,7 +622,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            

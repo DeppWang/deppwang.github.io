@@ -100,7 +100,7 @@
 <meta property="og:description" content="原文地址  我的个人独立博客是基于 Hexo 搭建的，因为小站，Google 搜索引擎收录文章比较慢，还搜不到 为了解决这个问题，希望把文章也顺便发布到博客平台博客园上。但不想每次手动复制粘贴，打算利用脚本实现，希望除了发布，并且还能更新文章。原来打算找到博客园接口，模拟操作接口实现。搜索发现博客园提供了 MetaWeblog 接口，所以利用接口，开发了这个脚本。源码地址">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-06-20-105444.png">
-<meta property="og:updated_time" content="2024-07-30T03:13:12.178Z">
+<meta property="og:updated_time" content="2024-08-24T04:14:39.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一个发布文章到博客园的 Python 脚本">
 <meta name="twitter:description" content="原文地址  我的个人独立博客是基于 Hexo 搭建的，因为小站，Google 搜索引擎收录文章比较慢，还搜不到 为了解决这个问题，希望把文章也顺便发布到博客平台博客园上。但不想每次手动复制粘贴，打算利用脚本实现，希望除了发布，并且还能更新文章。原来打算找到博客园接口，模拟操作接口实现。搜索发现博客园提供了 MetaWeblog 接口，所以利用接口，开发了这个脚本。源码地址">
@@ -141,7 +141,7 @@
   <title>一个发布文章到博客园的 Python 脚本 | 德普王</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -166,7 +166,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -303,16 +303,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2020/06/20/a-python-script-to-edit-and-add-cnblogs-posts/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -367,7 +367,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Tools/" itemprop="url" rel="index">
                     <span itemprop="name">Tools</span>
                   </a>
@@ -437,7 +437,7 @@
 <a id="more"></a>
 
 <h2 id="如何使用这个脚本"><a href="#如何使用这个脚本" class="headerlink" title="如何使用这个脚本"></a>如何使用这个脚本</h2><p>博客园 -&gt; 管理 -&gt; 设置 -&gt; 允许 MetaWeblog 博客客户端访问</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-06-20-105444.png" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-06-20-105444.png" alt></p>
 <p>在 <code>cnblogs-post.py</code> 中配置：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">config = &#123;</span><br><span class="line">    <span class="string">'url'</span>: <span class="string">'https://rpc.cnblogs.com/metaweblog/deppwang'</span>,               <span class="comment"># 你的 MetaWeblog 访问地址</span></span><br><span class="line">    <span class="string">'username'</span>: <span class="string">'DeppWangXQ'</span>,                                           <span class="comment"># 你的登录用户名，可能跟上面的不一致</span></span><br><span class="line">    <span class="string">'password'</span>: <span class="string">'12345678'</span>                                              <span class="comment"># 你的登录密码</span></span><br><span class="line">    <span class="string">'local_post_path'</span>: <span class="string">'/Users/yanjie/GitHub/HexoBlog/source/_posts/'</span>   <span class="comment"># 你的本地博文路径</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -596,7 +596,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
         
       </div>
     
@@ -632,7 +632,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            

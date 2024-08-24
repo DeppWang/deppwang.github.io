@@ -104,7 +104,7 @@
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20230128175146.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20230128174949.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20230128171614.png">
-<meta property="og:updated_time" content="2024-07-30T03:13:12.186Z">
+<meta property="og:updated_time" content="2024-08-24T04:14:39.689Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次 Jenkins 邮件失败排查过程">
 <meta name="twitter:description" content="问题使用插件 Email Extension Plugin 发送邮件，日志显示发送了，但没有收到邮件">
@@ -145,7 +145,7 @@
   <title>记一次 Jenkins 邮件失败排查过程 | 德普王</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -170,7 +170,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -307,16 +307,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2023/01/28/a-jenkins-email-failure-troubleshooting-process/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -406,19 +406,19 @@
 
       
         <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>使用插件 <code>Email Extension Plugin</code> 发送邮件，日志显示发送了，但没有收到邮件</p>
-<p><img src="https://hexoblog.r2.depp.wang/20230128210708.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/20230128210708.png" alt></p>
 <a id="more"></a>
 
 <h2 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h2><h3 id="1、怀疑插件问题"><a href="#1、怀疑插件问题" class="headerlink" title="1、怀疑插件问题"></a>1、怀疑插件问题</h3><p>插件卸载重装、重启 Jenkins 后仍存在问题</p>
 <h3 id="2、怀疑配置问题"><a href="#2、怀疑配置问题" class="headerlink" title="2、怀疑配置问题"></a>2、怀疑配置问题</h3><p>开启插件 Debug 日志后（<code>系统管理 -&gt; Configure System -&gt; Extended E-mail Notification -&gt; enable Debug Mode</code>），查看日志</p>
-<p><img src="https://hexoblog.r2.depp.wang/20230128173034.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/20230128173034.png" alt></p>
 <p>搜索得知 <code>553 authentication is required</code> 可能是系统配置中没有给 <code>Email Extension Plugin</code> 插件配置凭据，查看确实没有配置</p>
-<p><img src="https://hexoblog.r2.depp.wang/20230128175146.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/20230128175146.png" alt></p>
 <p>此时无法选择现有的凭据，新增凭据只能选择 3 种类型，新增凭据后也看不见。在全局凭据新增凭据也只显示 3 种凭据 <code>/credentials/store/system/domain/_/</code>，怀疑是凭据本身配置问题。</p>
 <p>在 <code>系统管理 -&gt; 凭据配置</code> 中发现凭据设置了限制，只显示 3 tk</p>
-<p><img src="https://hexoblog.r2.depp.wang/20230128174949.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/20230128174949.png" alt></p>
 <p>解除限制，设置为「所有可见」</p>
-<p><img src="https://hexoblog.r2.depp.wang/20230128171614.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/20230128171614.png" alt></p>
 <p>重新配置 <code>Extended E-mail Notification</code> 的凭据后，发送邮件成功</p>
 <h2 id="邮件内容配置"><a href="#邮件内容配置" class="headerlink" title="邮件内容配置"></a>邮件内容配置</h2><p>标题：PMS 接口自动化测试报告</p>
 <p>内容：</p>
@@ -565,7 +565,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
         
       </div>
     
@@ -601,7 +601,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            

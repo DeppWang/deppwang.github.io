@@ -106,7 +106,7 @@
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20240423171950.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20240423172010.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20240423172020.png">
-<meta property="og:updated_time" content="2024-07-30T03:13:12.182Z">
+<meta property="og:updated_time" content="2024-08-24T04:14:39.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="什么是 NAS？如何低成本玩 NAS？">
 <meta name="twitter:description" content="以下是文字版： 什么是 NASNAS，Network Attached Storage，翻译为中文是「网络附加存储」。我们常用的硬盘也叫 DAS（Direct Attached Storage ），就是「直接附加存储」。硬盘是通过数据线直接连接，只能当前设备使用。而 NAS 可以看成是将硬盘联网，是局域网中所有设备的共享硬盘。如果你将 NAS 的外网访问打通，那 NAS 就是数据存放在你自己硬">
@@ -147,7 +147,7 @@
   <title>什么是 NAS？如何低成本玩 NAS？ | 德普王</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -172,7 +172,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -309,16 +309,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2024/what-is-nas/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -355,8 +355,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-06-19T17:00:42+08:00">
-                2024-06-19
+              <time title="更新于" itemprop="dateModified" datetime="2024-08-24T12:09:52+08:00">
+                2024-08-24
               </time>
             
           </span>
@@ -413,7 +413,7 @@
 <h2 id="什么是-NAS"><a href="#什么是-NAS" class="headerlink" title="什么是 NAS"></a>什么是 NAS</h2><p>NAS，Network Attached Storage，翻译为中文是「网络附加存储」。我们常用的硬盘也叫 DAS（Direct Attached Storage ），就是「直接附加存储」。硬盘是通过数据线直接连接，只能当前设备使用。而 NAS 可以看成是将硬盘联网，是局域网中所有设备的共享硬盘。如果你将 NAS 的外网访问打通，那 NAS 就是数据存放在你自己硬盘的私人云盘。换句话说，如果一个硬盘，它可以通过网络连接使用，那它就可以当成一个 NAS。</p>
 <a id="more"></a> 
 
-<p><img src="https://hexoblog.r2.depp.wang/20240422111448.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240422111448.png" alt></p>
 <h2 id="NAS-与云盘配合使用"><a href="#NAS-与云盘配合使用" class="headerlink" title="NAS 与云盘配合使用"></a>NAS 与云盘配合使用</h2><p>我的 NAS 在我的家里，位于我的家庭局域网中</p>
 <p>我是这么使用 NAS：</p>
 <ol>
@@ -424,7 +424,7 @@
 <p>我同时也使用云盘，我用苹果全家桶，我用 iCloud 云盘做手机系统备份与相册存储，NAS 替代不了这部分功能。我部分文件也放到 iCloud 云盘上，iCloud 云盘可以对普通文件夹自动同步，不像有的云盘需要单独上传与下载。我也用阿里云盘，平时用 Infuse 直接看阿里云盘中的影视，不用专门下载到 NAS，比较方便。阿里云盘免费用户虽然说下载限速了，但是在线观看还是可以用。优质的影视我会再下载到 NAS 中保存。</p>
 <p>NAS 本质上是硬盘，你是否需要 NAS，就看你是否需要硬盘。</p>
 <h2 id="配置家里所有设备在一个局域网中"><a href="#配置家里所有设备在一个局域网中" class="headerlink" title="配置家里所有设备在一个局域网中"></a>配置家里所有设备在一个局域网中</h2><p>玩 NAS，首先我们需要配置家里所有设备 在一个局域网中，在家庭网络中，可以利用路由器 Mesh 功能，让家里所有设备都在路由器这个局域网中。Mesh 相较于 AC + AP，它的成本更低，现在也是家庭局域网的主流方案。</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240422141524.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240422141524.png" alt></p>
 <p>这是我家的网络图。我是使用 2 台支持 MESH 的小米 WIFI 6 路由器，和一个网线分线器来实现的，分线器也叫交换机。</p>
 <table>
 <thead>
@@ -434,11 +434,11 @@
 </tr>
 </thead>
 <tbody><tr>
-<td><img src="https://hexoblog.r2.depp.wang/20240423171649.png" alt=""></td>
+<td><img src="https://hexoblog.r2.depp.wang/20240423171649.png" alt></td>
 <td><img src="https://hexoblog.r2.depp.wang/20240423171659.png" style="zoom:67%;"></td>
 </tr>
 </tbody></table>
-<p>路由器型号是 <a href="https://u.jd.com/Zz1YQGx" target="_blank" rel="noopener">AX3000T</a>，性价比还是很高，我买的 190，现在降价了，169 。网线分线器是 <a href="https://u.jd.com/ZbgpIRt" target="_blank" rel="noopener">绿联的 5 口分线器</a>，不过你可能也用不上，这要看你的网线情况。如果你还没有装修，建议在装修时，可以直接在两个路由器的之间预留一根网线。</p>
+<p>路由器型号是 <a href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQcJK1olXDYCVV9cD0wXC2wOHlslGVlaCgFtUQ5SQi0DBUVNGFJeSwUIFxlJX3EIGloUWgECXF1bDUsIWipURmsRNmNmSgFbTi5vfShTAQ9wFVBlAQwtBEcnAl8LGlgUXgUEVVZcOHsXBF9edVsUXAcDVVtdC0knAl8IHVgQWAABVVtaDEsQM2gIEmtOCGgEBAoOCxgWCzpdHlsWbTYyV25aCEIDBR1JSU8TLzYyVG5eOEsWA2YME10TVAQKSF5eAUsTCnMIHVgQWAABVVteAUMRM20JGl8cbTYyVgE7bEhiaDh4fylCXFlqA1YPQDUfAD11dVlHGmdhIBY_VDtsAQpjUA9oXTYHZA" target="_blank" rel="noopener">AX3000T</a>，性价比还是很高，我买的 190，现在降价了，169 。网线分线器是 <a href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQ8JK1olVQcAVF1YDEsSM28JGlIVXgAKUV5UAEIRMytXQwVKbV9HER8fA1UJWypcR0ROCBlQCgJDCEoWCm8LHVMQXQ8KXVhCUQ5LXl9bYEV2VE1JDzslegwJVjZYHiBsR25UWFJtCXsUAmwJGFgTXA4DZG5dD3tWbWwIGF0QVDYDZF5bC04SBWwIHlIRXg4yU15UOBBCbWlYTwgWDgcKAQtYCEgnM18LK1wVVBIEJh8PHE1lM18IK1glXQcCXF1dCUMTBGkUG1kWXQEGSF5bC04SBWwIHlwUWQ8yVl9cDEInM18IfQZeIQ5nC1haXjNxCj90fFNyHkJ1XRwzCi5_QBUJRwJ9W1phIwokYRJlM2o4" target="_blank" rel="noopener">绿联的 5 口分线器</a>，不过你可能也用不上，这要看你的网线情况。如果你还没有装修，建议在装修时，可以直接在两个路由器的之间预留一根网线。</p>
 <h2 id="如何低成本玩-NAS"><a href="#如何低成本玩-NAS" class="headerlink" title="如何低成本玩 NAS"></a>如何低成本玩 NAS</h2><p>如何低成本玩 NAS？如果你有一个可以 24 小时开机的、可以兼当 NAS 主机的设备：</p>
 <ul>
 <li>如可以连接外接硬盘的路由器或软路由</li>
@@ -448,16 +448,16 @@
 <p>你就可以不用专门购买成品 NAS 主机，如极空间或群晖的 NAS 主机。你就可以省下这部分成本，实现低成本玩 NAS。NAS 的成本就是你的购买存储设备的成本，如硬盘。</p>
 <p>我也买过极空间的 Q2C NAS 主机，但发现其并不适合我，如果想了解具体原因，可以看我<a href="https://depp.wang/2023/11/28/mac-mini-doubles-as-a-nas/">这篇文章</a>。</p>
 <p>硬盘有几种，移动硬盘，固态硬盘，机械硬盘。如果你原来有硬盘，那你可以直接用。</p>
-<p>如果是新购买，一般来说，做 NAS 就是想要大容量，所以一般是买机械硬盘，机械硬盘一般买 4T 及以上，性价比最高，4T 以下更建议买固态硬盘。我是买的 3.5 寸的 <a href="https://u.jd.com/ZQDvUx2" target="_blank" rel="noopener">西数红盘 Plus</a> 4T 版本，我买的 720 左右。</p>
+<p>如果是新购买，一般来说，做 NAS 就是想要大容量，所以一般是买机械硬盘，机械硬盘一般买 4T 及以上，性价比最高，4T 以下更建议买固态硬盘。我是买的 3.5 寸的 <a href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQcJK1olXDYCVV9cDU0TC2wOEl8lGVlaCgFtUQ5SQi0DBUVNGFJeSwUIFxlJX3EIGloUWAAGXF1bAU8IWipURmtmGW4LXBtYVClcYWlDcFNdAFh-MAwLBEcnAl8LGlgUXgUEVVZcOHsXBF9edVsUXAcDVV9YAE8nAl8IHVgQWAABV1pVCE8VM2gIEmtOCGgEBAoOCxgWCzpdHlsWbTYyV25aCEIDBR1JSU8TLzYyVG5eOEsWA2cKGlkWXQALSF5aDUoeA3MIHVgQWAABV1pYDkkSM20JGl8cbTYyAgA4fD9xdxhTSAlNBwJ1IRsvexZfCgZIdVldGU9kPQgtchB3ZxNcSQhxXjYHZA" target="_blank" rel="noopener">西数红盘 Plus</a> 4T 版本，我买的 720 左右。</p>
 <img src="https://hexoblog.r2.depp.wang/20240423171950.png" style="zoom:30%;">
-如果我们只用一块硬盘，如果硬盘损坏，就存在数据丢失的风险，要保证数据安全，我们可以用多块硬盘对数据进行备份。组织多块硬盘一起工作叫磁盘阵列（RAID），磁盘阵列有很多模式，如：RAID 0，RAID 1 等，我是用的 RAID 1 ，我买了两块  [西数红盘 Plus](https://u.jd.com/ZQDvUx2) 4T 硬盘做 RAID 1，其中一块做另一块的镜像，完整备份所有内容，虽然会损失一半的储存空间，但这是花费最少，且很安全的方案。对我来说 4T 也够用了。
+如果我们只用一块硬盘，如果硬盘损坏，就存在数据丢失的风险，要保证数据安全，我们可以用多块硬盘对数据进行备份。组织多块硬盘一起工作叫磁盘阵列（RAID），磁盘阵列有很多模式，如：RAID 0，RAID 1 等，我是用的 RAID 1 ，我买了两块  [西数红盘 Plus](https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQcJK1olXDYCVV9cDU0TC2wOEl8lGVlaCgFtUQ5SQi0DBUVNGFJeSwUIFxlJX3EIGloUWAAGXF1bAU8IWipURmtmGW4LXBtYVClcYWlDcFNdAFh-MAwLBEcnAl8LGlgUXgUEVVZcOHsXBF9edVsUXAcDVV9YAE8nAl8IHVgQWAABV1pVCE8VM2gIEmtOCGgEBAoOCxgWCzpdHlsWbTYyV25aCEIDBR1JSU8TLzYyVG5eOEsWA2cKGlkWXQALSF5aDUoeA3MIHVgQWAABV1pYDkkSM20JGl8cbTYyAgA4fD9xdxhTSAlNBwJ1IRsvexZfCgZIdVldGU9kPQgtchB3ZxNcSQhxXjYHZA) 4T 硬盘做 RAID 1，其中一块做另一块的镜像，完整备份所有内容，虽然会损失一半的储存空间，但这是花费最少，且很安全的方案。对我来说 4T 也够用了。
 
 <p>如果你原来就有硬盘，你可以根据自己的数据安全需求，判断要不要再可以再买一块硬盘做磁盘阵列。</p>
 <p>机械硬盘不像移动硬盘，它没有连接接口，需要套一个移动硬盘盒，才能连接到其它设备使用，如果你只买一个机械硬盘，那你可以买一个像这种移动硬盘盒配。</p>
 <img src="https://hexoblog.r2.depp.wang/20240423172010.png" style="zoom:30%;">
 
 
-<p>如果多个硬盘就是用来做 NAS，不会当移动硬盘用，或者需要「硬 RAID」功能，那可以买这种磁盘阵列柜，我用 2 个机械硬盘，所以我买的 <a href="https://u.jd.com/ZQDNOeP" target="_blank" rel="noopener">绿联双盘位硬盘柜</a>，我买的 320 左右。</p>
+<p>如果多个硬盘就是用来做 NAS，不会当移动硬盘用，或者需要「硬 RAID」功能，那可以买这种磁盘阵列柜，我用 2 个机械硬盘，所以我买的 <a href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQcJK1olXDYCVV9cC0gWC2gLHF8lGVlaCgFtUQ5SQi0DBUVNGFJeSwUIFxlJX3EIGloUXgUDXFleD08IWipURmtoBW1lP0QvTysWeQRPRSdeRwNfBhgtBEcnAl8LGlgUXgUEVVZcOHsXBF9edVsUXAcDVV1bCE0nAl8IHVgQWAABUVlcAUIXM2gIEmtOCGgEBAoOCxgWCzpdHlsWbTYyV25aCEIDBR1JSU8TLzYyVG5eOEsWA2cLGlIVVQ8BSF5fCEgUAnMIHVgQWAABUVpUC0ITM20JGl8cbTYyDg0nDRNwURUJbzpHCA8KDi4bATQUBBlRdVkcWWFZEgYgQUpkAw1pYAhTWDYHZA" target="_blank" rel="noopener">绿联双盘位硬盘柜</a>，我买的 320 左右。</p>
 <img src="https://hexoblog.r2.depp.wang/20240423172020.png" style="zoom:30%;">
 
 
@@ -593,7 +593,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
         
       </div>
     
@@ -629,7 +629,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            

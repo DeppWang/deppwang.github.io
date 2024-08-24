@@ -107,7 +107,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2021-01-23-054359.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2021-01-23-054421.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2021-01-23-054538.png">
-<meta property="og:updated_time" content="2024-07-30T03:13:12.178Z">
+<meta property="og:updated_time" content="2024-08-24T04:14:39.681Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git 笔记：常用命令与原理">
 <meta name="twitter:description" content="一、安装 Git Windows：下载并安装 Git. Mac：使用 Homebrew, MacPorts 或者下载 安装程序。 Linux (Ubuntu, Debian)：sudo apt-get install git-core Linux (Fedora, Red Hat, CentOS)：sudo yum install git-core">
@@ -148,7 +148,7 @@
   <title>Git 笔记：常用命令与原理 | 德普王</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -173,7 +173,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -310,16 +310,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2019/09/23/git-note/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -374,7 +374,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Software-Website/" itemprop="url" rel="index">
                     <span itemprop="name">Software & Website</span>
                   </a>
@@ -523,7 +523,7 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 忽略除 .sh/.py 结尾的其他文件</span></span><br><span class="line">*</span><br><span class="line">!*.sh</span><br><span class="line">!*.py</span><br></pre></td></tr></table></figure>
 
 <p>项目协作时，本地修改某个文件，但不想将修改提交到远程。可以使用 「skip-worktree」来关闭 GIT 跟踪本地文件修改</p>
-<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">update</span>-<span class="keyword">index</span> <span class="comment">--skip-worktree /Users/yanjie/Workspace/medweb/.PYTHON.sh</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">update</span>-<span class="keyword">index</span> <span class="comment">--skip-worktree /Users/yanjie/Workspace/medweb/.PYTHON.sh</span></span><br></pre></td></tr></table></figure>
 
 <!--1. 在项目根目录上查看是否有.gitignore 文件，没有就用 notepad++ 新增一个。-->
 
@@ -547,11 +547,11 @@
 <h2 id="四、原理"><a href="#四、原理" class="headerlink" title="四、原理"></a>四、原理</h2><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135148.png" alt="image.png"></p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135204.png" alt="image.png"></p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135209.png" alt="image.png"></p>
-<h3 id="Rebase"><a href="#Rebase" class="headerlink" title="Rebase"></a>Rebase</h3><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2021-01-23-054326.png" alt=""></p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2021-01-23-054344.png" alt=""></p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2021-01-23-054359.png" alt=""></p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2021-01-23-054421.png" alt=""></p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2021-01-23-054538.png" alt=""></p>
+<h3 id="Rebase"><a href="#Rebase" class="headerlink" title="Rebase"></a>Rebase</h3><p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2021-01-23-054326.png" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2021-01-23-054344.png" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2021-01-23-054359.png" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2021-01-23-054421.png" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2021-01-23-054538.png" alt></p>
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
 <li><a href="https://www.liaoxuefeng.com/wiki/896043488029600" target="_blank" rel="noopener">廖雪峰大佬 Git 教程</a></li>
 <li><a href="https://gitee.com/liaoxuefeng/learn-java/raw/master/teach/git-cheatsheet.pdf" target="_blank" rel="noopener">git-cheatsheet</a></li>
@@ -688,7 +688,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
         
       </div>
     
@@ -724,7 +724,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
