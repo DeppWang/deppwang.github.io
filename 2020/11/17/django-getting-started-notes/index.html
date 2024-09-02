@@ -100,7 +100,7 @@
 <meta property="og:description" content="WSGIWSGI：（Web Server Gateway Interface，Web 服务端网关接口）。在不借助框架的情况下，直接使用 WSGI 来开发简易服务端。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/2020-11-16-133323-20240522135553532.png">
-<meta property="og:updated_time" content="2024-08-25T00:58:14.527Z">
+<meta property="og:updated_time" content="2024-09-02T14:16:21.084Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Django 入门笔记">
 <meta name="twitter:description" content="WSGIWSGI：（Web Server Gateway Interface，Web 服务端网关接口）。在不借助框架的情况下，直接使用 WSGI 来开发简易服务端。">
@@ -141,7 +141,7 @@
   <title>Django 入门笔记 | 德普王</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -166,7 +166,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -311,16 +311,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2020/11/17/django-getting-started-notes/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -426,7 +426,7 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[21:32:30] ~/workspace/demo ❱❱❱ python3 server.py</span><br><span class="line">Serving HTTP on port 8000...</span><br></pre></td></tr></table></figure>
 
 <p><code>http://localhost:8000/</code></p>
-<p><img src="https://hexoblog.r2.depp.wang/2020-11-16-133323-20240522135553532.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/2020-11-16-133323-20240522135553532.png" alt></p>
 <ul>
 <li><a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017806472608512" target="_blank" rel="noopener">WSGI 接口</a></li>
 <li><a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017806472608512" target="_blank" rel="noopener">使用 Web 框架</a></li>
@@ -526,7 +526,7 @@
 <h3 id="migrate「迁移」"><a href="#migrate「迁移」" class="headerlink" title="migrate「迁移」"></a>migrate「迁移」</h3><p>执行 makemigrations 命令，将根据 models.py 生成一个对数据库修改的记录，称为「迁移」，修改 models.py 后，多次执行，将生成多个「迁移」</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> python3 manage.py makemigrations polls</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> python manage.py makemigrations polls</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight clean"><table><tr><td class="code"><pre><span class="line">mysite/</span><br><span class="line">    manage.py  # </span><br><span class="line">    mysite/    # 包名</span><br><span class="line">		...</span><br><span class="line">    polls/</span><br><span class="line">    	migrations/</span><br><span class="line">        	<span class="number">0001</span>_initial.py</span><br><span class="line">        	<span class="number">0002</span>_auto_20201116_1316.py</span><br></pre></td></tr></table></figure>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">mysite/</span><br><span class="line">    manage.py  <span class="comment"># </span></span><br><span class="line">    mysite/    <span class="comment"># 包名</span></span><br><span class="line">		<span class="string">...</span></span><br><span class="line">    polls/</span><br><span class="line">    	migrations/</span><br><span class="line">        	0001_initial.py</span><br><span class="line">        	0002_auto_20201116_1316.py</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 0001_initial.py</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Migration</span><span class="params">(migrations.Migration)</span>:</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
 
@@ -543,7 +543,7 @@
 </ul>
 <!--需要首先执行一下：`python3 manage.py migrate` 否则将报下面这个错误?-->
 
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">(ENV) [18:50:42] ~/workspace/demo-project git(master) ❱❱❱ python manage.py runserver</span><br><span class="line">WARNING:root:[cy_settings] IS_FOR_TESTCASE=True, configcenter setup for testcase</span><br><span class="line">WARNING:root:[cy_settings] IS_FOR_TESTCASE=True, configcenter setup for testcase</span><br><span class="line">Performing system checks...</span><br><span class="line"></span><br><span class="line">System <span class="keyword">check</span> <span class="keyword">identified</span> <span class="keyword">no</span> issues (<span class="number">0</span> silenced).</span><br><span class="line"></span><br><span class="line">You have <span class="number">13</span> unapplied <span class="keyword">migration</span>(s). Your <span class="keyword">project</span> may <span class="keyword">not</span> <span class="keyword">work</span> properly <span class="keyword">until</span> you <span class="keyword">apply</span> the migrations <span class="keyword">for</span> app(s): <span class="keyword">admin</span>, auth, contenttypes, sessions.</span><br><span class="line">Run <span class="string">'python manage.py migrate'</span> <span class="keyword">to</span> <span class="keyword">apply</span> them.</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">(ENV) [18:50:42] ~/workspace/demo-project git(master) ❱❱❱ python manage.py runserver</span><br><span class="line">WARNING:root:[cy_settings] <span class="attribute">IS_FOR_TESTCASE</span>=<span class="literal">True</span>, configcenter setup <span class="keyword">for</span> testcase</span><br><span class="line">WARNING:root:[cy_settings] <span class="attribute">IS_FOR_TESTCASE</span>=<span class="literal">True</span>, configcenter setup <span class="keyword">for</span> testcase</span><br><span class="line">Performing<span class="built_in"> system </span>checks<span class="built_in">..</span>.</span><br><span class="line"></span><br><span class="line">System check identified <span class="literal">no</span> issues (0 silenced).</span><br><span class="line"></span><br><span class="line">You have 13 unapplied migration(s). Your project may <span class="keyword">not</span> work properly until you apply the migrations <span class="keyword">for</span> app(s): admin, auth, contenttypes, sessions.</span><br><span class="line"><span class="builtin-name">Run</span> <span class="string">'python manage.py migrate'</span> <span class="keyword">to</span> apply them.</span><br></pre></td></tr></table></figure>
 
 <h2 id="Admin"><a href="#Admin" class="headerlink" title="Admin"></a>Admin</h2><p>Admin 为 Django 自带应用，默认在启动时也将启动</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># settings.py</span></span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">'polls.apps.PollsConfig'</span>,  </span><br><span class="line">    <span class="string">'django.contrib.admin'</span>,   </span><br><span class="line">	...</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
@@ -718,7 +718,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
         
       </div>
     
@@ -754,7 +754,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
