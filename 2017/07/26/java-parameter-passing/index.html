@@ -101,7 +101,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135821.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135824.png">
-<meta property="og:updated_time" content="2024-09-02T14:16:21.088Z">
+<meta property="og:updated_time" content="2024-09-02T14:39:19.972Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 的参数传递">
 <meta name="twitter:description" content="一、传值和传址（引用）Java 的参数传递分为传递基本数据类型（传值）和传递引用数据类型（传址）">
@@ -142,7 +142,7 @@
   <title>Java 的参数传递 | 德普王</title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -167,7 +167,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -312,16 +312,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2017/07/26/java-parameter-passing/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -415,7 +415,7 @@
 
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">(Test test, <span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        test.name = <span class="string">"test2"</span>;</span><br><span class="line">        i = <span class="number">2</span>;</span><br><span class="line">        System.out.println(i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Demo demo = <span class="keyword">new</span> Demo();</span><br><span class="line">        Test test = <span class="keyword">new</span> Test();</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">        demo.fun(test, i);</span><br><span class="line">        System.out.print(test.name + <span class="string">" and "</span> + i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    String name = <span class="string">"test"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"><span class="number">2</span></span><br><span class="line">test2 and <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">2</span></span><br><span class="line">test2 <span class="keyword">and</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
 
 <p>对于基本数据类型，当我们修改传递的值，原来的值不会改变，所以传递的是值的拷贝。值的拷贝在一块儿新的内存中。</p>
 <p>对于引用数据类型，当我们通过传递的引用变量修改对象的属性，原引用指向的对象也将改变，所以没有将对象的数据拷贝传递，传递的是指向对象的引用变量，即对象的地址。当然，引用变量是值传递，引用变量的拷贝在一块儿新的内存中。</p>
@@ -425,7 +425,7 @@
 
 <h2 id="二、String-的参数传递"><a href="#二、String-的参数传递" class="headerlink" title="二、String 的参数传递"></a>二、String 的参数传递</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    String str = <span class="keyword">new</span> String(<span class="string">"hello"</span>);</span><br><span class="line">    <span class="keyword">char</span>[] ch = &#123;<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">(String str, <span class="keyword">char</span>[] ch)</span> </span>&#123;</span><br><span class="line">        str = <span class="string">"world"</span>;</span><br><span class="line">        ch[<span class="number">0</span>] = <span class="string">'d'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Demo demo = <span class="keyword">new</span> Demo();</span><br><span class="line">        demo.fun(demo.str, demo.ch);</span><br><span class="line">        System.out.print(demo.str + <span class="string">" and "</span>);</span><br><span class="line">        System.out.print(demo.ch);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="symbol">hello</span> <span class="keyword">and </span>dbc</span><br></pre></td></tr></table></figure>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">hello <span class="keyword">and</span> dbc</span><br></pre></td></tr></table></figure>
 
 <ol>
 <li><strong>局部变量 str 和全局变量 str 这 2 个名称相同变量，但内存位置不同的值都是 0x1001（假设）</strong></li>
@@ -439,7 +439,7 @@
 </ol>
 <p>IDEA 调试图如下：</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135824.png" alt="image"></p>
-<h3 id="2-1、理解引用存放地址"><a href="#2-1、理解引用存放地址" class="headerlink" title="2.1、理解引用存放地址"></a>2.1、理解引用存放地址</h3><figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Book </span>a == new <span class="keyword">Book();// </span>对象 <span class="number">1</span></span><br><span class="line"><span class="keyword">Book </span><span class="keyword">b </span>== new <span class="keyword">Book();// </span>对象 <span class="number">2</span></span><br><span class="line"><span class="keyword">b </span>= a<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-1、理解引用存放地址"><a href="#2-1、理解引用存放地址" class="headerlink" title="2.1、理解引用存放地址"></a>2.1、理解引用存放地址</h3><figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Book </span>a == new <span class="keyword">Book();// </span>对象 <span class="number">1</span></span><br><span class="line"><span class="keyword">Book </span><span class="keyword">b </span>== new <span class="keyword">Book();// </span>对象 <span class="number">2</span></span><br><span class="line"><span class="keyword">b </span>= a<span class="comment">;</span></span><br></pre></td></tr></table></figure>
 
 <p>问：那个对象会被回收？<br>答：对象 2，因为将引用 a 中存放对象 1 的地址赋值给了引用 b，所以引用 b 将 “指向” 对象 1，对象 2 将被回收。</p>
 <h2 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h2><p>可以将地址视为值，所以传值和传址都可以视为传值。</p>
@@ -579,7 +579,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
+          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
         
       </div>
     
@@ -615,7 +615,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
@@ -641,7 +641,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">303</span>
+                <span class="site-state-item-count">310</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -73,7 +73,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Shiro,">
+  <meta name="keywords" content="技术,Spring Boot,Shiro,">
 
 
 
@@ -92,7 +92,7 @@
 
 
 <meta name="description" content="作者：DeppWang、原文地址  一、Shiro 登陆架构下面是 Shiro 的用户登陆架构图，我们根据箭头来看一下流程。  1、Token：使用用户的登录信息创建令牌UsernamePasswordToken token = new UsernamePasswordToken(username, password, true);  我们要先通过用户名和密码，生成一个 token，token">
-<meta name="keywords" content="Shiro">
+<meta name="keywords" content="技术,Spring Boot,Shiro">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在 SpringBoot2 中使用 Apache Shiro 实现登录身份验证和访问权限控制">
 <meta property="og:url" content="https://depp.wang/2019/01/26/springboot2-apache-shiro/index.html">
@@ -100,7 +100,7 @@
 <meta property="og:description" content="作者：DeppWang、原文地址  一、Shiro 登陆架构下面是 Shiro 的用户登陆架构图，我们根据箭头来看一下流程。  1、Token：使用用户的登录信息创建令牌UsernamePasswordToken token = new UsernamePasswordToken(username, password, true);  我们要先通过用户名和密码，生成一个 token，token">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135431.png">
-<meta property="og:updated_time" content="2024-09-02T14:16:21.092Z">
+<meta property="og:updated_time" content="2024-09-02T14:39:19.976Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 SpringBoot2 中使用 Apache Shiro 实现登录身份验证和访问权限控制">
 <meta name="twitter:description" content="作者：DeppWang、原文地址  一、Shiro 登陆架构下面是 Shiro 的用户登陆架构图，我们根据箭头来看一下流程。  1、Token：使用用户的登录信息创建令牌UsernamePasswordToken token = new UsernamePasswordToken(username, password, true);  我们要先通过用户名和密码，生成一个 token，token">
@@ -141,7 +141,7 @@
   <title>在 SpringBoot2 中使用 Apache Shiro 实现登录身份验证和访问权限控制 | 德普王</title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -166,7 +166,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -311,16 +311,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2019/01/26/springboot2-apache-shiro/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -363,28 +363,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Boot/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring Boot</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -456,7 +434,7 @@
 <p>为使用热部署，配置  <code>&lt;build&gt;&lt;/build&gt;</code></p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://localhost:3306/springboot_shiro?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=UTC</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">password:</span> <span class="number">12345678</span></span><br><span class="line">    <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">thymeleaf:</span></span><br><span class="line">    <span class="attr">cache:</span> <span class="literal">false</span> <span class="comment"># 禁用模板引擎编译的缓存结果。由热部署来实现，更改代码后，使用 Ctrl+F9(IDEA) 更新</span></span><br><span class="line">    <span class="attr">mode:</span> <span class="string">LEGACYHTML5</span> <span class="comment"># 避免 thymeleaf 对 html 文件的严格校验（如检查标签必须对称等）</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 使用 jpa 技术，运行实体代码自动生成数据表</span></span><br><span class="line">  <span class="attr">jpa:</span></span><br><span class="line">    <span class="attr">database:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">show-sql:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">hibernate:</span></span><br><span class="line">      <span class="attr">ddl-auto:</span> <span class="string">update</span></span><br><span class="line">    <span class="attr">properties:</span></span><br><span class="line">        <span class="attr">hibernate:</span></span><br><span class="line">          <span class="attr">dialect:</span> <span class="string">org.hibernate.dialect.MySQL5Dialect</span></span><br><span class="line"></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">9090</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    url:</span> <span class="attr">jdbc:mysql://localhost:3306/springboot_shiro?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=UTC</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    password:</span> <span class="number">12345678</span></span><br><span class="line"><span class="attr">    driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  thymeleaf:</span></span><br><span class="line"><span class="attr">    cache:</span> <span class="literal">false</span> <span class="comment"># 禁用模板引擎编译的缓存结果。由热部署来实现，更改代码后，使用 Ctrl+F9(IDEA) 更新</span></span><br><span class="line"><span class="attr">    mode:</span> <span class="string">LEGACYHTML5</span> <span class="comment"># 避免 thymeleaf 对 html 文件的严格校验（如检查标签必须对称等）</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment"># 使用 jpa 技术，运行实体代码自动生成数据表</span></span><br><span class="line"><span class="attr">  jpa:</span></span><br><span class="line"><span class="attr">    database:</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">    show-sql:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    hibernate:</span></span><br><span class="line"><span class="attr">      ddl-auto:</span> <span class="string">update</span></span><br><span class="line"><span class="attr">    properties:</span></span><br><span class="line"><span class="attr">        hibernate:</span></span><br><span class="line"><span class="attr">          dialect:</span> <span class="string">org.hibernate.dialect.MySQL5Dialect</span></span><br><span class="line"></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line"><span class="attr">  port:</span> <span class="number">9090</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h3><p>使用基于角色的访问控制 (Role-Based Access Control)—RBAC 来实现数据库设计，用户依赖角色，角色依赖权限。这样设计结构清晰，管理方便。建立三张表：user_info，sys_role，sys_permission。使用 sys_user_role 关联用户和角色，使用 sys_role_permission 关联角色和权限，不使用外键。</p>
 <p>使用 jpa 技术，运行实体代码自动生成数据表。</p>
@@ -526,10 +504,10 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Boolean isPermitted = SecurityUtils.getSubject().isPermitted(<span class="string">"***"</span>);<span class="comment">// 是否有什么权限</span></span><br><span class="line">Boolean hasRole = SecurityUtils.getSubject().hasRole(<span class="string">"***"</span>);<span class="comment">// 是否有什么角色</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="登陆实现"><a href="#登陆实现" class="headerlink" title="登陆实现"></a>登陆实现</h3><p>前端登陆页面：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span> <span class="attr">xmlns:th</span>=<span class="string">"http://www.thymeleaf.org"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Login<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">错误信息：<span class="tag">&lt;<span class="name">h4</span> <span class="attr">th:text</span>=<span class="string">"$&#123;msg&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">""</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span> 账号：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"admin"</span>/&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span> 密码：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"123456"</span>/&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">" 登录 "</span>/&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span> <span class="attr">xmlns:th</span>=<span class="string">"http://www.thymeleaf.org"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Login<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">错误信息：<span class="tag">&lt;<span class="name">h4</span> <span class="attr">th:text</span>=<span class="string">"$&#123;msg&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">""</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span> 账号：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"admin"</span>/&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span> 密码：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"123456"</span>/&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">" 登录 "</span>/&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>登陆接口：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toLogin</span><span class="params">(HttpServletRequest request, Map&lt;String, Object&gt; map)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"HomeController.login()"</span>);</span><br><span class="line">        <span class="comment">// 登录失败从 request 中获取 shiro 处理的异常信息。</span></span><br><span class="line">        <span class="comment">// shiroLoginFailure: 就是 shiro 异常类的全类名.</span></span><br><span class="line">        String exception = (String) request.getAttribute(<span class="string">"shiroLoginFailure"</span>);</span><br><span class="line">        System.out.println(<span class="string">"exception="</span> + exception);</span><br><span class="line">        String msg = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">if</span> (exception != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (UnknownAccountException<span class="class">.<span class="keyword">class</span>.<span class="title">getName</span>().<span class="title">equals</span>(<span class="title">exception</span>)) </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"UnknownAccountException -- &gt; 账号不存在："</span>);</span><br><span class="line">                msg = <span class="string">"UnknownAccountException -- &gt; 账号不存在："</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (IncorrectCredentialsException<span class="class">.<span class="keyword">class</span>.<span class="title">getName</span>().<span class="title">equals</span>(<span class="title">exception</span>)) </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"IncorrectCredentialsException -- &gt; 密码不正确："</span>);</span><br><span class="line">                msg = <span class="string">"IncorrectCredentialsException -- &gt; 密码不正确："</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"kaptchaValidateFailed"</span>.equals(exception)) &#123;</span><br><span class="line">                System.out.println(<span class="string">"kaptchaValidateFailed -- &gt; 验证码错误 "</span>);</span><br><span class="line">                msg = <span class="string">"kaptchaValidateFailed -- &gt; 验证码错误 "</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                msg = <span class="string">"else &gt;&gt; "</span>+exception;</span><br><span class="line">                System.out.println(<span class="string">"else -- &gt;"</span> + exception);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        map.put(<span class="string">"msg"</span>, msg);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"login"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(&#123;<span class="string">"/"</span>,<span class="string">"/index"</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">index</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"index"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toLogin</span><span class="params">(HttpServletRequest request, Map&lt;String, Object&gt; map)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"HomeController.login()"</span>);</span><br><span class="line">        <span class="comment">// 登录失败从 request 中获取 shiro 处理的异常信息。</span></span><br><span class="line">        <span class="comment">// shiroLoginFailure: 就是 shiro 异常类的全类名.</span></span><br><span class="line">        String exception = (String) request.getAttribute(<span class="string">"shiroLoginFailure"</span>);</span><br><span class="line">        System.out.println(<span class="string">"exception="</span> + exception);</span><br><span class="line">        String msg = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">if</span> (exception != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (UnknownAccountException.class.getName().equals(exception)) &#123;</span><br><span class="line">                System.out.println(<span class="string">"UnknownAccountException -- &gt; 账号不存在："</span>);</span><br><span class="line">                msg = <span class="string">"UnknownAccountException -- &gt; 账号不存在："</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (IncorrectCredentialsException.class.getName().equals(exception)) &#123;</span><br><span class="line">                System.out.println(<span class="string">"IncorrectCredentialsException -- &gt; 密码不正确："</span>);</span><br><span class="line">                msg = <span class="string">"IncorrectCredentialsException -- &gt; 密码不正确："</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"kaptchaValidateFailed"</span>.equals(exception)) &#123;</span><br><span class="line">                System.out.println(<span class="string">"kaptchaValidateFailed -- &gt; 验证码错误 "</span>);</span><br><span class="line">                msg = <span class="string">"kaptchaValidateFailed -- &gt; 验证码错误 "</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                msg = <span class="string">"else &gt;&gt; "</span>+exception;</span><br><span class="line">                System.out.println(<span class="string">"else -- &gt;"</span> + exception);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        map.put(<span class="string">"msg"</span>, msg);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"login"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(&#123;<span class="string">"/"</span>,<span class="string">"/index"</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">index</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"index"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>你可能发现了，登陆没有用文章开头的 Subject 执行登陆动作，而是直接使用 action=”” 的表单登录。<br>为什么 action=”” 呢，这是因为设置了 <code>&quot;/**&quot;, &quot;authc&quot;</code>，当用户没有登陆时，所有 url(/**) 都会被重定向到 /login，而 action=<code>&quot;&quot;</code> 或者 <code>&quot;/login&quot;</code> 将不被拦截，doGetAuthenticationInfo() 验证表单中的账号密码。</p>
 <h4 id="使用-Subject-执行登陆动作"><a href="#使用-Subject-执行登陆动作" class="headerlink" title="使用 Subject 执行登陆动作"></a>使用 Subject 执行登陆动作</h4><p>那如何使用 Subject 执行登陆动作呢，需要使用 <code>user</code> 过滤器。当没有登录时，user 跟 authc 一样，会拦截所有的 url。</p>
@@ -595,6 +573,10 @@
     <footer class="post-footer">
       
         <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Spring-Boot/" rel="tag"># Spring Boot</a>
           
             <a href="/tags/Shiro/" rel="tag"># Shiro</a>
           
@@ -672,7 +654,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
+          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
         
       </div>
     
@@ -708,7 +690,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
@@ -734,7 +716,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">303</span>
+                <span class="site-state-item-count">310</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
