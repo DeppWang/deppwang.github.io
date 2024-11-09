@@ -99,7 +99,7 @@
 <meta property="og:site_name" content="德普王">
 <meta property="og:description" content="前言差不多有两个月没更新 blog 了，写博客就像买东西，东西可以什么都买，也可以什么不买，博客也一样，可以什么都写，也可以什么都不写，现在回首看看以前的博客，虽然写得一般，但是重在坚持，还是稍稍有点成就感的。所以还是继续多写写一般般的博客吧  : )。 原来的我的 Hexo 博客网站源文件一直存放在自己笔记本上，现在入职了新公司，公司配了新的笔记本，想在公司笔记本上也能发布博文，所以想找个好方法">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2024-09-02T14:39:19.976Z">
+<meta property="og:updated_time" content="2024-11-09T07:36:59.211Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="换了电脑怎么更新 hexo 博客？">
 <meta name="twitter:description" content="前言差不多有两个月没更新 blog 了，写博客就像买东西，东西可以什么都买，也可以什么不买，博客也一样，可以什么都写，也可以什么都不写，现在回首看看以前的博客，虽然写得一般，但是重在坚持，还是稍稍有点成就感的。所以还是继续多写写一般般的博客吧  : )。 原来的我的 Hexo 博客网站源文件一直存放在自己笔记本上，现在入职了新公司，公司配了新的笔记本，想在公司笔记本上也能发布博文，所以想找个好方法">
@@ -139,7 +139,7 @@
   <title>换了电脑怎么更新 hexo 博客？ | 德普王</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -164,7 +164,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -309,16 +309,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2017/11/12/deploy-hexo-blog/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -440,7 +440,7 @@
 
 </li>
 </ol>
-<h2 id="发布博文出现以下错误提示"><a href="#发布博文出现以下错误提示" class="headerlink" title="发布博文出现以下错误提示"></a>发布博文出现以下错误提示</h2><figure class="highlight vbnet"><table><tr><td class="code"><pre><span class="line">Please make sure you have the correct access rights</span><br><span class="line"><span class="keyword">and</span> the repository exists.</span><br><span class="line">FATAL Something<span class="comment">'s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="keyword">Error</span>: Warning: Permanently added the RSA host <span class="keyword">key</span> <span class="keyword">for</span> IP address <span class="comment">'123.59.85.188' to the list of known hosts.</span></span><br><span class="line">Permission denied (publickey).</span><br><span class="line">fatal: Could <span class="keyword">not</span> read <span class="keyword">from</span> remote repository.</span><br></pre></td></tr></table></figure>
+<h2 id="发布博文出现以下错误提示"><a href="#发布博文出现以下错误提示" class="headerlink" title="发布博文出现以下错误提示"></a>发布博文出现以下错误提示</h2><figure class="highlight subunit"><table><tr><td class="code"><pre><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br><span class="line">FATAL Something's wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html</span><br><span class="line"><span class="keyword">Error: </span>Warning: Permanently added the RSA host key for IP address '123.59.85.188' to the list of known hosts.</span><br><span class="line">Permission denied (publickey).</span><br><span class="line">fatal: Could not read from remote repository.</span><br></pre></td></tr></table></figure>
 
 <p>根据描述可以看出是 IP 有问题，’123.59.85.188’ 没有永久添加在.ssh 文件夹下的 known_hosts 中。通过 <code>ssh -T git@github.com</code> 命令测试显示以下语句：</p>
 <figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">Hi DeppWang! You<span class="symbol">'ve</span> successfully authenticated, but GitHub does <span class="keyword">not</span> provide shell <span class="keyword">access</span>.</span><br></pre></td></tr></table></figure>
@@ -582,7 +582,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
         
       </div>
     
@@ -618,7 +618,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
