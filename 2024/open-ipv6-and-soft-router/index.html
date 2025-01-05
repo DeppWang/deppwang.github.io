@@ -111,7 +111,7 @@
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20240409141917.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20240409142117.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20240409142407.png">
-<meta property="og:updated_time" content="2025-01-05T12:00:21.026Z">
+<meta property="og:updated_time" content="2025-01-05T12:06:47.715Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何给家庭网络免费开启 IPv6 与设置软路由">
 <meta name="twitter:description" content="以下是文字版： 开启 IPv6开启 IPv6 的好处开启 IPv6 的好处就是可以把公网与家庭网络打通，并且是免费的。这可以做到很多事，比如：  我上个视频分享的，你可以把家里面的电脑变为服务器 可以利用 Tailscale 低延迟远程控制家里电脑 让你可以公网访问你家里的 NAS">
@@ -152,7 +152,7 @@
   <title>如何给家庭网络免费开启 IPv6 与设置软路由 | 德普王</title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -177,7 +177,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -322,16 +322,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2024/open-ipv6-and-soft-router/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -434,30 +434,30 @@
 <p>当然，使用 IPv4 公网 IP 也可以，只是现在 IPv4 公网 IP 基本是需要收费的，还不便宜，我这边 IPv4 公网 IP 一个月要100 块，或者要我套餐费用很高才可以给我分配。</p>
 <h3 id="如何开启-IPv6"><a href="#如何开启-IPv6" class="headerlink" title="如何开启 IPv6"></a>如何开启 IPv6</h3><p>现在基本宽带都默认支持 IPv6，只要你的路由器支持，你就可以开启 IPv6。要看路由器是否支持，你可以咨询你的购买商家，也可以登陆你的路由器后台，看是否有支持开启 IPv6 的选项，如果有，代表你路由器支持。</p>
 <p>我是电信宽带、路由器是 <a href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQcJK1olXDYCVV9cD0wXC2wOHlslGVlaCgFtUQ5SQi0DBUVNGFJeSwUIFxlJX3EIGloUWgECXF1bDUsIWipURmsRNmNmSgFbTi5vfShTAQ9wFVBlAQwtBEcnAl8LGlgUXgUEVVZcOHsXBF9edVsUXAcDVVtdC0knAl8IHVgQWAABVVtaDEsQM2gIEmtOCGgEBAoOCxgWCzpdHlsWbTYyV25aCEIDBR1JSU8TLzYyVG5eOEsWA2YME10TVAQKSF5eAUsTCnMIHVgQWAABVVteAUMRM20JGl8cbTYyVgE7bEhiaDh4fylCXFlqA1YPQDUfAD11dVlHGmdhIBY_VDtsAQpjUA9oXTYHZA" target="_blank" rel="noopener">小米 AX3000T</a> ，我发现我即使不使用路由器拨号，路由器即使是 DHCP 模式，只在路由器上开启 IPv6，家里的网络设备也可以获取 IPv6 公网 IP。</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240409140050.png" alt></p>
-<p><img src="https://hexoblog.r2.depp.wang/20240409140215.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240409140050.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240409140215.png" alt=""></p>
 <p>我们可以看出，只要路由器支持，要开启 IPv6，不一定非得将光猫改为桥接模式，使用光猫拨号也可以开启 IPv6 。想把将光猫改为桥接模式，宽带师傅直接远程就可以修改。你也可以找宽带师傅要你光猫的 admin 用户的密码，这样你就可以自己在光猫后台改。</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240407144437.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240407144437.png" alt=""></p>
 <p>光猫拨号与桥接的主要区别就是宽带账号登录的地方不同。在光猫，就是光猫拨号，路由器插上就能用，一般宽带安装默认就是这种模式。在路由器，就是光猫桥接，就是使用路由器拨号。</p>
 <p>使用 <code>ping6 -c 1 240C::6666</code>，就可以判断你是否成功开启了 IPv6。</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240409140320.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240409140320.png" alt=""></p>
 <p>如果返回结果是 240 开头，就代表已经成功开启 IPv6 。</p>
 <p>一旦开启了 IPv6，防火墙很重要，不然就像你的大门不上锁，广迎八方来客。</p>
 <p>我测试发现，当我使用光猫拨号时，即使在后台页面已经关闭光猫和路由器的防火墙了，也无法通过 IPv6 公网 IP 访问局域网设备，其防火墙好像关不掉，可能是运营商光猫默认无法关闭防火墙。</p>
 <p>如果你使用路由器拨号，你一定要开始路由器防火墙，比如我这个路由器在这里开启：</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240409160822.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240409160822.png" alt=""></p>
 <h3 id="只有-IPv6-也可以做那些事"><a href="#只有-IPv6-也可以做那些事" class="headerlink" title="只有 IPv6 也可以做那些事"></a>只有 IPv6 也可以做那些事</h3><p>当有了 IPv6 公网 IP，在防火墙开启时，还是可以做不少事。比如两个设备都有 IPv6，都安装了 Tailscale 并启动，就可以利用 Tailscale 为两个设备建立点对点直连，让两个设备处于一个异地虚拟局域网。IPv6 的点对点直接，延迟很低，只有几十毫秒。这样就可以实现一些功能。比如：远程控制，其中一个设备开启屏幕共享，另一个设备可以远程控制这个设备。还比如：文件共享，你的 NAS 开启「文件共享」，另一个设备就可以查看 NAS 上的文件或视频等。注意，只要有 IPv6，即使防火墙开启也可以做到。</p>
 <p>我使用 Tailscale 而没有使用 ZeroTier 的原因，是因为 Tailscale 给我的体验更好。</p>
 <h2 id="设置软路由"><a href="#设置软路由" class="headerlink" title="设置软路由"></a>设置软路由</h2><p>我们有了 IPv6，但实现有的功能光有 IPv6 还不行。比如我<a href="https://www.youtube.com/watch?v=QTLd2SQVk7s" target="_blank" rel="noopener">上个视频</a>分享这种玩法，我需要使用软路由来配置防火墙规则。</p>
 <h3 id="你是否需要软路由"><a href="#你是否需要软路由" class="headerlink" title="你是否需要软路由"></a>你是否需要软路由</h3><p>你是否需要软路由，换个说法就是软路由有哪些作用，你可以根据软路由作用来判断你是否需要一个软路由。软路由可以做不少事，比如：配置指定防火墙规则，给家庭局域网设置网络代理，兼作 NAS 系统，或者当小型服务器使用，跑点 Docker 什么的。如果你有这方面的需求，可以考虑使用软路由。</p>
 <p>现在有的硬路由，如爱快硬路由，也可以折腾不少东西。像华硕有的路由器也可以设置防火墙。你要根据自己的情况来判断是否需要一个软路由。</p>
 <p>我使用的软路由是电犀牛的 R68s，使用几个月了，还是比较稳定，个人还是比较推荐的。我买的是 419 块，但目前我看淘宝官方店，已经没有卖这款了，还在卖它的一个低配版 <a href="https://m.tb.cn/h.5AvZc2W" target="_blank" rel="noopener">R66s</a>，目前价格 299。它们 CPU 是一样的，R66s 是 2 G 内存，只有 2 个万兆网口，没有磁盘储存，目前我这个 4G 内存基本没有超过 10% 的时候，网口我也只用了 2 个，磁盘也没有用，如果你是轻量使用，买这款也行。</p>
-<h3 id="如何设置软路由"><a href="#如何设置软路由" class="headerlink" title="如何设置软路由"></a>如何设置软路由</h3><p><img src="https://hexoblog.r2.depp.wang/20240409114734.png" alt></p>
+<h3 id="如何设置软路由"><a href="#如何设置软路由" class="headerlink" title="如何设置软路由"></a>如何设置软路由</h3><p><img src="https://hexoblog.r2.depp.wang/20240409114734.png" alt=""></p>
 <p>设置使用软路由很简单，将光猫设置为桥接模式，软路由 WAN 口连接光猫，使用软路由拨号，路由器连接到软路由 LAN 口，电犀牛软路由使用 iStoreOS 系统，它的防火墙默认开启，正常不用修改，使用默认规则就行。注意此时要关闭路由器防火墙。</p>
 <p>电犀牛软路由网段默认是 192.168.100.0/24，我的小米路由器是软路由的子网，网段仍然是192.168.31.0/24 。如果你有智能家居设备，使用软路由也不会影响，这时候软路由相当于光猫，路由器还是原来一样使用，智能家居设备还是在一个子网中。PS：此时光猫是桥接模式，所以无法通过 192.168.1.1 登陆其后台。</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240408160730.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240408160730.png" alt=""></p>
 <p>这是我家的网络图，我有线设备仍连接到路由器上，没有连接到软路由上，因为我想把软路由和路由器放一起，放在电视柜。不想把软路由放弱电箱，弱电箱在鞋柜里面，不太不方便打开，因为电视柜只有两根网线，所以其他设备也不方便连接到软路由上，但也对使用没有什么影响，家里设备也是在路由器的这个局域网中，其他局域网设备也方便访问我局域网中的 NAS。</p>
-<h3 id="软路由系统-iStoreOS-的功能介绍"><a href="#软路由系统-iStoreOS-的功能介绍" class="headerlink" title="软路由系统 iStoreOS 的功能介绍"></a>软路由系统 iStoreOS 的功能介绍</h3><p><img src="https://hexoblog.r2.depp.wang/20240409141306.png" alt></p>
+<h3 id="软路由系统-iStoreOS-的功能介绍"><a href="#软路由系统-iStoreOS-的功能介绍" class="headerlink" title="软路由系统 iStoreOS 的功能介绍"></a>软路由系统 iStoreOS 的功能介绍</h3><p><img src="https://hexoblog.r2.depp.wang/20240409141306.png" alt=""></p>
 <ol>
 <li>首页：可以看到整体概览信息</li>
 <li>网络向导：可以设置宽带拨号连接等</li>
@@ -470,11 +470,11 @@
 <li>网络：可以配置网络规则</li>
 </ol>
 <p>我觉得最重要的是要理解「网络-&gt;防火墙」的这块的规则：</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240409141535.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240409141535.png" alt=""></p>
 <p>很重要一个理解的点是，这里的「入站、出站、转发、动态伪装」针对的的是前面的「区域」，第一行「入站、出站、转发、IP 动态伪装」指的是 LAN 区域，同样，第二行「入站、出站、转发、IP 动态伪装」指的是 WAN 区域。</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240409141917.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240409141917.png" alt=""></p>
 <p>后面的转发指的是「区域内」的转发，前面的转发代表「区域间」的转发：</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240409142117.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240409142117.png" alt=""></p>
 <p><img src="https://hexoblog.r2.depp.wang/20240409142407.png" alt="图片来自 韩非Talk"></p>
 <p>这里的规则理解可以看一下 UP 主「韩非Talk」的<a href="https://www.bilibili.com/video/BV1mt4y1T7qB/" target="_blank" rel="noopener">这个视频</a>，讲得比较浅显易懂。</p>
 <h3 id="我使用软路由遇到的问题"><a href="#我使用软路由遇到的问题" class="headerlink" title="我使用软路由遇到的问题"></a>我使用软路由遇到的问题</h3><p>最后说一下我使用软路由的遇到的一个问题，我发现宽带在没有欠费的情况下，家里过一段时间就没有网，发现重启一下软路由就可以解决这个问题。从宽带师傅了解到宽带运营商会定期重启网络，可能网络重启后，软路由没有读取到最新网络信号就没有连上网。软路由我原来没有设置定时重启，我目前设置了软路由每天定时重启，我再观察一段时间，看是否还会有这个问题。</p>
@@ -615,7 +615,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
+          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
         
       </div>
     
@@ -651,7 +651,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
