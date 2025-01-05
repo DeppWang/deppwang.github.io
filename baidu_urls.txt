@@ -1,3 +1,4 @@
+https://depp.wang/2025/充电宝/
 https://depp.wang/2024/ai-iphone/
 https://depp.wang/2024/my-obsidian-experience/
 https://depp.wang/2024/silicon-valley/
@@ -97,4 +98,3 @@ https://depp.wang/tools/
 https://depp.wang/2019/07/06/why-do-the-leetcode-alogrithm-problem/
 https://depp.wang/2019/06/02/java-primitive-types-and-warpper/
 https://depp.wang/2019/05/17/use-qiniu-jdk-batch-modify-videos-format/
-https://depp.wang/2019/05/17/how-to-direct-download-github-a-file/
