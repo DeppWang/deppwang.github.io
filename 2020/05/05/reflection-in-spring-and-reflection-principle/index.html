@@ -101,7 +101,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-04-29-154427.jpg">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-05-123303.png">
-<meta property="og:updated_time" content="2025-01-09T14:05:45.692Z">
+<meta property="og:updated_time" content="2025-05-20T13:11:45.790Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring 中的反射与反射的原理">
 <meta name="twitter:description" content="作者：DeppWang、原文地址   在造轮子：实现一个简易的 Spring IoC 容器一文中提到 Spring 在创建 Bean 实例和依赖注入时使用了反射，本文来具体分析一下 Spring 中的反射以及反射的原理。">
@@ -142,7 +142,7 @@
   <title>Spring 中的反射与反射的原理 | 德普王</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -167,7 +167,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -312,16 +312,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2020/05/05/reflection-in-spring-and-reflection-principle/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -442,7 +442,7 @@
 
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// sun.reflect.NativeMethodAccessorImpl.java</span></span><br><span class="line"><span class="comment">// 调用 native 方法，var1: bean、var2: propertyBean</span></span><br><span class="line"><span class="keyword">return</span> invoke0(<span class="keyword">this</span>.method, var1, var2);</span><br><span class="line"><span class="comment">// native 方法，运行 class 文件中的字节码指令</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">native</span> Object <span class="title">invoke0</span><span class="params">(Method var0, Object var1, Object[] var2)</span></span>;</span><br></pre></td></tr></table></figure>
 
-<h3 id="1-4、-Autowired-依赖注入时的反射"><a href="#1-4、-Autowired-依赖注入时的反射" class="headerlink" title="1.4、@Autowired 依赖注入时的反射"></a>1.4、@Autowired 依赖注入时的反射</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 通过反射得到当前类所有的字段信息（Field 对象）</span></span><br><span class="line">Field[] fields = bean.getClass().getDeclaredFields();</span><br><span class="line"><span class="comment">// 判断字段是否有 @Autowired 注解</span></span><br><span class="line">Annotation ann = field.getAnnotation(Autowired.class);</span><br><span class="line"><span class="comment">// 设置字段可连接，相当于将非 public（private、default、protect）更改为 public</span></span><br><span class="line">field.setAccessible(<span class="keyword">true</span>);</span><br><span class="line"><span class="comment">// 通过反射设置字段的值</span></span><br><span class="line">field.set(bean, getBean(field.getName()));</span><br></pre></td></tr></table></figure>
+<h3 id="1-4、-Autowired-依赖注入时的反射"><a href="#1-4、-Autowired-依赖注入时的反射" class="headerlink" title="1.4、@Autowired 依赖注入时的反射"></a>1.4、@Autowired 依赖注入时的反射</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 通过反射得到当前类所有的字段信息（Field 对象）</span></span><br><span class="line">Field[] fields = bean.getClass().getDeclaredFields();</span><br><span class="line"><span class="comment">// 判断字段是否有 @Autowired 注解</span></span><br><span class="line">Annotation ann = field.getAnnotation(Autowired<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"><span class="comment">// 设置字段可连接，相当于将非 public（private、default、protect）更改为 public</span></span><br><span class="line">field.setAccessible(<span class="keyword">true</span>);</span><br><span class="line"><span class="comment">// 通过反射设置字段的值</span></span><br><span class="line">field.set(bean, getBean(field.getName()));</span><br></pre></td></tr></table></figure>
 
 <p>bean.getClass().getDeclaredFields(); 中的核心代码：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// java.lang.Class.java</span></span><br><span class="line"><span class="comment">// 调用 native 方法，此时 publicOnly 为 false</span></span><br><span class="line">getDeclaredFields0(publicOnly);</span><br><span class="line"><span class="comment">// native 方法，从 jvm 中获取 class 文件的字段信息，再转换为 Field</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">native</span> Field[]       getDeclaredFields0(<span class="keyword">boolean</span> publicOnly);</span><br></pre></td></tr></table></figure>
@@ -490,7 +490,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 同时生成 Main.class 和 Main.h</span></span><br><span class="line">javac Main.java -h .</span><br><span class="line"><span class="comment">// 根据 Main.c 生成 libMain.dylib</span></span><br><span class="line">gcc -dynamiclib -O3 \</span><br><span class="line">    -I/usr/include \</span><br><span class="line">    -I$JAVA_HOME/include \</span><br><span class="line">    -I$JAVA_HOME/include/darwin \</span><br><span class="line">    Main.c -o libMain.dylib</span><br><span class="line"><span class="comment">// 指定 library 的路径为当前路径</span></span><br><span class="line">java -cp . -Djava.library.path=$(pwd) Main</span><br></pre></td></tr></table></figure>
 
 <p>输出:</p>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* Main.h .h 作为头文件*/</span></span><br><span class="line"><span class="comment">/* DO NOT EDIT THIS FILE - it is machine generated */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;jni.h&gt;</span></span></span><br><span class="line"><span class="comment">/* Header for class Main */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _Included_Main</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _Included_Main</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Class:     Main</span></span><br><span class="line"><span class="comment"> * Method:    intMethod</span></span><br><span class="line"><span class="comment"> * Signature: (I)I</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">JNIEXPORT jint JNICALL Java_Main_intMethod</span><br><span class="line">  (JNIEnv *, jobject, jint);</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
 
@@ -530,7 +530,7 @@
 <li>通过反射 API 实现</li>
 <li>通过 native 方法实现</li>
 </ul>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-05-123303.png" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-05-123303.png" alt></p>
 <p>反射是一种非常规（native 方法实现）方式获取 class 文件信息、运行 class 文件字节码指令和操作对象数据的能力。</p>
 <!--我们可以认为反射就是 native() 方法，可以把它看做一组 API，通过反射 API，可以运行时获取对象的信息，如字段、方法和构造函数，也可以修改字段值和运行方法和构造方法。-->
 
@@ -681,7 +681,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
         
       </div>
     
@@ -717,7 +717,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
@@ -729,7 +729,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">134</span>
+                <span class="site-state-item-count">135</span>
                 <span class="site-state-item-name">文章</span>
               </a>
             </div>
@@ -743,7 +743,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">315</span>
+                <span class="site-state-item-count">319</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

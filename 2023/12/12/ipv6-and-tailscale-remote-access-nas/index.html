@@ -106,7 +106,7 @@
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20231211232018.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20240220190015.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20231210224113.png">
-<meta property="og:updated_time" content="2025-01-09T14:05:45.694Z">
+<meta property="og:updated_time" content="2025-05-20T13:11:45.793Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 IPv6 + Tailscale 实现 NAS 外网访问">
 <meta name="twitter:description" content="在上一篇文章中写到我搭建了 NAS，但没有折腾外网访问功能。这篇文章就写一下我如何实现 NAS 外网访问。 外网访问的方式外部设备要访问家里局域网中设备，最好局域网有一个公网 IP，如果没有公网 IP，就只能使用内网穿透的方式。">
@@ -147,7 +147,7 @@
   <title>使用 IPv6 + Tailscale 实现 NAS 外网访问 | 德普王</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -172,7 +172,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -317,16 +317,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2023/12/12/ipv6-and-tailscale-remote-access-nas/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -420,9 +420,9 @@
 <a id="more"></a>
 
 <h3 id="公网-IP"><a href="#公网-IP" class="headerlink" title="公网 IP"></a>公网 IP</h3><p>由于目前 IPv4 地址不够用，运营商使用 NAT（网络地址转换）技术，可能一个小区才有一个 IPv4 公网 IP，每户只有这个大内网的内网 IP。我使用电信宽带，如果要 IPv4 公网 IP，一个月 100 元。虽然没有 IPv4 公网 IP，但现在宽带基本都分配 IPv6 公网 IP。查看自己宽带是否有 IPv6 公网 IP，可以登录自己路由器后台，看是否有开启 IPv6 按钮。我<a href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQcJK1olXDYCVV9cD0wXC2wOHlslGVlaCgFtUQ5SQi0DBUVNGFJeSwUIFxlJX3EIGloUWgECXF1bDUsIWipURmsRNmNmSgFbTi5vfShTAQ9wFVBlAQwtBEcnAl8LGlgUXgUEVVZcOHsXBF9edVsUXAcDVVtdC0knAl8IHVgQWAABVVtaDEsQM2gIEmtOCGgEBAoOCxgWCzpdHlsWbTYyV25aCEIDBR1JSU8TLzYyVG5eOEsWA2YME10TVAQKSF5eAUsTCnMIHVgQWAABVVteAUMRM20JGl8cbTYyVgE7bEhiaDh4fylCXFlqA1YPQDUfAD11dVlHGmdhIBY_VDtsAQpjUA9oXTYHZA" target="_blank" rel="noopener">小米 AX3000T</a>路由器开启 IPv6 如图所示：</p>
-<p><img src="https://hexoblog.r2.depp.wang/20231211221307.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/20231211221307.png" alt></p>
 <p>开启后，如果 IPv6 地址是数字开头，则代表有 IPv6 公网 IP：</p>
-<p><img src="https://hexoblog.r2.depp.wang/20231211221720.png" alt=""><br>或者在终端软件中使用这行命令查看（<code>240C::6666</code>  是一个 IPv6 公共 DNS 地址）：</p>
+<p><img src="https://hexoblog.r2.depp.wang/20231211221720.png" alt><br>或者在终端软件中使用这行命令查看（<code>240C::6666</code>  是一个 IPv6 公共 DNS 地址）：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ping6 240C::6666</span><br></pre></td></tr></table></figure>
 
 <p>或者访问 <a href="https://www.test-ipv6.com/" target="_blank" rel="noopener">https://www.test-ipv6.com/</a> 在线查看，注意关闭 VPN 等软件。</p>
@@ -439,14 +439,14 @@
 
 <p>通过 VPN（Virtual Private Network）的方式来实现外网访问，即使防火墙完全打开，也没有影响，所以可以直接「使用路由器打开防火墙」。我考虑到后面可能使用 DDNS 或 WebDAV，这些功能需要指定端口放开，不能打开所有防火墙，所以我「使用软路由设置防火墙」。</p>
 <h3 id="使用路由器打开防火墙"><a href="#使用路由器打开防火墙" class="headerlink" title="使用路由器打开防火墙"></a>使用路由器打开防火墙</h3><p>某些路由器，如 <a href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQcJK1olXDYCVV9cD0wXC2wOHlslGVlaCgFtUQ5SQi0DBUVNGFJeSwUIFxlJX3EIGloUWgECXF1bDUsIWipURmsRNmNmSgFbTi5vfShTAQ9wFVBlAQwtBEcnAl8LGlgUXgUEVVZcOHsXBF9edVsUXAcDVVtdC0knAl8IHVgQWAABVVtaDEsQM2gIEmtOCGgEBAoOCxgWCzpdHlsWbTYyV25aCEIDBR1JSU8TLzYyVG5eOEsWA2YME10TVAQKSF5eAUsTCnMIHVgQWAABVVteAUMRM20JGl8cbTYyVgE7bEhiaDh4fylCXFlqA1YPQDUfAD11dVlHGmdhIBY_VDtsAQpjUA9oXTYHZA" target="_blank" rel="noopener">小米路由器 AX3000T</a> 可以配置开启 IPv6 防火墙：</p>
-<p><img src="https://hexoblog.r2.depp.wang/20231211232018.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/20231211232018.png" alt></p>
 <h3 id="使用软路由设置防火墙"><a href="#使用软路由设置防火墙" class="headerlink" title="使用软路由设置防火墙"></a>使用软路由设置防火墙</h3><p>宽带安装时，一般默认设置的光猫拨号（宽带账号+密码），这样路由器默认插上光猫就可以联网，不用额外设置，这种情况，光猫有自己防火墙配置。要使用软路由设置防火墙，则需要使用软路由拨号，此时光猫只是桥接，做一个光信号转电信号的作用。光猫拨号改桥接也很简单，我给客服打电话，客服反应由宽带师傅更改，宽带师傅直接远程就改了，很快。再让宽带师傅把宽带账号密码给你。我使用的<a href="https://detail.tmall.com/item.htm?abbucket=8&id=719602311765&ns=1&spm=a21n57.1.0.0.714b523cCkuHP4&skuId=5188517075573" target="_blank" rel="noopener">电犀牛 R68s</a>软路由，它默认刷了 iStoreOS 系统（基于 OpenWRT），防火墙也配置好了，只需要设置宽带拨号，再将路由器插到软路由上就可以了，此时的软路由相当于原来的光猫，这样智能家居等也不需要重新配置。</p>
 <h2 id="使用-Tailscale-点对点直连"><a href="#使用-Tailscale-点对点直连" class="headerlink" title="使用 Tailscale 点对点直连"></a>使用 Tailscale 点对点直连</h2><p>当有 IPv6 公网 IP，并且设置了防火墙，就可以通过直连实现外网访问。 ZeroTier 和 Tailscale 可以通过中转服务实现内网穿透，当节点都有公网 IP，它们也可以建立点对点的加密隧道，让两个节点直连，不走中转服务，此时网络速度取决于双方的带宽。这提供了更稳定快速的体验。此时外网节点可以访问已连接内网节点所有端口的服务，内网节点也不再需要通过端口暴露服务。 </p>
 <p>我使用下来，发现 Tailscale 比 ZeroTier 更稳定一点，可能是 Tailscale 底层用了 WireGuard 协议。ZeroTier 和 Tailscale 都需要使用 VPN，在 iPhone 中，VPN 同一时间只能使用一个，所以 Tailscale 我使用 AppleID 注册，没有使用 Gmail。</p>
 <p>点对点直连外网访问延迟在 100ms 以内：</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240220190015.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240220190015.png" alt></p>
 <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>使用 Tailscale + IPv6，基本可以跑满上行带宽（30M），看一些小一点的 NAS 中视频基本没有问题。</p>
-<p><img src="https://hexoblog.r2.depp.wang/20231210224113.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/20231210224113.png" alt></p>
 <h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ul>
 <li><a href="https://www.youtube.com/watch?v=nL0-UZSW_24&t=412s" target="_blank" rel="noopener">【硬核】外网访问？内网穿透！零经验上手！| Youtube | 视频</a></li>
 <li><a href="https://www.youtube.com/watch?v=l7pRuK0oEPc&t=2s" target="_blank" rel="noopener">能与 ZeroTier 齐名的内网穿透工具 Tailscale，比 ZeroTier 还好用？| Youtube | 视频</a></li>
@@ -600,7 +600,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
         
       </div>
     
@@ -636,7 +636,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
@@ -648,7 +648,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">134</span>
+                <span class="site-state-item-count">135</span>
                 <span class="site-state-item-name">文章</span>
               </a>
             </div>
@@ -662,7 +662,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">315</span>
+                <span class="site-state-item-count">319</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

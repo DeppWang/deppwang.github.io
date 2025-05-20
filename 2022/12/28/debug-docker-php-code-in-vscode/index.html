@@ -100,7 +100,7 @@
 <meta property="og:description" content="1、PHP 容器中安装 xdebug 依赖php 容器基于 php:8.1.12-fpm # 查看 xdebug 是否已安装php -m | grep xdebug # 安装pecl install xdebug# 开启 xdebugdocker-php-ext-enable xdebug# 重启容器docker restart &amp;lt;your-php-container-name&amp;gt;  开">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20221228180851.png">
-<meta property="og:updated_time" content="2025-01-09T14:05:45.695Z">
+<meta property="og:updated_time" content="2025-05-20T13:11:45.793Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 VSCode 中调试在 Docker 中运行的 PHP 代码">
 <meta name="twitter:description" content="1、PHP 容器中安装 xdebug 依赖php 容器基于 php:8.1.12-fpm # 查看 xdebug 是否已安装php -m | grep xdebug # 安装pecl install xdebug# 开启 xdebugdocker-php-ext-enable xdebug# 重启容器docker restart &amp;lt;your-php-container-name&amp;gt;  开">
@@ -141,7 +141,7 @@
   <title>在 VSCode 中调试在 Docker 中运行的 PHP 代码 | 德普王</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -166,7 +166,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -311,16 +311,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2022/12/28/debug-docker-php-code-in-vscode/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -416,13 +416,13 @@
 <a id="more"></a>
 
 <h2 id="2、修改-xdebug-配置"><a href="#2、修改-xdebug-配置" class="headerlink" title="2、修改 xdebug 配置"></a>2、修改 xdebug 配置</h2><p>容器内 /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">zend_extension=xdebug</span><br><span class="line">xdebug<span class="selector-class">.mode</span> = debug  </span><br><span class="line">xdebug<span class="selector-class">.start_with_request</span> = yes  </span><br><span class="line">xdebug<span class="selector-class">.client_port</span> = <span class="number">9003</span> </span><br><span class="line">xdebug<span class="selector-class">.discover_client_host</span> = true  </span><br><span class="line">xdebug<span class="selector-class">.client_host</span> = host<span class="selector-class">.docker</span><span class="selector-class">.internal</span>  </span><br><span class="line">xdebug<span class="selector-class">.remote_host</span> = host<span class="selector-class">.docker</span><span class="selector-class">.internal</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">zend_extension</span>=xdebug</span><br><span class="line"><span class="attr">xdebug.mode</span> = debug  </span><br><span class="line"><span class="attr">xdebug.start_with_request</span> = <span class="literal">yes</span>  </span><br><span class="line"><span class="attr">xdebug.client_port</span> = <span class="number">9003</span> </span><br><span class="line"><span class="attr">xdebug.discover_client_host</span> = <span class="literal">true</span>  </span><br><span class="line"><span class="attr">xdebug.client_host</span> = host.docker.internal  </span><br><span class="line"><span class="attr">xdebug.remote_host</span> = host.docker.internal</span><br></pre></td></tr></table></figure>
 
 <p>修改后重启容器</p>
 <h2 id="3、VSCode-配置-vscode-launch-json"><a href="#3、VSCode-配置-vscode-launch-json" class="headerlink" title="3、VSCode 配置 .vscode/launch.json"></a>3、VSCode 配置 <code>.vscode/launch.json</code></h2><p>先安装 PHP Debug（xdebug) 插件</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  // Use IntelliSense to learn about possible attributes.</span><br><span class="line">  // Hover to view descriptions of existing attributes.</span><br><span class="line">  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387</span><br><span class="line">  "version": "0.2.0",</span><br><span class="line">  "configurations": [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"name"</span>: <span class="string">"Listen for Xdebug"</span>,</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"php"</span>,</span><br><span class="line">      <span class="attr">"request"</span>: <span class="string">"launch"</span>,</span><br><span class="line">      <span class="attr">"port"</span>: <span class="number">9003</span>,</span><br><span class="line">      <span class="attr">"pathMappings"</span>: &#123;</span><br><span class="line">	    // 容器映射本地</span><br><span class="line">        "/data/project/material/": "$&#123;workspaceFolder&#125;" // /data/project/material/ 路径是自己 PHP Docker 的 WorkingDir</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// Use IntelliSense to learn about possible attributes.</span></span><br><span class="line">  <span class="comment">// Hover to view descriptions of existing attributes.</span></span><br><span class="line">  <span class="comment">// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387</span></span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"0.2.0"</span>,</span><br><span class="line">  <span class="attr">"configurations"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"name"</span>: <span class="string">"Listen for Xdebug"</span>,</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"php"</span>,</span><br><span class="line">      <span class="attr">"request"</span>: <span class="string">"launch"</span>,</span><br><span class="line">      <span class="attr">"port"</span>: <span class="number">9003</span>,</span><br><span class="line">      <span class="attr">"pathMappings"</span>: &#123;</span><br><span class="line">	    <span class="comment">// 容器映射本地</span></span><br><span class="line">        <span class="attr">"/data/project/material/"</span>: <span class="string">"$&#123;workspaceFolder&#125;"</span> <span class="comment">// /data/project/material/ 路径是自己 PHP Docker 的 WorkingDir</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="4、-调试效果"><a href="#4、-调试效果" class="headerlink" title="4、 调试效果"></a>4、 调试效果</h2><p><img src="https://hexoblog.r2.depp.wang/20221228180851.png" alt=""></p>
+<h2 id="4、-调试效果"><a href="#4、-调试效果" class="headerlink" title="4、 调试效果"></a>4、 调试效果</h2><p><img src="https://hexoblog.r2.depp.wang/20221228180851.png" alt></p>
 <h2 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h2><ul>
 <li><a href="https://wuuconix.link/2021/09/04/php-ini/" target="_blank" rel="noopener">快速修改 PHP 镜像中的 php.ini 并生效</a></li>
 <li><a href="https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug" target="_blank" rel="noopener">PHP Debug Adapter for Visual Studio Code</a></li>
@@ -564,7 +564,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
         
       </div>
     
@@ -600,7 +600,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
@@ -612,7 +612,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">134</span>
+                <span class="site-state-item-count">135</span>
                 <span class="site-state-item-name">文章</span>
               </a>
             </div>
@@ -626,7 +626,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">315</span>
+                <span class="site-state-item-count">319</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
