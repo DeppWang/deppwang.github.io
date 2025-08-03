@@ -99,7 +99,7 @@
 <meta property="og:site_name" content="德普王">
 <meta property="og:description" content="所有的类都默认继承 Object 这个基类。 基本数据类型不是类，所以不继承，但它们的封装类继承，使用基本数据类型时会自动封箱为其封装类。equals()、hashCode()、getClass() 和 toString() 是 Object 常用的方法。 equals(Object obj) 方法API，源码： public boolean equals(Object obj) &amp;#123;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2025-05-20T13:11:45.791Z">
+<meta property="og:updated_time" content="2025-08-03T16:10:41.945Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Object 的常用方法">
 <meta name="twitter:description" content="所有的类都默认继承 Object 这个基类。 基本数据类型不是类，所以不继承，但它们的封装类继承，使用基本数据类型时会自动封箱为其封装类。equals()、hashCode()、getClass() 和 toString() 是 Object 常用的方法。 equals(Object obj) 方法API，源码： public boolean equals(Object obj) &amp;#123;">
@@ -145,6 +145,15 @@
 
 
 
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3HG6GE96C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3HG6GE96C');
+</script>
 
 
 
@@ -432,7 +441,7 @@
 
 <p><strong>注意</strong>：在重写 equals() 方法的同时，需要重写 hashCode() 方法，equals() 与 hashCode() 关系：如果两个对象 equal，hashCode 值相同。</p>
 <h2 id="hashCode-方法"><a href="#hashCode-方法" class="headerlink" title="hashCode() 方法"></a>hashCode() 方法</h2><p><a href="https://docs.oracle.com/en/java/javase/12/docs/api/java.base/java/lang/Object.html#hashCode()" target="_blank" rel="noopener">API</a>，源码：</p>
-<figure class="highlight aspectj"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">native</span> <span class="function"><span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
 
 <p>此方法返回一个对象的哈希代码（int 类型），可以理解为对象在堆中的地址，是一个唯一的 ID。</p>
 <p>hashCode() 方法和 equals() 方法的关系：如果两个对象 “equal”，则 hashCode 相等；但如果两个对象 hashCode 值相等，不一定是同一个对象，因为 hashCode 可能重复（冲突）。</p>
