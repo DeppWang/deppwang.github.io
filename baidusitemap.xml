@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://depp.wang/2023/01/28/a-jenkins-email-failure-troubleshooting-process/</loc>
-    <lastmod>2025-08-05</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2022/12/04/read-1984/</loc>
-    <lastmod>2025-08-05</lastmod>
-  </url>  <url>
     <loc>https://depp.wang/2024/elon-musk/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
@@ -14,9 +8,6 @@
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2024/03/19/google-analytics/</loc>
-    <lastmod>2025-08-05</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2022/06/10/learn-use-wubi-experience/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2024/decoration-design/</loc>
@@ -64,13 +55,10 @@
     <loc>https://depp.wang/2023/12/26/aliyundrive-subscribe/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2024/reply-1988/</loc>
+    <loc>https://depp.wang/2023/01/28/a-jenkins-email-failure-troubleshooting-process/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2023/11/15/single-node-rolling-deployment-in-k8s-and-nacos-cluster/</loc>
-    <lastmod>2025-08-05</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2023/12/24/best-space-utilization/</loc>
+    <loc>https://depp.wang/2022/12/04/read-1984/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2022/11/23/iphone-call-to-mac/</loc>
@@ -112,7 +100,10 @@
     <loc>https://depp.wang/2024/my-obsidian-experience/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/tools/</loc>
+    <loc>https://depp.wang/2022/06/10/learn-use-wubi-experience/</loc>
+    <lastmod>2025-08-05</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2023/11/15/single-node-rolling-deployment-in-k8s-and-nacos-cluster/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2024/what-is-nas/</loc>
@@ -148,16 +139,13 @@
     <loc>https://depp.wang/2024/02/26/water-purifier/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
+    <loc>https://depp.wang/2024/reply-1988/</loc>
+    <lastmod>2025-08-05</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2023/12/24/best-space-utilization/</loc>
+    <lastmod>2025-08-05</lastmod>
+  </url>  <url>
     <loc>https://depp.wang/2024/software-payment/</loc>
-    <lastmod>2025-08-05</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2024/03/17/cloudflare-worker-vless/</loc>
-    <lastmod>2025-08-05</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2024/image-from-oss-to-r2/</loc>
-    <lastmod>2025-08-05</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2017/07/21/object-funciton/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2017/07/15/String-ByteCode/</loc>
@@ -199,10 +187,13 @@
     <loc>https://depp.wang/2022/11/21/obsidian_to_hexoblog/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2018/08/14/idea's-common-shortcuts-plugins-and-settings/</loc>
+    <loc>https://depp.wang/tools/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2020/03/27/redirect-404-url-by-js/</loc>
+    <loc>https://depp.wang/2024/03/17/cloudflare-worker-vless/</loc>
+    <lastmod>2025-08-05</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2024/image-from-oss-to-r2/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2019/01/11/share-a-few-useful-websites/</loc>
@@ -244,13 +235,7 @@
     <loc>https://depp.wang/2022/11/22/message-iphone-to-mac/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2020/03/26/how-to-insert-slide-in-markdown/</loc>
-    <lastmod>2025-08-05</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2020/06/11/how-to-find-the-api-of-a-website-eg-note-youdao-com/</loc>
-    <lastmod>2025-08-05</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2019/03/29/deal-miniprogram-video-cann't-play-question/</loc>
+    <loc>https://depp.wang/2017/07/21/object-funciton/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2019/10/30/mysql-note/</loc>
@@ -290,6 +275,12 @@
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2019/09/23/git-note/</loc>
+    <lastmod>2025-08-05</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2018/08/14/idea's-common-shortcuts-plugins-and-settings/</loc>
+    <lastmod>2025-08-05</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2020/03/27/redirect-404-url-by-js/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2020/05/06/static-block-method-and-constructor-method/</loc>
@@ -334,22 +325,13 @@
     <loc>https://depp.wang/2020/10/30/logback-use-summary/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2020/11/07/treeset-in-java/</loc>
+    <loc>https://depp.wang/2020/03/26/how-to-insert-slide-in-markdown/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2020/01/11/java-operator/</loc>
+    <loc>https://depp.wang/2020/06/11/how-to-find-the-api-of-a-website-eg-note-youdao-com/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2017/07/26/java-parameter-passing/</loc>
-    <lastmod>2025-08-05</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2020/07/01/how-many-the-grids-does-water-flow-through/</loc>
-    <lastmod>2025-08-05</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2019/09/07/do-you-have-a-friend-who-is-a-mango-dealer/</loc>
-    <lastmod>2025-08-05</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2019/09/09/how-long-is-the-shortest-time/</loc>
+    <loc>https://depp.wang/2019/03/29/deal-miniprogram-video-cann't-play-question/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2025/apple-watch/</loc>
@@ -388,6 +370,15 @@
     <loc>https://depp.wang/2020/10/26/java-implements-a-custom-distributed-session/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
+    <loc>https://depp.wang/2020/11/07/treeset-in-java/</loc>
+    <lastmod>2025-08-05</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2017/07/26/java-parameter-passing/</loc>
+    <lastmod>2025-08-05</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2020/01/11/java-operator/</loc>
+    <lastmod>2025-08-05</lastmod>
+  </url>  <url>
     <loc>https://depp.wang/2019/09/11/introduction-to-redis-install-cli-commands-and-data-types/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
@@ -404,6 +395,15 @@
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2017/09/14/convert-sorted-array-to-binary-search-tree/</loc>
+    <lastmod>2025-08-05</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2020/07/01/how-many-the-grids-does-water-flow-through/</loc>
+    <lastmod>2025-08-05</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2019/09/07/do-you-have-a-friend-who-is-a-mango-dealer/</loc>
+    <lastmod>2025-08-05</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2019/09/09/how-long-is-the-shortest-time/</loc>
     <lastmod>2025-08-05</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2017/07/24/string-initialization/</loc>
