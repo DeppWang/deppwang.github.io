@@ -170,13 +170,6 @@
   </url>
   
   <url>
-    <loc>https://depp.wang/2022/11/23/iphone-call-to-mac/</loc>
-    
-    <lastmod>2022-11-23</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://depp.wang/2022/12/28/debug-docker-php-code-in-vscode/</loc>
     
     <lastmod>2022-12-28</lastmod>
@@ -187,13 +180,6 @@
     <loc>https://depp.wang/2020/08/07/how-to-automatically-compress-screenshot-size-in-macos/</loc>
     
     <lastmod>2020-08-07</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://depp.wang/2024/03/23/ipv6-mac-server/</loc>
-    
-    <lastmod>2024-03-23</lastmod>
     
   </url>
   
@@ -222,6 +208,13 @@
     <loc>https://depp.wang/2024/02/27/balcony-window/</loc>
     
     <lastmod>2024-02-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://depp.wang/2024/03/23/ipv6-mac-server/</loc>
+    
+    <lastmod>2024-03-23</lastmod>
     
   </url>
   
@@ -264,13 +257,6 @@
     <loc>https://depp.wang/2022/06/10/learn-use-wubi-experience/</loc>
     
     <lastmod>2022-06-10</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://depp.wang/2023/11/15/single-node-rolling-deployment-in-k8s-and-nacos-cluster/</loc>
-    
-    <lastmod>2023-11-15</lastmod>
     
   </url>
   
@@ -366,23 +352,16 @@
   </url>
   
   <url>
-    <loc>https://depp.wang/2024/software-payment/</loc>
+    <loc>https://depp.wang/2023/11/15/single-node-rolling-deployment-in-k8s-and-nacos-cluster/</loc>
     
-    <lastmod>2024-06-15</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://depp.wang/2017/07/15/String-ByteCode/</loc>
-    
-    <lastmod>2017-07-15</lastmod>
+    <lastmod>2023-11-15</lastmod>
     
   </url>
   
   <url>
-    <loc>https://depp.wang/2017/07/05/Eliminate-Expired-Object-References/</loc>
+    <loc>https://depp.wang/2022/11/23/iphone-call-to-mac/</loc>
     
-    <lastmod>2017-07-05</lastmod>
+    <lastmod>2022-11-23</lastmod>
     
   </url>
   
@@ -471,6 +450,13 @@
   </url>
   
   <url>
+    <loc>https://depp.wang/2024/software-payment/</loc>
+    
+    <lastmod>2024-06-15</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://depp.wang/2024/03/17/cloudflare-worker-vless/</loc>
     
     <lastmod>2024-03-17</lastmod>
@@ -481,20 +467,6 @@
     <loc>https://depp.wang/2024/image-from-oss-to-r2/</loc>
     
     <lastmod>2024-06-19</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://depp.wang/2019/01/11/share-a-few-useful-websites/</loc>
-    
-    <lastmod>2019-01-11</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://depp.wang/2018/09/17/idea-ssr-wunderlist-wox/</loc>
-    
-    <lastmod>2018-09-17</lastmod>
     
   </url>
   
@@ -583,9 +555,16 @@
   </url>
   
   <url>
-    <loc>https://depp.wang/2019/10/30/mysql-note/</loc>
+    <loc>https://depp.wang/2017/07/15/String-ByteCode/</loc>
     
-    <lastmod>2019-10-30</lastmod>
+    <lastmod>2017-07-15</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://depp.wang/2017/07/05/Eliminate-Expired-Object-References/</loc>
+    
+    <lastmod>2017-07-05</lastmod>
     
   </url>
   
@@ -688,16 +667,16 @@
   </url>
   
   <url>
-    <loc>https://depp.wang/2020/05/06/static-block-method-and-constructor-method/</loc>
+    <loc>https://depp.wang/2019/01/11/share-a-few-useful-websites/</loc>
     
-    <lastmod>2020-05-06</lastmod>
+    <lastmod>2019-01-11</lastmod>
     
   </url>
   
   <url>
-    <loc>https://depp.wang/2020/04/10/singleton-pattern/</loc>
+    <loc>https://depp.wang/2018/09/17/idea-ssr-wunderlist-wox/</loc>
     
-    <lastmod>2020-04-10</lastmod>
+    <lastmod>2018-09-17</lastmod>
     
   </url>
   
@@ -807,16 +786,9 @@
   </url>
   
   <url>
-    <loc>https://depp.wang/2025/apple-watch/</loc>
+    <loc>https://depp.wang/2019/10/30/mysql-note/</loc>
     
-    <lastmod>2025-08-04</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://depp.wang/2022/10/26/configing-command-aliases-in-bash-and-zsh/</loc>
-    
-    <lastmod>2022-10-26</lastmod>
+    <lastmod>2019-10-30</lastmod>
     
   </url>
   
@@ -887,6 +859,20 @@
     <loc>https://depp.wang/2020/10/26/java-implements-a-custom-distributed-session/</loc>
     
     <lastmod>2020-10-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://depp.wang/2020/05/06/static-block-method-and-constructor-method/</loc>
+    
+    <lastmod>2020-05-06</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://depp.wang/2020/04/10/singleton-pattern/</loc>
+    
+    <lastmod>2020-04-10</lastmod>
     
   </url>
   
@@ -971,6 +957,20 @@
     <loc>https://depp.wang/2019/09/09/how-long-is-the-shortest-time/</loc>
     
     <lastmod>2019-09-09</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://depp.wang/2025/apple-watch/</loc>
+    
+    <lastmod>2025-08-04</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://depp.wang/2022/10/26/configing-command-aliases-in-bash-and-zsh/</loc>
+    
+    <lastmod>2022-10-26</lastmod>
     
   </url>
   
