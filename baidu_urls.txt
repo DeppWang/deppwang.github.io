@@ -1,3 +1,4 @@
+https://depp.wang/2025/claude-code/
 https://depp.wang/2025/apple-watch/
 https://depp.wang/2025/pro-notes/
 https://depp.wang/2025/rechargeable-battery/
@@ -97,4 +98,3 @@ https://depp.wang/2019/09/07/do-you-have-a-friend-who-is-a-mango-dealer/
 https://depp.wang/2019/09/07/the-truth-about-carbs/
 https://depp.wang/2019/08/24/a-tool-that-can-export-the-youdaonote-specified-folder/
 https://depp.wang/tools/
-https://depp.wang/2019/07/06/why-do-the-leetcode-alogrithm-problem/
