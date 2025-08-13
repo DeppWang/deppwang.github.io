@@ -44,6 +44,13 @@
   </url>
   
   <url>
+    <loc>https://depp.wang/2024/02/26/sweeping-robot/</loc>
+    
+    <lastmod>2024-02-26</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://depp.wang/2023/06/08/build-a-chatgpt-web-service/</loc>
     
     <lastmod>2023-06-08</lastmod>
@@ -240,13 +247,6 @@
   </url>
   
   <url>
-    <loc>https://depp.wang/2024/02/26/sweeping-robot/</loc>
-    
-    <lastmod>2024-02-26</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://depp.wang/2024/python-async-io/</loc>
     
     <lastmod>2024-06-02</lastmod>
@@ -394,16 +394,16 @@
   </url>
   
   <url>
-    <loc>https://depp.wang/2024/silicon-valley/</loc>
+    <loc>https://depp.wang/2019/01/26/springboot2-apache-shiro/</loc>
     
-    <lastmod>2024-06-23</lastmod>
+    <lastmod>2019-01-26</lastmod>
     
   </url>
   
   <url>
-    <loc>https://depp.wang/2019/01/26/springboot2-apache-shiro/</loc>
+    <loc>https://depp.wang/2024/silicon-valley/</loc>
     
-    <lastmod>2019-01-26</lastmod>
+    <lastmod>2024-06-23</lastmod>
     
   </url>
   
@@ -695,16 +695,16 @@
   </url>
   
   <url>
-    <loc>https://depp.wang/2020/05/26/itranswarp-deploy-record/</loc>
+    <loc>https://depp.wang/2019/09/18/linux-note/</loc>
     
-    <lastmod>2020-05-26</lastmod>
+    <lastmod>2019-09-18</lastmod>
     
   </url>
   
   <url>
-    <loc>https://depp.wang/2019/09/18/linux-note/</loc>
+    <loc>https://depp.wang/2020/05/26/itranswarp-deploy-record/</loc>
     
-    <lastmod>2019-09-18</lastmod>
+    <lastmod>2020-05-26</lastmod>
     
   </url>
   
@@ -779,6 +779,13 @@
   </url>
   
   <url>
+    <loc>https://depp.wang/2020/11/17/django-getting-started-notes/</loc>
+    
+    <lastmod>2020-11-17</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://depp.wang/2018/10/09/how-to-use-dubbo-directlink-and-group/</loc>
     
     <lastmod>2018-10-09</lastmod>
@@ -842,16 +849,16 @@
   </url>
   
   <url>
-    <loc>https://depp.wang/2020/04/10/singleton-pattern/</loc>
+    <loc>https://depp.wang/2020/05/06/static-block-method-and-constructor-method/</loc>
     
-    <lastmod>2020-04-10</lastmod>
+    <lastmod>2020-05-06</lastmod>
     
   </url>
   
   <url>
-    <loc>https://depp.wang/2020/05/06/static-block-method-and-constructor-method/</loc>
+    <loc>https://depp.wang/2020/04/10/singleton-pattern/</loc>
     
-    <lastmod>2020-05-06</lastmod>
+    <lastmod>2020-04-10</lastmod>
     
   </url>
   
@@ -961,13 +968,6 @@
   </url>
   
   <url>
-    <loc>https://depp.wang/2025/apple-watch/</loc>
-    
-    <lastmod>2025-08-04</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://depp.wang/2022/10/26/configing-command-aliases-in-bash-and-zsh/</loc>
     
     <lastmod>2022-10-26</lastmod>
@@ -975,9 +975,9 @@
   </url>
   
   <url>
-    <loc>https://depp.wang/2020/11/17/django-getting-started-notes/</loc>
+    <loc>https://depp.wang/2025/apple-watch/</loc>
     
-    <lastmod>2020-11-17</lastmod>
+    <lastmod>2025-08-04</lastmod>
     
   </url>
   
