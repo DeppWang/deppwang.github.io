@@ -2,13 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://depp.wang/2024/elon-musk/</loc>
-    
-    <lastmod>2024-04-11</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://depp.wang/2020/04/19/realize-a-simple-spring-ioc-container/</loc>
     
     <lastmod>2020-04-19</lastmod>
@@ -47,27 +40,6 @@
     <loc>https://depp.wang/tags/index.html</loc>
     
     <lastmod>2017-05-07</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://depp.wang/2024/decoration-design/</loc>
-    
-    <lastmod>2024-05-27</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://depp.wang/2023/12/25/decoration-sequence/</loc>
-    
-    <lastmod>2023-12-25</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://depp.wang/2024/02/26/sweeping-robot/</loc>
-    
-    <lastmod>2024-02-26</lastmod>
     
   </url>
   
@@ -170,6 +142,13 @@
   </url>
   
   <url>
+    <loc>https://depp.wang/2024/elon-musk/</loc>
+    
+    <lastmod>2024-04-11</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://depp.wang/2024/03/23/ipv6-mac-server/</loc>
     
     <lastmod>2024-03-23</lastmod>
@@ -212,16 +191,16 @@
   </url>
   
   <url>
-    <loc>https://depp.wang/2024/ai-iphone/</loc>
+    <loc>https://depp.wang/2023/03/19/chatgpt-plus-gpt-4/</loc>
     
-    <lastmod>2024-12-21</lastmod>
+    <lastmod>2023-03-19</lastmod>
     
   </url>
   
   <url>
-    <loc>https://depp.wang/2023/03/19/chatgpt-plus-gpt-4/</loc>
+    <loc>https://depp.wang/2024/ai-iphone/</loc>
     
-    <lastmod>2023-03-19</lastmod>
+    <lastmod>2024-12-21</lastmod>
     
   </url>
   
@@ -243,6 +222,27 @@
     <loc>https://depp.wang/2022/06/10/learn-use-wubi-experience/</loc>
     
     <lastmod>2022-06-10</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://depp.wang/2024/decoration-design/</loc>
+    
+    <lastmod>2024-05-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://depp.wang/2023/12/25/decoration-sequence/</loc>
+    
+    <lastmod>2023-12-25</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://depp.wang/2024/02/26/sweeping-robot/</loc>
+    
+    <lastmod>2024-02-26</lastmod>
     
   </url>
   
@@ -394,16 +394,16 @@
   </url>
   
   <url>
-    <loc>https://depp.wang/2019/01/26/springboot2-apache-shiro/</loc>
+    <loc>https://depp.wang/2024/silicon-valley/</loc>
     
-    <lastmod>2019-01-26</lastmod>
+    <lastmod>2024-06-23</lastmod>
     
   </url>
   
   <url>
-    <loc>https://depp.wang/2024/silicon-valley/</loc>
+    <loc>https://depp.wang/2019/01/26/springboot2-apache-shiro/</loc>
     
-    <lastmod>2024-06-23</lastmod>
+    <lastmod>2019-01-26</lastmod>
     
   </url>
   
@@ -453,6 +453,13 @@
     <loc>https://depp.wang/tools/</loc>
     
     <lastmod>2019-08-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://depp.wang/2020/05/05/reflection-in-spring-and-reflection-principle/</loc>
+    
+    <lastmod>2020-05-05</lastmod>
     
   </url>
   
@@ -667,13 +674,6 @@
   </url>
   
   <url>
-    <loc>https://depp.wang/2020/05/05/reflection-in-spring-and-reflection-principle/</loc>
-    
-    <lastmod>2020-05-05</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://depp.wang/2017/07/13/jvm-runtime-data-area/</loc>
     
     <lastmod>2017-07-13</lastmod>
@@ -695,16 +695,16 @@
   </url>
   
   <url>
-    <loc>https://depp.wang/2019/09/18/linux-note/</loc>
+    <loc>https://depp.wang/2020/05/26/itranswarp-deploy-record/</loc>
     
-    <lastmod>2019-09-18</lastmod>
+    <lastmod>2020-05-26</lastmod>
     
   </url>
   
   <url>
-    <loc>https://depp.wang/2020/05/26/itranswarp-deploy-record/</loc>
+    <loc>https://depp.wang/2019/09/18/linux-note/</loc>
     
-    <lastmod>2020-05-26</lastmod>
+    <lastmod>2019-09-18</lastmod>
     
   </url>
   
@@ -842,16 +842,16 @@
   </url>
   
   <url>
-    <loc>https://depp.wang/2020/05/06/static-block-method-and-constructor-method/</loc>
+    <loc>https://depp.wang/2020/04/10/singleton-pattern/</loc>
     
-    <lastmod>2020-05-06</lastmod>
+    <lastmod>2020-04-10</lastmod>
     
   </url>
   
   <url>
-    <loc>https://depp.wang/2020/04/10/singleton-pattern/</loc>
+    <loc>https://depp.wang/2020/05/06/static-block-method-and-constructor-method/</loc>
     
-    <lastmod>2020-04-10</lastmod>
+    <lastmod>2020-05-06</lastmod>
     
   </url>
   
