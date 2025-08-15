@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://depp.wang/2022/12/04/read-1984/</loc>
+    <lastmod>2025-08-15</lastmod>
+  </url>  <url>
     <loc>https://depp.wang/2024/elon-musk/</loc>
     <lastmod>2025-08-15</lastmod>
   </url>  <url>
@@ -59,9 +62,6 @@
     <lastmod>2025-08-15</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2023/01/28/a-jenkins-email-failure-troubleshooting-process/</loc>
-    <lastmod>2025-08-15</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2022/12/04/read-1984/</loc>
     <lastmod>2025-08-15</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2022/12/28/debug-docker-php-code-in-vscode/</loc>
@@ -148,9 +148,6 @@
     <loc>https://depp.wang/2022/11/23/iphone-call-to-mac/</loc>
     <lastmod>2025-08-15</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2017/06/26/introduction-to-computer/</loc>
-    <lastmod>2025-08-15</lastmod>
-  </url>  <url>
     <loc>https://depp.wang/2019/09/08/what-is-otosclerosis/</loc>
     <lastmod>2025-08-15</lastmod>
   </url>  <url>
@@ -193,9 +190,6 @@
     <loc>https://depp.wang/tools/</loc>
     <lastmod>2025-08-15</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2019/05/17/use-qiniu-jdk-batch-modify-videos-format/</loc>
-    <lastmod>2025-08-15</lastmod>
-  </url>  <url>
     <loc>https://depp.wang/2020/05/05/reflection-in-spring-and-reflection-principle/</loc>
     <lastmod>2025-08-15</lastmod>
   </url>  <url>
@@ -235,7 +229,7 @@
     <loc>https://depp.wang/2017/07/05/Eliminate-Expired-Object-References/</loc>
     <lastmod>2025-08-15</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2020/03/20/internet-protocol-suite-introduction/</loc>
+    <loc>https://depp.wang/2017/06/26/introduction-to-computer/</loc>
     <lastmod>2025-08-15</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2022/12/08/nginx-hidden-rewrite/</loc>
@@ -283,10 +277,7 @@
     <loc>https://depp.wang/2018/09/17/idea-ssr-wunderlist-wox/</loc>
     <lastmod>2025-08-15</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2017/08/15/hashmap-put-method-source-code/</loc>
-    <lastmod>2025-08-15</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2018/01/07/js-how-to-use-the-Date-object-addition-and-subtraction-dates/</loc>
+    <loc>https://depp.wang/2019/05/17/use-qiniu-jdk-batch-modify-videos-format/</loc>
     <lastmod>2025-08-15</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2017/07/13/jvm-runtime-data-area/</loc>
@@ -331,10 +322,7 @@
     <loc>https://depp.wang/2019/10/30/mysql-note/</loc>
     <lastmod>2025-08-15</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2022/10/26/configing-command-aliases-in-bash-and-zsh/</loc>
-    <lastmod>2025-08-15</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2020/11/17/django-getting-started-notes/</loc>
+    <loc>https://depp.wang/2020/03/20/internet-protocol-suite-introduction/</loc>
     <lastmod>2025-08-15</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2018/10/09/how-to-use-dubbo-directlink-and-group/</loc>
@@ -368,6 +356,12 @@
     <lastmod>2025-08-15</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2020/04/10/singleton-pattern/</loc>
+    <lastmod>2025-08-15</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2017/08/15/hashmap-put-method-source-code/</loc>
+    <lastmod>2025-08-15</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2018/01/07/js-how-to-use-the-Date-object-addition-and-subtraction-dates/</loc>
     <lastmod>2025-08-15</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2017/07/26/java-parameter-passing/</loc>
@@ -407,6 +401,12 @@
     <lastmod>2025-08-15</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2019/09/09/how-long-is-the-shortest-time/</loc>
+    <lastmod>2025-08-15</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2022/10/26/configing-command-aliases-in-bash-and-zsh/</loc>
+    <lastmod>2025-08-15</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2020/11/17/django-getting-started-notes/</loc>
     <lastmod>2025-08-15</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2025/apple-watch/</loc>
