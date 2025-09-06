@@ -111,7 +111,7 @@
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/2020-08-07-101336.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/2020-08-07-101537.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/2020-08-07-101616.png">
-<meta property="og:updated_time" content="2025-08-18T08:07:32.026Z">
+<meta property="og:updated_time" content="2025-09-06T13:36:39.505Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 macOS 中，如何自动压缩截屏图片大小">
 <meta name="twitter:description" content="错误的误会我是这样在 Markdown 中插入截屏图片的：截屏到剪贴板后，直接在 Typora 中粘贴，iPic 将自动将图片上传到阿里云图床（对象存储）。我一直使用 Alfred 的 Clipboard History 功能查看截图大小，发现图片占内存都很大，全屏截图有 10 多 MB，就想着一定要找到一种方法来缩小截屏大小，不然我的阿里云图床费用得嗖嗖涨。">
@@ -152,7 +152,7 @@
   <title>在 macOS 中，如何自动压缩截屏图片大小 | 德普王</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -186,7 +186,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -331,16 +331,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2020/08/07/how-to-automatically-compress-screenshot-size-in-macos/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -460,7 +460,7 @@
 </thead>
 <tbody><tr>
 <td align="left"><img src="https://hexoblog.r2.depp.wang/2020-08-04-073500.png" alt="Xnip2020-08-02_20-55-07"></td>
-<td align="left"><img src="https://hexoblog.r2.depp.wang/2020-08-04-073506.png" alt=""></td>
+<td align="left"><img src="https://hexoblog.r2.depp.wang/2020-08-04-073506.png" alt></td>
 </tr>
 </tbody></table>
 <p>压缩效果：74.8%</p>
@@ -473,7 +473,7 @@
 <li>选择 <code>Folder Action</code>（文件夹操作），选择指定文件夹，如「截图」</li>
 <li>添加 <code>Run Shell Script</code>（运行 Shell 脚本），设置传递输入为「作为自变量」，当「截图」文件夹中新增图片时就会执行脚本</li>
 </ol>
-<p><img src="https://hexoblog.r2.depp.wang/202406191718808630.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/202406191718808630.png" alt></p>
 <ul>
 <li>脚本内容：</li>
 </ul>
@@ -481,16 +481,16 @@
 
 <p>PS：使用 Automator，可能需在 Security &amp; Privay（安全与隐私）-&gt; Accessibility（辅助功能）里面开启权限。</p>
 <h3 id="Hazel-设置工作流："><a href="#Hazel-设置工作流：" class="headerlink" title="Hazel 设置工作流："></a>Hazel 设置工作流：</h3><p>1、添加指定文件夹，设置触发条件，条件为对文件夹中最近一分钟新增的 PNG 文件执行脚本</p>
-<p><img src="https://hexoblog.r2.depp.wang/202406191718808733.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/202406191718808733.png" alt></p>
 <p>2、设置脚本，脚本为压缩图片，并复制压缩后的图片到剪贴板</p>
-<p><img src="https://hexoblog.r2.depp.wang/202406191718808732.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/202406191718808732.png" alt></p>
 <ul>
 <li>脚本内容：</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pngquant 256 --skip-if-larger --strip --ext=.png --force "$1"</span><br><span class="line">osascript -e "set the clipboard to (read (POSIX file \"$(perl -e "print glob('$1')")\") as &#123;«class PNGf»&#125;)"</span><br></pre></td></tr></table></figure>
 
 <p>3、通知压缩完成</p>
-<p><img src="https://hexoblog.r2.depp.wang/202406191718808735.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/202406191718808735.png" alt></p>
 <p>ps：Hazel 官方 UI 真心好看。<code>/usr/local/bin/pngquan</code> 与 <code>pnguant</code> 作用一样。</p>
 <!--可以选择开源免费的 [fswatch](https://github.com/emcrisostomo/fswatch) 把.-->
 
@@ -526,12 +526,12 @@
 </tr>
 </thead>
 <tbody><tr>
-<td><img src="https://hexoblog.r2.depp.wang/2020-08-07-101445.png" alt=""></td>
-<td><img src="https://hexoblog.r2.depp.wang/2020-08-07-101336.png" alt=""></td>
+<td><img src="https://hexoblog.r2.depp.wang/2020-08-07-101445.png" alt></td>
+<td><img src="https://hexoblog.r2.depp.wang/2020-08-07-101336.png" alt></td>
 </tr>
 <tr>
-<td><img src="https://hexoblog.r2.depp.wang/2020-08-07-101537.png" alt=""></td>
-<td><img src="https://hexoblog.r2.depp.wang/2020-08-07-101616.png" alt=""></td>
+<td><img src="https://hexoblog.r2.depp.wang/2020-08-07-101537.png" alt></td>
+<td><img src="https://hexoblog.r2.depp.wang/2020-08-07-101616.png" alt></td>
 </tr>
 </tbody></table>
 <ul>
@@ -701,7 +701,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
         
       </div>
     
@@ -737,7 +737,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            

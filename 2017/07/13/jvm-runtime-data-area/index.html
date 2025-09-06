@@ -101,7 +101,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135349.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135407.png">
-<meta property="og:updated_time" content="2025-08-18T08:07:32.021Z">
+<meta property="og:updated_time" content="2025-09-06T13:36:39.500Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 虚拟机运行时数据区域 ">
 <meta name="twitter:description" content="JVM 对于是每个 Java 程序员掌握一定 Java 基础后，都需要学习的。因为很多代码问题，只能了解了 JVM 底层原理后才能解决。大多数 Java 后端开发者都知道堆（Heap）和栈（Stack）的概念，却没有真正理解其原理。推荐 《深入理解 Java 虚拟机（第二版）》— 周志明著 学习 JVM。 进程和线程学习 JVM 前要了解进程和线程的概念。 以下是一个类比，来自 阮一峰 — 进程与">
@@ -142,7 +142,7 @@
   <title>Java 虚拟机运行时数据区域  | 德普王</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -176,7 +176,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -321,16 +321,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2017/07/13/jvm-runtime-data-area/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -433,7 +433,7 @@
 
 <p>进程和线程里面还涉及到 “锁” 的知识，请在参考网址中学习。</p>
 <p>下图是：Java 虚拟机运行时数据区</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135349.png" alt=""></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2019-12-19-135349.png" alt></p>
 <h2 id="程序计数器（Program-Counter-Resiger）"><a href="#程序计数器（Program-Counter-Resiger）" class="headerlink" title="程序计数器（Program Counter Resiger）"></a>程序计数器（Program Counter Resiger）</h2><p>首先程序计数器是一块较小的内存空间，“决定” 当前线程字节码的执行顺序，因为它存储字节码的行号。而在多线程中，每个线程都具有一个程序计数器，各条线程之间独立，计数器互不影响，独立存储。程序计数器是 “线程私有” 的内存。</p>
 <p>如果线程执行 Java 方法，计数器记录的是虚拟机字节码指令的地址。而如果执行 Native 方法，值为空（Undefined），理解这一段文字需要理解 Native 方法是什么！Native 方法是非 Java 代码（比如 C）编写的方法。程序计数器是 Java 虚拟机规范中唯一没有 OutOfMemoryError 的内存区域。</p>
 <h2 id="Java-虚拟机栈（Java-Virtual-Machine-Stacks）"><a href="#Java-虚拟机栈（Java-Virtual-Machine-Stacks）" class="headerlink" title="Java 虚拟机栈（Java Virtual Machine Stacks）"></a>Java 虚拟机栈（Java Virtual Machine Stacks）</h2><p>虚拟机栈是 Java 方法（也就是字节码）运行时的内存模型：每个方法在执行的同时都会创建一个栈帧（Stack Frame）[帧是一种数据结构] 用于存储局部变量表等。它是 “线程私有” 的，生命周期和线程相同。</p>
@@ -607,7 +607,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
         
       </div>
     
@@ -643,7 +643,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
