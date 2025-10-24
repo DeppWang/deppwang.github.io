@@ -1,3 +1,4 @@
+https://depp.wang/2025/backend-engineer-level-guide/
 https://depp.wang/2025/attention/
 https://depp.wang/2025/claude-code/
 https://depp.wang/2025/apple-watch/
@@ -97,4 +98,3 @@ https://depp.wang/2019/09/08/what-is-otosclerosis/
 https://depp.wang/2019/09/08/how-to-lawsuit/
 https://depp.wang/2019/09/07/do-you-have-a-friend-who-is-a-mango-dealer/
 https://depp.wang/2019/09/07/the-truth-about-carbs/
-https://depp.wang/2019/08/24/a-tool-that-can-export-the-youdaonote-specified-folder/
