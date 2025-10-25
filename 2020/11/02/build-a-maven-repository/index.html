@@ -99,7 +99,7 @@
 <meta property="og:site_name" content="德普王">
 <meta property="og:description" content="如果 jar 包在本地，只能每次手动导入，不太方便。可以使用以下方式搭建一个 Maven 仓库 1、使用 GitHub Pages 搭建公有仓库jar 包本质上是一个静态文件，所以可以使用 GitHub 来存放，再利用 GitHub Pages 提供一个地址让其可直接访问下载。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2025-10-24T13:45:38.160Z">
+<meta property="og:updated_time" content="2025-10-25T01:58:12.754Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建 Maven 仓库">
 <meta name="twitter:description" content="如果 jar 包在本地，只能每次手动导入，不太方便。可以使用以下方式搭建一个 Maven 仓库 1、使用 GitHub Pages 搭建公有仓库jar 包本质上是一个静态文件，所以可以使用 GitHub 来存放，再利用 GitHub Pages 提供一个地址让其可直接访问下载。">
@@ -139,7 +139,7 @@
   <title>搭建 Maven 仓库 | 德普王</title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -173,7 +173,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -318,16 +318,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2020/11/02/build-a-maven-repository/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -382,7 +382,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
                   <a href="/categories/Note/" itemprop="url" rel="index">
                     <span itemprop="name">Note</span>
                   </a>
@@ -469,7 +469,7 @@
 
 <p>id 需要和 settings.xml 的 id 相同。通过此 id 查找 settings.xml 的账号密码。url 所包含的 <code>provider-client</code> 无需在 package 中新建，<strong>但必须存在一个<a href="https://github.com/DeppWang/provider-client/" target="_blank" rel="noopener">同名仓库</a>，因为 Package 本质上是依赖于仓库实现的</strong>。</p>
 <p>否则可能遇到的错误：</p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">Failed <span class="keyword">to</span> deploy artifact<span class="variable">s:</span> Could not <span class="keyword">find</span> artifact ** in github-release (http<span class="variable">s:</span>//maven.pkg.github.<span class="keyword">com</span>/DeppWang/provider-client)</span><br></pre></td></tr></table></figure>
+<figure class="highlight sqf"><table><tr><td class="code"><pre><span class="line">Failed <span class="keyword">to</span> deploy artifacts: Could <span class="built_in">not</span> <span class="built_in">find</span> artifact ** <span class="built_in">in</span> github-release (https:<span class="comment">//maven.pkg.github.com/DeppWang/provider-client)</span></span><br></pre></td></tr></table></figure>
 
 <p>当发布后，更新版本再次发布时，可能遇到 409 的错误：</p>
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">provider-<span class="string">client:</span> Failed to deploy <span class="string">artifacts:</span> Could not transfer artifact wang.<span class="string">depp:</span>provider-<span class="string">client:</span><span class="string">jar:</span><span class="string">sources:</span><span class="number">1.0</span><span class="number">.2</span> from<span class="regexp">/to github-release (https:/</span><span class="regexp">/maven.pkg.github.com/</span>DeppWang<span class="regexp">/provider-client): Failed to transfer file https:/</span><span class="regexp">/maven.pkg.github.com/</span>DeppWang<span class="regexp">/provider-client/</span>wang<span class="regexp">/depp/</span>provider-client<span class="regexp">/1.0.2/</span>provider-client<span class="number">-1.0</span><span class="number">.2</span>-sources.jar with status code <span class="number">409</span></span><br></pre></td></tr></table></figure>
@@ -616,7 +616,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
+          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
         
       </div>
     
@@ -652,7 +652,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            

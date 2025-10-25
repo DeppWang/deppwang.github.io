@@ -124,7 +124,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-124357.jpg">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-083129.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-17-150358.png">
-<meta property="og:updated_time" content="2025-10-24T13:45:38.159Z">
+<meta property="og:updated_time" content="2025-10-25T01:58:12.753Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="互联网协议入门">
 <meta name="twitter:description" content="作者：DeppWang  互联网上的数据能从一台设备发送到另一台设备，整个过程由互联网协议（ Internet Protocol Suite）实现的。  对于互联网协议，一直一知半解。知道会分为几层，但为什么分层，分层有什么好处，都不甚理解。通过阮一峰的这两篇文章，大概有了一个初步认识，下面是我对互联网协议的理解。  互联网协议入门（一）阮一峰 互联网协议入门（二）阮一峰">
@@ -165,7 +165,7 @@
   <title>互联网协议入门 | 德普王</title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -199,7 +199,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -344,16 +344,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2020/03/20/internet-protocol-suite-introduction/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -472,11 +472,11 @@
 <!--问好脸：网速的快慢由每 1 秒能传输电信号的多少决定？-->
 
 <h2 id="三、链路层（Link-Layer）"><a href="#三、链路层（Link-Layer）" class="headerlink" title="三、链路层（Link Layer）"></a>三、链路层（Link Layer）</h2><p>物理层只是一个传输载体，没有「自主意识」， 我们需要借助物理层上的<a href="https://zh.wikipedia.org/wiki/数据链路层" target="_blank" rel="noopener">链路层</a>（Link Layer），<strong>链路层的功能：将数据从一处发送到另一处</strong>，链路层在发送方和接收方都有，在发送方：链路层将数据转换为电信号，并将其发送出去；在接收方：链路层收到电信号，并将电信号转换为数据。链路层和物理层之间的关系可以这样表示：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-131628.jpg" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-131628.jpg" alt=""></p>
 <p>在<a href="https://zh.wikipedia.org/wiki/局域网" target="_blank" rel="noopener">局域网</a>内，将数据从一处发送到另一处需要使用<a href="https://zh.wikipedia.org/wiki/以太网" target="_blank" rel="noopener">以太网</a>（Ethernet）。<strong>局域网的通俗理解，连接同一个 <a href="https://zh.wikipedia.org/wiki/Wi-Fi" target="_blank" rel="noopener">WiFi</a> （路由器 Router）的设备在同一个局域网内。</strong></p>
 <h3 id="3-1-以太网"><a href="#3-1-以太网" class="headerlink" title="3.1 以太网"></a>3.1 以太网</h3><p>以太网是一种局域网技术，它可以实现局域网内的设备通信，我们现在电脑一般连 WiFi，WiFi 可以认为是「无线以太网」。</p>
 <p>我们可以理解为，<strong>在局域网内，链路层的功能其实是由以太网实现的</strong>（局域网外的链路层比较复杂，本文不讨论）。 局域网内的链路层和以太网的关系可以这样表示（物理层作为以太网的传输载体）：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-121930.jpg" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-121930.jpg" alt=""></p>
 <p><strong>以太网需要规定电信号的格式，以便双方解读</strong>。以太网规定一组电信号为一个数据包，叫帧（Frame），帧包含两部分，标头（Head）和数据（Data），标头包含发送方地址、接收方地址等信息，数据则是数据包的具体内容。我们一般将帧称为以太网数据包，或者<a href="https://zh.wikipedia.org/wiki/以太网帧格式" target="_blank" rel="noopener">以太帧</a>，以太帧格式类似下面这样：</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-17-065355.png" alt="以太帧，图片来自阮一峰博客"></p>
 <p>每台网络设备都有自己的网卡，<strong>以太网是将数据从一块<a href="https://zh.wikipedia.org/wiki/网卡" target="_blank" rel="noopener">网卡</a>发送到另一块网卡</strong>，每块网卡需要有自己的「身份证号」，叫 <a href="https://zh.wikipedia.org/wiki/MAC地址" target="_blank" rel="noopener">MAC 地址</a>（iPhone 手机的 MAC 地址叫无线局域网地址），由 12 个十六进制数表示：</p>
@@ -489,9 +489,9 @@
 <p>假设已经知道了 MAC 地址，那么在局域网内，以太网可以根据 MAC 地址，将数据发送给对方。但如果对方没有在一个局域网内，如何发送给对方呢？此时，就需要<a href="https://zh.wikipedia.org/wiki/网络层" target="_blank" rel="noopener">网络层</a>（Network Layer）出马了！</p>
 <hr>
 <p>以太网在 Windows 中的体现：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-123642.jpg" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-123642.jpg" alt=""></p>
 <p>在 macOS 的体现： <a href="https://zh.wikipedia.org/wiki/PPPoE" target="_blank" rel="noopener">PPPoE</a>（英语：<strong>P</strong>oint-to-<strong>P</strong>oint <strong>P</strong>rotocol <strong>o</strong>ver <strong>E</strong>thernet），以太网上的点对点协议。</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-123706.jpg" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-123706.jpg" alt=""></p>
 <h2 id="四、网络层（Network-Layer）"><a href="#四、网络层（Network-Layer）" class="headerlink" title="四、网络层（Network Layer）"></a>四、网络层（Network Layer）</h2><p>首先，我们要区分接收方是否在一个局域网，使用 MAC 地址不能区分，需要设备有另外一个地址，能代表它所处的具体是哪个网络（局域网），我们称这个地址为「<strong>网络地址</strong>」。</p>
 <p><strong>网络层的作用，就是根据网络地址找到目的主机处于哪一个局域网</strong>。实现这一功能的协议称为网络协议，即 <a href="https://zh.wikipedia.org/wiki/网际协议" target="_blank" rel="noopener">IP 协议</a> 。网络地址用于 IP 协议，所以网络地址也可以叫它 IP 地址。<strong>注意</strong>：我们叫 IP 协议，是一种习惯，其实 IP(<strong>I</strong>nternet <strong>P</strong>rotocol) 本身就有协议的意思。</p>
 <!--如果设备连 WiFi，WiFi 是局域网，路由器会为设备分配一个局域网 IP 地址，它只能在局域网内部使用，所以也叫内部（本地） IP。局域网有一个对外访问互联网的 IP，称为外部 IP，**一个局域网内的所有设备共用一个外部 IP 地址**。在百度输入IP，显示的 IP 就是外部 IP，在「设置->网络」中看到的 IP 是内部 IP。我们称局域网为内网，内是相对的概念，代表没有外部 IP 就不能访问。-->
@@ -515,10 +515,10 @@
 <!--路由器往外发送时，使用的是外部 IP（互联网 IP）。使用外部 IP 才能和互联网通信，外部 IP 是名片-->
 
 <p>其实就像发送快递一样，在快递上写上收件人的地址，由快递点发送给下一个中转站，再中转，最后收件人收到快递。</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-030924.png" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-030924.png" alt=""></p>
 <p>一个简单的路由器，需要实现 IP 协议和链路层协议。</p>
 <p>如果把上面的过程说的仔细一点，以太网是将以太帧发送给路由器链路层，路由器链路层将数据包发送给路由器网络层，路由器有一个路由表，网络层在路由表找到跟当前路由器相连的、离目的主机最近的路由器，路由器通过 ARP 协议，得到下一个路由器的 MAC 地址，让路由器链路层根据 MAC 地址，发送给下一个路由器。通过一系列中转，来到目的主机所在的路由器。使用同样的方式，通过以太网将以太帧发送给目的主机。整个过程大概是这样：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-030834.png" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-030834.png" alt=""></p>
 <p>我们常说，网络层负责寻址和路由，寻址就是寻找最近的 IP 地址，路由就是找到最近的路由 MAC 地址（我这么理解，不一定正确）。我们可以理解为：整个通信过程中的网络层负责寻址和路由，发送方的网络层其实负责它自己的寻址和路由。</p>
 <!--前面说，局域网内的链路层是由以太网实现的。那么局域网外的后链路层呢？是通过骨干网等实现。-->
 
@@ -548,7 +548,7 @@
 </blockquote>
 <p>当我们打开百度首页时，输入的就是一个网址 <code>www.baidu.com</code>，这是一个 GET 请求，HTTP 协议将请求封装为应用层数据包。这样，百度的服务器应用层就可以根据 HTTP 协议来解析数据包。</p>
 <p>HTTP 请求的数据包一般称为请求报文，分为报文首部和报文主题，报文首部即为请求头，请求头格式如下：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-123839.jpg" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-123839.jpg" alt=""></p>
 <p>包含的应用层数据包的以太帧格式如下：</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-17-143436.png" alt="图片来自阮一峰博客"></p>
 <h3 id="6-2-DNS"><a href="#6-2-DNS" class="headerlink" title="6.2 DNS"></a>6.2 DNS</h3><blockquote>
@@ -562,13 +562,13 @@
 <p>此时电脑，有自己的 IP 地址、MAC 地址、还知道路由器的 IP 地址、DNS 服务器地址（由路由器负责域名解析，所以 DNS 地址其实就是 IP 地址）和当前的子网掩码。还可以看出，路由器动态分配 IP 地址是由 <a href="https://zh.wikipedia.org/wiki/动态主机设置协议" target="_blank" rel="noopener">DHCP</a> 实现的。</p>
 <p>通过打开百度首页，结合抓包工具 Wireshark 来看看网络通信过程中的数据包的内容。</p>
 <p>关于如何使用 Wireshark，请看 <a href="https://juejin.im/post/5c87059ae51d452f3f64b110" target="_blank" rel="noopener">使用 wireshark 学习网络协议</a>。通过 <code>ping www.baidu.com</code> 得到百度的 IP 地址为 <code>61.135.169.121</code>，在 Wireshark 中配置过滤条件后，通过使用命令 <code>curl www.baidu.com</code> 来模拟打开百度首页：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-124128.jpg" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-124128.jpg" alt=""></p>
 <p>此时在 Wireshark 中可以看出，TCP 协议发送了以太帧，以太帧的格式是：Ethernet II 标头 + IP 4 标头 + TCP 标头 + TCP 数据，TCP 标头显示源端口为 53732，目的地端口为 80；IP 标头显示源 IP 地址为 <code>192.168.31.206</code>，目的地 IP 地址为 <code>61.135.169.121</code>；以太网标头显示源 MAC 地址为 <code>f0:18:98:46:bf:65</code>，目的地 MAC 地址为 <code>28:6c:07:9d:e2:8e</code>（小米路由器地址）。帧的长度为 78 字节，TCP 数据包的长度为 44 个字节。</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-124202.jpg" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-124202.jpg" alt=""></p>
 <p>这与我们前面说的相符合，目的主机不在同一个局域网，通过以太网发送以太帧给路由器，再由路由器负责路由发送。</p>
 <p>前三个数据包为 TCP 的 3 次握手，接着发送了 HTTP 数据包，HTTP 数据包包含了请求的内容：</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-124319.jpg" alt>整个过程：先使用 TCP 协议完成了 3 次握手，然后使用 HTTP 协议发送了 GET 请求，接收到了百度的 HTTP 响应，最后使用 TCP 协议完成了 4 次挥手。</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-124357.jpg" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-124319.jpg" alt="">整个过程：先使用 TCP 协议完成了 3 次握手，然后使用 HTTP 协议发送了 GET 请求，接收到了百度的 HTTP 响应，最后使用 TCP 协议完成了 4 次挥手。</p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-124357.jpg" alt=""></p>
 <h2 id="八、总结"><a href="#八、总结" class="headerlink" title="八、总结"></a>八、总结</h2><p>互联网协议整个网络通信过程可以用下面这张图描述：</p>
 <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-03-20-083129.png" alt="图片来自 Wiki"></p>
 <p>对于发送方的数据处理，<strong>这个过程像是一个俄罗斯套娃的过程</strong>：</p>
@@ -717,7 +717,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
+          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
         
       </div>
     
@@ -753,7 +753,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            

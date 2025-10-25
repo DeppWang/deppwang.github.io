@@ -113,7 +113,7 @@
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20240331004952.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20250491744188716.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20240403112558.png">
-<meta property="og:updated_time" content="2025-10-24T13:45:38.164Z">
+<meta property="og:updated_time" content="2025-10-25T01:58:12.758Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何利用 IPv6 免费把家里电脑变成服务器">
 <meta name="twitter:description" content="以下为文字版： 简介今天给大家分享的是如何利用 IPv6 免费把家里面的电脑变为服务器。我们家里电脑与服务器最大的区别就是服务器有一个公网 IP，可以公网访问其服务，当我们给家里面电脑用上 IPv6 公网 IP 时，使家里面电脑运行的服务，可以被公网访问，那它就可以当服务器用。">
@@ -154,7 +154,7 @@
   <title>如何利用 IPv6 免费把家里电脑变成服务器 | 德普王</title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -188,7 +188,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -333,16 +333,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2024/03/23/ipv6-mac-server/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -458,10 +458,10 @@
 <p>现在域名也比较便宜，几块钱你就能买一年，Cloudflare 也是可以免费注册使用的。域名的话，你也可以在这个Cloudflare 上面购买，因为它的价格基本上是最低的，也没有一些第一年便宜第二年贵的套路。</p>
 <p>当然，使用 Cloudflare 实现域名访问，其实也还是有一个缺点，因为它是国外公司的产品，在国内访问托管在上面的域名的时候，可能不是很稳定，所以可能有的同学访问就会比较慢。</p>
 <h2 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a>配置步骤</h2><h3 id="配置-IP-端口访问"><a href="#配置-IP-端口访问" class="headerlink" title="配置 IP + 端口访问"></a>配置 IP + 端口访问</h3><h4 id="获取电脑-IPv6-公网-IP"><a href="#获取电脑-IPv6-公网-IP" class="headerlink" title="获取电脑 IPv6 公网 IP"></a>获取电脑 IPv6 公网 IP</h4><p>首先需要获取一下电脑的 IPv6 公网 IP，我们可以通过这个命令来获取自己的电脑的 IPv6 公网 IP，这个 <code>240C::6666</code> 是一个 IPv6 公共 DNS 地址。</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240331001533.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240331001533.png" alt=""></p>
 <p><code>240</code> 开头就是公网 IP，红色就是我的 IPv6 公网 IP。</p>
 <h4 id="防火墙配置只有电脑-IP-可外网访问"><a href="#防火墙配置只有电脑-IP-可外网访问" class="headerlink" title="防火墙配置只有电脑 IP 可外网访问"></a>防火墙配置只有电脑 IP 可外网访问</h4><p>获得了 IPv6 公网 IP，我们还需要在我们防火墙里面配置指定 IP 可被公网访问，我在 iStoreOS 系统中配置，在「网络-防火墙-通信规则」里面配置我添加一条规则，配置我电脑的 IP 和端口 9090 可被公网访问，保存并应用。注意：需要将路由器的防火墙关闭。</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240331001927.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240331001927.png" alt=""></p>
 <h4 id="让启动的应用服务可通过-IPv6-访问"><a href="#让启动的应用服务可通过-IPv6-访问" class="headerlink" title="让启动的应用服务可通过 IPv6 访问"></a>让启动的应用服务可通过 IPv6 访问</h4><p>我们有 IPv6 公网 IP，配置了防火墙，但此时应用服务也需要支持 IPv6 访问才行，我使用一个简单 Flask 项目来举例说明，下面创建一个简单的 Flask 项目，使其启动后可通过 <code>http://[ipv6]:9090</code> 来访问</p>
 <p>创建 Flask 项目：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir flask-demo</span><br><span class="line">cd flask-demo</span><br><span class="line">python3 -m venv venv</span><br><span class="line">. venv/bin/activate</span><br><span class="line">pip3 install flask</span><br><span class="line">vi app.py</span><br></pre></td></tr></table></figure>
@@ -473,33 +473,33 @@
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">python</span> app.<span class="keyword">py</span></span><br></pre></td></tr></table></figure>
 
 <p>启动结果：</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240331002759.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240331002759.png" alt=""></p>
 <p>我使用 telnet 命令和网页访问测试一下，我利用 Tailscale 使用屏幕共享控制另一台电脑测试，这台电脑是连的热点，所以是支持 IPv6 访问。</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240331003020.png" alt></p>
-<p><img src="https://hexoblog.r2.depp.wang/20240331003054.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240331003020.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240331003054.png" alt=""></p>
 <p>结果显示 telnet 与网页访问都没有问题。如果只想通过这种方式访问家里电脑的服务的话，那后面就不用看了。如果 telnet 不通，看看端口号是否还有其它服务使用。</p>
 <h3 id="配置域名访问"><a href="#配置域名访问" class="headerlink" title="配置域名访问"></a>配置域名访问</h3><h4 id="Cloudflare-DNS-配置实现可域名-端口访问"><a href="#Cloudflare-DNS-配置实现可域名-端口访问" class="headerlink" title="Cloudflare DNS 配置实现可域名 + 端口访问"></a>Cloudflare DNS 配置实现可域名 + 端口访问</h4><p>可以通过 Cloudflare 配置域名解析实现可域名访问，因为现在的 80 和443 端口是被运营商封禁了的，你不能直接使用 80 与 443 端口。先配置实现域名 + 指定端口访问。</p>
 <p>在 Cloudflare DNS 中配置 DNS 解析：</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240331003641.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240331003641.png" alt=""></p>
 <p>DNS 解析可通过 <a href="https://dnschecker.org/" target="_blank" rel="noopener">DNS Checker</a> 来检测是否已生效，再用另一台电脑通过 <code>ping6</code> 来测试是否已生效，注意是 <code>ping6</code> 不是 ping，我就在这里踩坑了，一直用 ping，结果不通，以为 DNS 解析有什么问题，浪费不少时间。以下代表 ping 通了。</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240331003846.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240331003846.png" alt=""></p>
 <p>网页访问也没有问题：</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240331003951.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240331003951.png" alt=""></p>
 <p>目前就可以通过域名 + 端口访问了。</p>
 <h4 id="Cloudflare-配置实现不要端口直接域名访问"><a href="#Cloudflare-配置实现不要端口直接域名访问" class="headerlink" title="Cloudflare 配置实现不要端口直接域名访问"></a>Cloudflare 配置实现不要端口直接域名访问</h4><p>前面说这个 80 和 443 端口被运营商封禁了，但我们可以使用 Cloudflare 实现免端口访问。Cloudflare 可以通过配置端口转发的方式实现不要端口直接访问，相当于把 80/443 端口转发到指定端口。</p>
 <p>首先，我们需要在 「规则 - Origin Rules」里面创建一个自定义规则。配置当访问二级域名 wx.depp.wang 时，请求转发到 9090 端口：</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240331004319.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240331004319.png" alt=""></p>
 <p>第二，在 DNS 解析这里打开这个代理状态：</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240331004625.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240331004625.png" alt=""></p>
 <p>我解释一下，为什么要打开，打开后，我们在访问域名的时候，它会先解析到 Cloudflare 的主机上，Cloudflare 在那个主机上面给做一个代理转发，转发到我们配置的公网 IP 和端口对应的服务上。这样就实现了直接域名访问。</p>
 <p> DNS Checker 检测已生效后，通过 <code>ping6</code> 与网页测试。</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240331004726.png" alt></p>
-<p><img src="https://hexoblog.r2.depp.wang/20240331004952.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240331004726.png" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240331004952.png" alt=""></p>
 <p>都没有问题，说明我们配置成功。</p>
 <h2 id="解决-IPv6-公网-IP-变化问题"><a href="#解决-IPv6-公网-IP-变化问题" class="headerlink" title="解决 IPv6 公网 IP 变化问题"></a>解决 IPv6 公网 IP 变化问题</h2><h3 id="1、使用-DDNS-更新-Cloudflare-DNS-解析的公网-IP"><a href="#1、使用-DDNS-更新-Cloudflare-DNS-解析的公网-IP" class="headerlink" title="1、使用 DDNS 更新 Cloudflare DNS 解析的公网 IP"></a>1、使用 DDNS 更新 Cloudflare DNS 解析的公网 IP</h3><p>因为公网 IP 可能随着网络的变化而变化，根据你自己的 IP 变化的情况，你可以自己判断要不要使用 DDNS，它可以动态的把你的公网 IP 更新到 Cloudflare 的 DNS 上去，这样你不用自己手动更新 IP，如果你用的话，我推荐使用 <a href="https://github.com/jeessy2/ddns-go" target="_blank" rel="noopener">ddns-go</a>，如果使用 macOS，可以用 brew 安装，配置教程可以参考<a href="https://lijianfei.com/post/yi-jian-gao-ding-cloudflare-dns-zi-dong-geng-xin-gao-bie-shou-dong-fan-suo/" target="_blank" rel="noopener">这篇文章</a>。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ping6 -c 1 2001:4860:4860::8888 | grep -oE '([0-9a-f:]&#123;1,4&#125;)+ --&gt; ' | cut -d" " -f1</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://hexoblog.r2.depp.wang/20250491744188716.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20250491744188716.png" alt=""></p>
 <h3 id="2、使用定时任务执行脚本更新防火墙配置的公网-IP"><a href="#2、使用定时任务执行脚本更新防火墙配置的公网-IP" class="headerlink" title="2、使用定时任务执行脚本更新防火墙配置的公网 IP"></a>2、使用定时任务执行脚本更新防火墙配置的公网 IP</h3><p>我写一个脚本 <code>update-ipv6.sh</code>，利用 crontab 定时执行脚本，脚本内容为先获取 IPv6 地址，再 SSH 登陆到 iStoreOS 中更新防火墙配置的公网 IP。iStoreOS 基于 OpenWRT，脚本应该也适用于 OpenWRT。</p>
 <p>1、<code>update-ipv6.sh</code> 脚本，脚本内容根据你自己的情况来调整</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">LOG_FILE=./cronjob.log</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Task started at: <span class="variable">$(date)</span>"</span> &gt;&gt; <span class="variable">$LOG_FILE</span></span><br><span class="line"></span><br><span class="line">output=$(/sbin/ping6 -c 1 240C::6666)</span><br><span class="line">ipv6=$(<span class="built_in">echo</span> <span class="string">"<span class="variable">$output</span>"</span> | grep -oE <span class="string">'([0-9a-f:]&#123;1,4&#125;)+ --&gt; '</span> | cut -d<span class="string">" "</span> -f1)</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"IPv6: <span class="variable">$ipv6</span>"</span> &gt;&gt; <span class="variable">$LOG_FILE</span></span><br><span class="line"></span><br><span class="line">ssh -i ~/.ssh/id_rsa_own root@192.168.100.1 &lt;&lt;EOF</span><br><span class="line">uci <span class="built_in">set</span> firewall.@rule[your rule number].dest_ip=<span class="string">"<span class="variable">$ipv6</span>"</span></span><br><span class="line">uci commit firewall</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"END --------------- "</span> &gt;&gt; <span class="variable">$LOG_FILE</span></span><br></pre></td></tr></table></figure>
@@ -511,7 +511,7 @@
 <li>脚本需要位于当前用户下，不然可能无法执行</li>
 </ul>
 <p>3、iStoreOS 中设置 SSH 登录</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240403112558.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240403112558.png" alt=""></p>
 <p>将公钥加到 iStoreOS 的 <code>authorized_keys</code> 中</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh root@192.168.100.1 <span class="string">'cat &gt;&gt; /etc/dropbear/authorized_keys'</span> &lt; ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
 
@@ -666,7 +666,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
+          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
         
       </div>
     
@@ -702,7 +702,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            

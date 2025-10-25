@@ -101,7 +101,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://hexoblog.r2.xingquan.wang/202409021725287107.png">
 <meta property="og:image" content="https://hexoblog.r2.xingquan.wang/202409021725287107.png">
-<meta property="og:updated_time" content="2025-10-24T13:45:38.159Z">
+<meta property="og:updated_time" content="2025-10-25T01:58:12.753Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Logback 使用总结">
 <meta name="twitter:description" content="最近打在打印日志这块栽了个跟头，发现日志这块掌握得还不太好，所以大概梳理一下。    其实 SLF4J 类似于 Commons Logging，也是一个日志接口，而 Logback 类似于 Log4j，是一个日志的实现。">
@@ -142,7 +142,7 @@
   <title>Logback 使用总结 | 德普王</title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -176,7 +176,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -321,16 +321,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2020/10/30/logback-use-summary/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -472,7 +472,7 @@
         <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span>    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span>  
     <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">"info"</span>&gt;</span>        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"STDOUT"</span> /&gt;</span>    <span class="tag">&lt;/<span class="name">root</span>&gt;</span><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span>  </code></pre>
 <p>输出格式：  </p>
-<pre><code>15:58:50.559 [http-nio-8080-exec-1] INFO  w.depp.exceptionlog.TestController - info: haha  </code></pre><p><img src="https://hexoblog.r2.xingquan.wang/202409021725287107.png" alt>  </p>
+<pre><code>15:58:50.559 [http-nio-8080-exec-1] INFO  w.depp.exceptionlog.TestController - info: haha  </code></pre><p><img src="https://hexoblog.r2.xingquan.wang/202409021725287107.png" alt="">  </p>
 <p>使用 logger 指定某个 package 使用某个级别：  </p>
 <pre><code class="xml"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span>  
 
@@ -506,8 +506,8 @@
     <span class="tag">&lt;<span class="name">springProfile</span> <span class="attr">name</span>=<span class="string">"pre,pro"</span>&gt;</span>        <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"wang.depp"</span> <span class="attr">level</span>=<span class="string">"INFO"</span>&gt;</span>            <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"STDOUT"</span> /&gt;</span>        <span class="tag">&lt;/<span class="name">logger</span>&gt;</span>    <span class="tag">&lt;/<span class="name">springProfile</span>&gt;</span><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span>  </code></pre>
 <p>本地 application.yml 配置环境参数  </p>
 <pre><code class="yml"><span class="attr">spring:</span>  
-  <span class="attr">profiles:</span>  
-    <span class="attr">active:</span> <span class="string">dev</span>  </code></pre>
+<span class="attr">  profiles:</span>  
+<span class="attr">    active:</span> <span class="string">dev</span>  </code></pre>
 <p>打包部署时指定环境  </p>
 <pre><code>$ java -jar \target\my-app.jar -Dspring.profiles.active=dev  </code></pre><p>默认 appender 将重复打印日志，此时可以通过在 logger 添加 <code>additivity=&quot;false&quot;</code> 来关闭  </p>
 <pre><code class="xml">    <span class="tag">&lt;<span class="name">springProfile</span> <span class="attr">name</span>=<span class="string">"pre,pro"</span>&gt;</span>  
@@ -539,7 +539,7 @@
     <span class="tag">&lt;<span class="name">springProfile</span> <span class="attr">name</span>=<span class="string">"pre,pro"</span>&gt;</span>        <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"wang.depp"</span> <span class="attr">level</span>=<span class="string">"error"</span>&gt;</span>            <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"STDOUT"</span> /&gt;</span>            <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"baselog"</span>/&gt;</span>        <span class="tag">&lt;/<span class="name">logger</span>&gt;</span>    <span class="tag">&lt;/<span class="name">springProfile</span>&gt;</span><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span>  </code></pre>
 <h2 id="搭建-ELK-平台图形化查看日志"><a href="#搭建-ELK-平台图形化查看日志" class="headerlink" title="搭建 ELK 平台图形化查看日志"></a>搭建 ELK 平台图形化查看日志</h2><p>ELK：Elasticsearch、Logstash、Kibana  </p>
 <p>大致原理：  </p>
-<p><img src="https://hexoblog.r2.xingquan.wang/202409021725287107.png" alt>  </p>
+<p><img src="https://hexoblog.r2.xingquan.wang/202409021725287107.png" alt="">  </p>
 <p>详细搭建过程：<a href="https://developer.ibm.com/zh/articles/build-elk-and-use-it-for-springboot-and-nginx/" target="_blank" rel="noopener">搭建 ELK 实时日志平台并在 Spring Boot 和 Nginx 项目中使用</a>  </p>
 <h2 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h2><ul>
 <li><a href="https://www.liaoxuefeng.com/wiki/1252599548343744/1264739155914176" target="_blank" rel="noopener">廖雪峰 - 使用 SLF4J 和 Logback</a>  </li>
@@ -679,7 +679,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
+          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
         
       </div>
     
@@ -715,7 +715,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
