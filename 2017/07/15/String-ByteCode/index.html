@@ -99,7 +99,7 @@
 <meta property="og:site_name" content="德普王">
 <meta property="og:description" content="首先来看一道题。 题目描述问下面两种赋值方式有何区别？ public class Demo &amp;#123;    public static void main(String[] args) &amp;#123;        String s = &quot;1&quot; + &quot;2&quot; + &quot;3&quot;;        String s1 = &quot;1&quot;;        String s2 = s1 + &quot;2&quot;;        Str">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2025-11-17T15:34:59.848Z">
+<meta property="og:updated_time" content="2025-11-17T15:40:34.404Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从字节码（ByteCode）角度理解 String 的连接">
 <meta name="twitter:description" content="首先来看一道题。 题目描述问下面两种赋值方式有何区别？ public class Demo &amp;#123;    public static void main(String[] args) &amp;#123;        String s = &quot;1&quot; + &quot;2&quot; + &quot;3&quot;;        String s1 = &quot;1&quot;;        String s2 = s1 + &quot;2&quot;;        Str">
@@ -139,7 +139,7 @@
   <title>从字节码（ByteCode）角度理解 String 的连接 | 德普王</title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -173,7 +173,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -318,16 +318,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2017/07/15/String-ByteCode/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -437,7 +437,7 @@
 <figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line">// <span class="string">"1"</span>+<span class="string">"2"</span>+<span class="string">"3"</span> 被 JVM 转换成了字符串 <span class="string">"123"</span> 存储到操作数栈</span><br><span class="line"><span class="keyword">String </span>s = <span class="string">"1"</span> + <span class="string">"2"</span> + <span class="string">"3"</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
 
 <p>跳过 astore、dup 等指令（不是本节重点）</p>
-<figure class="highlight dart"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="markdown">/**</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>JVM 将 "1" 存储到操作数栈</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>JVM 用_new 指令实例化一个 StringBuilder 对象，调用 append() 方法连接 "1"</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>JVM 将 "2" 存储到操作数栈</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>调用 append() 方法连接 "2"</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>调用 toString() 转换成 String 类型</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>JVM_new 指令再实例化一个 StringBuilder 对象，调用 append() 方法连接 "12"</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>JVM 将 "3" 存储到操作数栈</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>调用 append() 方法连接 "3"</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>调用 toString() 转换成 String 类型</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>*/</span></span></span><br><span class="line"><span class="built_in">String</span> s1 = <span class="string">"1"</span>;</span><br><span class="line"><span class="built_in">String</span> s2 = s1 + <span class="string">"2"</span>;</span><br><span class="line"><span class="built_in">String</span> s3 = s2 + <span class="string">"3"</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * JVM 将 <span class="string">"1"</span> 存储到操作数栈</span><br><span class="line"> * JVM 用_new 指令实例化一个 StringBuilder 对象，调用 append() 方法连接 <span class="string">"1"</span></span><br><span class="line"> * JVM 将 <span class="string">"2"</span> 存储到操作数栈</span><br><span class="line"> * 调用 append() 方法连接 <span class="string">"2"</span></span><br><span class="line"> * 调用 toString() 转换成 <span class="keyword">String</span> 类型</span><br><span class="line"> * JVM_new 指令再实例化一个 StringBuilder 对象，调用 append() 方法连接 <span class="string">"12"</span></span><br><span class="line"> * JVM 将 <span class="string">"3"</span> 存储到操作数栈</span><br><span class="line"> * 调用 append() 方法连接 <span class="string">"3"</span></span><br><span class="line"> * 调用 toString() 转换成 <span class="keyword">String</span> 类型</span><br><span class="line"> * */</span><br><span class="line"><span class="keyword">String</span> s1 = <span class="string">"1"</span>;</span><br><span class="line"><span class="keyword">String</span> s2 = s1 + <span class="string">"2"</span>;</span><br><span class="line"><span class="keyword">String</span> s3 = s2 + <span class="string">"3"</span>;</span><br></pre></td></tr></table></figure>
 
 <p>当时用使用 <code>+</code> 操作符连接字符串时，为什么两者有无字符串对象就有区别呢？</p>
 <p>是因为如果不出现字符串引用，字符串常量的值在编译期时就可以确定下来，所以不会使用到 StringBuilder；如果出现字符串引用，JVM 不能将字符串引用和字符串常量直接连接，所以将在运行期间动态生成 StringBuilder 对象，让它去实现连接。</p>
@@ -582,7 +582,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
+          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
         
       </div>
     
@@ -618,7 +618,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            

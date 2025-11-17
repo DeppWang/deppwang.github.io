@@ -101,7 +101,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-25-143614.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-26-084417.png">
-<meta property="og:updated_time" content="2025-11-17T15:34:59.846Z">
+<meta property="og:updated_time" content="2025-11-17T15:40:34.402Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iTranswarp 部署记录">
 <meta name="twitter:description" content="作者：DeppWang、原文地址 目的：使用 iTranswarp 学习 nginx 配置 如果你只想本地启动，直接修改 ip，使用 docker-compose 即可">
@@ -142,7 +142,7 @@
   <title>iTranswarp 部署记录 | 德普王</title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -176,7 +176,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -321,16 +321,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2020/05/26/itranswarp-deploy-record/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -428,7 +428,7 @@
 <p>腾讯云 clone GitHub 项目太慢，使用 <a href="https://console.cloud.google.com/" target="_blank" rel="noopener">Google Cloud Platform</a>，招商银行国际信用卡注册</p>
 <p>Compute Engine 新建「虚拟机实例」 CentOS7</p>
 <p>实例配置（防火墙）入站端口</p>
-<figure class="highlight accesslog"><table><tr><td class="code"><pre><span class="line"><span class="number">0.0.0.0</span>/<span class="number">0</span> tcp:<span class="number">13306</span>,<span class="number">16379</span>,<span class="number">443</span>,<span class="number">80</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">0</span> tcp:<span class="number">13306</span>,<span class="number">16379</span>,<span class="number">443</span>,<span class="number">80</span></span><br></pre></td></tr></table></figure>
 
 <p>「元数据」添加公钥 id_rsa.pub，使用 SSH 公钥登录，原理请看<a href="https://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html" target="_blank" rel="noopener">SSH 原理与运用（一）：远程登录</a></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh -i ~/.ssh/id_rsa(私钥) your_user_name@ip</span><br><span class="line"></span><br><span class="line">ssh -i ~/.ssh/id_rsa_4 deppwxq@35.201.176.108 # 示例</span><br></pre></td></tr></table></figure>
@@ -462,7 +462,7 @@
 <p>使用 <a href="https://zh.wikipedia.org/wiki/Lynx" target="_blank" rel="noopener">lynx</a> 模拟服务器本地浏览器打开 <code>https://www.local.itranswarp.com/</code></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install lynx</span><br><span class="line">lynx https://www.local.itranswarp.com/</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-25-143614.png" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-25-143614.png" alt=""></p>
 <p>远程连接 Redis</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 远程连接</span></span><br><span class="line">redis-cli -h XXX.XXX.XXX.XXX(ip) -p port -a password</span><br><span class="line">redis-cli -h ip -p 16379 -a JFPRJ</span><br></pre></td></tr></table></figure>
 
@@ -474,7 +474,7 @@
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">A www.xingquan.wang ip</span><br><span class="line">A static.xingquan.wang ip</span><br><span class="line">A source.xingquan.wang ip</span><br><span class="line">A @xingquan.wang ip</span><br></pre></td></tr></table></figure>
 
 <h3 id="申请数字证书"><a href="#申请数字证书" class="headerlink" title="申请数字证书"></a>申请数字证书</h3><p><a href="https://freessl.org/" target="_blank" rel="noopener">freessl</a> 申请免费数字证书</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">www</span><span class="selector-class">.xingquan</span><span class="selector-class">.wang</span></span><br><span class="line"><span class="selector-tag">static</span><span class="selector-class">.xingquan</span><span class="selector-class">.wang</span></span><br><span class="line"><span class="selector-tag">source</span><span class="selector-class">.xingquan</span><span class="selector-class">.wang</span></span><br><span class="line"><span class="selector-tag">xingquan</span><span class="selector-class">.wang</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">www<span class="selector-class">.xingquan</span><span class="selector-class">.wang</span></span><br><span class="line">static<span class="selector-class">.xingquan</span><span class="selector-class">.wang</span></span><br><span class="line">source<span class="selector-class">.xingquan</span><span class="selector-class">.wang</span></span><br><span class="line">xingquan.wang</span><br></pre></td></tr></table></figure>
 
 <p>可四个域名同时申请同一个数字证书，也可分开申请</p>
 <p>离线申请，使用 <a href="https://keymanager.org/" target="_blank" rel="noopener">KeyManager</a>，最后「导出证书」，解压可得到两个文件：<code>**</code>.crt，<code>**</code>.key。crt 为数字证书，key 为服务器私钥，深入理解请看<a href="https://mp.weixin.qq.com/s?__biz=MzAxOTc0NzExNg==&mid=2665513779&idx=1&sn=a1de58690ad4f95111e013254a026ca2&chksm=80d67b70b7a1f26697fa1626b3e9830dbdf4857d7a9528d22662f2e43af149265c4fd1b60024&scene=21#wechat_redirect" target="_blank" rel="noopener">一个故事讲完 https</a></p>
@@ -483,7 +483,7 @@
 <p>修改 local.itranswarp.com.crt / local.itranswarp.com.key 为 xingquan.wang.crt、xingquan.wang.key，使用「导出证书」的 crt、key 替换。local-conf 文件夹下可不修改</p>
 <p>修改配置后，只重启 docker-compose（容器），配置是否生效？生效</p>
 <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><a href="https://www.xingquan.wang" target="_blank" rel="noopener">https://www.xingquan.wang</a></p>
-<img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-26-084417.png" alt style="zoom:50%;">
+<img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-05-26-084417.png" alt="" style="zoom:50%;">
 
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>学习到</p>
 <ul>
@@ -627,7 +627,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
+          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
         
       </div>
     
@@ -663,7 +663,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
