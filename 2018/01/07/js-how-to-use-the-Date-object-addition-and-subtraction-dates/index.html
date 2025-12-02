@@ -99,7 +99,7 @@
 <meta property="og:site_name" content="德普王">
 <meta property="og:description" content="这一周工作主要是写 js，遇到使用 JS 加减时间的问题，觉得需要总结记录一下。为了下次遇到这种问题时查阅方便，也为了更好的理解记忆。 var date = new Date(2018,0,7)// 新建一个时间，用于表示 2018 年 1 月 7 日。  为什么用 0 表示 1 呢，这是一个 js 的设计缺陷，0-11 表示 1-12 月。 日期相加如果 date 要使用多次，要将这个日期赋给一">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2025-11-18T03:05:08.802Z">
+<meta property="og:updated_time" content="2025-12-02T02:55:33.304Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS 中怎样使用 Date 对象加减日期">
 <meta name="twitter:description" content="这一周工作主要是写 js，遇到使用 JS 加减时间的问题，觉得需要总结记录一下。为了下次遇到这种问题时查阅方便，也为了更好的理解记忆。 var date = new Date(2018,0,7)// 新建一个时间，用于表示 2018 年 1 月 7 日。  为什么用 0 表示 1 呢，这是一个 js 的设计缺陷，0-11 表示 1-12 月。 日期相加如果 date 要使用多次，要将这个日期赋给一">
@@ -139,7 +139,7 @@
   <title>JS 中怎样使用 Date 对象加减日期 | 德普王</title>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -173,7 +173,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -318,16 +318,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2018/01/07/js-how-to-use-the-Date-object-addition-and-subtraction-dates/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -424,15 +424,15 @@
 <figure class="highlight lasso"><table><tr><td class="code"><pre><span class="line"><span class="built_in">var</span> temp = <span class="literal">new</span> <span class="built_in">Date</span>(<span class="built_in">date</span>);</span><br></pre></td></tr></table></figure>
 
 <p>例 1：加一个具体时间 -&gt;  x 年 y 月 z 日</p>
-<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">temp.set<span class="constructor">FullYear(<span class="params">temp</span>.<span class="params">getFullYear</span>()</span> + x);<span class="comment">// 注意是 FullYear</span></span><br><span class="line">temp.set<span class="constructor">Month(<span class="params">temp</span>.<span class="params">getMonth</span>()</span> + <span class="number">1</span> + y);<span class="comment">// 由于设计缺陷，要在设置月份的时候就加 1</span></span><br><span class="line">temp.set<span class="constructor">Date(<span class="params">temp</span>.<span class="params">getDate</span>()</span> + z);<span class="comment">// 注意是 Date</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">temp.<span class="keyword">set</span>FullYear<span class="params">(temp.getFullYear()</span> + x);<span class="string">//</span> 注意是 FullYear</span><br><span class="line">temp.<span class="keyword">set</span>Month<span class="params">(temp.getMonth()</span> + 1 + y);<span class="string">//</span> 由于设计缺陷，要在设置月份的时候就加 1</span><br><span class="line">temp.<span class="keyword">set</span>Date<span class="params">(temp.getDate()</span> + z);<span class="string">//</span> 注意是 Date</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"><span class="constructor">$(<span class="string">"#year"</span>)</span>.<span class="keyword">val</span>(temp.get<span class="constructor">FullYear()</span>);</span><br><span class="line"><span class="constructor">$(<span class="string">"#month"</span>)</span>.<span class="keyword">val</span>(temp.get<span class="constructor">Month()</span>);<span class="comment">// 如果 setMonth() 中没有加 1，那么在这加 1</span></span><br><span class="line"><span class="constructor">$(<span class="string">"#day"</span>)</span>.<span class="keyword">val</span>(temp.getDate);</span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$(</span><span class="string">"#year"</span>).val(temp.getFullYear());</span><br><span class="line"><span class="variable">$(</span><span class="string">"#month"</span>).val(temp.getMonth());<span class="regexp">//</span> 如果 setMonth() 中没有加 <span class="number">1</span>，那么在这加 <span class="number">1</span></span><br><span class="line"><span class="variable">$(</span><span class="string">"#day"</span>).val(temp.getDate);</span><br></pre></td></tr></table></figure>
 
 <p><strong>注意，一定顺序是 setFullYear()-&gt;setMonth()-&gt;setDate，不然时间相加会不准确。</strong></p>
 <h2 id="日期相减"><a href="#日期相减" class="headerlink" title="日期相减"></a>日期相减</h2><figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line">temp.getTime<span class="comment">()</span>; <span class="comment">//1515254400000, 以 Number 形式表示的时间戳</span></span><br></pre></td></tr></table></figure>
 
 <p>计算 date1 和 date2 之间的天数差值</p>
-<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">var timesDiff = <span class="module-access"><span class="module"><span class="identifier">Math</span>.</span></span>abs(date1.get<span class="constructor">Time()</span> - date2.getTime);</span><br><span class="line">var diffDays = <span class="module-access"><span class="module"><span class="identifier">Math</span>.</span></span>ceil(timesDiff<span class="operator"> / </span>(<span class="number">1000</span><span class="operator"> * </span><span class="number">60</span><span class="operator"> * </span><span class="number">60</span><span class="operator"> * </span><span class="number">24</span>));<span class="comment">// 向上取整</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> timesDiff = <span class="built_in">Math</span>.abs(date1.getTime() - date2.getTime);</span><br><span class="line"><span class="keyword">var</span> diffDays = <span class="built_in">Math</span>.ceil(timesDiff / (<span class="number">1000</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">24</span>));<span class="comment">// 向上取整</span></span><br></pre></td></tr></table></figure>
 
 <p>但是如果要对天数进增减，那只能先将在 setDate() 中增减，因为你在获取之后增减可能出现 0-31 以外的数</p>
 <p>关于 Date 的其他属性，可以查看 <a href="https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/001434499525761186acdd5ac3a44f8a50cc0ed8606139b000" target="_blank" rel="noopener">廖雪峰的 JS 教程</a></p>
@@ -567,7 +567,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
         
       </div>
     
@@ -603,7 +603,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
