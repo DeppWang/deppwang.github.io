@@ -73,7 +73,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Depp Wang">
+  <meta name="keywords" content="Git,分支策略,部署,常见问题,流程化,CI,">
 
 
 
@@ -91,16 +91,18 @@
 
 
 
-<meta name="description" content="每个人都需要有自己的哈姆雷特">
-<meta property="og:type" content="website">
-<meta property="og:title" content="德普王">
-<meta property="og:url" content="https://depp.wang/tags/Obsidian-to-Wechat-Tag/index.html">
+<meta name="description" content="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题代码直接在部署分支 dev 提交了，没在功能分支提交，在 dev 没有问题，功能分支合并到 uat 部署时，丢失在 dev 分支提交的代码，出现问题 示例：  uat 出现单元测试问题，dev 没有这个问题，单元测试提交到了 dev 分支，导出 uat 分支丢失  解决方式使用流程保证正确性，而不让人来保证正确性，2 种方式解决：">
+<meta name="keywords" content="Git,分支策略,部署,常见问题,流程化,CI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git 部署常见分支问题">
+<meta property="og:url" content="https://depp.wang/2025/git-branch-deploy-pitfalls/index.html">
 <meta property="og:site_name" content="德普王">
-<meta property="og:description" content="每个人都需要有自己的哈姆雷特">
+<meta property="og:description" content="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题代码直接在部署分支 dev 提交了，没在功能分支提交，在 dev 没有问题，功能分支合并到 uat 部署时，丢失在 dev 分支提交的代码，出现问题 示例：  uat 出现单元测试问题，dev 没有这个问题，单元测试提交到了 dev 分支，导出 uat 分支丢失  解决方式使用流程保证正确性，而不让人来保证正确性，2 种方式解决：">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2025-12-08T03:40:20.939Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="德普王">
-<meta name="twitter:description" content="每个人都需要有自己的哈姆雷特">
+<meta name="twitter:title" content="Git 部署常见分支问题">
+<meta name="twitter:description" content="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题代码直接在部署分支 dev 提交了，没在功能分支提交，在 dev 没有问题，功能分支合并到 uat 部署时，丢失在 dev 分支提交的代码，出现问题 示例：  uat 出现单元测试问题，dev 没有这个问题，单元测试提交到了 dev 分支，导出 uat 分支丢失  解决方式使用流程保证正确性，而不让人来保证正确性，2 种方式解决：">
 
 
 
@@ -128,16 +130,16 @@
 
 
 
-  <link rel="canonical" href="https://depp.wang/tags/Obsidian-to-Wechat-Tag/">
+  <link rel="canonical" href="https://depp.wang/2025/git-branch-deploy-pitfalls/">
 
 
 
 
 
-  <title>标签: Obsidian-to-Wechat-Tag | 德普王</title>
+  <title>Git 部署常见分支问题 | 德普王</title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -168,10 +170,10 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -307,42 +309,229 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>Obsidian-to-Wechat-Tag<small>标签</small>
-      </h1>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2025/git-branch-deploy-pitfalls/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git 部署常见分支问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2025-12-08T11:40:01+08:00">
+                2025-12-08
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-08T11:40:01+08:00">
+                2025-12-08
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2025/git-branch-deploy-pitfalls/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/git-branch-deploy-pitfalls/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2025/git-branch-deploy-pitfalls/" class="leancloud_visitors" data-flag-title="Git 部署常见分支问题">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h2 id="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题"><a href="#一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题" class="headerlink" title="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题"></a>一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题</h2><p>代码直接在部署分支 dev 提交了，没在功能分支提交，在 dev 没有问题，功能分支合并到 uat 部署时，丢失在 dev 分支提交的代码，出现问题</p>
+<p>示例：</p>
+<ol>
+<li>uat 出现单元测试问题，dev 没有这个问题，单元测试提交到了 dev 分支，导出 uat 分支丢失</li>
+</ol>
+<h3 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h3><p>使用流程保证正确性，而不让人来保证正确性，2 种方式解决：</p>
+<ol>
+<li>设置部署分支 dev 分支禁止 commit</li>
+<li>远程仓库设置部署分支不能推送，只能通过 pr 的方式合并代码到部署分支</li>
+</ol>
+<h3 id="1-本地设置-dev-分支禁止-commit"><a href="#1-本地设置-dev-分支禁止-commit" class="headerlink" title="1. 本地设置 dev 分支禁止 commit"></a>1. 本地设置 dev 分支禁止 commit</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim .git/hooks/pre-commit</span><br></pre></td></tr></table></figure>
 
-      <h2 class="post-title">
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">branch="$(git rev-parse --abbrev-ref HEAD)"</span><br><span class="line"></span><br><span class="line">if [ "$branch" = "develop" ]; then</span><br><span class="line">  echo "Direct commits to develop branch are not allowed!"</span><br><span class="line">  echo "Please create a feature branch and submit a PR."</span><br><span class="line">  exit 1</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chmod +x .git/hooks/pre-commit</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、手动部署后测试没有生效，结果发现是代码没有推送到远程分支"><a href="#二、手动部署后测试没有生效，结果发现是代码没有推送到远程分支" class="headerlink" title="二、手动部署后测试没有生效，结果发现是代码没有推送到远程分支"></a>二、手动部署后测试没有生效，结果发现是代码没有推送到远程分支</h2><p>流程化：推送代码自动触发部署，没有不推送代码就部署的问题</p>
+
         
-            <a class="post-title-link" href="/2024/software-payment/" itemprop="url">
-              
-                <span itemprop="name">为好软件付费</span>
-              
-            </a>
         
-      </h2>
+      
+    </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2024-06-16T01:09:47+08:00" content="2024-06-16">
-          06-16
-        </time>
-      </div>
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="https://hexoblog.r2.depp.wang/202406221719028220.png" alt="deppwang wechat" style="width: 200px; max-width: 100%;">
+    <div></div>
+</div>
 
-    </header>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      deppwang
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://depp.wang/2025/git-branch-deploy-pitfalls/" title="Git 部署常见分支问题">https://depp.wang/2025/git-branch-deploy-pitfalls/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+            <a href="/tags/分支策略/" rel="tag"># 分支策略</a>
+          
+            <a href="/tags/部署/" rel="tag"># 部署</a>
+          
+            <a href="/tags/常见问题/" rel="tag"># 常见问题</a>
+          
+            <a href="/tags/流程化/" rel="tag"># 流程化</a>
+          
+            <a href="/tags/CI/" rel="tag"># CI</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2025/macos-launchagents-git-autosync/" rel="next" title="macOS 利用 LaunchAgents + GitHub 自动同步文件修改">
+                <i class="fa fa-chevron-left"></i> macOS 利用 LaunchAgents + GitHub 自动同步文件修改
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -350,6 +539,39 @@
 
 
           
+  <script type="text/javascript">
+    function onSelectGiscus() {
+      document.getElementById('giscus-btn').style = 'background-color: #666; color: #fff;';
+      document.getElementsByClassName('giscus')[0].style = '';
+      document.getElementById('disqus_thread').style.display = 'none';
+      document.getElementById('disqus-btn').style = '';
+    }
+
+    function onSelectDisqus() {
+      document.getElementById('disqus-btn').style = 'background-color: #666; color: #fff;';
+      document.getElementById('disqus_thread').style = '';
+      document.getElementsByClassName('giscus')[0].style.display = 'none';
+      document.getElementById('giscus-btn').style = '';
+    }
+  </script>
+
+  <p>评论默认使用 <button id="giscus-btn" onclick="onSelectGiscus()" style="
+  background-color: #666; color: #fff;
+  ">giscus</button>，你也可以切换到 <button id="disqus-btn" onclick="onSelectDisqus()">disqus</button> 来留言。</p>
+  
+  <div class="comments" id="comments">
+    <script src="https://giscus.app/client.js" data-repo="deppwang/deppwang.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnk5MDUwNTE0Nw==" data-category="Comments" data-category-id="DIC_kwDOBWT_u84CesZv" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async>
+    </script>
+    
+      <div id="disqus_thread" style="display: none;>
+        <noscript>
+          Please enable JavaScript to view the
+          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+        
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -369,9 +591,18 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
@@ -383,7 +614,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">141</span>
+                <span class="site-state-item-count">143</span>
                 <span class="site-state-item-name">文章</span>
               </a>
             </div>
@@ -397,7 +628,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">335</span>
+                <span class="site-state-item-count">341</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -513,6 +744,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题"><span class="nav-number">1.</span> <span class="nav-text">一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方式"><span class="nav-number">1.1.</span> <span class="nav-text">解决方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-本地设置-dev-分支禁止-commit"><span class="nav-number">1.2.</span> <span class="nav-text">1. 本地设置 dev 分支禁止 commit</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、手动部署后测试没有生效，结果发现是代码没有推送到远程分支"><span class="nav-number">2.</span> <span class="nav-text">二、手动部署后测试没有生效，结果发现是代码没有推送到远程分支</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -649,6 +896,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 
@@ -666,6 +917,18 @@
       <script id="dsq-count-scr" src="https://deppwang-1.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://depp.wang/2025/git-branch-deploy-pitfalls/';
+          this.page.identifier = '2025/git-branch-deploy-pitfalls/';
+          this.page.title = 'Git 部署常见分支问题';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://deppwang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   

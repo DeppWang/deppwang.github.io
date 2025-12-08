@@ -137,7 +137,7 @@
   <title>德普王</title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -173,7 +173,7 @@
  ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -318,16 +318,326 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://depp.wang/2025/action4-dash-cam/">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2025/git-branch-deploy-pitfalls/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2025/git-branch-deploy-pitfalls/" itemprop="url">Git 部署常见分支问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2025-12-08T11:40:01+08:00">
+                2025-12-08
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-08T11:40:01+08:00">
+                2025-12-08
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2025/git-branch-deploy-pitfalls/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/git-branch-deploy-pitfalls/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2025/git-branch-deploy-pitfalls/" class="leancloud_visitors" data-flag-title="Git 部署常见分支问题">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题"><a href="#一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题" class="headerlink" title="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题"></a>一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题</h2><p>代码直接在部署分支 dev 提交了，没在功能分支提交，在 dev 没有问题，功能分支合并到 uat 部署时，丢失在 dev 分支提交的代码，出现问题</p>
+<p>示例：</p>
+<ol>
+<li>uat 出现单元测试问题，dev 没有这个问题，单元测试提交到了 dev 分支，导出 uat 分支丢失</li>
+</ol>
+<h3 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h3><p>使用流程保证正确性，而不让人来保证正确性，2 种方式解决：</p>
+<ol>
+<li>设置部署分支 dev 分支禁止 commit</li>
+<li>远程仓库设置部署分支不能推送，只能通过 pr 的方式合并代码到部署分支</li>
+</ol>
+<h3 id="1-本地设置-dev-分支禁止-commit"><a href="#1-本地设置-dev-分支禁止-commit" class="headerlink" title="1. 本地设置 dev 分支禁止 commit"></a>1. 本地设置 dev 分支禁止 commit</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim .git/hooks/pre-commit</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">branch="$(git rev-parse --abbrev-ref HEAD)"</span><br><span class="line"></span><br><span class="line">if [ "$branch" = "develop" ]; then</span><br><span class="line">  echo "Direct commits to develop branch are not allowed!"</span><br><span class="line">  echo "Please create a feature branch and submit a PR."</span><br><span class="line">  exit 1</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chmod +x .git/hooks/pre-commit</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、手动部署后测试没有生效，结果发现是代码没有推送到远程分支"><a href="#二、手动部署后测试没有生效，结果发现是代码没有推送到远程分支" class="headerlink" title="二、手动部署后测试没有生效，结果发现是代码没有推送到远程分支"></a>二、手动部署后测试没有生效，结果发现是代码没有推送到远程分支</h2><p>流程化：推送代码自动触发部署，没有不推送代码就部署的问题</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2025/macos-launchagents-git-autosync/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2025/macos-launchagents-git-autosync/" itemprop="url">macOS 利用 LaunchAgents + GitHub 自动同步文件修改</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2025-12-08T11:40:01+08:00">
+                2025-12-08
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-08T11:40:01+08:00">
+                2025-12-08
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2025/macos-launchagents-git-autosync/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2025/macos-launchagents-git-autosync/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2025/macos-launchagents-git-autosync/" class="leancloud_visitors" data-flag-title="macOS 利用 LaunchAgents + GitHub 自动同步文件修改">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在多台 Mac 间同步笔记或脚本时，Git 能帮我们保留历史、解决冲突，但手动 <code>git add/commit/push</code> 容易忘。下面这套做法用 LaunchAgents 定时执行一个 Git 脚本，把指定仓库的修改自动提交并推送到 GitHub（或任意 Git 远端），既省事又留痕。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2025/macos-launchagents-git-autosync/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2025/action4-dash-cam/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -366,8 +676,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2025-12-02T10:53:42+08:00">
-                2025-12-02
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-05T18:28:30+08:00">
+                2025-12-05
               </time>
             
           </span>
@@ -467,16 +777,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2025/apple-tv-contra/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -515,8 +825,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2025-11-10T11:11:44+08:00">
-                2025-11-10
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-05T18:28:30+08:00">
+                2025-12-05
               </time>
             
           </span>
@@ -570,7 +880,7 @@
         
           <p>我 Apple TV 现在是配合极米投影仪在使用，现在基本只偶尔使用 VLC + NAS 看电影。买过一段时间 Arcade 玩游戏，玩的频率不高加上订阅制不太划算，Apple TV 就只用来看电影了。</p>
 <p>前两天突然想到能不能 Apple TV 玩下小时候的魂斗罗之类的游戏，折腾试了一下，还真可以。</p>
-<p><img src="https://hexoblog.r2.depp.wang/202511011761977571.jpeg" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/202511011761977571.jpeg" alt=""></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2025/apple-tv-contra/#more" rel="contents">
@@ -618,16 +928,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2025/backend-engineer-level-guide/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -666,8 +976,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2025-10-29T12:32:26+08:00">
-                2025-10-29
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-05T18:28:30+08:00">
+                2025-12-05
               </time>
             
           </span>
@@ -768,16 +1078,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2025/attention/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -816,8 +1126,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2025-08-16T20:58:07+08:00">
-                2025-08-16
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-05T18:28:30+08:00">
+                2025-12-05
               </time>
             
           </span>
@@ -869,7 +1179,7 @@
 
       
         
-          <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/main-11.jpg" alt></p>
+          <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/main-11.jpg" alt=""></p>
 <h2 id="注意力是这个时代最稀缺的资源"><a href="#注意力是这个时代最稀缺的资源" class="headerlink" title="注意力是这个时代最稀缺的资源"></a>注意力是这个时代最稀缺的资源</h2><p>打开手机，短视频软件在推送今天的热点，社交软件的红点提醒你有新消息，游戏的活动通知吸引你再玩一局。我们生活在一个注意力被无限分割的时代。</p>
 <p>每个人每天的注意力总量是有限的，就像手机电池一样，用一点就少一点。当我们把注意力过多地消耗在娱乐和消遣上，留给工作、学习和成长的注意力自然就减少了。更糟糕的是，频繁的注意力切换会让大脑疲惫，即使想要专注时也难以进入状态。</p>
           <!--noindex-->
@@ -919,16 +1229,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2025/claude-code/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -967,8 +1277,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2025-10-30T11:18:16+08:00">
-                2025-10-30
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-05T18:28:30+08:00">
+                2025-12-05
               </time>
             
           </span>
@@ -1020,7 +1330,7 @@
 
       
         
-          <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20250812222738.png" alt></p>
+          <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20250812222738.png" alt=""></p>
 <h2 id="AI-编程工具的进化之路"><a href="#AI-编程工具的进化之路" class="headerlink" title="AI 编程工具的进化之路"></a>AI 编程工具的进化之路</h2><p>过去几年，AI 编程工具经历了一场革命性的演变：从 GitHub Copilot 到 ChatGPT，再到 Cursor，最后到现在的 Claude Code。每一次迭代都在解决前一代工具的痛点。  </p>
           <!--noindex-->
           <div class="post-button text-center">
@@ -1069,16 +1379,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2025/apple-watch/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -1117,8 +1427,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2025-08-07T12:54:42+08:00">
-                2025-08-07
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-05T18:28:30+08:00">
+                2025-12-05
               </time>
             
           </span>
@@ -1170,7 +1480,7 @@
 
       
         
-          <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/apple-watch-series-9.png" alt></p>
+          <p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/apple-watch-series-9.png" alt=""></p>
 <p>去年双十一入手了 Apple Watch S9 蜂窝版。使用了大半年后，分享一下选购经验和使用体验，希望能帮到正在纠结的朋友。</p>
 <p>我买 Apple Watch 主要有 2 个目的：运动记录，苹果生态完善。我买的 S9 蜂窝版，S9 是 23 年发布的，现在应该没有生产了，全新未拆封版本应该越到后面越不好买了。</p>
           <!--noindex-->
@@ -1220,16 +1530,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2025/pro-notes/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -1268,8 +1578,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2025-05-20T21:33:03+08:00">
-                2025-05-20
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-05T18:28:30+08:00">
+                2025-12-05
               </time>
             
           </span>
@@ -1321,9 +1631,9 @@
 
       
         
-          <p><img src="https://assets.pronotes.app/videos/pronotes-bar.mp4" alt></p>
+          <p><img src="https://assets.pronotes.app/videos/pronotes-bar.mp4" alt=""></p>
 <p>我一直使用 <a href="https://depp.wang/2024/my-obsidian-experience/">Obsidian 作为我的笔记工具</a>，虽然一直用 Apple 全家桶，但却基本不使用 Apple Notes，原因是因为它不支持 MarkDown。虽然不少人将 Apple Notes 称作是最好的笔记工具，但对我来说，支持 MarkDown 的 Obsidian 更适合我。 Obsidian 虽好，但手机端编辑还是稍微有点麻烦，没有 Apple Notes 那么方便。Obsidian 通过 GitHub 实现的同步也没有 Apple Cloud 那么无感。</p>
-<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20250520212532.png" alt></p>
+<p><img src="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/20250520212532.png" alt=""></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2025/pro-notes/#more" rel="contents">
@@ -1371,16 +1681,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2025/rechargeable-battery/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -1419,8 +1729,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2025-01-05T21:20:04+08:00">
-                2025-01-05
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-05T18:28:30+08:00">
+                2025-12-05
               </time>
             
           </span>
@@ -1481,8 +1791,8 @@
 </tr>
 </thead>
 <tbody><tr>
-<td><img src="https://hexoblog.r2.xingquan.wang/202501041735998848.png" alt></td>
-<td><img src="https://hexoblog.r2.xingquan.wang/202501041735998951.png" alt></td>
+<td><img src="https://hexoblog.r2.xingquan.wang/202501041735998848.png" alt=""></td>
+<td><img src="https://hexoblog.r2.xingquan.wang/202501041735998951.png" alt=""></td>
 </tr>
 </tbody></table>
           <!--noindex-->
@@ -1532,16 +1842,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2024/ai-iphone/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -1580,8 +1890,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-12-21T23:19:44+08:00">
-                2024-12-21
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-05T18:28:30+08:00">
+                2025-12-05
               </time>
             
           </span>
@@ -1682,16 +1992,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2024/my-obsidian-experience/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -1730,8 +2040,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-08-25T09:59:00+08:00">
-                2024-08-25
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-05T18:28:30+08:00">
+                2025-12-05
               </time>
             
           </span>
@@ -1783,7 +2093,7 @@
 
       
         
-          <p><img src="https://hexoblog.r2.depp.wang/202406241719240323.png" alt></p>
+          <p><img src="https://hexoblog.r2.depp.wang/202406241719240323.png" alt=""></p>
 <p>我使用 <a href="https://obsidian.md/" target="_blank" rel="noopener">Obsidian</a> 管理我的个人知识库，选择它的主要原因是因为自己的数据可以掌握在自己手上，另外它支持使用标签、双链（双向链接），搜索也很准确。</p>
           <!--noindex-->
           <div class="post-button text-center">
@@ -1832,16 +2142,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2024/silicon-valley/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -1880,8 +2190,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-08-25T09:59:00+08:00">
-                2024-08-25
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-05T18:28:30+08:00">
+                2025-12-05
               </time>
             
           </span>
@@ -1933,7 +2243,7 @@
 
       
         
-          <p><img src="https://hexoblog.r2.depp.wang/202406241719160934.png" alt></p>
+          <p><img src="https://hexoblog.r2.depp.wang/202406241719160934.png" alt=""></p>
 <p>此文涉及剧透！</p>
 <p>把 HBO 的《硅谷》(Silicon Valley) 看完了，发现《硅谷》就是一部创业踩坑记录大全。</p>
 <p>《硅谷》中「魔笛手」(Pied Piper) 的创业起点在没背景没资源的小公司中算是顶级了，有核心的技术，其压缩算法在硅谷也是最厉害的。创业团队原始成员在各自领域都很擅长，理查德 (Richard) - 算法、吉尔弗约尔 (Gilfoyle) - 硬件 / 架构、迪尼希 (Dinesh) - 软件、「贾里德」(“Jared”) - 财务与运营、巴赫曼 (Bachman) - 营销。创业难，不管什么创业团队，创业过程中都会遇到各种问题，《硅谷》虽然有一定戏剧成分，但确实反应了创业的种种问题。</p>
@@ -1984,16 +2294,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2024/image-from-oss-to-r2/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -2032,8 +2342,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2025-04-19T16:32:04+08:00">
-                2025-04-19
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-05T18:28:30+08:00">
+                2025-12-05
               </time>
             
           </span>
@@ -2133,16 +2443,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2024/simple-youdaonote-pull/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -2181,8 +2491,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-08-25T09:59:00+08:00">
-                2024-08-25
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-05T18:28:30+08:00">
+                2025-12-05
               </time>
             
           </span>
@@ -2234,7 +2544,7 @@
 
       
         
-          <p><img src="https://hexoblog.r2.depp.wang/20240618124244.png" alt></p>
+          <p><img src="https://hexoblog.r2.depp.wang/20240618124244.png" alt=""></p>
 <p><a href="https://github.com/deppwang/youdaonote-pull" target="_blank" rel="noopener">youdaonote-pull</a> 是我写的一个开源的有道云笔记导出与备份工具，同时可以将不是 Markdown 格式的笔记转换为 Markdown 格式。</p>
 <p>我写了比较详细的使用步骤，对于非技术人员的同学来说，可能还是有点门槛。所以我又花了些时间，将其简化了可直接本地运行程序，你不再需要安装 Git、Python 和下载代码。</p>
 <p>程序完全本地运行，无需担心隐私问题。</p>
@@ -2285,16 +2595,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2024/software-payment/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -2333,8 +2643,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-06-17T12:18:31+08:00">
-                2024-06-17
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-05T18:28:30+08:00">
+                2025-12-05
               </time>
             
           </span>
@@ -2435,16 +2745,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2024/gpt4o-free-use/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -2483,8 +2793,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-08-25T09:57:00+08:00">
-                2024-08-25
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-05T18:28:30+08:00">
+                2025-12-05
               </time>
             
           </span>
@@ -2537,7 +2847,7 @@
       
         
           <p>国外大语言模型三方评测网站 <a href="https://artificialanalysis.ai/models" target="_blank" rel="noopener">Artificial Analysis</a> 的评测结果显示：GPT-4o 质量是目前所有大语言模型中最好的，速度比 GPT-3.5 Turbo 快，API 的价格相比 GPT-4 也降低了一半。</p>
-<p><img src="https://hexoblog.r2.depp.wang/20240611190755.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/20240611190755.png" alt=""></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2024/gpt4o-free-use/#more" rel="contents">
@@ -2585,16 +2895,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2024/python-async-io/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -2633,8 +2943,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-06-19T17:00:42+08:00">
-                2024-06-19
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-05T18:28:30+08:00">
+                2025-12-05
               </time>
             
           </span>
@@ -2734,16 +3044,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2024/decoration-design/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -2782,8 +3092,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-06-25T23:24:30+08:00">
-                2024-06-25
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-05T18:28:30+08:00">
+                2025-12-05
               </time>
             
           </span>
@@ -2887,16 +3197,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2024/emeishan/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -2935,8 +3245,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-06-19T17:00:42+08:00">
-                2024-06-19
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-05T18:28:30+08:00">
+                2025-12-05
               </time>
             
           </span>
@@ -2990,314 +3300,10 @@
         
           <p>对于我从小在重庆长大的我来说，上学就是下山，放学回家就是爬山，山对我来说没有什么稀奇。而峨眉山是金庸武侠小说中的峨眉派所在地，这让这座山和普通山又有了一点不一样。想去看看。</p>
 <p>五一节后工作日的峨眉山，游客明显变少了，可以通过 100 块就可以定还不错的酒店看出来。跟餐厅老板聊天，他也提到「现在是淡季中的淡季，五一酒店要五六百」。事先了解到当地有一种「竹叶菜」，尝了一下，还不错，菜单上叫「炒野菜」。</p>
-<p><img src="https://hexoblog.r2.depp.wang/5FC462C3-77B0-46BE-8DE1-9D5F704A034B_1_105_c.jpeg" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/5FC462C3-77B0-46BE-8DE1-9D5F704A034B_1_105_c.jpeg" alt=""></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2024/emeishan/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://depp.wang/2024/reply-1988/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/deppwang.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="德普王">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2024/reply-1988/" itemprop="url">友情、爱情、亲情三足鼎立，上面插着燃烧的青春</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2024-05-07T09:28:34+08:00">
-                2024-05-07
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2024-08-25T09:59:00+08:00">
-                2024-08-25
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2024/reply-1988/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/reply-1988/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2024/reply-1988/" class="leancloud_visitors" data-flag-title="友情、爱情、亲情三足鼎立，上面插着燃烧的青春">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="https://hexoblog.r2.depp.wang/20240507092952.png" alt></p>
-<p>韩剧《请回答 1988》豆瓣评分很高，有 9.7 分，原来一直没有看，这次趁五一假期看了一下，确实是神剧，后劲很大。我是使用 Infuse 直接看的阿里云盘上的<a href="https://www.aliyundrive.com/s/9iZaXDeakS3/folder/65119a1c22e0accfa4444c02a7994dc084212a4b" target="_blank" rel="noopener">资源</a>，开始看的 1080P 内嵌字幕版本，后面有的剧集字幕不全，我就看的 4K 外挂字幕版本。Infuse 使用外挂字幕的方式：先用「打开文件」的方式添加字幕，再在「高级设定」中选择字幕。</p>
-<p>都说好的作品可以让观众灵魂共鸣，《1988》无疑做到了。这是一部很温暖的剧，包含大量真实细腻的生活细节。其内核与美剧《This is Us》相同。</p>
-<p>以下有剧透，请谨慎食用。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2024/reply-1988/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://depp.wang/2024/what-is-nas/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/deppwang.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="德普王">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2024/what-is-nas/" itemprop="url">什么是 NAS？如何低成本玩 NAS？</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2024-04-23T22:32:08+08:00">
-                2024-04-23
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2024-08-25T09:55:00+08:00">
-                2024-08-25
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2024/what-is-nas/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2024/what-is-nas/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2024/what-is-nas/" class="leancloud_visitors" data-flag-title="什么是 NAS？如何低成本玩 NAS？">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/l8lkkB-rlxQ?si=HHFhjwIgOCen4KO_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-<p>以下是文字版：</p>
-<h2 id="什么是-NAS"><a href="#什么是-NAS" class="headerlink" title="什么是 NAS"></a>什么是 NAS</h2><p>NAS，Network Attached Storage，翻译为中文是「网络附加存储」。我们常用的硬盘也叫 DAS（Direct Attached Storage ），就是「直接附加存储」。硬盘是通过数据线直接连接，只能当前设备使用。而 NAS 可以看成是将硬盘联网，是局域网中所有设备的共享硬盘。如果你将 NAS 的外网访问打通，那 NAS 就是数据存放在你自己硬盘的私人云盘。换句话说，如果一个硬盘，它可以通过网络连接使用，那它就可以当成一个 NAS。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2024/what-is-nas/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -3368,7 +3374,7 @@
       
 
       <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
@@ -3380,7 +3386,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">141</span>
+                <span class="site-state-item-count">143</span>
                 <span class="site-state-item-name">文章</span>
               </a>
             </div>
@@ -3394,7 +3400,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">335</span>
+                <span class="site-state-item-count">341</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
