@@ -73,7 +73,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Git,分支,常见问题,">
+  <meta name="keywords" content="技术,Git,分支,常见问题,">
 
 
 
@@ -91,18 +91,18 @@
 
 
 
-<meta name="description" content="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题代码直接在部署分支 dev 提交了，没在功能分支提交，在 dev 环境没有问题，功能分支合并到 test 分支部署时，丢失在 dev 分支提交的代码，出现问题 示例：  test 环境出现单元测试问题，dev 环境没有这个问题，单元测试提交到了 dev 分支，导致 test 分支丢失  解决方式使用流程保证正确性，而不让人来保证正">
-<meta name="keywords" content="Git,分支,常见问题">
+<meta name="description" content="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题代码直接在部署分支 dev 提交了，没在功能分支提交，在 dev 环境没有问题，功能分支合并到 test 分支部署时，丢失在 dev 分支提交的代码，出现问题 示例：  test 环境出现单元测试问题，dev 环境没有这个问题，单元测试提交到了 dev 分支，导致 test 分支丢失">
+<meta name="keywords" content="技术,Git,分支,常见问题">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git 部署常见分支问题">
 <meta property="og:url" content="https://depp.wang/2025/git-branch-deploy-pitfalls/index.html">
 <meta property="og:site_name" content="德普王">
-<meta property="og:description" content="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题代码直接在部署分支 dev 提交了，没在功能分支提交，在 dev 环境没有问题，功能分支合并到 test 分支部署时，丢失在 dev 分支提交的代码，出现问题 示例：  test 环境出现单元测试问题，dev 环境没有这个问题，单元测试提交到了 dev 分支，导致 test 分支丢失  解决方式使用流程保证正确性，而不让人来保证正">
+<meta property="og:description" content="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题代码直接在部署分支 dev 提交了，没在功能分支提交，在 dev 环境没有问题，功能分支合并到 test 分支部署时，丢失在 dev 分支提交的代码，出现问题 示例：  test 环境出现单元测试问题，dev 环境没有这个问题，单元测试提交到了 dev 分支，导致 test 分支丢失">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2025-12-08T03:50:54.840Z">
+<meta property="og:updated_time" content="2025-12-08T03:52:19.664Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git 部署常见分支问题">
-<meta name="twitter:description" content="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题代码直接在部署分支 dev 提交了，没在功能分支提交，在 dev 环境没有问题，功能分支合并到 test 分支部署时，丢失在 dev 分支提交的代码，出现问题 示例：  test 环境出现单元测试问题，dev 环境没有这个问题，单元测试提交到了 dev 分支，导致 test 分支丢失  解决方式使用流程保证正确性，而不让人来保证正">
+<meta name="twitter:description" content="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题代码直接在部署分支 dev 提交了，没在功能分支提交，在 dev 环境没有问题，功能分支合并到 test 分支部署时，丢失在 dev 分支提交的代码，出现问题 示例：  test 环境出现单元测试问题，dev 环境没有这个问题，单元测试提交到了 dev 分支，导致 test 分支丢失">
 
 
 
@@ -364,7 +364,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2025-12-08T11:50:08+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-08T11:50:42+08:00">
                 2025-12-08
               </time>
             
@@ -421,6 +421,8 @@
 <ol>
 <li>test 环境出现单元测试问题，dev 环境没有这个问题，单元测试提交到了 dev 分支，导致 test 分支丢失</li>
 </ol>
+<a id="more"></a>
+
 <h3 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h3><p>使用流程保证正确性，而不让人来保证正确性，2 种方式解决：</p>
 <ol>
 <li>设置部署分支 dev 分支禁止 commit</li>
@@ -483,6 +485,8 @@
     <footer class="post-footer">
       
         <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
           
             <a href="/tags/Git/" rel="tag"># Git</a>
           
