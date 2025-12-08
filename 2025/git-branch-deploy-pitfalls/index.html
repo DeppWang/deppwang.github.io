@@ -73,7 +73,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Git,分支策略,部署,常见问题,流程化,CI,">
+  <meta name="keywords" content="Git,分支,常见问题,">
 
 
 
@@ -91,18 +91,18 @@
 
 
 
-<meta name="description" content="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题代码直接在部署分支 dev 提交了，没在功能分支提交，在 dev 没有问题，功能分支合并到 uat 部署时，丢失在 dev 分支提交的代码，出现问题 示例：  uat 出现单元测试问题，dev 没有这个问题，单元测试提交到了 dev 分支，导出 uat 分支丢失  解决方式使用流程保证正确性，而不让人来保证正确性，2 种方式解决：">
-<meta name="keywords" content="Git,分支策略,部署,常见问题,流程化,CI">
+<meta name="description" content="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题代码直接在部署分支 dev 提交了，没在功能分支提交，在 dev 环境没有问题，功能分支合并到 test 分支部署时，丢失在 dev 分支提交的代码，出现问题 示例：  test 环境出现单元测试问题，dev 环境没有这个问题，单元测试提交到了 dev 分支，导致 test 分支丢失  解决方式使用流程保证正确性，而不让人来保证正">
+<meta name="keywords" content="Git,分支,常见问题">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git 部署常见分支问题">
 <meta property="og:url" content="https://depp.wang/2025/git-branch-deploy-pitfalls/index.html">
 <meta property="og:site_name" content="德普王">
-<meta property="og:description" content="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题代码直接在部署分支 dev 提交了，没在功能分支提交，在 dev 没有问题，功能分支合并到 uat 部署时，丢失在 dev 分支提交的代码，出现问题 示例：  uat 出现单元测试问题，dev 没有这个问题，单元测试提交到了 dev 分支，导出 uat 分支丢失  解决方式使用流程保证正确性，而不让人来保证正确性，2 种方式解决：">
+<meta property="og:description" content="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题代码直接在部署分支 dev 提交了，没在功能分支提交，在 dev 环境没有问题，功能分支合并到 test 分支部署时，丢失在 dev 分支提交的代码，出现问题 示例：  test 环境出现单元测试问题，dev 环境没有这个问题，单元测试提交到了 dev 分支，导致 test 分支丢失  解决方式使用流程保证正确性，而不让人来保证正">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2025-12-08T03:40:20.939Z">
+<meta property="og:updated_time" content="2025-12-08T03:42:38.689Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git 部署常见分支问题">
-<meta name="twitter:description" content="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题代码直接在部署分支 dev 提交了，没在功能分支提交，在 dev 没有问题，功能分支合并到 uat 部署时，丢失在 dev 分支提交的代码，出现问题 示例：  uat 出现单元测试问题，dev 没有这个问题，单元测试提交到了 dev 分支，导出 uat 分支丢失  解决方式使用流程保证正确性，而不让人来保证正确性，2 种方式解决：">
+<meta name="twitter:description" content="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题代码直接在部署分支 dev 提交了，没在功能分支提交，在 dev 环境没有问题，功能分支合并到 test 分支部署时，丢失在 dev 分支提交的代码，出现问题 示例：  test 环境出现单元测试问题，dev 环境没有这个问题，单元测试提交到了 dev 分支，导致 test 分支丢失  解决方式使用流程保证正确性，而不让人来保证正">
 
 
 
@@ -364,7 +364,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2025-12-08T11:40:01+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2025-12-08T11:41:37+08:00">
                 2025-12-08
               </time>
             
@@ -416,10 +416,10 @@
       
 
       
-        <h2 id="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题"><a href="#一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题" class="headerlink" title="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题"></a>一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题</h2><p>代码直接在部署分支 dev 提交了，没在功能分支提交，在 dev 没有问题，功能分支合并到 uat 部署时，丢失在 dev 分支提交的代码，出现问题</p>
+        <h2 id="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题"><a href="#一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题" class="headerlink" title="一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题"></a>一、代码提交到部署分支，而导致在开发环境没有问题，而测试环境出了问题</h2><p>代码直接在部署分支 dev 提交了，没在功能分支提交，在 dev 环境没有问题，功能分支合并到 test 分支部署时，丢失在 dev 分支提交的代码，出现问题</p>
 <p>示例：</p>
 <ol>
-<li>uat 出现单元测试问题，dev 没有这个问题，单元测试提交到了 dev 分支，导出 uat 分支丢失</li>
+<li>test 环境出现单元测试问题，dev 环境没有这个问题，单元测试提交到了 dev 分支，导致 test 分支丢失</li>
 </ol>
 <h3 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h3><p>使用流程保证正确性，而不让人来保证正确性，2 种方式解决：</p>
 <ol>
@@ -486,15 +486,9 @@
           
             <a href="/tags/Git/" rel="tag"># Git</a>
           
-            <a href="/tags/分支策略/" rel="tag"># 分支策略</a>
-          
-            <a href="/tags/部署/" rel="tag"># 部署</a>
+            <a href="/tags/分支/" rel="tag"># 分支</a>
           
             <a href="/tags/常见问题/" rel="tag"># 常见问题</a>
-          
-            <a href="/tags/流程化/" rel="tag"># 流程化</a>
-          
-            <a href="/tags/CI/" rel="tag"># CI</a>
           
         </div>
       
@@ -628,7 +622,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">341</span>
+                <span class="site-state-item-count">338</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
