@@ -101,7 +101,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202603081772940256.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202603071772871300.png">
-<meta property="og:updated_time" content="2026-03-08T09:53:57.691Z">
+<meta property="og:updated_time" content="2026-03-08T13:47:04.787Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我用 Claude Code 开发了个 Claude Code 用量监控工具">
 <meta name="twitter:description" content="不知道你使用 Claude Code（会员订阅）有没有这样的问题：官方只提供了一个模糊的进度条，不知道每天使用了多少 token，不知道对应的费用是多少，也不知道每天的使用占每周额度的比例，也没有历史记录功能；还有 Weekly 与每 5 小时周期到期后还需要手动触发下一个周期。 为了解决这些问题，我用 Claude Code 开发了个 Claude Code 用量监控工具。">
@@ -367,7 +367,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2026-03-08T17:53:06+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2026-03-08T17:53:41+08:00">
                 2026-03-08
               </time>
             
@@ -437,7 +437,7 @@
 <p><img src="https://hexoblog.r2.depp.wang/202603071772871300.png" alt=""></p>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>简单说下工具的数据来源。用量数据来自两个地方：</p>
 <ol>
-<li><strong>API 数据</strong>：通过读取 macOS 钥匙串中 Claude Code 的 OAuth Token，调用 Anthropic 的 Usage API 获取每周额度和 5 小时窗口的使用百分比。</li>
+<li><strong>API 数据</strong>：通过读取 macOS 钥匙串中 Claude Code 的 OAuth Token，调用 Anthropic 的 Usage API 获取每周额度和 5 小时窗口的使用百分比</li>
 <li><strong>本地数据</strong>：Claude Code 会在 <code>~/.claude/projects/</code> 下记录每次对话的 JSONL 文件，工具扫描这些文件，按模型和日期汇总 Token 数量，再根据各模型的定价算出费用</li>
 </ol>
 <p>两个数据源互补：API 告诉你额度用了多少，本地数据告诉你钱花在了哪里。</p>
@@ -522,6 +522,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2026/macbook-air/" rel="prev" title="作为后端软件工程师，我为什么买 M4 MacBook Air 做主力开发机器">
+                作为后端软件工程师，我为什么买 M4 MacBook Air 做主力开发机器 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -620,7 +624,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">145</span>
+                <span class="site-state-item-count">146</span>
                 <span class="site-state-item-name">文章</span>
               </a>
             </div>

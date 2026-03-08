@@ -1,3 +1,4 @@
+https://depp.wang/2026/macbook-air/
 https://depp.wang/2026/claude-code-usage-tracker/
 https://depp.wang/2026/readwise-reader/
 https://depp.wang/2025/git-branch-deploy-pitfalls/
@@ -97,4 +98,3 @@ https://depp.wang/2019/11/10/translate-alfred-workflows-help/
 https://depp.wang/2019/10/30/mysql-note/
 https://depp.wang/2019/10/08/what-is-the-test-driven-development/
 https://depp.wang/2019/09/23/git-note/
-https://depp.wang/2019/09/18/linux-note/
