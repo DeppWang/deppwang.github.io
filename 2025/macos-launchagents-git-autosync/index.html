@@ -99,7 +99,7 @@
 <meta property="og:site_name" content="德普王">
 <meta property="og:description" content="在多台 Mac 间同步笔记或脚本可以使用 Git ，它能帮我们保留历史、解决冲突，但手动 git add/commit/push 容易忘。下面这套做法用 LaunchAgents 定时执行一个 Git 脚本，把指定仓库的修改自动提交并推送到 GitHub（或任意 Git 远端），既省事又留痕。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2026-03-07T08:31:44.952Z">
+<meta property="og:updated_time" content="2026-03-08T03:53:19.913Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="macOS 利用 LaunchAgents + GitHub 自动同步文件修改">
 <meta name="twitter:description" content="在多台 Mac 间同步笔记或脚本可以使用 Git ，它能帮我们保留历史、解决冲突，但手动 git add/commit/push 容易忘。下面这套做法用 LaunchAgents 定时执行一个 Git 脚本，把指定仓库的修改自动提交并推送到 GitHub（或任意 Git 远端），既省事又留痕。">
@@ -139,7 +139,7 @@
   <title>macOS 利用 LaunchAgents + GitHub 自动同步文件修改 | 德普王</title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -173,7 +173,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -318,16 +318,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2025/macos-launchagents-git-autosync/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -431,7 +431,7 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chmod +x /Users/demo/Workspace/git-auto-commit.sh</span><br></pre></td></tr></table></figure>
 
 <h2 id="配置-LaunchAgents-定时执行"><a href="#配置-LaunchAgents-定时执行" class="headerlink" title="配置 LaunchAgents 定时执行"></a>配置 LaunchAgents 定时执行</h2><p>在 <code>~/Library/LaunchAgents</code> 新建 plist 文件 <code>com.demo.git-auto-commit.plist</code>：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">plist</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">"-//Apple//DTD PLIST 1.0//EN"</span> <span class="meta-string">"http://www.apple.com/DTDs/PropertyList-1.0.dtd"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>Label<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>com.demo.git-auto-commit<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 每 5 分钟执行一次 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StartInterval<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">integer</span>&gt;</span>300<span class="tag">&lt;/<span class="name">integer</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>ProgramArguments<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/bin/zsh<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/demo/Workspace/git-auto-commit.sh<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 日志便于排查 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StandardOutPath<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/demo/Workspace/git-auto-commit.log<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StandardErrorPath<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/demo/Workspace/git-auto-commit-error.log<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>Label<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>com.demo.git-auto-commit<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 每 5 分钟执行一次 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StartInterval<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">integer</span>&gt;</span>300<span class="tag">&lt;/<span class="name">integer</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>ProgramArguments<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/bin/zsh<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/demo/Workspace/git-auto-commit.sh<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 日志便于排查 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StandardOutPath<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/demo/Workspace/git-auto-commit.log<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>StandardErrorPath<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Users/demo/Workspace/git-auto-commit-error.log<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>加载与调试：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">launchctl load ~/Library/LaunchAgents/com.demo.git-auto-commit.plist</span><br><span class="line">launchctl start com.demo.git-auto-commit       <span class="comment"># 立刻跑一次</span></span><br><span class="line">launchctl list | grep git-auto-commit          <span class="comment"># 查看状态</span></span><br><span class="line">tail -f /Users/demo/Workspace/git-auto-commit.log</span><br></pre></td></tr></table></figure>
@@ -586,7 +586,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
+          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
         
       </div>
     
@@ -622,7 +622,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
