@@ -1,4 +1,4 @@
-https://depp.wang/2026/macbook-air/
+https://depp.wang/2026/m4-macbook-air/
 https://depp.wang/2026/claude-code-usage-tracker/
 https://depp.wang/2026/readwise-reader/
 https://depp.wang/2025/git-branch-deploy-pitfalls/
