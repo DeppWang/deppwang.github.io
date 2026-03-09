@@ -101,7 +101,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202603081772940256.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202603071772871300.png">
-<meta property="og:updated_time" content="2026-03-08T14:16:32.577Z">
+<meta property="og:updated_time" content="2026-03-09T00:22:52.441Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我用 Claude Code 开发了个 Claude Code 用量监控工具">
 <meta name="twitter:description" content="不知道你使用 Claude Code（会员订阅）有没有这样的问题：官方只提供了一个模糊的进度条，不知道每天使用了多少 token，不知道对应的费用是多少，也不知道每天的使用占每周额度的比例，也没有历史记录功能；还有 Weekly 与每 5 小时周期到期后还需要手动触发下一个周期。 为了解决这些问题，我用 Claude Code 开发了个 Claude Code 用量监控工具。">
@@ -367,7 +367,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2026-03-08T17:53:41+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2026-03-08T22:57:19+08:00">
                 2026-03-08
               </time>
             
@@ -441,7 +441,7 @@
 <li><strong>本地数据</strong>：Claude Code 会在 <code>~/.claude/projects/</code> 下记录每次对话的 JSONL 文件，工具扫描这些文件，按模型和日期汇总 Token 数量，再根据各模型的定价算出费用</li>
 </ol>
 <p>两个数据源互补：API 告诉你额度用了多少，本地数据告诉你钱花在了哪里。</p>
-<h2 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h2><p>工具依赖定时任务采集数据，电脑如果休眠了，定时任务就不会执行，数据也就采集不了。所以要么当前设备保持不休眠，要么用一台额外的设备来跑 Menu Bar 应用。不过如果额外的设备本身不用 Claude Code，Quota 数据也算不出来——但不用也就不需要监控了。</p>
+<h2 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h2><p> Weekly 与每 5 小时周期到期后自动触发下一个周期依赖定时任务触发，电脑如果休眠了，定时任务就不会执行。所以如果你要使用这个功能，要么当前设备保持不休眠，要么用一台额外的设备来跑 Menu Bar 应用。</p>
 <p>另外因为本地数据只能读取当前设备的 JSONL 文件，如果你在多台设备上使用 Claude Code，费用统计只会包含当前设备的部分。额度百分比不受影响，因为那是从 API 拿的，是账号级别的数据。</p>
 
         
