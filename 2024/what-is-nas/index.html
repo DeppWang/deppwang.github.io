@@ -106,7 +106,7 @@
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20240423171950.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20240423172010.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/20240423172020.png">
-<meta property="og:updated_time" content="2026-03-20T01:25:33.539Z">
+<meta property="og:updated_time" content="2026-03-20T01:32:11.166Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="什么是 NAS？如何低成本玩 NAS？">
 <meta name="twitter:description" content="以下是文字版： 什么是 NASNAS，Network Attached Storage，翻译为中文是「网络附加存储」。我们常用的硬盘也叫 DAS（Direct Attached Storage ），就是「直接附加存储」。硬盘是通过数据线直接连接，只能当前设备使用。而 NAS 可以看成是将硬盘联网，是局域网中所有设备的共享硬盘。如果你将 NAS 的外网访问打通，那 NAS 就是数据存放在你自己硬">
@@ -372,8 +372,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2025-12-05T18:28:30+08:00">
-                2025-12-05
+              <time title="更新于" itemprop="dateModified" datetime="2026-03-20T09:26:39+08:00">
+                2026-03-20
               </time>
             
           </span>
@@ -467,7 +467,7 @@
 <p>硬盘有几种，移动硬盘，固态硬盘，机械硬盘。如果你原来有硬盘，那你可以直接用。</p>
 <p>如果是新购买，一般来说，做 NAS 就是想要大容量，所以一般是买机械硬盘，机械硬盘一般买 4T 及以上，性价比最高，4T 以下更建议买固态硬盘。我是买的 3.5 寸的 <a href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQcJK1olXDYCVV9cDU0TC2wOEl8lGVlaCgFtUQ5SQi0DBUVNGFJeSwUIFxlJX3EIGloUWAAGXF1bAU8IWipURmtmGW4LXBtYVClcYWlDcFNdAFh-MAwLBEcnAl8LGlgUXgUEVVZcOHsXBF9edVsUXAcDVV9YAE8nAl8IHVgQWAABV1pVCE8VM2gIEmtOCGgEBAoOCxgWCzpdHlsWbTYyV25aCEIDBR1JSU8TLzYyVG5eOEsWA2cKGlkWXQALSF5aDUoeA3MIHVgQWAABV1pYDkkSM20JGl8cbTYyAgA4fD9xdxhTSAlNBwJ1IRsvexZfCgZIdVldGU9kPQgtchB3ZxNcSQhxXjYHZA" target="_blank" rel="noopener">西数红盘 Plus</a> 4T 版本，我买的 720 左右。</p>
 <img src="https://hexoblog.r2.depp.wang/20240423171950.png" style="zoom:30%;">
-如果我们只用一块硬盘，如果硬盘损坏，就存在数据丢失的风险，要保证数据安全，我们可以用多块硬盘对数据进行备份。组织多块硬盘一起工作叫磁盘阵列（RAID），磁盘阵列有很多模式，如：RAID 0，RAID 1 等，我是用的 RAID 1 ，我买了两块  [西数红盘 Plus](https://union-click.jd.com/jdc?e=618%7Cpc%7C&p=JF8BAQcJK1olXDYCVV9cDU0TC2wOEl8lGVlaCgFtUQ5SQi0DBUVNGFJeSwUIFxlJX3EIGloUWAAGXF1bAU8IWipURmtmGW4LXBtYVClcYWlDcFNdAFh-MAwLBEcnAl8LGlgUXgUEVVZcOHsXBF9edVsUXAcDVV9YAE8nAl8IHVgQWAABV1pVCE8VM2gIEmtOCGgEBAoOCxgWCzpdHlsWbTYyV25aCEIDBR1JSU8TLzYyVG5eOEsWA2cKGlkWXQALSF5aDUoeA3MIHVgQWAABV1pYDkkSM20JGl8cbTYyAgA4fD9xdxhTSAlNBwJ1IRsvexZfCgZIdVldGU9kPQgtchB3ZxNcSQhxXjYHZA) 4T 硬盘做 RAID 1，其中一块做另一块的镜像，完整备份所有内容，虽然会损失一半的储存空间，但这是花费最少，且很安全的方案。对我来说 4T 也够用了。
+如果我们只用一块硬盘，如果硬盘损坏，就存在数据丢失的风险，要保证数据安全，我们可以用多块硬盘对数据进行备份。组织多块硬盘一起工作叫磁盘阵列（RAID），磁盘阵列有很多模式，如：RAID 0，RAID 1 等，我是用的 RAID 1 ，我买了两块西数红盘 Plus 4T 硬盘做 RAID 1，其中一块做另一块的镜像，完整备份所有内容，虽然会损失一半的储存空间，但这是花费最少，且很安全的方案。对我来说 4T 也够用了。
 
 <p>如果你原来就有硬盘，你可以根据自己的数据安全需求，判断要不要再可以再买一块硬盘做磁盘阵列。</p>
 <p>机械硬盘不像移动硬盘，它没有连接接口，需要套一个移动硬盘盒，才能连接到其它设备使用，如果你只买一个机械硬盘，那你可以买一个像这种移动硬盘盒配。</p>
