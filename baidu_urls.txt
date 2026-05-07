@@ -1,3 +1,4 @@
+https://depp.wang/2026/qinggan-great-circuit/
 https://depp.wang/2026/phone/
 https://depp.wang/2026/27-inch-display/
 https://depp.wang/2026/obsidian-to-wechat/
@@ -97,4 +98,3 @@ https://depp.wang/2020/03/12/hexo-next-all-change/
 https://depp.wang/2020/02/17/use-github-actions-to-achieve-hexo-blog-auto-deploy/
 https://depp.wang/2020/01/11/java-operator/
 https://depp.wang/2020/01/03/which-recommended-items-bought-in-2019/
-https://depp.wang/2019/11/10/translate-alfred-workflows-help/
