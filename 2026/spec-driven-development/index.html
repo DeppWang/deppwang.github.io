@@ -100,7 +100,7 @@
 <meta property="og:description" content="最近在公司内部做了一次 AI 编程实践分享，主题叫「Spec 驱动开发与自验证闭环」。这是我这段时间在真实项目里使用 AI 开发后，总结出来比较有价值的两个点。 现在大家用 AI 写代码已经不稀奇了。把需求丢给 AI，让它帮你生成代码，很多工具都能做到。但如果只是这样用，很容易遇到几个问题：第一次生成看起来还可以，后面越改越乱；AI 忘记前面讨论过的需求；代码能跑，但和业务真实想要的不完全一致；">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202605191779200893.png">
-<meta property="og:updated_time" content="2026-05-19T14:29:24.699Z">
+<meta property="og:updated_time" content="2026-05-19T14:57:59.731Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spec 驱动开发与自验证闭环：我如何让 AI 更稳定地写代码">
 <meta name="twitter:description" content="最近在公司内部做了一次 AI 编程实践分享，主题叫「Spec 驱动开发与自验证闭环」。这是我这段时间在真实项目里使用 AI 开发后，总结出来比较有价值的两个点。 现在大家用 AI 写代码已经不稀奇了。把需求丢给 AI，让它帮你生成代码，很多工具都能做到。但如果只是这样用，很容易遇到几个问题：第一次生成看起来还可以，后面越改越乱；AI 忘记前面讨论过的需求；代码能跑，但和业务真实想要的不完全一致；">
@@ -366,7 +366,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2026-05-19T22:28:54+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2026-05-19T22:56:50+08:00">
                 2026-05-19
               </time>
             
@@ -428,7 +428,7 @@
 </ol>
 <a id="more"></a>
 
-<h2 id="什么是-Spec-驱动开发"><a href="#什么是-Spec-驱动开发" class="headerlink" title="什么是 Spec 驱动开发"></a>什么是 Spec 驱动开发</h2><p>Spec 是 Specification 的缩写，可以简单理解为「说明书」或者「规格说明」。Spec 驱动开发说白了就是：<strong>不要一上来就让 AI 改代码，而是先让 AI 把需求理解、技术方案、接口设计、测试场景写清楚，再基于这些文档去实现代码。</strong></p>
+<h2 id="什么是-Spec-驱动开发"><a href="#什么是-Spec-驱动开发" class="headerlink" title="什么是 Spec 驱动开发"></a>什么是 Spec 驱动开发</h2><p>Spec 是 Specification 的缩写，可以简单理解为「说明书」或者「规格说明」。Spec 驱动开发对应的英文是 Spec-driven development，也可以简称为 SDD。它说白了就是：<strong>不要一上来就让 AI 改代码，而是先让 AI 把需求理解、技术方案、接口设计、测试场景写清楚，再基于这些文档去实现代码。</strong></p>
 <p>它有点像 AI 工具里的 Plan 模式，但比普通 Plan 模式更进一步。普通 Plan 模式通常只存在于一轮对话里，这次会话结束后，很多上下文就丢了。而 Spec 是落在项目里的文档，它会随着代码一起被维护。</p>
 <p>也就是说，Spec 不只是给 AI 看的一段提示词，而是项目的一部分。</p>
 <p>我原来用 AI 写代码时，经常会直接说：「帮我实现某某功能」。AI 会很快开始读代码、改代码，看起来效率很高。但这种方式有一个问题，它的理解过程是隐性的。你不知道它到底怎么理解需求，也不知道它准备用什么方案实现。等代码写完后再去 review，成本就比较高了。</p>
