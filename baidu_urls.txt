@@ -1,3 +1,4 @@
+https://depp.wang/2026/motorcycle-tyre/
 https://depp.wang/2026/money-understanding/
 https://depp.wang/2026/spec-driven-development/
 https://depp.wang/2026/qinggan-great-circuit/
@@ -97,4 +98,3 @@ https://depp.wang/2020/03/27/redirect-404-url-by-js/
 https://depp.wang/2020/03/26/how-to-insert-slide-in-markdown/
 https://depp.wang/2020/03/20/internet-protocol-suite-introduction/
 https://depp.wang/2020/03/12/hexo-next-all-change/
-https://depp.wang/2020/02/17/use-github-actions-to-achieve-hexo-blog-auto-deploy/
