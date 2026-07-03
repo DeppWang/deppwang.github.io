@@ -118,9 +118,11 @@
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202607031783042464.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202607031783042490.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202607031783042810.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/202606301782824504.jpg">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/202606301782824493.jpg">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202606301782824276.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202606301782813198.png">
-<meta property="og:updated_time" content="2026-07-03T06:24:29.425Z">
+<meta property="og:updated_time" content="2026-07-03T06:32:24.049Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 Sub2API 在 Mac mini 中搭建一个自用 AI API 中转站">
 <meta name="twitter:description" content="现在我订阅了两个 ChatGPT Plus 美区账号来使用 CodeX，但现在 CodeX 额度缩水严重，两个账号也不够用了。因此，我打算买一个 20 倍的 Pro 账号。 不过，我一个人又用不完，所以打算搭建一个中转站，来找几个搭子一起来用。 因为我也在使用家里 Mac mini 当服务器，所以我打算先安装在 Mac mini 上面测试一下，然后通过 Tailscale 来建立异地局域网，这样我">
@@ -386,7 +388,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2026-07-03T14:23:26+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2026-07-03T14:31:15+08:00">
                 2026-07-03
               </time>
             
@@ -480,8 +482,10 @@
 <p><img src="https://hexoblog.r2.depp.wang/202607031783042464.png" alt=""><br><img src="https://hexoblog.r2.depp.wang/202607031783042490.png" alt=""></p>
 <p>我在 Shadowrocket 里面配置了 100.81.112.109（100.64.0.0/10）走直连仍然有问题。</p>
 <p><img src="https://hexoblog.r2.depp.wang/202607031783042810.png" alt=""></p>
-<p>应该是在使用 Shadowrocket 时，100.81.112.109 其实走了直连，流量也可能没有进入 Tailscale 那条路。所以要开启代理时也得 Chrome 访问 Tailscale IP 就只能让 IP 不走代理，只能在 WIFI 层就配置跳过代理。</p>
-<h4 id="解决方式：使用-ClashX-Pro-ClashMac"><a href="#解决方式：使用-ClashX-Pro-ClashMac" class="headerlink" title="解决方式：使用 ClashX Pro / ClashMac"></a>解决方式：使用 ClashX Pro / ClashMac</h4><p>所以我的解决方式就是使用不会覆盖 WIFI 已配置跳过代理数据的其它代理，比如 ClashX Pro / ClashMac。</p>
+<p>应该是在使用 Shadowrocket 时，100.81.112.109 即使走了直连，流量也可能没有进入 Tailscale 那条路。所以要开启代理时也得 Chrome 访问 Tailscale IP 就只能让 IP 不走代理，只能在 WiFi 层就配置跳过代理。</p>
+<h4 id="解决方式：使用-ClashX-Pro-ClashMac"><a href="#解决方式：使用-ClashX-Pro-ClashMac" class="headerlink" title="解决方式：使用 ClashX Pro / ClashMac"></a>解决方式：使用 ClashX Pro / ClashMac</h4><p>所以我的解决方式就是使用不会覆盖 WiFi 已配置跳过代理数据的其它代理，比如 ClashX Pro / ClashMac。</p>
+<h5 id="ClashX-Pro"><a href="#ClashX-Pro" class="headerlink" title="ClashX Pro"></a>ClashX Pro</h5><p><img src="https://hexoblog.r2.depp.wang/202606301782824504.jpg" alt=""></p>
+<p><img src="https://hexoblog.r2.depp.wang/202606301782824493.jpg" alt=""></p>
 <h5 id="ClashMac"><a href="#ClashMac" class="headerlink" title="ClashMac"></a>ClashMac</h5><p><img src="https://hexoblog.r2.depp.wang/202606301782824276.png" alt=""></p>
 <p><img src="https://hexoblog.r2.depp.wang/202606301782813198.png" alt=""></p>
 <h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>其实现在 ChatGPT 已经有一条薅羊毛的「产业链」，就是通过 OpenAPI 在某些国家的一些优惠政策，可以免费地去订阅 ChatGPT Plus 会员，再把这个成品 ChatGPT Plus 号低价卖出来，比如说 10 块钱、8 块钱之类的。 因为原来 ChatGPT Plus 量大管饱，其实我是没有去关注这方面的信息的。最近通过同事了解到这方面的东西。 我也去购买了一个，试用了一下。因为现在 ChatGPT Plus 偶尔会触发短信验证，买的这些成品号是不支持短信验证的，只能支持邮箱验证。所以一旦账号出现需要短信验证，这个号就相当于是废了，就不能用了。</p>
@@ -806,7 +810,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-安装"><span class="nav-number">1.</span> <span class="nav-text">Docker 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OrbStack-拉镜像问题"><span class="nav-number">1.1.</span> <span class="nav-text">OrbStack 拉镜像问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置使用"><span class="nav-number">2.</span> <span class="nav-text">配置使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取初始化密码"><span class="nav-number">2.1.</span> <span class="nav-text">获取初始化密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可能出现的问题"><span class="nav-number">2.2.</span> <span class="nav-text">可能出现的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#503"><span class="nav-number">2.2.1.</span> <span class="nav-text">503</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#403"><span class="nav-number">2.2.2.</span> <span class="nav-text">403</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-Sub2API，使-Claude-Code-可使用的-Codex-API"><span class="nav-number">2.3.</span> <span class="nav-text">配置 Sub2API，使 Claude Code 可使用的 Codex API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它问题：开启-Shadowrocket-时不能在浏览器打开-Sub2API"><span class="nav-number">2.4.</span> <span class="nav-text">其它问题：开启 Shadowrocket 时不能在浏览器打开 Sub2API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方式：使用-ClashX-Pro-ClashMac"><span class="nav-number">2.4.1.</span> <span class="nav-text">解决方式：使用 ClashX Pro / ClashMac</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ClashMac"><span class="nav-number">2.4.1.1.</span> <span class="nav-text">ClashMac</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它"><span class="nav-number">3.</span> <span class="nav-text">其它</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-安装"><span class="nav-number">1.</span> <span class="nav-text">Docker 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OrbStack-拉镜像问题"><span class="nav-number">1.1.</span> <span class="nav-text">OrbStack 拉镜像问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置使用"><span class="nav-number">2.</span> <span class="nav-text">配置使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取初始化密码"><span class="nav-number">2.1.</span> <span class="nav-text">获取初始化密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可能出现的问题"><span class="nav-number">2.2.</span> <span class="nav-text">可能出现的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#503"><span class="nav-number">2.2.1.</span> <span class="nav-text">503</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#403"><span class="nav-number">2.2.2.</span> <span class="nav-text">403</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-Sub2API，使-Claude-Code-可使用的-Codex-API"><span class="nav-number">2.3.</span> <span class="nav-text">配置 Sub2API，使 Claude Code 可使用的 Codex API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它问题：开启-Shadowrocket-时不能在浏览器打开-Sub2API"><span class="nav-number">2.4.</span> <span class="nav-text">其它问题：开启 Shadowrocket 时不能在浏览器打开 Sub2API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方式：使用-ClashX-Pro-ClashMac"><span class="nav-number">2.4.1.</span> <span class="nav-text">解决方式：使用 ClashX Pro / ClashMac</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ClashX-Pro"><span class="nav-number">2.4.1.1.</span> <span class="nav-text">ClashX Pro</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ClashMac"><span class="nav-number">2.4.1.2.</span> <span class="nav-text">ClashMac</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它"><span class="nav-number">3.</span> <span class="nav-text">其它</span></a></li></ol></div>
             
 
           </div>
