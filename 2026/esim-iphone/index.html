@@ -111,7 +111,7 @@
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202607181784376956.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202607181784378158.jpeg">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202607181784378059.jpeg">
-<meta property="og:updated_time" content="2026-07-18T13:09:44.145Z">
+<meta property="og:updated_time" content="2026-07-18T13:57:32.240Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="低成本实现国行 iPhone 使用 eSIM 漫游流量">
 <meta name="twitter:description" content="最近 Shadowrocket 出了 Tailscale 功能，解决了因为 iPhone 只能开启一个 VPN，Shadowrocket 与 Tailscale 不能同时开启的问题。但使用下来发现 Shadowrocket 的耗电量还是挺高的。   因为手机大部分时间都连 Wifi，本身使用流量不多，所以还是保留 eSIM 漫游流量 + Tailscale 的使用方式。 eSIM 漫游流量简单来说">
@@ -377,7 +377,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2026-07-18T21:08:37+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2026-07-18T21:56:26+08:00">
                 2026-07-18
               </time>
             
@@ -445,7 +445,8 @@
 <blockquote>
 <p>原理：小白卡本质上是将标准的 eUICC（Embedded Universal Integrated Circuit Card，嵌入式通用集成电路卡）芯片封装成普通 Nano-SIM（或多切）物理卡形态的可编程「空白」卡。</p>
 </blockquote>
-<h2 id="二、软件下载与-eSIM-读卡器购买"><a href="#二、软件下载与-eSIM-读卡器购买" class="headerlink" title="二、软件下载与 eSIM 读卡器购买"></a>二、软件下载与 eSIM 读卡器购买</h2><p>使用一个支持 NFC 的安卓手机<a href="https://gitea.angry.im/PeterCxy/OpenEUICC/releases" target="_blank" rel="noopener">下载 EasyEUICC</a>， EasyEUICC 在安卓手机中可直接写入 eSIM 信息到实体小白卡中，不需要使用 eSIM 读卡器，<a href="https://easyeuicc.org/zh-hans/" target="_blank" rel="noopener">相关教程</a>。注意安卓手机要支持 NFC，不然写入不了。我刚开始用的 OPPO Find X 写入就不可以，发现原来是其不支持 NFC。EasyEUICC 需要手机支持 OMAPI（开放移动 API）功能，一般手机有 NFC 功能才有 OMAPI 功能</p>
+<h2 id="二、软件下载与-eSIM-读卡器购买"><a href="#二、软件下载与-eSIM-读卡器购买" class="headerlink" title="二、软件下载与 eSIM 读卡器购买"></a>二、软件下载与 eSIM 读卡器购买</h2><p>使用一个支持 NFC 的安卓手机<a href="https://gitea.angry.im/PeterCxy/OpenEUICC/releases" target="_blank" rel="noopener">下载 EasyEUICC</a>， EasyEUICC 在安卓手机中可直接写入 eSIM 信息到实体小白卡中，不需要使用 eSIM 读卡器，<a href="https://easyeuicc.org/zh-hans/" target="_blank" rel="noopener">相关教程</a>。</p>
+<p>注意安卓手机要支持 NFC，不然写入不了。我刚开始用的 OPPO Find X 写入就不可以，发现原来是其不支持 NFC。EasyEUICC 需要手机支持 OMAPI（开放移动 API）功能，一般手机有 NFC 功能才有 OMAPI 功能</p>
 <p>iPhone 手机无法直接通过软件 APP 写入，需要买个 eSIM 读卡器，配合 9eSIM iOS APP 使用。</p>
 <p>如果你买读卡器，可以就不用单独买小白卡，小白卡与读卡器一起买会更便宜一点。</p>
 <p><img src="https://hexoblog.r2.depp.wang/202607181784375755.jpeg" alt=""></p>
