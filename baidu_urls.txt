@@ -1,3 +1,4 @@
+https://depp.wang/2026/esim-iphone/
 https://depp.wang/2026/sub2api/
 https://depp.wang/2026/dji-mic-mini-2-wisper-flow/
 https://depp.wang/2026/qdii-nasdaq/
@@ -97,4 +98,3 @@ https://depp.wang/2020/05/06/find-the-k-th-smallest-odd-number-in-the-array-arr/
 https://depp.wang/2020/05/05/reflection-in-spring-and-reflection-principle/
 https://depp.wang/2020/04/19/realize-a-simple-spring-ioc-container/
 https://depp.wang/2020/04/10/singleton-pattern/
-https://depp.wang/2020/03/27/redirect-404-url-by-js/
