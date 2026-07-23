@@ -111,7 +111,7 @@
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202607181784376956.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202607181784378158.jpeg">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202607181784378059.jpeg">
-<meta property="og:updated_time" content="2026-07-20T03:21:46.008Z">
+<meta property="og:updated_time" content="2026-07-23T06:01:22.084Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="低成本实现国行 iPhone 使用 eSIM 漫游流量">
 <meta name="twitter:description" content="最近 Shadowrocket 出了 Tailscale 功能，解决了因为 iPhone 只能开启一个 VPN，Shadowrocket 与 Tailscale 不能同时开启的问题。但使用下来发现 Shadowrocket 的耗电量还是挺高的。   因为手机大部分时间都连 Wifi，本身使用流量不多，所以还是保留 eSIM 漫游流量 + Tailscale 的使用方式。 eSIM 漫游流量简单来说">
@@ -377,7 +377,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2026-07-20T10:14:13+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2026-07-20T10:27:32+08:00">
                 2026-07-20
               </time>
             
@@ -446,7 +446,7 @@
 <p>原理：小白卡本质上是将标准的 eUICC（Embedded Universal Integrated Circuit Card，嵌入式通用集成电路卡）芯片封装成普通 Nano-SIM（或多切）物理卡形态的可编程「空白」卡。</p>
 </blockquote>
 <h2 id="二、软件下载与-eSIM-读卡器购买"><a href="#二、软件下载与-eSIM-读卡器购买" class="headerlink" title="二、软件下载与 eSIM 读卡器购买"></a>二、软件下载与 eSIM 读卡器购买</h2><p>使用一个支持 NFC 的安卓手机<a href="https://gitea.angry.im/PeterCxy/OpenEUICC/releases" target="_blank" rel="noopener">下载 EasyEUICC</a>， EasyEUICC 在安卓手机中可直接写入 eSIM 信息到实体小白卡中，不需要使用 eSIM 读卡器，<a href="https://easyeuicc.org/zh-hans/" target="_blank" rel="noopener">相关教程</a>。</p>
-<p>注意安卓手机要支持 NFC，不然写入不了。我刚开始用的 OPPO Find X 写入就不可以，发现原来是其不支持 NFC。EasyEUICC 需要手机支持 OMAPI（开放移动 API）功能，一般手机有 NFC 功能才有 OMAPI 功能</p>
+<p>注意安卓手机要支持 NFC，不然写入不了。我刚开始用的 OPPO Find X 写入就不可以，发现原来是其不支持 NFC。EasyEUICC 需要手机支持 OMAPI（开放移动 API）功能，一般手机有 NFC 功能才有 OMAPI 功能。</p>
 <p>iPhone 手机无法直接通过软件 APP 写入，需要买个 eSIM 读卡器，配合 9eSIM iOS APP 使用。</p>
 <p>如果你买读卡器，可以就不用单独买小白卡，小白卡与读卡器一起买会更便宜一点。</p>
 <p><img src="https://hexoblog.r2.depp.wang/202607181784375755.jpeg" alt=""></p>
@@ -457,14 +457,14 @@
 <p><img src="https://hexoblog.r2.depp.wang/202607111783779193.png" alt=""></p>
 <p>Superalink 境内走的中国移动国际网（CMLink），测试是香港 IP。</p>
 <p><img src="https://hexoblog.r2.depp.wang/202607181784378673.jpeg" alt=""></p>
-<p>实际体验发现晚上的网速不稳定，下载速度有时只有 10 几 Mbps，有时可以达到 100Mbps。</p>
+<p>实际体验发现网速不稳定，下载速度有时只有 10 几 Mbps，有时可以达到 100Mbps。</p>
 <p><img src="https://hexoblog.r2.depp.wang/202607111783779242.png" alt=""></p>
 <p>Superalink 最近下线了微信、支付宝，我是通过 link.com（境外银行卡）支付的，link 应该也可以绑定国内双币信用卡支付。</p>
 <h3 id="sg-trip-com（携程海外版）"><a href="#sg-trip-com（携程海外版）" class="headerlink" title="sg.trip.com（携程海外版）"></a>sg.trip.com（携程海外版）</h3><p>我也在 <a href="https://sg.trip.com/things-to-do/detail/53873746" target="_blank" rel="noopener">sg.trip.com</a>（携程海外版）买了个 30 days，3GB 的来试用，相对 RedteaGO 红茶移动，要更便宜点。</p>
 <p><img src="https://hexoblog.r2.depp.wang/202607181784376758.png" alt=""></p>
 <p>也是走的中国移动国际网（CMLink），是新加坡的 IP。</p>
 <p><img src="https://hexoblog.r2.depp.wang/202607181784378705.jpeg" alt=""></p>
-<h3 id="RedteaGO-红茶移动"><a href="#RedteaGO-红茶移动" class="headerlink" title="RedteaGO 红茶移动"></a>RedteaGO 红茶移动</h3><p><a href="https://esim.redteago.com/zh-CN/esim-china" target="_blank" rel="noopener">RedteaGO</a> 红茶移动相对 sg.trip.com（携程海外版）同样规格的套餐要贵点，其有个使用优惠码可获得 3 usd 到余额的活动，可以变相优惠一点，但是需要先消费一笔了再赠送，有点麻烦。我没有用。我的优惠码：DEPP0004 </p>
+<h3 id="RedteaGO-红茶移动"><a href="#RedteaGO-红茶移动" class="headerlink" title="RedteaGO 红茶移动"></a>RedteaGO 红茶移动</h3><p><a href="https://esim.redteago.com/zh-CN/esim-china" target="_blank" rel="noopener">RedteaGO</a> 红茶移动相对 sg.trip.com（携程海外版）同样规格的套餐要贵点，其有个使用优惠码可获得 3 usd 到余额的活动，可以变相优惠一点，但是需要先消费一笔了再赠送，有点麻烦。我没有用。我的优惠码：DEPP0004。</p>
 <p><img src="https://hexoblog.r2.depp.wang/202607181784376956.png" alt=""></p>
 <h2 id="四、eSIM-写入与切换卡片"><a href="#四、eSIM-写入与切换卡片" class="headerlink" title="四、eSIM 写入与切换卡片"></a>四、eSIM 写入与切换卡片</h2><p>安卓手机，将手机卡正常插入到手机中，直接通过在 EasyEUICC 扫码写入就行。</p>
 <p>iPhone 手机，将手机卡插入  eSIM 读卡器，eSIM 读卡器插入到 iPhone 手机，再打开 9eSIM APP，可通过扫码的方式获得 eSIM 卡信息，再下载对应 Profile 写入到卡片中。</p>
@@ -474,13 +474,13 @@
 <p>我遇到了「下载失败」的问题，应该是接触不良。我将 eSIM 读卡器拔出换个面再插入就没报错了。</p>
 <p><img src="https://hexoblog.r2.depp.wang/202607181784378158.jpeg" alt=""></p>
 <p>小白卡插入到国行 iPhone 后，要<strong>打开数据漫游功能</strong>，才可以正常上网。</p>
-<p>当有多张卡时，可通过 设置 - 蜂窝网络 - SIM卡应用程序 - LPAe Menu 中切换 eSIM 卡</p>
+<p>当有多张卡时，可通过「设置 - 蜂窝网络 - SIM卡应用程序 - LPAe Menu」中切换 eSIM 卡。</p>
 <p><img src="https://hexoblog.r2.depp.wang/202607181784378059.jpeg" alt=""></p>
 <ul>
 <li>详细教程：<a href="https://ucngx275cx7y.feishu.cn/wiki/Tx5Jwpslsi55nkkwf2EczBLwnue" target="_blank" rel="noopener">手机如何管理NekokoLPA联名款eSIM白卡</a></li>
 </ul>
 <h2 id="eSIM-的问题"><a href="#eSIM-的问题" class="headerlink" title="eSIM 的问题"></a>eSIM 的问题</h2><ol>
-<li>使 tailscale 直连也不是很快（香港 ip）<ul>
+<li>使 Tailscale 直连也不是很快（香港 IP）<ul>
 <li>当热点使用也有这个问题</li>
 </ul>
 </li>
