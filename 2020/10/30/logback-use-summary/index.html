@@ -99,13 +99,13 @@
 <meta property="og:site_name" content="德普王">
 <meta property="og:description" content="最近打在打印日志这块栽了个跟头，发现日志这块掌握得还不太好，所以大概梳理一下。    其实 SLF4J 类似于 Commons Logging，也是一个日志接口，而 Logback 类似于 Log4j，是一个日志的实现。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://hexoblog.r2.xingquan.wang/202409021725287107.png">
-<meta property="og:image" content="https://hexoblog.r2.xingquan.wang/202409021725287107.png">
-<meta property="og:updated_time" content="2026-07-23T06:28:45.148Z">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/202409021725287107.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/202409021725287107.png">
+<meta property="og:updated_time" content="2026-07-23T14:10:49.722Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Logback 使用总结">
 <meta name="twitter:description" content="最近打在打印日志这块栽了个跟头，发现日志这块掌握得还不太好，所以大概梳理一下。    其实 SLF4J 类似于 Commons Logging，也是一个日志接口，而 Logback 类似于 Log4j，是一个日志的实现。">
-<meta name="twitter:image" content="https://hexoblog.r2.xingquan.wang/202409021725287107.png">
+<meta name="twitter:image" content="https://hexoblog.r2.depp.wang/202409021725287107.png">
 
 
 
@@ -189,7 +189,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">Draft, Edit, Proofread, Publish</p>
+        <p class="site-subtitle">一位爱折腾的程序员</p>
       
   </div>
 
@@ -472,7 +472,7 @@
         <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span>    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span>  
     <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">"info"</span>&gt;</span>        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"STDOUT"</span> /&gt;</span>    <span class="tag">&lt;/<span class="name">root</span>&gt;</span><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span>  </code></pre>
 <p>输出格式：  </p>
-<pre><code>15:58:50.559 [http-nio-8080-exec-1] INFO  w.depp.exceptionlog.TestController - info: haha  </code></pre><p><img src="https://hexoblog.r2.xingquan.wang/202409021725287107.png" alt="">  </p>
+<pre><code>15:58:50.559 [http-nio-8080-exec-1] INFO  w.depp.exceptionlog.TestController - info: haha  </code></pre><p><img src="https://hexoblog.r2.depp.wang/202409021725287107.png" alt="">  </p>
 <p>使用 logger 指定某个 package 使用某个级别：  </p>
 <pre><code class="xml"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span>  
 
@@ -539,7 +539,7 @@
     <span class="tag">&lt;<span class="name">springProfile</span> <span class="attr">name</span>=<span class="string">"pre,pro"</span>&gt;</span>        <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"wang.depp"</span> <span class="attr">level</span>=<span class="string">"error"</span>&gt;</span>            <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"STDOUT"</span> /&gt;</span>            <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"baselog"</span>/&gt;</span>        <span class="tag">&lt;/<span class="name">logger</span>&gt;</span>    <span class="tag">&lt;/<span class="name">springProfile</span>&gt;</span><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span>  </code></pre>
 <h2 id="搭建-ELK-平台图形化查看日志"><a href="#搭建-ELK-平台图形化查看日志" class="headerlink" title="搭建 ELK 平台图形化查看日志"></a>搭建 ELK 平台图形化查看日志</h2><p>ELK：Elasticsearch、Logstash、Kibana  </p>
 <p>大致原理：  </p>
-<p><img src="https://hexoblog.r2.xingquan.wang/202409021725287107.png" alt="">  </p>
+<p><img src="https://hexoblog.r2.depp.wang/202409021725287107.png" alt="">  </p>
 <p>详细搭建过程：<a href="https://developer.ibm.com/zh/articles/build-elk-and-use-it-for-springboot-and-nginx/" target="_blank" rel="noopener">搭建 ELK 实时日志平台并在 Spring Boot 和 Nginx 项目中使用</a>  </p>
 <h2 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h2><ul>
 <li><a href="https://www.liaoxuefeng.com/wiki/1252599548343744/1264739155914176" target="_blank" rel="noopener">廖雪峰 - 使用 SLF4J 和 Logback</a>  </li>
