@@ -1,0 +1,1166 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="hOzwzcL7Td1p_evvLmRBasbQKy5-i5AgJwNLD2vHKJ8">
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Bookerly:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="宽带,电信,联通,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="德普王" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="01 为什么转主要是因为价格与动态 IPv4 公网 IP。 我原来用的是电信融合宽带，99 元一个月，300M 的宽带，但是只有 20G 流量。 上个月之前给我装电信宽带的师傅后来跳到移动了，他问我合约期到了没有，要不要换移动宽带。我这边是不想换移动宽带的，因为移动宽带口碑太差了。我就查了我的合约期，了解到我这个宽带合约期确实要到期了。  我就问电信合约到期之后能不能降费，电信这边并不给我降。">
+<meta name="keywords" content="宽带,电信,联通">
+<meta property="og:type" content="article">
+<meta property="og:title" content="电信宽带携号转网到联通宽带">
+<meta property="og:url" content="https://depp.wang/2026/china-unicom-broadband/index.html">
+<meta property="og:site_name" content="德普王">
+<meta property="og:description" content="01 为什么转主要是因为价格与动态 IPv4 公网 IP。 我原来用的是电信融合宽带，99 元一个月，300M 的宽带，但是只有 20G 流量。 上个月之前给我装电信宽带的师傅后来跳到移动了，他问我合约期到了没有，要不要换移动宽带。我这边是不想换移动宽带的，因为移动宽带口碑太差了。我就查了我的合约期，了解到我这个宽带合约期确实要到期了。  我就问电信合约到期之后能不能降费，电信这边并不给我降。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/202608051785943318.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/202608051785941532.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/202608051785941546.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/202606271782559826.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/202606271782559327.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/202608031785765079.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/202608031785765835.jpeg">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/202608031785765654.jpeg">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/202608031785766300.jpg">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/202608031785766118.png">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/202608031785765525.png">
+<meta property="og:updated_time" content="2026-08-05T15:23:16.225Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="电信宽带携号转网到联通宽带">
+<meta name="twitter:description" content="01 为什么转主要是因为价格与动态 IPv4 公网 IP。 我原来用的是电信融合宽带，99 元一个月，300M 的宽带，但是只有 20G 流量。 上个月之前给我装电信宽带的师傅后来跳到移动了，他问我合约期到了没有，要不要换移动宽带。我这边是不想换移动宽带的，因为移动宽带口碑太差了。我就查了我的合约期，了解到我这个宽带合约期确实要到期了。  我就问电信合约到期之后能不能降费，电信这边并不给我降。">
+<meta name="twitter:image" content="https://hexoblog.r2.depp.wang/202608051785943318.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'IQPKMP0VXO',
+      apiKey: 'd3e6a74afaebeb6b9c3a26eee410f08e',
+      indexName: 'deppwang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://depp.wang/2026/china-unicom-broadband/">
+
+
+
+
+
+  <title>电信宽带携号转网到联通宽带 | 德普王</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3HG6GE96C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3HG6GE96C');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">德普王</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一位爱折腾的程序员</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tech">
+          <a href="/tags/技术/" rel="section">
+            
+            技术
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/tags/生活/" rel="section">
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-decorate">
+          <a href="/tags/装修/" rel="section">
+            
+            装修
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAPF8TuhkibCKuDf" data-callback="javascriptCallback"></div>
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2026/china-unicom-broadband/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">电信宽带携号转网到联通宽带</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2026-08-05T23:22:49+08:00">
+                2026-08-05
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2026-08-05T23:22:49+08:00">
+                2026-08-05
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2026/china-unicom-broadband/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2026/china-unicom-broadband/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2026/china-unicom-broadband/" class="leancloud_visitors" data-flag-title="电信宽带携号转网到联通宽带">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://hexoblog.r2.depp.wang/202608051785943318.png" alt></p>
+<h2 id="01-为什么转"><a href="#01-为什么转" class="headerlink" title="01 为什么转"></a>01 为什么转</h2><p>主要是因为价格与动态 IPv4 公网 IP。</p>
+<p>我原来用的是电信融合宽带，99 元一个月，300M 的宽带，但是只有 20G 流量。</p>
+<p>上个月之前给我装电信宽带的师傅后来跳到移动了，他问我合约期到了没有，要不要换移动宽带。我这边是不想换移动宽带的，因为移动宽带口碑太差了。我就查了我的合约期，了解到我这个宽带合约期确实要到期了。 </p>
+<p>我就问电信合约到期之后能不能降费，电信这边并不给我降。</p>
+<p>我就了解了一下其他宽带，联通这边 79 元一个月，是 1000 兆宽带，相对来说便宜一点，带宽也更高。其实宽带速度我这边并不是太 care，因为正常来说，下载速度更多地取决于服务商的速度，而不是宽带的速度，基本上都跑不满。</p>
+<p>除此之外，它还有 100G 全国不限速流量，而且可以开四张副卡。这样家里面的人也可以一起共用这个流量，可以给家里面省下一些流量费用。</p>
+<p>电信 99 元的融合套餐，按我原来的情况，只有两张副卡。电信其实也可以加副卡，一张副卡加 10G 流量，但是它总的也只有相当于 40G 的流量，而且后面加的流量好像只能副卡使用，不是共用的。</p>
+<p>联通还有一个优势，就是 79 元以上的套餐可以赠送一个动态 IPv4 公网 IP。这也是一个优势。</p>
+<p>其实上个月的时候，联通还有一个 59 元的套餐，70G 流量、500M 宽带。但是到了这个月，这个套餐就没有了。我问了一下宽带安装师傅，他说是因为联通被电信投诉，所以这个套餐停了。我也不知道是不是真的，但至少现在已经办不了这个 59 元的宽带了。</p>
+<a id="more"></a>
+
+<h2 id="02-我最担心的是-VPS-线路"><a href="#02-我最担心的是-VPS-线路" class="headerlink" title="02 我最担心的是 VPS 线路"></a>02 我最担心的是 VPS 线路</h2><p>如果只是看价格和动态 IPv4 公网 IP，联通这个套餐确实挺有吸引力。但是我对网络还是有一点要求的，因为我平时会使用 VPS。</p>
+<p>电信宽带的优势，主要还是稳定。它在网络高峰时间不会明显给你降速。对于网络要求比较高的人，我觉得主要有两类：一类是做直播的，因为直播可能对上行带宽要求比较高；另一类是打电竞的，因为电竞对网络延迟要求比较高。</p>
+<p>我其实没有直播和电竞这两方面的需求，我主要担心的是 VPS 线路。</p>
+<p>我现在使用的是 CN2 GIA 这类线路，它本身是针对中国电信做优化的。所以我担心换成联通宽带之后，会失去这种线路上的优势。如果联通宽带对我的 VPS 支持不好，那即使价格便宜、带宽更高，我也不能换，还是只能继续用电信。</p>
+<h2 id="03-先拉一条联通单宽带测试"><a href="#03-先拉一条联通单宽带测试" class="headerlink" title="03 先拉一条联通单宽带测试"></a>03 先拉一条联通单宽带测试</h2><p>我这边正好有一张联通的北京异地号码。我打电话咨询中国联通客服之后，了解到这张卡可以办理一条单宽带，30 元一个月，300M 宽带，没有合约，也没有安装费。</p>
+<p>所以我在六月份的时候，先拉了一条联通单宽带测试。测试下来，晚上网络高峰时间的稳定性还可以。然后我又看了一下我使用的搬瓦工 VPS，发现它针对联通线路其实也有优化，测试下来还是走了联通的精品线路。</p>
+<p><img src="https://hexoblog.r2.depp.wang/202608051785941532.png" alt><br><img src="https://hexoblog.r2.depp.wang/202608051785941546.png" alt></p>
+<p>这样一来，我最担心的 VPS 线路问题基本上就没有了，所以才决定直接把原来的电信宽带转成联通宽带。</p>
+<h2 id="04-遇到了一个问题"><a href="#04-遇到了一个问题" class="headerlink" title="04 遇到了一个问题"></a>04 遇到了一个问题</h2><p>测试过程中我也遇到了一个问题，我在家庭网络外使用 Tailscale 异地组网无法跟家里的 Mac mini 建立点对点直连，延迟有 300ms，正常点对点直连 50ms 以下。排查后发现原来联通宽带分配的公网 IPv6 前缀长度（Prefix Length）是 /64，只能有一个子网。所以我使用的软路由 + 路由器这种配置时，Wifi 下设备就没有 IPv6 公网 IP，所以无法建立点对点直连。 联通宽带 /60 和 /64 是自动分配的，第一次是 /60 没问题，重启软路由后才发现有这个问题。</p>
+<p><img src="https://hexoblog.r2.depp.wang/202606271782559826.png" alt></p>
+<p><img src="https://hexoblog.r2.depp.wang/202606271782559327.png" alt></p>
+<p> 电信这边是固定的 /60，所以没有这个问题，我这边跟联通工作人员反馈了一下，让他这边将其固定为 /60，他申请修改了一下， 6 月底申请的，7 月 10 号修改好的。后面就解决了这个问题。</p>
+<h2 id="05-确认能不能转"><a href="#05-确认能不能转" class="headerlink" title="05 确认能不能转"></a>05 确认能不能转</h2><p>有的地方可能会有电信工作人员挽留你，或者不让你转。这时候你可以先让他给你降费。我这边倒没有挽留我，我让他降费，他也不给我降。</p>
+<p>现在宽带基本都有合约期，一般是两年，有的是三年。只有合约期到了才能转，不然提前转的话可能要交违约金。具体可以登录运营商 APP，看一下自己的套餐什么时候到期。</p>
+<p>我这边其实已经用了两年多，差不多应该有三年了，但是因为后面从 129 元降到了 99 元，99 元套餐的合约期重新开始计算，所以直到上个月月底才到期。</p>
+<p>还可以尝试发送：</p>
+<p><code>SQXZ#用户名#证件号码</code></p>
+<p>把这段短信发送到 10086 或者 10001，用来判断是否可以转。如果可以转，运营商会给你发送一个授权码。用户名是中文名，证件号码是身份证号码。</p>
+<p><img src="https://hexoblog.r2.depp.wang/202608031785765079.png" alt="短信查询截图"></p>
+<h2 id="06-真正转网时的几个问题"><a href="#06-真正转网时的几个问题" class="headerlink" title="06 真正转网时的几个问题"></a>06 真正转网时的几个问题</h2><h3 id="最好月末转"><a href="#最好月末转" class="headerlink" title="最好月末转"></a>最好月末转</h3><p>最好月末转。因为联通不足半月也会按半月收费，如果你是 20 号转，它也要收半个月的费用。最后两天转的话，才会按天扣。</p>
+<p>比如我是 7 月 30 号转的，最后扣了 3 块钱。</p>
+<h3 id="电信宽带怎么注销"><a href="#电信宽带怎么注销" class="headerlink" title="电信宽带怎么注销"></a>电信宽带怎么注销</h3><p>电信宽带注销可以直接在中国电信 APP 上面申请，后面会有工作人员给你打电话。你确定要拆的话，有两种方式：</p>
+<ol>
+<li>工作人员上门办理，顺便把光猫带走。</li>
+<li>工作人员远程发一个短信链接，让你提交资料，提交之后再由工作人员确认注销。</li>
+</ol>
+<p>我用的是第二种方式。光猫到现在都还没有给我收走。这个我问了一下工作人员，其实注销宽带并不会影响原来的电话卡使用。</p>
+<p>我因为提前拉了一条联通单宽带，所以直接在月中就让电信给我注销了。如果你没有像我这样提前准备备用宽带，直接转的话，可以和工作人员沟通一下，等这边信号转完以后再注销宽带。</p>
+<p>比如说，你 30 号转网，31 号注销宽带，这样家里面的网络就不会断。</p>
+<h3 id="有主副卡怎么办"><a href="#有主副卡怎么办" class="headerlink" title="有主副卡怎么办"></a>有主副卡怎么办</h3><p>如果你有主副卡，有两种方案：要么先转副卡，把副卡当主卡；如果你想让原来的主卡继续当副卡，就需要先做主副卡拆分。</p>
+<p>中国电信的主副卡拆分比较坑。虽然 APP 上面有一个线上视频客服拆分的入口，但是实际上还是不能线上办理，还得去营业厅，需要身份证。</p>
+<p>也不是所有营业厅都可以办理，最好先打官方客服问一下。我这边是去新牌坊营业厅办理的。</p>
+<h3 id="上门办理和生效时间"><a href="#上门办理和生效时间" class="headerlink" title="上门办理和生效时间"></a>上门办理和生效时间</h3><p>转网是工作人员上门来办理的。好像要在 20:00 之前办理，因为 20:00 之后办的话，可能就要第二天早上才会生效。</p>
+<p>我是 7 月 30 号 18 点多办的，转完之后就显示成联通信号了。副卡也是当时一起转的，其他副卡也直接一起办理。办理时需要本人在场，还要身份证和扫脸。</p>
+<p>有一张副卡当时是 19 点多转的，但是转完之后暂时没有信号，20:00 多钟就有信号了。</p>
+<p>当时营业厅的系统还登录不上去，我测试 8 /1 号就可以登录上的。</p>
+<h3 id="预存话费"><a href="#预存话费" class="headerlink" title="预存话费"></a>预存话费</h3><p>要预存 200 块钱话费，没有光猫费用之类的费用，也没有安装费用。</p>
+<h2 id="07-套餐和网速"><a href="#07-套餐和网速" class="headerlink" title="07 套餐和网速"></a>07 套餐和网速</h2><p>其实 79 元的套餐原价是 99 元，每个月返 20 元。套餐合约期是 3 年，截图上面写的是大概 2 年时间，我问了一下工作人员，他说也是可以一直用。不知道最后是不是这样，应该没太大问题。</p>
+<p>100G 流量也是分开来的：30G 基本流量、40G 联通智家、30G 副卡流量。</p>
+<p>后面这个 30G 流量不是当时就到账的，是过了两天才可以看见。它比电信好一点的地方是，不是副卡专属的，都是共用的。</p>
+<p>虽然 99 元的电信套餐副卡加 1 块钱可以加 10G，但是它好像是副卡专有的，不是共享的。</p>
+<table>
+<thead>
+<tr>
+<th><img src="https://hexoblog.r2.depp.wang/202608031785765835.jpeg" alt="套餐流量截图"></th>
+<th><img src="https://hexoblog.r2.depp.wang/202608031785765654.jpeg" alt="套餐截图"></th>
+</tr>
+</thead>
+</table>
+<p>我使用软路由拨号上网，下面是直接连软路由测速的结果，没有工作人员机器测速快，但也差不多了，我也不是很在意这个。</p>
+<table>
+<thead>
+<tr>
+<th><img src="https://hexoblog.r2.depp.wang/202608031785766300.jpg" alt="测速截图"></th>
+<th><img src="https://hexoblog.r2.depp.wang/202608031785766118.png" alt="测速截图"></th>
+</tr>
+</thead>
+</table>
+<h2 id="08-动态-IPv4-公网-IP"><a href="#08-动态-IPv4-公网-IP" class="headerlink" title="08 动态 IPv4 公网 IP"></a>08 动态 IPv4 公网 IP</h2><p>联通这边其实可以分配动态 IPv4 公网 IP，但是默认不一定包含在套餐里。我是问了一下安装工作人员，他说可以配一个。你可以在安装时问一下工作人员是不是可以分配。</p>
+<p>我是 7 月 30 号转的，8 月 3 号早上给我开通了。工作人员说需要机房修改数据，所以要统一更改。当天早上 10:00 多给我开通，应该是他们上班之后改了一下，改完就有了。</p>
+<p><img src="https://hexoblog.r2.depp.wang/202608031785765525.png" alt="IPv4 公网 IP 截图"></p>
+<p>IPv4 公网 IP  其主要作用还是方便将其自己家里的服务通过域名的方式暴露出去，方便自己在家庭以外时，不方便通过异地局域网的方式访问的场景下使用。  后面我也会分享一下这方面的一些玩法。 </p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>在我原来的认知里面，电信的宽带一直是最好的，最稳定的。联通宽带其实原来是对它是不信任的。 现在使用下来发现其实还可以，也不差。 我在网络高峰时也没有遇到这网速卡的情况，切换宽带还是没有感知的。 </p>
+<p>我去这栋楼的光纤室看了一下，也问了一下师傅。师傅说我们这栋楼可能八九户用联通宽带吧。我们这一栋楼有一百来户，有八九户是联通，其他的基本上都是电信。可能也是因为用的人少，所以说才可以分配动态 IPv4 公网 IP 吧。 </p>
+<p>另外联通的这个 30 元 300 兆的单宽带也还是挺合适的。如果租房又不缺流量的话，还是可以办这个的。 </p>
+<p> 最后我觉得你是否需要转或者办联通融合宽带，还是要看你这边的需求。假如有大量流量使用的需求，还是可以转的。另外你也可以问一下是否可以给你分配 IPv4 公网 IP。 </p>
+
+        
+        
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="https://hexoblog.r2.depp.wang/202406221719028220.png" alt="deppwang wechat" style="width: 200px; max-width: 100%;">
+    <div></div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      deppwang
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://depp.wang/2026/china-unicom-broadband/" title="电信宽带携号转网到联通宽带">https://depp.wang/2026/china-unicom-broadband/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/宽带/" rel="tag"># 宽带</a>
+          
+            <a href="/tags/电信/" rel="tag"># 电信</a>
+          
+            <a href="/tags/联通/" rel="tag"># 联通</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2026/esim-iphone/" rel="next" title="低成本实现国行 iPhone 使用 eSIM 漫游流量">
+                <i class="fa fa-chevron-left"></i> 低成本实现国行 iPhone 使用 eSIM 漫游流量
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <script type="text/javascript">
+    function onSelectGiscus() {
+      document.getElementById('giscus-btn').style = 'background-color: #666; color: #fff;';
+      document.getElementsByClassName('giscus')[0].style = '';
+      document.getElementById('disqus_thread').style.display = 'none';
+      document.getElementById('disqus-btn').style = '';
+    }
+
+    function onSelectDisqus() {
+      document.getElementById('disqus-btn').style = 'background-color: #666; color: #fff;';
+      document.getElementById('disqus_thread').style = '';
+      document.getElementsByClassName('giscus')[0].style.display = 'none';
+      document.getElementById('giscus-btn').style = '';
+    }
+  </script>
+
+  <p>评论默认使用 <button id="giscus-btn" onclick="onSelectGiscus()" style="
+  background-color: #666; color: #fff;
+  ">giscus</button>，你也可以切换到 <button id="disqus-btn" onclick="onSelectDisqus()">disqus</button> 来留言。</p>
+  
+  <div class="comments" id="comments">
+    <script src="https://giscus.app/client.js" data-repo="deppwang/deppwang.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnk5MDUwNTE0Nw==" data-category="Comments" data-category-id="DIC_kwDOBWT_u84CesZv" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async>
+    </script>
+    
+      <div id="disqus_thread" style="display: none;>
+        <noscript>
+          Please enable JavaScript to view the
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
+          <p class="site-author-name" itemprop="name">deppwang</p>
+           
+              <p class="site-description motion-element" itemprop="description">每个人都需要有自己的哈姆雷特</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">158</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">370</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DeppWang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/deppwang1" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://space.bilibili.com/336707243" target="_blank" title="BiliBili">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  BiliBili
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.youtube.com/@deppwang" target="_blank" title="YouTube">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  YouTube
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/139800484/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coolshell.cn" title="CoolShell" target="_blank">CoolShell</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的网络日志" target="_blank">阮一峰的网络日志</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://1byte.io" title="1byte" target="_blank">1byte</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://catcoding.me/" title="程序员的喵" target="_blank">程序员的喵</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://blog.douchi.space/" title="椒盐豆豉" target="_blank">椒盐豆豉</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://hutusi.com/" title="胡涂说" target="_blank">胡涂说</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#01-为什么转"><span class="nav-number">1.</span> <span class="nav-text">01 为什么转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#02-我最担心的是-VPS-线路"><span class="nav-number">2.</span> <span class="nav-text">02 我最担心的是 VPS 线路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#03-先拉一条联通单宽带测试"><span class="nav-number">3.</span> <span class="nav-text">03 先拉一条联通单宽带测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#04-遇到了一个问题"><span class="nav-number">4.</span> <span class="nav-text">04 遇到了一个问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#05-确认能不能转"><span class="nav-number">5.</span> <span class="nav-text">05 确认能不能转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#06-真正转网时的几个问题"><span class="nav-number">6.</span> <span class="nav-text">06 真正转网时的几个问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最好月末转"><span class="nav-number">6.1.</span> <span class="nav-text">最好月末转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#电信宽带怎么注销"><span class="nav-number">6.2.</span> <span class="nav-text">电信宽带怎么注销</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有主副卡怎么办"><span class="nav-number">6.3.</span> <span class="nav-text">有主副卡怎么办</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上门办理和生效时间"><span class="nav-number">6.4.</span> <span class="nav-text">上门办理和生效时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预存话费"><span class="nav-number">6.5.</span> <span class="nav-text">预存话费</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#07-套餐和网速"><span class="nav-number">7.</span> <span class="nav-text">07 套餐和网速</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#08-动态-IPv4-公网-IP"><span class="nav-number">8.</span> <span class="nav-text">08 动态 IPv4 公网 IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">9.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">deppwang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://deppwang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://depp.wang/2026/china-unicom-broadband/';
+          this.page.identifier = '2026/china-unicom-broadband/';
+          this.page.title = '电信宽带携号转网到联通宽带';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://deppwang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI","app_key":"AjFBNu3SKV0SwMNsiIxA0mQv","server_url":"https://ycdssag0.api.lncldglobal.com"};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
