@@ -1,0 +1,1156 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="hOzwzcL7Td1p_evvLmRBasbQKy5-i5AgJwNLD2vHKJ8">
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Bookerly:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="金融,电影,大空头,2008金融危机,房贷,CDO,CDS,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="德普王" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="看完《大空头》以后，我原本以为 2008 年金融危机的逻辑很简单：美国人借了太多房贷，还不上，于是房价下跌，银行就出问题了。 但电影真正讲的不是一笔笔房贷本身，而是这些房贷后来被华尔街不断打包、出售、再打包，以及在上面反复下注。危机的核心，是大量低质量的次级房贷被证券化，并通过 MBS、CDO 和衍生品扩散到整个金融系统。最开始只是少数人还不起房贷，为什么会变成全球金融危机？我把自己看电影时问到">
+<meta name="keywords" content="金融,电影,大空头,2008金融危机,房贷,CDO,CDS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《大空头》与2008年金融危机">
+<meta property="og:url" content="https://depp.wang/2026/the-big-short/index.html">
+<meta property="og:site_name" content="德普王">
+<meta property="og:description" content="看完《大空头》以后，我原本以为 2008 年金融危机的逻辑很简单：美国人借了太多房贷，还不上，于是房价下跌，银行就出问题了。 但电影真正讲的不是一笔笔房贷本身，而是这些房贷后来被华尔街不断打包、出售、再打包，以及在上面反复下注。危机的核心，是大量低质量的次级房贷被证券化，并通过 MBS、CDO 和衍生品扩散到整个金融系统。最开始只是少数人还不起房贷，为什么会变成全球金融危机？我把自己看电影时问到">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://hexoblog.r2.depp.wang/202608291787996126.png">
+<meta property="og:updated_time" content="2026-08-29T09:37:55.090Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《大空头》与2008年金融危机">
+<meta name="twitter:description" content="看完《大空头》以后，我原本以为 2008 年金融危机的逻辑很简单：美国人借了太多房贷，还不上，于是房价下跌，银行就出问题了。 但电影真正讲的不是一笔笔房贷本身，而是这些房贷后来被华尔街不断打包、出售、再打包，以及在上面反复下注。危机的核心，是大量低质量的次级房贷被证券化，并通过 MBS、CDO 和衍生品扩散到整个金融系统。最开始只是少数人还不起房贷，为什么会变成全球金融危机？我把自己看电影时问到">
+<meta name="twitter:image" content="https://hexoblog.r2.depp.wang/202608291787996126.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'IQPKMP0VXO',
+      apiKey: 'd3e6a74afaebeb6b9c3a26eee410f08e',
+      indexName: 'deppwang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://depp.wang/2026/the-big-short/">
+
+
+
+
+
+  <title>《大空头》与2008年金融危机 | 德普王</title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3HG6GE96C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3HG6GE96C');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">德普王</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一位爱折腾的程序员</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tech">
+          <a href="/tags/技术/" rel="section">
+            
+            技术
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/tags/生活/" rel="section">
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-decorate">
+          <a href="/tags/装修/" rel="section">
+            
+            装修
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAPF8TuhkibCKuDf" data-callback="javascriptCallback"></div>
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2026/the-big-short/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《大空头》与2008年金融危机</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2026-08-29T17:37:25+08:00">
+                2026-08-29
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2026-08-29T17:37:25+08:00">
+                2026-08-29
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2026/the-big-short/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2026/the-big-short/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2026/the-big-short/" class="leancloud_visitors" data-flag-title="《大空头》与2008年金融危机">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://hexoblog.r2.depp.wang/202608291787996126.png" alt=""></p>
+<p>看完《大空头》以后，我原本以为 2008 年金融危机的逻辑很简单：美国人借了太多房贷，还不上，于是房价下跌，银行就出问题了。</p>
+<p>但电影真正讲的不是一笔笔房贷本身，而是这些房贷后来被华尔街不断打包、出售、再打包，以及在上面反复下注。危机的核心，是大量低质量的次级房贷被证券化，并通过 MBS、CDO 和衍生品扩散到整个金融系统。最开始只是少数人还不起房贷，为什么会变成全球金融危机？我把自己看电影时问到的几个问题，按这条链路重新整理了一下。</p>
+<a id="more"></a>
+
+<h2 id="房贷怎么会变成投资产品"><a href="#房贷怎么会变成投资产品" class="headerlink" title="房贷怎么会变成投资产品"></a>房贷怎么会变成投资产品</h2><p>普通人的理解里，房贷就是我向银行借钱，以后每个月慢慢还。</p>
+<p>但在美国，贷款机构放出房贷后，并不一定会一直拿在自己手里。它可以把一批房贷卖给投行或证券化机构。后者把成千上万笔房贷放进一个池子，按未来月供能够产生的现金流，发行一种证券，这就是 MBS。</p>
+<p>MBS 全称是 Mortgage-Backed Security，中文通常叫「住房抵押贷款支持证券」。MBS 的基础资产是房贷，里面既可以是优质房贷，也可以是次级房贷，或者两者混合。《大空头》关注的，主要是以次级房贷为主、风险更高的 MBS。</p>
+<p>这时，投资者买到的不是某个人的一套房，而是很多人未来偿还房贷形成的一部分现金流。购房者按月还款，钱会沿着这条链路流向 MBS 的持有人。</p>
+<p><code>购房者 → 贷款机构 → 投行或证券化机构 → MBS 投资者</code></p>
+<p>从这一步开始，房贷就不只是银行和购房者之间的事了，它变成了一种可以卖给资本市场的产品。</p>
+<h2 id="次级房贷为什么会成为危机的风险源"><a href="#次级房贷为什么会成为危机的风险源" class="headerlink" title="次级房贷为什么会成为危机的风险源"></a>次级房贷为什么会成为危机的风险源</h2><p>次级房贷并不等于「诈骗贷款」，也不是金融危机之后才出现的东西。它只是房贷中的一种，并不等于所有房贷，也不等于所有 MBS。</p>
+<p>它本质上是提供给信用记录较弱、收入不稳定、首付较少或负债较高人群的房贷。这类人不一定完全没有还款能力，只是违约风险更高。因此，次级房贷通常利率更高，条款也可能更危险。</p>
+<p>危机前常见的一种设计，是前两年月供很低，之后利率重设，月供突然上升。只要房价一直上涨，借款人还可以卖房或重新贷款，看起来不会出大事。但一旦房价停涨甚至下跌，很多人既卖不掉房，也无法再融资，月供又到了更高的阶段，违约就会集中发生。</p>
+<p>所以问题不只是「有人借了钱」，而是当时大量房贷根本没有严格核实借款人的长期还款能力。之后，这些风险较高的房贷先被打包成 MBS，相关 MBS 的风险层级又被装入 CDO，最终才扩散为金融系统的问题。</p>
+<h2 id="银行卖出的到底是什么，MBS-投资者又赚什么"><a href="#银行卖出的到底是什么，MBS-投资者又赚什么" class="headerlink" title="银行卖出的到底是什么，MBS 投资者又赚什么"></a>银行卖出的到底是什么，MBS 投资者又赚什么</h2><p>银行卖出的不是房子，也不是一笔已经放出的贷款现金本身，而是未来向借款人收取本金和利息的权利。</p>
+<p>例如，银行已经向很多购房者放出了总计一千万元的房贷。按照合同，借款人会在未来 20 年或 30 年陆续还回本金和利息。银行不想慢慢等这几十年，于是可以把这批房贷的收款权，以按当前价值折算的价格卖给证券化机构。</p>
+<p>证券化机构再用投资者的钱买下这批房贷，并发行 MBS。假如我是基金经理，买入 MBS，本质上就是拿今天的资金，换取未来由很多购房者按月偿还的本金和利息。银行提前回笼现金后，又可以继续发放新的房贷；而 MBS 投资者则获得后续的收款权。</p>
+<p>可以这样理解：</p>
+<p><code>MBS 投资者的钱 → 证券化实体 → 银行回笼资金</code></p>
+<p><code>购房者每月还款 → 证券化实体 → MBS 投资者</code></p>
+<p>这里容易误解的一点是：如果一批房贷本金是一千万元，未来 30 年预计总共还回一千五百万元，投资者并不是简单地「花一千二百万，稳赚三百万」。一千五百万元里，有相当一部分是在慢慢拿回最初投入的本金；剩余部分才是利息收益，而且它要分很多年才能拿到。</p>
+<p>投资者还要承担借款人违约、提前还款、市场利率变化，以及管理和证券化费用等风险。因此，MBS 本来是一种长期固定收益产品，收益通常不算特别高。危机前真正的问题是，很多人把它当成了高收益、低风险的产品，却低估了底层房贷的质量。</p>
+<h2 id="中国也有-MBS-吗"><a href="#中国也有-MBS-吗" class="headerlink" title="中国也有 MBS 吗"></a>中国也有 MBS 吗</h2><p>中国也有。中国通常把住宅类 MBS 称为 RMBS，即个人住房抵押贷款资产支持证券。</p>
+<p>它的基本逻辑和前面说的一样：银行把一批个人房贷转入信托或证券化实体，再以这批房贷未来产生的本金和利息作为基础，发行证券给投资者。购房者仍然按原来的房贷合同还款，现金流最终用于支付 RMBS 投资者。</p>
+<p>但中国的 RMBS 与危机前美国的环境并不完全一样。它主要在银行间市场发行，买家通常是银行、保险公司、基金等机构，普通人一般不能像买股票一样直接购买；整体证券化规模也明显低于当年美国。更重要的是，中国并没有形成当年美国那种大规模「次级房贷—CDO—合成 CDO」层层加杠杆、反复下注的完整链条。</p>
+<p>所以，MBS 这种工具本身并不必然导致金融危机。真正需要警惕的，仍然是底层贷款质量、风险披露、机构杠杆，以及风险是否被复杂产品不断隐藏和放大。</p>
+<h2 id="CDO-不是一家公司，而是第二次打包"><a href="#CDO-不是一家公司，而是第二次打包" class="headerlink" title="CDO 不是一家公司，而是第二次打包"></a>CDO 不是一家公司，而是第二次打包</h2><p>我一开始听到「CDO 买入 MBS」时，还以为 CDO 是某个金融机构。其实不是。</p>
+<p>CDO 是 Collateralized Debt Obligation，通常译为「担保债务凭证」。它是一种证券产品，不是公司。更准确的说法应该是：投行或 CDO 管理人买入一些 MBS 中风险较高、较难出售的部分，再放进一个新的资产池里，重新打包、重新分层，然后发行 CDO 卖出去。</p>
+<p>投行主要负责搭建产品结构、协调评级、销售给机构客户；CDO 管理人通常是资产管理公司的人，负责按规则挑选和管理里面放哪些资产。两者可以合作，也可能属于同一个大金融集团，但角色并不相同。</p>
+<p><code>购房者 → 房贷 → MBS → CDO → 机构投资者</code></p>
+<p>CDO 的危险不在于它凭空制造了更多真实房贷，而在于它让原本风险较高、难卖出去的 MBS 部分也找到了买家。只要有人愿意买 CDO，投行就愿意做更多 CDO；只要投行愿意继续买房贷，贷款机构就有动力继续放更多房贷，甚至把标准越放越松。</p>
+<h2 id="普通人的钱有没有参与进来"><a href="#普通人的钱有没有参与进来" class="headerlink" title="普通人的钱有没有参与进来"></a>普通人的钱有没有参与进来</h2><p>有，只是大多数普通人不会像买股票、ETF 一样，直接在券商 App 上买 CDO。</p>
+<p>当时 CDO 的主要买家是银行、保险公司、养老金、资产管理机构和对冲基金。普通人的钱可能通过养老基金、共同基金或保险保费，间接流进这些机构，再由这些机构购买 MBS 或 CDO。</p>
+<p>所以，这并不是一个只发生在华尔街高楼里的游戏。很多普通人以为自己持有的是高评级、收益不错的基金或保险资产，但底层可能已经混进了越来越多质量很差的房贷。</p>
+<p>这也是为什么评级机构那么重要。标普、穆迪、惠誉等机构给复杂的房贷证券和 CDO 打出高评级，机构投资者才更愿意买。问题是评级机构采用「发行人付费」模式：需要卖产品的投行向评级机构付钱。这种关系天然存在利益冲突。</p>
+<h2 id="CDS：不是房贷本身，而是押注房贷会不会违约"><a href="#CDS：不是房贷本身，而是押注房贷会不会违约" class="headerlink" title="CDS：不是房贷本身，而是押注房贷会不会违约"></a>CDS：不是房贷本身，而是押注房贷会不会违约</h2><p>CDS 是 Credit Default Swap，中文叫信用违约互换。它可以理解成一份针对债券违约的保险合约：买方持续付保费，如果相关债券违约，卖方就需要赔付。</p>
+<p>电影里的迈克尔·伯里最早发现，许多次级房贷证券在优惠利率结束后很可能会大规模违约。他没有发明 CDS，CDS 在 1990 年代就已经存在；但当时市场上几乎没有专门针对次级房贷证券的 CDS。</p>
+<p>于是他逐家去找华尔街银行，请它们为具体的房贷证券制作 CDS。最早愿意和他成交的是德意志银行，后来高盛等机构也加入。他买入的约十三亿美元 CDS，是名义金额，不是一次性支付十三亿美元现金；他付的是持续保费，换取房贷证券崩盘时的赔付权。</p>
+<p>马克·鲍姆那条线也是类似的逻辑。他是摩根士丹利旗下 FrontPoint 的基金经理，通过德意志银行交易员贾里德·维内特接触到 CDS，并用它做空房贷证券。</p>
+<h2 id="赌对了以后，为什么还要卖出-CDS"><a href="#赌对了以后，为什么还要卖出-CDS" class="headerlink" title="赌对了以后，为什么还要卖出 CDS"></a>赌对了以后，为什么还要卖出 CDS</h2><p>电影里的三条做空线，最后都没有无限期地持有 CDS。乍看之下，这很矛盾：既然房贷市场还会继续崩，CDS 理论上还会继续升值，为什么不一直拿着？</p>
+<p>原因是 CDS 不是自动到账的奖金，而是一份由银行承担赔付义务的合约。房贷证券越坏，手里的 CDS 越值钱；但金融危机越严重，卖出 CDS 的银行也越可能倒闭或无力赔付。到那时，基金即使账面上赚了很多，也可能只能作为债权人排队等待清算，未必能及时、足额拿到钱。</p>
+<p>查理和杰米在本·里克特的提醒下选择平仓，就是担心「赌对了，却拿不到赔偿」。迈克尔·伯里长期承受投资人催赎和持续支付保费的压力，最后也需要把账面收益兑现。马克·鲍姆一开始最不愿卖，因为他认为银行还在压低 CDS 的报价，真实风险还没有完全反映出来；同时，他也不愿意让华尔街轻易卸下赔付责任。</p>
+<p>但马克最终也必须卖出。因为他管理的是客户的钱，不能为了再多赚一点，承担交易对手先倒下、利润无法兑现的风险。对他们来说，卖出并不是认为房贷市场会好转，而是把已经足够大的账面利润换成真正可以拿到的现金。</p>
+<h2 id="为什么一笔房贷会引出远超本金的损失"><a href="#为什么一笔房贷会引出远超本金的损失" class="headerlink" title="为什么一笔房贷会引出远超本金的损失"></a>为什么一笔房贷会引出远超本金的损失</h2><p>这里需要区分普通 CDO 和合成 CDO。</p>
+<p>普通 CDO 主要买入真实存在的 MBS，或者其中不同风险层级的债券，再重新打包、分层并卖给投资者。它做的是「把真实房贷风险再包装」。</p>
+<p>合成 CDO 则主要不买真实的 MBS，而是把针对 MBS 的 CDS 合约放进去。CDS 让没有持有那批房贷证券的机构，也可以押注它会不会违约；合成 CDO 再把大量这类 CDS 赌注打包、分层、销售给更多机构。</p>
+<p>所以，CDS 是让同一份房贷风险能够被反复下注的基础；合成 CDO 则把这些下注再包装成新的产品，进一步扩大参与者和风险敞口。</p>
+<p>比如，一批真实房贷的本金可能只有一千万美元，但许多机构可以围绕它买卖 CDS。另一些机构再把这些 CDS 组合成合成 CDO。这样，真正发生的房贷损失或许只是其中一部分，但金融系统里围绕这批房贷产生的赔付义务，可能远远超过最初的房贷本金。</p>
+<p>这就是电影里「一批坏房贷，最后烧掉整个系统」的意思。最底层房贷违约是火源，层层证券化和衍生品交易则让火蔓延到更多银行、基金和保险公司。</p>
+<h2 id="查理和杰米为什么能通过期权赚钱"><a href="#查理和杰米为什么能通过期权赚钱" class="headerlink" title="查理和杰米为什么能通过期权赚钱"></a>查理和杰米为什么能通过期权赚钱</h2><p>查理·盖勒和杰米·希普利不是兄弟，而是一起创业的基金合伙人。他们早期的思路，是寻找别人不愿碰、价格极低、被市场忽略的机会。</p>
+<p>他们常用的工具是期权。期权不是股票，而是在未来某个时间、按约定价格买入或卖出股票的权利。</p>
+<p>如果直接买股票，股票从 100 元涨到 130 元，你每股赚 30 元；但如果只花很少的钱买一份看涨期权，股票大涨时，期权的百分比涨幅可能更大。反过来，如果股票没有涨到预期价格，或者涨得太晚，期权可能到期归零。</p>
+<p>所以期权和直接买股票的区别是：成本更低、杠杆更高、风险更集中，而且有到期日。持有期权也不等于持有公司股票，没有分红和投票权。</p>
+<p>查理和杰米买的不是员工期权，也不是末日期权，而是公开市场上被低估的长期机会。他们用小成本换取大收益的可能性，判断错了主要亏掉权利金。后来做空房贷时，他们把同样的思路用到了 CDS 上：用有限的成本，去押注一个大多数人还没有认真面对的风险。</p>
+<p>这种「寻找被市场忽视的冷门个股期权」的思路，在中国内地很难直接复制。美国有大量个股期权，连小公司和冷门公司的股票也可能有不同到期日、不同执行价格的期权；而中国公开市场的期权主要集中在 ETF、股指和商品上，能选择的个股期权非常少，流动性也更受限制。</p>
+<p>因此，中国投资者理论上也可以通过 ETF、指数或商品期权，用较小成本押注某个被市场忽略的方向，但很难像查理和杰米一样，专门在大量冷门公司的长期个股期权中寻找机会。期权本身也有较高的适当性门槛和风险，不是普通股票账户开户后就能直接交易。</p>
+<h2 id="银行、投行、券商、交易所分别在做什么"><a href="#银行、投行、券商、交易所分别在做什么" class="headerlink" title="银行、投行、券商、交易所分别在做什么"></a>银行、投行、券商、交易所分别在做什么</h2><p>《大空头》里出现了德意志银行、高盛、摩根士丹利、美国银行、摩根大通等机构。它们常常同时有很多身份，所以容易混。</p>
+<p>商业银行主要吸收存款、发放房贷和企业贷款；投资银行主要做证券发行、并购、交易和复杂金融产品。今天很多大型金融集团两种业务都有。例如摩根大通、美国银行、花旗、德意志银行都属于综合性金融集团；高盛和摩根士丹利历史上更偏投资银行，但后来也有银行和财富管理业务。</p>
+<p>券商则是帮助普通人开户和下单的机构，例如盈透、<code>E*TRADE</code>、Merrill Edge。纳斯达克和纽约证券交易所则是交易所，提供股票上市和交易撮合的市场，并不是投行。</p>
+<p>普通投资者点下买入按钮后，订单大多由系统自动发送到交易所、电子交易平台或做市商撮合成交，并不需要人工交易员一笔一笔喊价。交易员现在更多处理大宗交易、机构订单和复杂衍生品。</p>
+<h2 id="最后谁付出了代价"><a href="#最后谁付出了代价" class="headerlink" title="最后谁付出了代价"></a>最后谁付出了代价</h2><p>危机爆发后，雷曼兄弟破产，贝尔斯登被摩根大通收购，美林被美国银行收购。AIG 因为卖出大量 CDS、面临巨大赔付压力而需要救助。</p>
+<p>但许多大型金融机构仍然存活下来，甚至因为危机中的收购变得更大。危机期间的财政部长亨利·保尔森和美联储主席本·伯南克，也没有受到刑事处罚。电影最后的讽刺就在这里：造成严重后果的系统依然存在，而真正承担刑事责任的顶层人物很少。</p>
+<p>片尾提到 BTO，也就是 Bespoke Tranche Opportunity，中文可以叫「定制分层机会」。它不是政府政策，而是一种重新按客户需求切分信用风险的复杂产品。电影用它表达的意思很直接：CDO 这类复杂风险产品并没有真正消失，很多时候只是换了一个更好听的名字。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>看完《大空头》，我觉得最可怕的不是某一个金融产品有多复杂，而是每个环节都能从继续做更多交易中赚钱。</p>
+<p>贷款机构想多放贷款，投行想多做证券，评级机构想多拿评级费，机构投资者想拿更高收益。每个人都在自己的环节里认为风险可以被转移给下一个人，但房贷真正能不能还上，并不会因为被包装成更复杂的名字而改变。</p>
+<p>当最底层的借款人无法继续还钱时，所有建立在这些还款之上的「安全资产」都会一起失去支撑。这大概就是《大空头》让我理解到的 2008 年金融危机。</p>
+<p>另外一个让我印象很深的点，是要相信数据和底层事实，而不是只相信市场共识。迈克尔·伯里读的是每一批房贷证券的说明书和借款人还款条件；贾里德·维内特所在的德意志银行团队，也通过数据和模型看到次级房贷的风险正在累积。市场当时普遍相信房价不会持续下跌，但他们看到的是优惠利率结束、月供上升、借款人还款能力不足这些具体事实。</p>
+<p>数据当然不会自动给出答案，模型也可能出错。但当所有人都在重复同一种乐观说法时，回到基础数据、现金流和真实还款能力，至少能避免只因为「大家都这么认为」而忽视风险。</p>
+<p>又看到一篇关于大空头原型「伯里」的文章：<a href="https://cn.wsj.com/articles/michael-burry-cites-beginning-of-the-end-with-new-ai-short-bets-02c1d53f" target="_blank" rel="noopener">《大空头》原型伯里加码做空AI，称「终结已开始」</a>。但它可以成为一个提醒：AI 可能是一项长期重要的技术趋势，却不代表所有 AI 相关公司的价格都一定合理。投资 AI 时代的公司时，也应该把「技术前景很好」和「现在的估值是否过高」分开看，回到收入、利润、现金流、竞争格局和价格本身，而不是因为市场情绪很热，就默认它会一直上涨。</p>
+
+        
+        
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="https://hexoblog.r2.depp.wang/202406221719028220.png" alt="deppwang wechat" style="width: 200px; max-width: 100%;">
+    <div></div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      deppwang
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://depp.wang/2026/the-big-short/" title="《大空头》与2008年金融危机">https://depp.wang/2026/the-big-short/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/金融/" rel="tag"># 金融</a>
+          
+            <a href="/tags/电影/" rel="tag"># 电影</a>
+          
+            <a href="/tags/大空头/" rel="tag"># 大空头</a>
+          
+            <a href="/tags/2008金融危机/" rel="tag"># 2008金融危机</a>
+          
+            <a href="/tags/房贷/" rel="tag"># 房贷</a>
+          
+            <a href="/tags/CDO/" rel="tag"># CDO</a>
+          
+            <a href="/tags/CDS/" rel="tag"># CDS</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2026/guandan/" rel="next" title="一副牌的惯蛋玩法">
+                <i class="fa fa-chevron-left"></i> 一副牌的惯蛋玩法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <script type="text/javascript">
+    function onSelectGiscus() {
+      document.getElementById('giscus-btn').style = 'background-color: #666; color: #fff;';
+      document.getElementsByClassName('giscus')[0].style = '';
+      document.getElementById('disqus_thread').style.display = 'none';
+      document.getElementById('disqus-btn').style = '';
+    }
+
+    function onSelectDisqus() {
+      document.getElementById('disqus-btn').style = 'background-color: #666; color: #fff;';
+      document.getElementById('disqus_thread').style = '';
+      document.getElementsByClassName('giscus')[0].style.display = 'none';
+      document.getElementById('giscus-btn').style = '';
+    }
+  </script>
+
+  <p>评论默认使用 <button id="giscus-btn" onclick="onSelectGiscus()" style="
+  background-color: #666; color: #fff;
+  ">giscus</button>，你也可以切换到 <button id="disqus-btn" onclick="onSelectDisqus()">disqus</button> 来留言。</p>
+  
+  <div class="comments" id="comments">
+    <script src="https://giscus.app/client.js" data-repo="deppwang/deppwang.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnk5MDUwNTE0Nw==" data-category="Comments" data-category-id="DIC_kwDOBWT_u84CesZv" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async>
+    </script>
+    
+      <div id="disqus_thread" style="display: none;>
+        <noscript>
+          Please enable JavaScript to view the
+          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
+          <p class="site-author-name" itemprop="name">deppwang</p>
+           
+              <p class="site-description motion-element" itemprop="description">每个人都需要有自己的哈姆雷特</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">160</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">377</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DeppWang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/deppwang1" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://space.bilibili.com/336707243" target="_blank" title="BiliBili">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  BiliBili
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.youtube.com/@deppwang" target="_blank" title="YouTube">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  YouTube
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/139800484/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coolshell.cn" title="CoolShell" target="_blank">CoolShell</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的网络日志" target="_blank">阮一峰的网络日志</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://1byte.io" title="1byte" target="_blank">1byte</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://catcoding.me/" title="程序员的喵" target="_blank">程序员的喵</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://blog.douchi.space/" title="椒盐豆豉" target="_blank">椒盐豆豉</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://hutusi.com/" title="胡涂说" target="_blank">胡涂说</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#房贷怎么会变成投资产品"><span class="nav-number">1.</span> <span class="nav-text">房贷怎么会变成投资产品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#次级房贷为什么会成为危机的风险源"><span class="nav-number">2.</span> <span class="nav-text">次级房贷为什么会成为危机的风险源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#银行卖出的到底是什么，MBS-投资者又赚什么"><span class="nav-number">3.</span> <span class="nav-text">银行卖出的到底是什么，MBS 投资者又赚什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中国也有-MBS-吗"><span class="nav-number">4.</span> <span class="nav-text">中国也有 MBS 吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDO-不是一家公司，而是第二次打包"><span class="nav-number">5.</span> <span class="nav-text">CDO 不是一家公司，而是第二次打包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#普通人的钱有没有参与进来"><span class="nav-number">6.</span> <span class="nav-text">普通人的钱有没有参与进来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDS：不是房贷本身，而是押注房贷会不会违约"><span class="nav-number">7.</span> <span class="nav-text">CDS：不是房贷本身，而是押注房贷会不会违约</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#赌对了以后，为什么还要卖出-CDS"><span class="nav-number">8.</span> <span class="nav-text">赌对了以后，为什么还要卖出 CDS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么一笔房贷会引出远超本金的损失"><span class="nav-number">9.</span> <span class="nav-text">为什么一笔房贷会引出远超本金的损失</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查理和杰米为什么能通过期权赚钱"><span class="nav-number">10.</span> <span class="nav-text">查理和杰米为什么能通过期权赚钱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#银行、投行、券商、交易所分别在做什么"><span class="nav-number">11.</span> <span class="nav-text">银行、投行、券商、交易所分别在做什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后谁付出了代价"><span class="nav-number">12.</span> <span class="nav-text">最后谁付出了代价</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">13.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">deppwang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://deppwang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://depp.wang/2026/the-big-short/';
+          this.page.identifier = '2026/the-big-short/';
+          this.page.title = '《大空头》与2008年金融危机';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://deppwang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI","app_key":"AjFBNu3SKV0SwMNsiIxA0mQv","server_url":"https://ycdssag0.api.lncldglobal.com"};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
