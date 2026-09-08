@@ -1,3 +1,4 @@
+https://depp.wang/2026/ai-redis-lock/
 https://depp.wang/2026/1587-a-Year-of-No-Significance/
 https://depp.wang/2026/the-big-short/
 https://depp.wang/2026/guandan/
@@ -97,4 +98,3 @@ https://depp.wang/2020/06/18/several-implementations-of-quick-sort/
 https://depp.wang/2020/06/11/how-to-find-the-api-of-a-website-eg-note-youdao-com/
 https://depp.wang/2020/05/26/itranswarp-deploy-record/
 https://depp.wang/2020/05/18/export-youdaonote-all-notes/
-https://depp.wang/2020/05/06/static-block-method-and-constructor-method/

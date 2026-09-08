@@ -1,0 +1,1267 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="google-site-verification" content="hOzwzcL7Td1p_evvLmRBasbQKy5-i5AgJwNLD2vHKJ8">
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Bookerly:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="AI,技术,Redis,事务,锁,">
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="德普王" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="配套代码：transaction-lock-demo。文中的代码位置都可以直接跳转到 GitHub 查看。  一个具体的技术问题最近看 AI 写的一段后台代码时，我遇到一个具体、也很容易被忽略的技术问题。 代码里有这样一行： HjEventDtos.CreateResult result = lockService.inTransaction(        idemKey, () -&amp;gt;">
+<meta name="keywords" content="AI,技术,Redis,事务,锁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI 写下的那把 Redis 锁">
+<meta property="og:url" content="https://depp.wang/2026/ai-redis-lock/index.html">
+<meta property="og:site_name" content="德普王">
+<meta property="og:description" content="配套代码：transaction-lock-demo。文中的代码位置都可以直接跳转到 GitHub 查看。  一个具体的技术问题最近看 AI 写的一段后台代码时，我遇到一个具体、也很容易被忽略的技术问题。 代码里有这样一行： HjEventDtos.CreateResult result = lockService.inTransaction(        idemKey, () -&amp;gt;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2026-09-08T13:51:56.213Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI 写下的那把 Redis 锁">
+<meta name="twitter:description" content="配套代码：transaction-lock-demo。文中的代码位置都可以直接跳转到 GitHub 查看。  一个具体的技术问题最近看 AI 写的一段后台代码时，我遇到一个具体、也很容易被忽略的技术问题。 代码里有这样一行： HjEventDtos.CreateResult result = lockService.inTransaction(        idemKey, () -&amp;gt;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'IQPKMP0VXO',
+      apiKey: 'd3e6a74afaebeb6b9c3a26eee410f08e',
+      indexName: 'deppwang',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"输入关键字","hits_empty":"没有找到与 ${query} 相关的内容","hits_stats":"${hits} 条相关记录，共耗时 ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://depp.wang/2026/ai-redis-lock/">
+
+
+
+
+
+  <title>AI 写下的那把 Redis 锁 | 德普王</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X3HG6GE96C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X3HG6GE96C');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">德普王</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一位爱折腾的程序员</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tech">
+          <a href="/tags/技术/" rel="section">
+            
+            技术
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/tags/生活/" rel="section">
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-decorate">
+          <a href="/tags/装修/" rel="section">
+            
+            装修
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/tools/" rel="section">
+            
+            工具
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAPF8TuhkibCKuDf" data-callback="javascriptCallback"></div>
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2026/ai-redis-lock/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">AI 写下的那把 Redis 锁</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2026-09-08T21:51:22+08:00">
+                2026-09-08
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2026-09-08T21:51:22+08:00">
+                2026-09-08
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2026/ai-redis-lock/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2026/ai-redis-lock/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2026/ai-redis-lock/" class="leancloud_visitors" data-flag-title="AI 写下的那把 Redis 锁">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>配套代码：<a href="https://github.com/DeppWang/transaction-lock-demo" target="_blank" rel="noopener">transaction-lock-demo</a>。文中的代码位置都可以直接跳转到 GitHub 查看。</p>
+</blockquote>
+<h2 id="一个具体的技术问题"><a href="#一个具体的技术问题" class="headerlink" title="一个具体的技术问题"></a>一个具体的技术问题</h2><p>最近看 AI 写的一段后台代码时，我遇到一个具体、也很容易被忽略的技术问题。</p>
+<p>代码里有这样一行：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">HjEventDtos.CreateResult result = lockService.inTransaction(</span><br><span class="line">        idemKey, () -&gt; &#123;</span><br><span class="line">            <span class="comment">// 创建活动</span></span><br><span class="line">            <span class="comment">// 创建行程</span></span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>方法名叫 <code>inTransaction</code>，第一眼看起来只是「把操作放进数据库事务」。但继续看它的实现，才发现它先获取了一把 Redis 分布式锁，然后才开启数据库事务：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">inTransaction</span><span class="params">(String key, Supplier&lt;T&gt; action)</span> </span>&#123;</span><br><span class="line">    RLock lock = redissonClient.getLock(<span class="string">"activity:"</span> + key);</span><br><span class="line">    lock.lock();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> transactionTemplate.execute(status -&gt; action.get());</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        lock.unlock();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也就是说，它实际做的是：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Redis 分布式锁</span><br><span class="line">└─ 数据库事务</span><br></pre></td></tr></table></figure>
+
+<p>这把锁不一定有问题。原来的系统是一个后台管理系统，操作人数不多，同一活动很少被多人同时修改。用一把活动级锁，简单，也可能足够安全。</p>
+<p>但我还是停了下来：</p>
+<blockquote>
+<p>这段代码是真的需要 Redis 锁，还是 AI 只是习惯性地加了一把『大锁』？</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="我想弄清楚的，不只是锁"><a href="#我想弄清楚的，不只是锁" class="headerlink" title="我想弄清楚的，不只是锁"></a>我想弄清楚的，不只是锁</h2><p>顺着这个问题往下看，会遇到一串更基础的问题：</p>
+<ul>
+<li>一条普通的 <code>UPDATE</code>，数据库自己会不会加锁？</li>
+<li>只修改两张表，数据库事务是不是已经够了？</li>
+<li>扣减额度为什么容易超卖？</li>
+<li><code>SELECT ... FOR UPDATE</code> 和普通查询有什么区别？</li>
+<li>什么情况下应该锁一条记录，什么情况下要锁一个父记录？</li>
+<li>Redis 分布式锁到底应该放在哪里？</li>
+</ul>
+<p>这些问题看上去不大，却很能检验一个程序员对系统的理解。因为真正需要判断的不是「代码里有没有锁」，而是：</p>
+<blockquote>
+<p>这段业务到底要保护什么？</p>
+</blockquote>
+<h2 id="我想保留的是判断力"><a href="#我想保留的是判断力" class="headerlink" title="我想保留的是判断力"></a>我想保留的是判断力</h2><p>我并不是想把自己训练成一个背诵锁定义的人。更实际的目标是，看到一段代码时，能够对它产生正确的问题意识：</p>
+<ul>
+<li>这个方法名和真实行为一致吗？</li>
+<li>这个锁保护的是哪条业务规则？</li>
+<li>锁的范围是不是比业务需要的大？</li>
+<li>去掉这把锁以后，真正可能出错的地方在哪里？</li>
+<li>有没有一条 SQL 或一个数据库约束可以更直接地表达规则？</li>
+</ul>
+<p>这种能力，我愿意把它叫作技术敏感度。</p>
+<p>它不是遇到技术名词就紧张，也不是看到 Redis 锁就认定它不够高级。它更像是一种「闻到不对劲后，愿意继续追下去」的习惯。</p>
+<h2 id="AI-时代，为什么还要自己懂原理"><a href="#AI-时代，为什么还要自己懂原理" class="headerlink" title="AI 时代，为什么还要自己懂原理"></a>AI 时代，为什么还要自己懂原理</h2><p>现在 AI 可以很快写出一段看起来完整的代码。它可以生成事务、锁、重试、缓存，也可以把它们组合成一个很像样的方法。</p>
+<p>问题是，代码能运行，不代表设计就一定合适。</p>
+<p>如果我们只会描述需求、复制代码、等待 AI 修错误，却看不懂事务和锁的边界，最后很容易变成一个 AI 工具人：</p>
+<ul>
+<li>AI 加了一把锁，我们不知道它锁住了什么。</li>
+<li>AI 删除了一把锁，我们不知道它删掉了什么保证。</li>
+<li>AI 把多个操作放进一个事务，我们不知道它是否真的解决了并发问题。</li>
+</ul>
+<p>那时我们表面上在使用 AI，实际上是在把判断权交给 AI。</p>
+<p>理解一些基本原理，不是为了和 AI 比谁写代码快，而是为了保留判断权。只有看得懂 AI 的代码，才知道什么时候接受、什么时候追问、什么时候要求它重写。</p>
+<h2 id="这个后台到底在做什么"><a href="#这个后台到底在做什么" class="headerlink" title="这个后台到底在做什么"></a>这个后台到底在做什么</h2><p>可以把它想成一个活动运营人员每天使用的后台。运营人员先创建一场活动，例如「开发者交流会」，填写活动名称和地点，再安排签到、分享、交流等行程。活动保存时，活动基础信息和行程需要一起保存，不能只成功一半。</p>
+<p>活动开放报名后，系统会按「场次 + 区域」记录可报名人数。例如第一场在华东区域有 2 个名额。用户每报名一次，已用额度加 1，但不能超过总额度。这里的 <code>activity_quota</code> 就是这个名额记录。</p>
+<p>运营人员能做什么由 <code>activity_permission</code> 控制。管理员修改权限时，要先确认这条权限仍然有效。用户报名后会写入 <code>activity_registration</code>，因此已经产生报名的活动不能直接删除。</p>
+<p>最后，创建活动的请求可能因为双击或网络重试重复到达。系统需要保证相同请求在 60 秒内只创建一场活动。</p>
+<p>所以，这不是把活动、额度和权限硬凑在一起，而是一个完整后台里自然出现的几种操作：维护活动、安排流程、控制名额、管理人员、保护已有报名，再处理重复提交。</p>
+<h2 id="我让-AI-做了一个小实验"><a href="#我让-AI-做了一个小实验" class="headerlink" title="我让 AI 做了一个小实验"></a>我让 AI 做了一个小实验</h2><p>为了把这个问题看清楚，我没有继续在原系统里大范围改动，而是抽出一个独立的活动报名后台。它只有几类业务：</p>
+<ul>
+<li>运营人员修改活动和行程。</li>
+<li>用户报名时占用额度。</li>
+<li>管理员修改运营权限。</li>
+<li>已有报名的活动不能删除。</li>
+<li>创建按钮重复点击时不能创建两次。</li>
+</ul>
+<p>然后，我让 AI 针对不同的业务规则，分别给出不同版本：</p>
+<table>
+<thead>
+<tr>
+<th>业务问题</th>
+<th>采用的方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>修改一条活动记录</td>
+<td><a href="https://github.com/DeppWang/transaction-lock-demo/blob/main/src/main/java/com/example/transactionlockdemo/repository/ActivityRepository.java#L20-L26" target="_blank" rel="noopener">一条原子 <code>UPDATE</code></a></td>
+</tr>
+<tr>
+<td>同时修改活动和行程</td>
+<td><a href="https://github.com/DeppWang/transaction-lock-demo/blob/main/src/main/java/com/example/transactionlockdemo/service/EventWriteService.java#L27-L34" target="_blank" rel="noopener">只使用数据库事务</a></td>
+</tr>
+<tr>
+<td>多人抢最后一个名额</td>
+<td><a href="https://github.com/DeppWang/transaction-lock-demo/blob/main/src/main/java/com/example/transactionlockdemo/repository/ActivityRepository.java#L67-L75" target="_blank" rel="noopener">条件 <code>UPDATE</code></a></td>
+</tr>
+<tr>
+<td>修改权限前检查权限状态</td>
+<td><a href="https://github.com/DeppWang/transaction-lock-demo/blob/main/src/main/java/com/example/transactionlockdemo/repository/ActivityRepository.java#L86-L100" target="_blank" rel="noopener">事务加精确行锁</a></td>
+</tr>
+<tr>
+<td>删除活动前检查报名记录</td>
+<td><a href="https://github.com/DeppWang/transaction-lock-demo/blob/main/src/main/java/com/example/transactionlockdemo/service/EventWriteService.java#L36-L56" target="_blank" rel="noopener">事务加活动父记录锁</a></td>
+</tr>
+<tr>
+<td>重复提交创建请求</td>
+<td><a href="https://github.com/DeppWang/transaction-lock-demo/blob/main/src/main/java/com/example/transactionlockdemo/service/IdempotentEventCreateService.java#L42-L79" target="_blank" rel="noopener">Redis 请求锁加数据库事务</a></td>
+</tr>
+</tbody></table>
+<p>这六个版本不是为了凑齐六种技术。它们来自六种不同的业务问题。</p>
+<h2 id="从几个例子看差别"><a href="#从几个例子看差别" class="headerlink" title="从几个例子看差别"></a>从几个例子看差别</h2><h3 id="一条-SQL：不需要为了「安全感」加大锁"><a href="#一条-SQL：不需要为了「安全感」加大锁" class="headerlink" title="一条 SQL：不需要为了「安全感」加大锁"></a>一条 SQL：不需要为了「安全感」加大锁</h3><p>修改活动名称和地址时，数据库只需要执行一条更新：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> activity_event</span><br><span class="line"><span class="keyword">SET</span> <span class="keyword">name</span> = ?, address = ?</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">id</span> = ? <span class="keyword">AND</span> deleted = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<p>代码位置：<a href="https://github.com/DeppWang/transaction-lock-demo/blob/main/src/main/java/com/example/transactionlockdemo/service/EventWriteService.java#L21-L25" target="_blank" rel="noopener">业务方法 <code>updateSingleRow</code></a>，<a href="https://github.com/DeppWang/transaction-lock-demo/blob/main/src/main/java/com/example/transactionlockdemo/repository/ActivityRepository.java#L20-L26" target="_blank" rel="noopener">SQL 方法 <code>updateEvent</code></a>。</p>
+<p>InnoDB 会自动对命中的行加写锁。这里不需要再用活动级 Redis 锁来证明「这条 SQL 不会被同时执行」。</p>
+<p>当然，自动行锁也不是万能的。如果两个请求先读取旧对象，再把完整对象写回，仍然可能出现旧值覆盖。这时应该考虑版本号、字段级更新或 <code>FOR UPDATE</code>。</p>
+<p>错误情况可以这样发生：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">事务 A：读到 name=旧名称、address=旧地址</span><br><span class="line">事务 B：也读到同一份旧对象</span><br><span class="line">事务 A：把 name 改成「技术交流会」，写回 name + address，提交</span><br><span class="line">事务 B：把 address 改成「上海徐汇」，仍把旧 name 一起写回，提交</span><br><span class="line">结果：A 的新名称被 B 覆盖</span><br></pre></td></tr></table></figure>
+
+<p>这里的行锁只保证两次写入不会在同一时刻改同一行，并不能保证 B 写回的对象仍然是最新版本。要避免这种丢更新，可以只更新实际变化的字段，或增加 <code>version</code> 条件。</p>
+<h3 id="多张表：事务解决的是共同提交"><a href="#多张表：事务解决的是共同提交" class="headerlink" title="多张表：事务解决的是共同提交"></a>多张表：事务解决的是共同提交</h3><p>保存活动时，还要删除旧行程并写入新行程。这里最重要的规则是：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">活动更新成功，行程更新也必须成功</span><br></pre></td></tr></table></figure>
+
+<p>用一个数据库事务就可以保证共同提交或共同回滚。不需要因为操作涉及两张表，就顺手再加一把活动级 Redis 锁。</p>
+<p>代码位置：<a href="https://github.com/DeppWang/transaction-lock-demo/blob/main/src/main/java/com/example/transactionlockdemo/service/EventWriteService.java#L27-L34" target="_blank" rel="noopener">事务方法 <code>updateEventAndItinerary</code></a>，<a href="https://github.com/DeppWang/transaction-lock-demo/blob/main/src/main/java/com/example/transactionlockdemo/repository/ActivityRepository.java#L57-L65" target="_blank" rel="noopener">替换行程的 SQL</a>。</p>
+<p>错误情况不一定来自并发，也可能来自中途失败：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">操作 A：更新 activity_event，成功并自动提交</span><br><span class="line">操作 A：删除旧行程</span><br><span class="line">操作 A：插入新行程时因为数据错误失败</span><br><span class="line">结果：活动基础信息已经变更，但行程只删了一部分，留下半成品</span><br></pre></td></tr></table></figure>
+
+<p>事务的作用是让这几步一起成功或一起回滚；它不等于自动把不同请求串行化。</p>
+<h3 id="额度：把判断和修改放到一起"><a href="#额度：把判断和修改放到一起" class="headerlink" title="额度：把判断和修改放到一起"></a>额度：把判断和修改放到一起</h3><p>先查询额度，再在 Java 里加一，容易发生这种情况：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">请求 A 查到还剩一个名额</span><br><span class="line">请求 B 也查到还剩一个名额</span><br><span class="line">A 报名成功</span><br><span class="line">B 也报名成功</span><br></pre></td></tr></table></figure>
+
+<p>更直接的写法是：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> activity_quota</span><br><span class="line"><span class="keyword">SET</span> used_quota = used_quota + <span class="number">1</span></span><br><span class="line"><span class="keyword">WHERE</span> session_id = ?</span><br><span class="line">  <span class="keyword">AND</span> region_id = ?</span><br><span class="line">  <span class="keyword">AND</span> used_quota &lt; total_quota;</span><br></pre></td></tr></table></figure>
+
+<p>代码位置：<a href="https://github.com/DeppWang/transaction-lock-demo/blob/main/src/main/java/com/example/transactionlockdemo/service/QuotaService.java#L14-L20" target="_blank" rel="noopener">额度服务 <code>consume</code></a>，<a href="https://github.com/DeppWang/transaction-lock-demo/blob/main/src/main/java/com/example/transactionlockdemo/repository/ActivityRepository.java#L67-L75" target="_blank" rel="noopener">条件更新 SQL</a>。</p>
+<p>数据库在一条语句里完成判断和修改。Service 只检查受影响行数。这比先加一把活动大锁更贴近真正的业务规则。</p>
+<p>如果把判断放在 SQL 外面，两个事务就可能同时通过检查：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">事务 A：查询到还剩 1 个名额，暂停</span><br><span class="line">事务 B：也查询到还剩 1 个名额，暂停</span><br><span class="line">事务 A：报名并把 used_quota 加 1，提交</span><br><span class="line">事务 B：也报名并把 used_quota 加 1，提交</span><br><span class="line">结果：两个请求都认为自己成功，实际报名数超过 total_quota</span><br></pre></td></tr></table></figure>
+
+<p><code>used_quota &lt; total_quota</code> 必须和自增放在同一条条件更新里，不能依赖两次独立操作之间「应该不会撞上」。</p>
+<h3 id="需要先读、再检查、再改：精确锁一行"><a href="#需要先读、再检查、再改：精确锁一行" class="headerlink" title="需要先读、再检查、再改：精确锁一行"></a>需要先读、再检查、再改：精确锁一行</h3><p>管理员修改权限前，要确认权限仍然有效。这个过程不能被另一个操作插入：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">读取权限 → 检查状态 → 修改角色</span><br></pre></td></tr></table></figure>
+
+<p>因此可以在事务中锁住这一条权限：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>, event_id, employee_id, role_name, <span class="keyword">status</span></span><br><span class="line"><span class="keyword">FROM</span> activity_permission</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">id</span> = ?</span><br><span class="line"><span class="keyword">FOR</span> <span class="keyword">UPDATE</span>;</span><br></pre></td></tr></table></figure>
+
+<p>代码位置：<a href="https://github.com/DeppWang/transaction-lock-demo/blob/main/src/main/java/com/example/transactionlockdemo/service/PermissionService.java#L17-L29" target="_blank" rel="noopener">权限业务方法 <code>changeRole</code></a>，<a href="https://github.com/DeppWang/transaction-lock-demo/blob/main/src/main/java/com/example/transactionlockdemo/repository/ActivityRepository.java#L86-L100" target="_blank" rel="noopener">带 <code>FOR UPDATE</code> 的查询</a>。</p>
+<p>这里锁的是一条权限记录，不是整个活动。</p>
+<p>如果只是普通查询，可能出现这样的交错：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">事务 A：查到权限状态为 ACTIVE，准备改角色</span><br><span class="line">事务 B：把同一条权限改为 DISABLED，提交</span><br><span class="line">事务 A：没有重新检查，继续把角色改成 EDITOR，提交</span><br><span class="line">结果：已经停用的权限仍被修改，A 的检查结果已经过期</span><br></pre></td></tr></table></figure>
+
+<p><code>FOR UPDATE</code> 让 A 的「读取、检查、修改」成为一个受保护的过程；B 要等 A 结束后才能修改这条权限。</p>
+<h3 id="规则跨越多张表：锁一个父记录"><a href="#规则跨越多张表：锁一个父记录" class="headerlink" title="规则跨越多张表：锁一个父记录"></a>规则跨越多张表：锁一个父记录</h3><p>删除活动前，需要确认报名表里没有报名记录：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">锁活动记录</span><br><span class="line">→ 查询报名记录</span><br><span class="line">→ 没有报名才允许删除</span><br></pre></td></tr></table></figure>
+
+<p>活动记录在这里是父记录和共同互斥点。新增报名也必须先锁同一条活动记录。这样删除和报名才会遵守同一条规则。</p>
+<p>代码位置：<a href="https://github.com/DeppWang/transaction-lock-demo/blob/main/src/main/java/com/example/transactionlockdemo/service/EventWriteService.java#L36-L46" target="_blank" rel="noopener">删除流程 <code>deleteIfNoRegistrations</code></a>，<a href="https://github.com/DeppWang/transaction-lock-demo/blob/main/src/main/java/com/example/transactionlockdemo/service/EventWriteService.java#L48-L56" target="_blank" rel="noopener">报名流程 <code>register</code></a>，<a href="https://github.com/DeppWang/transaction-lock-demo/blob/main/src/main/java/com/example/transactionlockdemo/repository/ActivityRepository.java#L123-L143" target="_blank" rel="noopener">锁活动父记录</a>。</p>
+<p>如果删除和报名都只使用普通查询，错误交错可能是：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">事务 A：查询报名表，发现还没有报名，暂停</span><br><span class="line">事务 B：插入一条报名记录并提交</span><br><span class="line">事务 A：继续把活动标记为已删除并提交</span><br><span class="line">结果：活动已经删除，但报名记录仍然存在，违反「有报名不能删除」</span><br></pre></td></tr></table></figure>
+
+<p>锁住父记录本身还不够，新增报名和删除活动两条路径都必须先锁同一条父记录；只在其中一条路径加锁，规则仍然可能被绕过。</p>
+<p>父记录锁的重点不是数据库天然知道「这些表属于一个聚合」，而是所有相关代码共同遵守一个约定。</p>
+<h3 id="创建前没有记录：Redis-才有用武之地"><a href="#创建前没有记录：Redis-才有用武之地" class="headerlink" title="创建前没有记录：Redis 才有用武之地"></a>创建前没有记录：Redis 才有用武之地</h3><p>活动还没有创建时，没有活动 ID 可以拿来执行 <code>FOR UPDATE</code>。如果两个应用节点同时收到相同创建请求，就可以用「操作人 + 请求内容」生成指纹，让相同请求竞争同一把 Redis 锁。</p>
+<p>流程是：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">锁外检查结果</span><br><span class="line">→ 获取请求指纹对应的 Redis 锁</span><br><span class="line">→ 锁内再次检查结果</span><br><span class="line">→ 事务中创建活动和行程</span><br><span class="line">→ 保存 60 秒结果</span><br><span class="line">→ 释放锁</span><br></pre></td></tr></table></figure>
+
+<p>代码位置：<a href="https://github.com/DeppWang/transaction-lock-demo/blob/main/src/main/java/com/example/transactionlockdemo/service/IdempotentEventCreateService.java#L42-L79" target="_blank" rel="noopener">完整创建流程 <code>create</code></a>，<a href="https://github.com/DeppWang/transaction-lock-demo/blob/main/src/main/java/com/example/transactionlockdemo/service/IdempotentEventCreateService.java#L81-L89" target="_blank" rel="noopener">生成请求指纹</a>。</p>
+<p>这里使用 Redis 锁是因为「创建前没有数据库记录」，而不是因为 Redis 锁比数据库锁更高级。</p>
+<p>错误情况有两种常见写法。第一种是完全不加锁：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">请求 A：检查 60 秒结果，未找到</span><br><span class="line">请求 B：也检查不到结果</span><br><span class="line">请求 A：创建活动 A，保存结果</span><br><span class="line">请求 B：创建活动 B，保存结果</span><br><span class="line">结果：同一个请求创建了两场活动</span><br></pre></td></tr></table></figure>
+
+<p>第二种是加了锁，却忘了锁内再次检查：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">请求 A：拿到锁，创建活动 A，保存结果，释放锁</span><br><span class="line">请求 B：随后拿到锁，但没有再次检查，创建活动 B</span><br><span class="line">结果：锁只让操作排队，没有实现幂等</span><br></pre></td></tr></table></figure>
+
+<p>所以「锁内二次检查」不是重复代码，而是把等待期间已经发生的结果读回来。</p>
+<h2 id="后来我对原代码的看法"><a href="#后来我对原代码的看法" class="headerlink" title="后来我对原代码的看法"></a>后来我对原代码的看法</h2><p>回头看，原来的活动级 Redis 锁并不能简单地贴上「错误」标签。</p>
+<p>对于一个并发量很低的后台系统，它可能是一个合理的工程取舍：代码简单，容易理解，也能降低出错概率。</p>
+<p>但它也确实隐藏了一个问题：同一个活动下，原本可以并发的操作可能被迫排队。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">修改活动名称</span><br><span class="line">扣减报名额度</span><br><span class="line">修改运营权限</span><br></pre></td></tr></table></figure>
+
+<p>如果三者共用一把活动锁，就只能一个接一个执行。把锁缩小到真正需要保护的记录后，互不相关的操作可以同时进行。</p>
+<p>所以最后的判断不是「Redis 锁一定要删」，而是：</p>
+<ul>
+<li>当前并发量是否值得优化？</li>
+<li>这把锁是否保护了过多互不相关的操作？</li>
+<li>数据库是否已经能表达这条规则？</li>
+<li>简单方案带来的收益，是否大于它牺牲的并发能力？</li>
+</ul>
+<h2 id="我从这件事里得到的东西"><a href="#我从这件事里得到的东西" class="headerlink" title="我从这件事里得到的东西"></a>我从这件事里得到的东西</h2><p>这次最有价值的收获，不是记住了 <code>FOR UPDATE</code> 的语法，也不是把一把 Redis 锁换成了几种数据库写法。</p>
+<p>而是发现：一个具体的代码疑问，也可以成为一次技术训练。</p>
+<p>看到一个名字奇怪的方法，顺手往实现里看一眼；看到一把范围很大的锁，问一句它到底保护什么；看到 AI 给出的完整代码，不急着接受，也不急着否定，先把它拆成几个可以验证的事实。</p>
+<p>这可能是 AI 时代程序员更应该保留的能力。</p>
+<p>AI 会越来越擅长写代码。我们不需要在每一行代码上和它竞争。但我们需要知道它写的东西在做什么，知道哪些地方值得相信，哪些地方需要追问。</p>
+<p>否则，AI 写得越快，我们越容易失去对系统的掌控。</p>
+<p>而当我们掌握了足够的技术原理，就能更好地驾驭 AI：让它解释，让它比较，让它重写，让它用不同方案证明自己的选择。</p>
+<p>技术原理不是 AI 时代的负担，反而是使用 AI 的方向感。</p>
+
+        
+        
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="https://hexoblog.r2.depp.wang/202406221719028220.png" alt="deppwang wechat" style="width: 200px; max-width: 100%;">
+    <div></div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      deppwang
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://depp.wang/2026/ai-redis-lock/" title="AI 写下的那把 Redis 锁">https://depp.wang/2026/ai-redis-lock/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AI/" rel="tag"># AI</a>
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/Redis/" rel="tag"># Redis</a>
+          
+            <a href="/tags/事务/" rel="tag"># 事务</a>
+          
+            <a href="/tags/锁/" rel="tag"># 锁</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2026/1587-a-Year-of-No-Significance/" rel="next" title="读《万历十五年》：人物、制度与一个王朝的问题">
+                <i class="fa fa-chevron-left"></i> 读《万历十五年》：人物、制度与一个王朝的问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <script type="text/javascript">
+    function onSelectGiscus() {
+      document.getElementById('giscus-btn').style = 'background-color: #666; color: #fff;';
+      document.getElementsByClassName('giscus')[0].style = '';
+      document.getElementById('disqus_thread').style.display = 'none';
+      document.getElementById('disqus-btn').style = '';
+    }
+
+    function onSelectDisqus() {
+      document.getElementById('disqus-btn').style = 'background-color: #666; color: #fff;';
+      document.getElementById('disqus_thread').style = '';
+      document.getElementsByClassName('giscus')[0].style.display = 'none';
+      document.getElementById('giscus-btn').style = '';
+    }
+  </script>
+
+  <p>评论默认使用 <button id="giscus-btn" onclick="onSelectGiscus()" style="
+  background-color: #666; color: #fff;
+  ">giscus</button>，你也可以切换到 <button id="disqus-btn" onclick="onSelectDisqus()">disqus</button> 来留言。</p>
+  
+  <div class="comments" id="comments">
+    <script src="https://giscus.app/client.js" data-repo="deppwang/deppwang.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnk5MDUwNTE0Nw==" data-category="Comments" data-category-id="DIC_kwDOBWT_u84CesZv" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async>
+    </script>
+    
+      <div id="disqus_thread" style="display: none;>
+        <noscript>
+          Please enable JavaScript to view the
+          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
+          <p class="site-author-name" itemprop="name">deppwang</p>
+           
+              <p class="site-description motion-element" itemprop="description">每个人都需要有自己的哈姆雷特</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">162</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">380</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/rss2.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DeppWang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/deppwang1" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://space.bilibili.com/336707243" target="_blank" title="BiliBili">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  BiliBili
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.youtube.com/@deppwang" target="_blank" title="YouTube">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  YouTube
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/139800484/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://coolshell.cn" title="CoolShell" target="_blank">CoolShell</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/archives.html" title="阮一峰的网络日志" target="_blank">阮一峰的网络日志</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://1byte.io" title="1byte" target="_blank">1byte</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://catcoding.me/" title="程序员的喵" target="_blank">程序员的喵</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://blog.douchi.space/" title="椒盐豆豉" target="_blank">椒盐豆豉</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://hutusi.com/" title="胡涂说" target="_blank">胡涂说</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一个具体的技术问题"><span class="nav-number">1.</span> <span class="nav-text">一个具体的技术问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我想弄清楚的，不只是锁"><span class="nav-number">2.</span> <span class="nav-text">我想弄清楚的，不只是锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我想保留的是判断力"><span class="nav-number">3.</span> <span class="nav-text">我想保留的是判断力</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AI-时代，为什么还要自己懂原理"><span class="nav-number">4.</span> <span class="nav-text">AI 时代，为什么还要自己懂原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#这个后台到底在做什么"><span class="nav-number">5.</span> <span class="nav-text">这个后台到底在做什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我让-AI-做了一个小实验"><span class="nav-number">6.</span> <span class="nav-text">我让 AI 做了一个小实验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从几个例子看差别"><span class="nav-number">7.</span> <span class="nav-text">从几个例子看差别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一条-SQL：不需要为了「安全感」加大锁"><span class="nav-number">7.1.</span> <span class="nav-text">一条 SQL：不需要为了「安全感」加大锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多张表：事务解决的是共同提交"><span class="nav-number">7.2.</span> <span class="nav-text">多张表：事务解决的是共同提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#额度：把判断和修改放到一起"><span class="nav-number">7.3.</span> <span class="nav-text">额度：把判断和修改放到一起</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#需要先读、再检查、再改：精确锁一行"><span class="nav-number">7.4.</span> <span class="nav-text">需要先读、再检查、再改：精确锁一行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#规则跨越多张表：锁一个父记录"><span class="nav-number">7.5.</span> <span class="nav-text">规则跨越多张表：锁一个父记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建前没有记录：Redis-才有用武之地"><span class="nav-number">7.6.</span> <span class="nav-text">创建前没有记录：Redis 才有用武之地</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后来我对原代码的看法"><span class="nav-number">8.</span> <span class="nav-text">后来我对原代码的看法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我从这件事里得到的东西"><span class="nav-number">9.</span> <span class="nav-text">我从这件事里得到的东西</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">deppwang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://deppwang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://depp.wang/2026/ai-redis-lock/';
+          this.page.identifier = '2026/ai-redis-lock/';
+          this.page.title = 'AI 写下的那把 Redis 锁';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://deppwang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"YCDSsaG01kYysEWoWlB3RF4O-MdYXbMMI","app_key":"AjFBNu3SKV0SwMNsiIxA0mQv","server_url":"https://ycdssag0.api.lncldglobal.com"};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
