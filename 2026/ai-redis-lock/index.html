@@ -99,7 +99,7 @@
 <meta property="og:site_name" content="德普王">
 <meta property="og:description" content="配套代码：transaction-lock-demo。文中的代码位置都可以直接跳转到 GitHub 查看。  一个具体的技术问题最近看 AI 写的一段后台代码时，我遇到一个具体、也很容易被忽略的技术问题。 代码里有这样一行： HjEventDtos.CreateResult result = lockService.inTransaction(        idemKey, () -&amp;gt;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2026-09-08T13:51:56.213Z">
+<meta property="og:updated_time" content="2026-09-09T02:31:53.397Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AI 写下的那把 Redis 锁">
 <meta name="twitter:description" content="配套代码：transaction-lock-demo。文中的代码位置都可以直接跳转到 GitHub 查看。  一个具体的技术问题最近看 AI 写的一段后台代码时，我遇到一个具体、也很容易被忽略的技术问题。 代码里有这样一行： HjEventDtos.CreateResult result = lockService.inTransaction(        idemKey, () -&amp;gt;">
@@ -139,7 +139,7 @@
   <title>AI 写下的那把 Redis 锁 | 德普王</title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -173,7 +173,7 @@
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
@@ -318,16 +318,16 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2026/ai-redis-lock/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/deppwang.png">
     </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="德普王">
     </span>
 
@@ -364,8 +364,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2026-09-08T21:51:22+08:00">
-                2026-09-08
+              <time title="更新于" itemprop="dateModified" datetime="2026-09-09T10:30:48+08:00">
+                2026-09-09
               </time>
             
           </span>
@@ -432,57 +432,18 @@
 <p>这把锁不一定有问题。原来的系统是一个后台管理系统，操作人数不多，同一活动很少被多人同时修改。用一把活动级锁，简单，也可能足够安全。</p>
 <p>但我还是停了下来：</p>
 <blockquote>
-<p>这段代码是真的需要 Redis 锁，还是 AI 只是习惯性地加了一把『大锁』？</p>
+<p>这段代码是真的需要 Redis 锁，还是 AI 只是习惯性地加了一把「大锁」？</p>
 </blockquote>
 <a id="more"></a>
-
-<h2 id="我想弄清楚的，不只是锁"><a href="#我想弄清楚的，不只是锁" class="headerlink" title="我想弄清楚的，不只是锁"></a>我想弄清楚的，不只是锁</h2><p>顺着这个问题往下看，会遇到一串更基础的问题：</p>
+<h2 id="这个后台到底在做什么"><a href="#这个后台到底在做什么" class="headerlink" title="这个后台到底在做什么"></a>这个后台到底在做什么</h2><p>这个 demo 模拟一个活动运营后台，里面有几种常见操作：</p>
 <ul>
-<li>一条普通的 <code>UPDATE</code>，数据库自己会不会加锁？</li>
-<li>只修改两张表，数据库事务是不是已经够了？</li>
-<li>扣减额度为什么容易超卖？</li>
-<li><code>SELECT ... FOR UPDATE</code> 和普通查询有什么区别？</li>
-<li>什么情况下应该锁一条记录，什么情况下要锁一个父记录？</li>
-<li>Redis 分布式锁到底应该放在哪里？</li>
+<li>运营人员创建活动并维护签到、分享等行程，活动和行程必须一起保存。</li>
+<li>用户报名时占用「场次 + 区域」的额度，已用人数不能超过总额度。</li>
+<li>管理员修改运营人员的权限，但已经停用的权限不能继续修改。</li>
+<li>活动产生报名后不能直接删除，删除和报名不能互相绕过。</li>
+<li>创建请求可能因为双击或网络重试重复到达，相同请求在 60 秒内只能创建一场活动。</li>
 </ul>
-<p>这些问题看上去不大，却很能检验一个程序员对系统的理解。因为真正需要判断的不是「代码里有没有锁」，而是：</p>
-<blockquote>
-<p>这段业务到底要保护什么？</p>
-</blockquote>
-<h2 id="我想保留的是判断力"><a href="#我想保留的是判断力" class="headerlink" title="我想保留的是判断力"></a>我想保留的是判断力</h2><p>我并不是想把自己训练成一个背诵锁定义的人。更实际的目标是，看到一段代码时，能够对它产生正确的问题意识：</p>
-<ul>
-<li>这个方法名和真实行为一致吗？</li>
-<li>这个锁保护的是哪条业务规则？</li>
-<li>锁的范围是不是比业务需要的大？</li>
-<li>去掉这把锁以后，真正可能出错的地方在哪里？</li>
-<li>有没有一条 SQL 或一个数据库约束可以更直接地表达规则？</li>
-</ul>
-<p>这种能力，我愿意把它叫作技术敏感度。</p>
-<p>它不是遇到技术名词就紧张，也不是看到 Redis 锁就认定它不够高级。它更像是一种「闻到不对劲后，愿意继续追下去」的习惯。</p>
-<h2 id="AI-时代，为什么还要自己懂原理"><a href="#AI-时代，为什么还要自己懂原理" class="headerlink" title="AI 时代，为什么还要自己懂原理"></a>AI 时代，为什么还要自己懂原理</h2><p>现在 AI 可以很快写出一段看起来完整的代码。它可以生成事务、锁、重试、缓存，也可以把它们组合成一个很像样的方法。</p>
-<p>问题是，代码能运行，不代表设计就一定合适。</p>
-<p>如果我们只会描述需求、复制代码、等待 AI 修错误，却看不懂事务和锁的边界，最后很容易变成一个 AI 工具人：</p>
-<ul>
-<li>AI 加了一把锁，我们不知道它锁住了什么。</li>
-<li>AI 删除了一把锁，我们不知道它删掉了什么保证。</li>
-<li>AI 把多个操作放进一个事务，我们不知道它是否真的解决了并发问题。</li>
-</ul>
-<p>那时我们表面上在使用 AI，实际上是在把判断权交给 AI。</p>
-<p>理解一些基本原理，不是为了和 AI 比谁写代码快，而是为了保留判断权。只有看得懂 AI 的代码，才知道什么时候接受、什么时候追问、什么时候要求它重写。</p>
-<h2 id="这个后台到底在做什么"><a href="#这个后台到底在做什么" class="headerlink" title="这个后台到底在做什么"></a>这个后台到底在做什么</h2><p>可以把它想成一个活动运营人员每天使用的后台。运营人员先创建一场活动，例如「开发者交流会」，填写活动名称和地点，再安排签到、分享、交流等行程。活动保存时，活动基础信息和行程需要一起保存，不能只成功一半。</p>
-<p>活动开放报名后，系统会按「场次 + 区域」记录可报名人数。例如第一场在华东区域有 2 个名额。用户每报名一次，已用额度加 1，但不能超过总额度。这里的 <code>activity_quota</code> 就是这个名额记录。</p>
-<p>运营人员能做什么由 <code>activity_permission</code> 控制。管理员修改权限时，要先确认这条权限仍然有效。用户报名后会写入 <code>activity_registration</code>，因此已经产生报名的活动不能直接删除。</p>
-<p>最后，创建活动的请求可能因为双击或网络重试重复到达。系统需要保证相同请求在 60 秒内只创建一场活动。</p>
-<p>所以，这不是把活动、额度和权限硬凑在一起，而是一个完整后台里自然出现的几种操作：维护活动、安排流程、控制名额、管理人员、保护已有报名，再处理重复提交。</p>
-<h2 id="我让-AI-做了一个小实验"><a href="#我让-AI-做了一个小实验" class="headerlink" title="我让 AI 做了一个小实验"></a>我让 AI 做了一个小实验</h2><p>为了把这个问题看清楚，我没有继续在原系统里大范围改动，而是抽出一个独立的活动报名后台。它只有几类业务：</p>
-<ul>
-<li>运营人员修改活动和行程。</li>
-<li>用户报名时占用额度。</li>
-<li>管理员修改运营权限。</li>
-<li>已有报名的活动不能删除。</li>
-<li>创建按钮重复点击时不能创建两次。</li>
-</ul>
-<p>然后，我让 AI 针对不同的业务规则，分别给出不同版本：</p>
+<h2 id="我让-AI-做了一个小实验"><a href="#我让-AI-做了一个小实验" class="headerlink" title="我让 AI 做了一个小实验"></a>我让 AI 做了一个小实验</h2><p>为了把这个问题看清楚，我没有继续在原系统里大范围改动，而是抽出一个独立的活动报名后台。然后，我让 AI 针对上面的业务规则，分别给出不同版本：</p>
 <table>
 <thead>
 <tr>
@@ -583,26 +544,8 @@
 
 <p>所以「锁内二次检查」不是重复代码，而是把等待期间已经发生的结果读回来。</p>
 <h2 id="后来我对原代码的看法"><a href="#后来我对原代码的看法" class="headerlink" title="后来我对原代码的看法"></a>后来我对原代码的看法</h2><p>回头看，原来的活动级 Redis 锁并不能简单地贴上「错误」标签。</p>
-<p>对于一个并发量很低的后台系统，它可能是一个合理的工程取舍：代码简单，容易理解，也能降低出错概率。</p>
-<p>但它也确实隐藏了一个问题：同一个活动下，原本可以并发的操作可能被迫排队。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">修改活动名称</span><br><span class="line">扣减报名额度</span><br><span class="line">修改运营权限</span><br></pre></td></tr></table></figure>
-
-<p>如果三者共用一把活动锁，就只能一个接一个执行。把锁缩小到真正需要保护的记录后，互不相关的操作可以同时进行。</p>
-<p>所以最后的判断不是「Redis 锁一定要删」，而是：</p>
-<ul>
-<li>当前并发量是否值得优化？</li>
-<li>这把锁是否保护了过多互不相关的操作？</li>
-<li>数据库是否已经能表达这条规则？</li>
-<li>简单方案带来的收益，是否大于它牺牲的并发能力？</li>
-</ul>
-<h2 id="我从这件事里得到的东西"><a href="#我从这件事里得到的东西" class="headerlink" title="我从这件事里得到的东西"></a>我从这件事里得到的东西</h2><p>这次最有价值的收获，不是记住了 <code>FOR UPDATE</code> 的语法，也不是把一把 Redis 锁换成了几种数据库写法。</p>
-<p>而是发现：一个具体的代码疑问，也可以成为一次技术训练。</p>
-<p>看到一个名字奇怪的方法，顺手往实现里看一眼；看到一把范围很大的锁，问一句它到底保护什么；看到 AI 给出的完整代码，不急着接受，也不急着否定，先把它拆成几个可以验证的事实。</p>
-<p>这可能是 AI 时代程序员更应该保留的能力。</p>
-<p>AI 会越来越擅长写代码。我们不需要在每一行代码上和它竞争。但我们需要知道它写的东西在做什么，知道哪些地方值得相信，哪些地方需要追问。</p>
-<p>否则，AI 写得越快，我们越容易失去对系统的掌控。</p>
-<p>而当我们掌握了足够的技术原理，就能更好地驾驭 AI：让它解释，让它比较，让它重写，让它用不同方案证明自己的选择。</p>
-<p>技术原理不是 AI 时代的负担，反而是使用 AI 的方向感。</p>
+<p>对于一个并发量不高的后台系统，它可能是一个简单的工程取舍；但如果同一个活动下的修改、额度和权限都共用这把锁，原本可以并发的操作也会被迫排队。是否保留它，关键还是看它保护的业务规则，以及数据库能不能用更小的范围表达这条规则。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>这次只是从一把 Redis 锁开始追问：AI 写出的代码能够运行，还要看得懂它为什么这样设计。掌握这些基本原理，才能更好地判断、修改和使用 AI 写出的代码。</p>
 
         
         
@@ -734,7 +677,7 @@
       <div id="disqus_thread" style="display: none;>
         <noscript>
           Please enable JavaScript to view the
-          <a href=" https: disqus.com ?ref_noscript">comments powered by Disqus.
+          <a href=" https:="" disqus.com="" ?ref_noscript"="">comments powered by Disqus.
         
       </div>
     
@@ -770,7 +713,7 @@
       
 
       <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/deppwang.png" alt="deppwang">
           <p class="site-author-name" itemprop="name">deppwang</p>
            
@@ -922,7 +865,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一个具体的技术问题"><span class="nav-number">1.</span> <span class="nav-text">一个具体的技术问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我想弄清楚的，不只是锁"><span class="nav-number">2.</span> <span class="nav-text">我想弄清楚的，不只是锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我想保留的是判断力"><span class="nav-number">3.</span> <span class="nav-text">我想保留的是判断力</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AI-时代，为什么还要自己懂原理"><span class="nav-number">4.</span> <span class="nav-text">AI 时代，为什么还要自己懂原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#这个后台到底在做什么"><span class="nav-number">5.</span> <span class="nav-text">这个后台到底在做什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我让-AI-做了一个小实验"><span class="nav-number">6.</span> <span class="nav-text">我让 AI 做了一个小实验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从几个例子看差别"><span class="nav-number">7.</span> <span class="nav-text">从几个例子看差别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一条-SQL：不需要为了「安全感」加大锁"><span class="nav-number">7.1.</span> <span class="nav-text">一条 SQL：不需要为了「安全感」加大锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多张表：事务解决的是共同提交"><span class="nav-number">7.2.</span> <span class="nav-text">多张表：事务解决的是共同提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#额度：把判断和修改放到一起"><span class="nav-number">7.3.</span> <span class="nav-text">额度：把判断和修改放到一起</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#需要先读、再检查、再改：精确锁一行"><span class="nav-number">7.4.</span> <span class="nav-text">需要先读、再检查、再改：精确锁一行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#规则跨越多张表：锁一个父记录"><span class="nav-number">7.5.</span> <span class="nav-text">规则跨越多张表：锁一个父记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建前没有记录：Redis-才有用武之地"><span class="nav-number">7.6.</span> <span class="nav-text">创建前没有记录：Redis 才有用武之地</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后来我对原代码的看法"><span class="nav-number">8.</span> <span class="nav-text">后来我对原代码的看法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我从这件事里得到的东西"><span class="nav-number">9.</span> <span class="nav-text">我从这件事里得到的东西</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一个具体的技术问题"><span class="nav-number">1.</span> <span class="nav-text">一个具体的技术问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#这个后台到底在做什么"><span class="nav-number">2.</span> <span class="nav-text">这个后台到底在做什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我让-AI-做了一个小实验"><span class="nav-number">3.</span> <span class="nav-text">我让 AI 做了一个小实验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从几个例子看差别"><span class="nav-number">4.</span> <span class="nav-text">从几个例子看差别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一条-SQL：不需要为了「安全感」加大锁"><span class="nav-number">4.1.</span> <span class="nav-text">一条 SQL：不需要为了「安全感」加大锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多张表：事务解决的是共同提交"><span class="nav-number">4.2.</span> <span class="nav-text">多张表：事务解决的是共同提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#额度：把判断和修改放到一起"><span class="nav-number">4.3.</span> <span class="nav-text">额度：把判断和修改放到一起</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#需要先读、再检查、再改：精确锁一行"><span class="nav-number">4.4.</span> <span class="nav-text">需要先读、再检查、再改：精确锁一行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#规则跨越多张表：锁一个父记录"><span class="nav-number">4.5.</span> <span class="nav-text">规则跨越多张表：锁一个父记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建前没有记录：Redis-才有用武之地"><span class="nav-number">4.6.</span> <span class="nav-text">创建前没有记录：Redis 才有用武之地</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后来我对原代码的看法"><span class="nav-number">5.</span> <span class="nav-text">后来我对原代码的看法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">6.</span> <span class="nav-text">最后</span></a></li></ol></div>
             
 
           </div>
