@@ -100,7 +100,7 @@
 <meta property="og:description" content="此文涉及剧透！ 把 HBO 的《硅谷》(Silicon Valley) 看完了，发现《硅谷》就是一部创业踩坑记录大全。 《硅谷》中「魔笛手」(Pied Piper) 的创业起点在没背景没资源的小公司中算是顶级了，有核心的技术，其压缩算法在硅谷也是最厉害的。创业团队原始成员在各自领域都很擅长，理查德 (Richard) - 算法、吉尔弗约尔 (Gilfoyle) - 硬件 / 架构、迪尼希 (Di">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202406241719160934.png">
-<meta property="og:updated_time" content="2026-09-24T23:40:58.765Z">
+<meta property="og:updated_time" content="2026-10-03T01:26:46.751Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《硅谷》- 一部创业踩坑纪录大全">
 <meta name="twitter:description" content="此文涉及剧透！ 把 HBO 的《硅谷》(Silicon Valley) 看完了，发现《硅谷》就是一部创业踩坑记录大全。 《硅谷》中「魔笛手」(Pied Piper) 的创业起点在没背景没资源的小公司中算是顶级了，有核心的技术，其压缩算法在硅谷也是最厉害的。创业团队原始成员在各自领域都很擅长，理查德 (Richard) - 算法、吉尔弗约尔 (Gilfoyle) - 硬件 / 架构、迪尼希 (Di">
@@ -1053,7 +1053,7 @@
         .then(({ results }) => {
           if (results.length > 0) {
             var counter = results[0];
-            leancloudSelector(url).innerText = counter.time + 1;
+            
             Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
               .catch(error => {
                 console.error('Failed to save visitor count', error);
@@ -1062,7 +1062,7 @@
               Counter('post', '/classes/Counter', { title, url, time: 1 })
                 .then(response => response.json())
                 .then(() => {
-                  leancloudSelector(url).innerText = 1;
+                  
                 })
                 .catch(error => {
                   console.error('Failed to create', error);
@@ -1107,9 +1107,9 @@
           body: JSON.stringify(data)
         });
       };
-      if ($('.leancloud_visitors').length == 1) {
+      if (true && document.querySelector('.leancloud_visitors')) {
         addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
+      } else if (!true && $('.leancloud_visitors').length) {
         showTime(Counter);
       }
     }
@@ -1125,6 +1125,53 @@
           fetchData('https://' + api_server);
         });
     }
+  })();
+</script>
+
+  
+<script>
+  (function() {
+    var elements = Array.from(document.querySelectorAll('.leancloud_visitors'));
+    if (!elements.length) return;
+    var endpoint = "https://blog-views.depp.wang/views";
+    var isPost = true;
+    if (isPost && elements[0].dataset.cloudflareCounted) return;
+    var paths = elements.map(function(element) { return decodeURI(element.id); });
+    elements.forEach(function(element) {
+      element.querySelector('.leancloud-visitors-count').textContent = '—';
+    });
+    function display(counts) {
+      elements.forEach(function(element, index) {
+        var count = counts[paths[index]];
+        if (Number.isSafeInteger(count) && count >= 0) {
+          element.querySelector('.leancloud-visitors-count').textContent = count;
+        }
+      });
+    }
+    function read(response) {
+      if (!response.ok) throw new Error('Counter request failed');
+      return response.json();
+    }
+    var request;
+    if (isPost) {
+      elements[0].dataset.cloudflareCounted = 'true';
+      request = fetch(endpoint, {
+        method: 'POST', credentials: 'omit', cache: 'no-store',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: paths[0] })
+      }).then(read).then(function(data) {
+        var counts = {}; counts[data.path] = data.views; display(counts);
+      });
+    } else {
+      request = Promise.all(Array.from({ length: Math.ceil(paths.length / 50) }, function(_, index) {
+        var query = paths.slice(index * 50, index * 50 + 50).map(function(path) {
+          return 'path=' + encodeURIComponent(path);
+        }).join('&');
+        return fetch(endpoint + '?' + query, { credentials: 'omit', cache: 'no-store' })
+          .then(read).then(function(data) { display(data.counts); });
+      }));
+    }
+    request.catch(function() { console.warn('Cloudflare view count is unavailable'); });
   })();
 </script>
 

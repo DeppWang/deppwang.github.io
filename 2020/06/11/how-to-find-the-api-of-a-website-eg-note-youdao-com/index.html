@@ -109,7 +109,7 @@
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-06-10-102800.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-06-10-113424.png">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-06-10-060620.png">
-<meta property="og:updated_time" content="2026-09-24T23:40:58.762Z">
+<meta property="og:updated_time" content="2026-10-03T01:26:46.748Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何查找某个网站的（如：有道云笔记）的接口">
 <meta name="twitter:description" content="作者：DeppWang、原文地址  开发了个 《一键导出 / 备份「有道云笔记」所有笔记》的脚本。主要原理是利用有道云笔记本身的接口。下面是根据正常用户操作逻辑，找到需要的接口，主要是登录和「下载」。">
@@ -1071,7 +1071,7 @@
         .then(({ results }) => {
           if (results.length > 0) {
             var counter = results[0];
-            leancloudSelector(url).innerText = counter.time + 1;
+            
             Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
               .catch(error => {
                 console.error('Failed to save visitor count', error);
@@ -1080,7 +1080,7 @@
               Counter('post', '/classes/Counter', { title, url, time: 1 })
                 .then(response => response.json())
                 .then(() => {
-                  leancloudSelector(url).innerText = 1;
+                  
                 })
                 .catch(error => {
                   console.error('Failed to create', error);
@@ -1125,9 +1125,9 @@
           body: JSON.stringify(data)
         });
       };
-      if ($('.leancloud_visitors').length == 1) {
+      if (true && document.querySelector('.leancloud_visitors')) {
         addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
+      } else if (!true && $('.leancloud_visitors').length) {
         showTime(Counter);
       }
     }
@@ -1143,6 +1143,53 @@
           fetchData('https://' + api_server);
         });
     }
+  })();
+</script>
+
+  
+<script>
+  (function() {
+    var elements = Array.from(document.querySelectorAll('.leancloud_visitors'));
+    if (!elements.length) return;
+    var endpoint = "https://blog-views.depp.wang/views";
+    var isPost = true;
+    if (isPost && elements[0].dataset.cloudflareCounted) return;
+    var paths = elements.map(function(element) { return decodeURI(element.id); });
+    elements.forEach(function(element) {
+      element.querySelector('.leancloud-visitors-count').textContent = '—';
+    });
+    function display(counts) {
+      elements.forEach(function(element, index) {
+        var count = counts[paths[index]];
+        if (Number.isSafeInteger(count) && count >= 0) {
+          element.querySelector('.leancloud-visitors-count').textContent = count;
+        }
+      });
+    }
+    function read(response) {
+      if (!response.ok) throw new Error('Counter request failed');
+      return response.json();
+    }
+    var request;
+    if (isPost) {
+      elements[0].dataset.cloudflareCounted = 'true';
+      request = fetch(endpoint, {
+        method: 'POST', credentials: 'omit', cache: 'no-store',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: paths[0] })
+      }).then(read).then(function(data) {
+        var counts = {}; counts[data.path] = data.views; display(counts);
+      });
+    } else {
+      request = Promise.all(Array.from({ length: Math.ceil(paths.length / 50) }, function(_, index) {
+        var query = paths.slice(index * 50, index * 50 + 50).map(function(path) {
+          return 'path=' + encodeURIComponent(path);
+        }).join('&');
+        return fetch(endpoint + '?' + query, { credentials: 'omit', cache: 'no-store' })
+          .then(read).then(function(data) { display(data.counts); });
+      }));
+    }
+    request.catch(function() { console.warn('Cloudflare view count is unavailable'); });
   })();
 </script>
 

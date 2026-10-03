@@ -121,7 +121,7 @@
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202607151784075199.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202607151784075234.png">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202607151784075639.png">
-<meta property="og:updated_time" content="2026-09-24T23:40:58.766Z">
+<meta property="og:updated_time" content="2026-10-03T01:26:46.752Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 Sub2API 在 Mac mini 中搭建一个自用 AI API 中转站">
 <meta name="twitter:description" content="现在我订阅了两个 ChatGPT Plus 美区账号来使用 Codex，但现在 Codex 额度缩水严重，两个账号也不够用了。因此，我打算买一个 20 倍的 Pro 账号。 不过，我一个人又用不完，所以打算搭建一个中转站，来找几个搭子一起来用。 因为我也在使用家里 Mac mini 当服务器，所以我打算先安装在 Mac mini 上面测试一下，然后通过 Tailscale 来建立异地局域网，这样我">
@@ -1073,7 +1073,7 @@
         .then(({ results }) => {
           if (results.length > 0) {
             var counter = results[0];
-            leancloudSelector(url).innerText = counter.time + 1;
+            
             Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
               .catch(error => {
                 console.error('Failed to save visitor count', error);
@@ -1082,7 +1082,7 @@
               Counter('post', '/classes/Counter', { title, url, time: 1 })
                 .then(response => response.json())
                 .then(() => {
-                  leancloudSelector(url).innerText = 1;
+                  
                 })
                 .catch(error => {
                   console.error('Failed to create', error);
@@ -1127,9 +1127,9 @@
           body: JSON.stringify(data)
         });
       };
-      if ($('.leancloud_visitors').length == 1) {
+      if (true && document.querySelector('.leancloud_visitors')) {
         addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
+      } else if (!true && $('.leancloud_visitors').length) {
         showTime(Counter);
       }
     }
@@ -1145,6 +1145,53 @@
           fetchData('https://' + api_server);
         });
     }
+  })();
+</script>
+
+  
+<script>
+  (function() {
+    var elements = Array.from(document.querySelectorAll('.leancloud_visitors'));
+    if (!elements.length) return;
+    var endpoint = "https://blog-views.depp.wang/views";
+    var isPost = true;
+    if (isPost && elements[0].dataset.cloudflareCounted) return;
+    var paths = elements.map(function(element) { return decodeURI(element.id); });
+    elements.forEach(function(element) {
+      element.querySelector('.leancloud-visitors-count').textContent = '—';
+    });
+    function display(counts) {
+      elements.forEach(function(element, index) {
+        var count = counts[paths[index]];
+        if (Number.isSafeInteger(count) && count >= 0) {
+          element.querySelector('.leancloud-visitors-count').textContent = count;
+        }
+      });
+    }
+    function read(response) {
+      if (!response.ok) throw new Error('Counter request failed');
+      return response.json();
+    }
+    var request;
+    if (isPost) {
+      elements[0].dataset.cloudflareCounted = 'true';
+      request = fetch(endpoint, {
+        method: 'POST', credentials: 'omit', cache: 'no-store',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: paths[0] })
+      }).then(read).then(function(data) {
+        var counts = {}; counts[data.path] = data.views; display(counts);
+      });
+    } else {
+      request = Promise.all(Array.from({ length: Math.ceil(paths.length / 50) }, function(_, index) {
+        var query = paths.slice(index * 50, index * 50 + 50).map(function(path) {
+          return 'path=' + encodeURIComponent(path);
+        }).join('&');
+        return fetch(endpoint + '?' + query, { credentials: 'omit', cache: 'no-store' })
+          .then(read).then(function(data) { display(data.counts); });
+      }));
+    }
+    request.catch(function() { console.warn('Cloudflare view count is unavailable'); });
   })();
 </script>
 

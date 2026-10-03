@@ -100,7 +100,7 @@
 <meta property="og:description" content="我原来以为《万历十五年》是一本讲明朝某一年发生了什么事的历史书，或者更直接一点，是一本写万历皇帝的书。 读下来才发现不是这样。 它当然有历史事件，也写了很多真实人物，但读起来更像一篇很长的历史文章。黄仁宇不是把史料一条条摆出来，而是从万历皇帝、张居正、申时行、海瑞、戚继光和李贽几个人身上，写出他自己对明朝制度的理解。人物写得很具体，可读性也很好，但背后其实一直在讲同一个问题：明朝当时的社会已经在">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202608301788057490.png">
-<meta property="og:updated_time" content="2026-09-24T23:40:58.768Z">
+<meta property="og:updated_time" content="2026-10-03T01:26:46.755Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="读《万历十五年》：人物、制度与一个王朝的问题">
 <meta name="twitter:description" content="我原来以为《万历十五年》是一本讲明朝某一年发生了什么事的历史书，或者更直接一点，是一本写万历皇帝的书。 读下来才发现不是这样。 它当然有历史事件，也写了很多真实人物，但读起来更像一篇很长的历史文章。黄仁宇不是把史料一条条摆出来，而是从万历皇帝、张居正、申时行、海瑞、戚继光和李贽几个人身上，写出他自己对明朝制度的理解。人物写得很具体，可读性也很好，但背后其实一直在讲同一个问题：明朝当时的社会已经在">
@@ -1041,7 +1041,7 @@
         .then(({ results }) => {
           if (results.length > 0) {
             var counter = results[0];
-            leancloudSelector(url).innerText = counter.time + 1;
+            
             Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
               .catch(error => {
                 console.error('Failed to save visitor count', error);
@@ -1050,7 +1050,7 @@
               Counter('post', '/classes/Counter', { title, url, time: 1 })
                 .then(response => response.json())
                 .then(() => {
-                  leancloudSelector(url).innerText = 1;
+                  
                 })
                 .catch(error => {
                   console.error('Failed to create', error);
@@ -1095,9 +1095,9 @@
           body: JSON.stringify(data)
         });
       };
-      if ($('.leancloud_visitors').length == 1) {
+      if (true && document.querySelector('.leancloud_visitors')) {
         addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
+      } else if (!true && $('.leancloud_visitors').length) {
         showTime(Counter);
       }
     }
@@ -1113,6 +1113,53 @@
           fetchData('https://' + api_server);
         });
     }
+  })();
+</script>
+
+  
+<script>
+  (function() {
+    var elements = Array.from(document.querySelectorAll('.leancloud_visitors'));
+    if (!elements.length) return;
+    var endpoint = "https://blog-views.depp.wang/views";
+    var isPost = true;
+    if (isPost && elements[0].dataset.cloudflareCounted) return;
+    var paths = elements.map(function(element) { return decodeURI(element.id); });
+    elements.forEach(function(element) {
+      element.querySelector('.leancloud-visitors-count').textContent = '—';
+    });
+    function display(counts) {
+      elements.forEach(function(element, index) {
+        var count = counts[paths[index]];
+        if (Number.isSafeInteger(count) && count >= 0) {
+          element.querySelector('.leancloud-visitors-count').textContent = count;
+        }
+      });
+    }
+    function read(response) {
+      if (!response.ok) throw new Error('Counter request failed');
+      return response.json();
+    }
+    var request;
+    if (isPost) {
+      elements[0].dataset.cloudflareCounted = 'true';
+      request = fetch(endpoint, {
+        method: 'POST', credentials: 'omit', cache: 'no-store',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: paths[0] })
+      }).then(read).then(function(data) {
+        var counts = {}; counts[data.path] = data.views; display(counts);
+      });
+    } else {
+      request = Promise.all(Array.from({ length: Math.ceil(paths.length / 50) }, function(_, index) {
+        var query = paths.slice(index * 50, index * 50 + 50).map(function(path) {
+          return 'path=' + encodeURIComponent(path);
+        }).join('&');
+        return fetch(endpoint + '?' + query, { credentials: 'omit', cache: 'no-store' })
+          .then(read).then(function(data) { display(data.counts); });
+      }));
+    }
+    request.catch(function() { console.warn('Cloudflare view count is unavailable'); });
   })();
 </script>
 

@@ -100,7 +100,7 @@
 <meta property="og:description" content="JVM 参数的含义公司项目 jdk 版本为 1.8， JVM 参数是自定义设置的，gradle 中 JVM 配置如下（默认内存为 8 G）： applicationDefaultJvmArgs = [&quot;-Xms1G&quot;, &quot;-Xmx2G&quot;, &quot;-Xss256k&quot;, &quot;-Djava.awt.headless=true&quot;, &quot;-Dfile.encoding=UTF-8&quot;,">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-11-10-072145.jpg">
-<meta property="og:updated_time" content="2026-09-24T23:40:58.762Z">
+<meta property="og:updated_time" content="2026-10-03T01:26:46.747Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM 启动参数设置">
 <meta name="twitter:description" content="JVM 参数的含义公司项目 jdk 版本为 1.8， JVM 参数是自定义设置的，gradle 中 JVM 配置如下（默认内存为 8 G）： applicationDefaultJvmArgs = [&quot;-Xms1G&quot;, &quot;-Xmx2G&quot;, &quot;-Xss256k&quot;, &quot;-Djava.awt.headless=true&quot;, &quot;-Dfile.encoding=UTF-8&quot;,">
@@ -1060,7 +1060,7 @@
         .then(({ results }) => {
           if (results.length > 0) {
             var counter = results[0];
-            leancloudSelector(url).innerText = counter.time + 1;
+            
             Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
               .catch(error => {
                 console.error('Failed to save visitor count', error);
@@ -1069,7 +1069,7 @@
               Counter('post', '/classes/Counter', { title, url, time: 1 })
                 .then(response => response.json())
                 .then(() => {
-                  leancloudSelector(url).innerText = 1;
+                  
                 })
                 .catch(error => {
                   console.error('Failed to create', error);
@@ -1114,9 +1114,9 @@
           body: JSON.stringify(data)
         });
       };
-      if ($('.leancloud_visitors').length == 1) {
+      if (true && document.querySelector('.leancloud_visitors')) {
         addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
+      } else if (!true && $('.leancloud_visitors').length) {
         showTime(Counter);
       }
     }
@@ -1132,6 +1132,53 @@
           fetchData('https://' + api_server);
         });
     }
+  })();
+</script>
+
+  
+<script>
+  (function() {
+    var elements = Array.from(document.querySelectorAll('.leancloud_visitors'));
+    if (!elements.length) return;
+    var endpoint = "https://blog-views.depp.wang/views";
+    var isPost = true;
+    if (isPost && elements[0].dataset.cloudflareCounted) return;
+    var paths = elements.map(function(element) { return decodeURI(element.id); });
+    elements.forEach(function(element) {
+      element.querySelector('.leancloud-visitors-count').textContent = '—';
+    });
+    function display(counts) {
+      elements.forEach(function(element, index) {
+        var count = counts[paths[index]];
+        if (Number.isSafeInteger(count) && count >= 0) {
+          element.querySelector('.leancloud-visitors-count').textContent = count;
+        }
+      });
+    }
+    function read(response) {
+      if (!response.ok) throw new Error('Counter request failed');
+      return response.json();
+    }
+    var request;
+    if (isPost) {
+      elements[0].dataset.cloudflareCounted = 'true';
+      request = fetch(endpoint, {
+        method: 'POST', credentials: 'omit', cache: 'no-store',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: paths[0] })
+      }).then(read).then(function(data) {
+        var counts = {}; counts[data.path] = data.views; display(counts);
+      });
+    } else {
+      request = Promise.all(Array.from({ length: Math.ceil(paths.length / 50) }, function(_, index) {
+        var query = paths.slice(index * 50, index * 50 + 50).map(function(path) {
+          return 'path=' + encodeURIComponent(path);
+        }).join('&');
+        return fetch(endpoint + '?' + query, { credentials: 'omit', cache: 'no-store' })
+          .then(read).then(function(data) { display(data.counts); });
+      }));
+    }
+    request.catch(function() { console.warn('Cloudflare view count is unavailable'); });
   })();
 </script>
 

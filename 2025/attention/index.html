@@ -100,7 +100,7 @@
 <meta property="og:description" content="注意力是这个时代最稀缺的资源打开手机，短视频软件在推送今天的热点，社交软件的红点提醒你有新消息，游戏的活动通知吸引你再玩一局。我们生活在一个注意力被无限分割的时代。 每个人每天的注意力总量是有限的，就像手机电池一样，用一点就少一点。当我们把注意力过多地消耗在娱乐和消遣上，留给工作、学习和成长的注意力自然就减少了。更糟糕的是，频繁的注意力切换会让大脑疲惫，即使想要专注时也难以进入状态。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/main-11.jpg">
-<meta property="og:updated_time" content="2026-09-24T23:40:58.767Z">
+<meta property="og:updated_time" content="2026-10-03T01:26:46.754Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="注意力保卫战，我的注意力管理实践">
 <meta name="twitter:description" content="注意力是这个时代最稀缺的资源打开手机，短视频软件在推送今天的热点，社交软件的红点提醒你有新消息，游戏的活动通知吸引你再玩一局。我们生活在一个注意力被无限分割的时代。 每个人每天的注意力总量是有限的，就像手机电池一样，用一点就少一点。当我们把注意力过多地消耗在娱乐和消遣上，留给工作、学习和成长的注意力自然就减少了。更糟糕的是，频繁的注意力切换会让大脑疲惫，即使想要专注时也难以进入状态。">
@@ -1043,7 +1043,7 @@
         .then(({ results }) => {
           if (results.length > 0) {
             var counter = results[0];
-            leancloudSelector(url).innerText = counter.time + 1;
+            
             Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
               .catch(error => {
                 console.error('Failed to save visitor count', error);
@@ -1052,7 +1052,7 @@
               Counter('post', '/classes/Counter', { title, url, time: 1 })
                 .then(response => response.json())
                 .then(() => {
-                  leancloudSelector(url).innerText = 1;
+                  
                 })
                 .catch(error => {
                   console.error('Failed to create', error);
@@ -1097,9 +1097,9 @@
           body: JSON.stringify(data)
         });
       };
-      if ($('.leancloud_visitors').length == 1) {
+      if (true && document.querySelector('.leancloud_visitors')) {
         addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
+      } else if (!true && $('.leancloud_visitors').length) {
         showTime(Counter);
       }
     }
@@ -1115,6 +1115,53 @@
           fetchData('https://' + api_server);
         });
     }
+  })();
+</script>
+
+  
+<script>
+  (function() {
+    var elements = Array.from(document.querySelectorAll('.leancloud_visitors'));
+    if (!elements.length) return;
+    var endpoint = "https://blog-views.depp.wang/views";
+    var isPost = true;
+    if (isPost && elements[0].dataset.cloudflareCounted) return;
+    var paths = elements.map(function(element) { return decodeURI(element.id); });
+    elements.forEach(function(element) {
+      element.querySelector('.leancloud-visitors-count').textContent = '—';
+    });
+    function display(counts) {
+      elements.forEach(function(element, index) {
+        var count = counts[paths[index]];
+        if (Number.isSafeInteger(count) && count >= 0) {
+          element.querySelector('.leancloud-visitors-count').textContent = count;
+        }
+      });
+    }
+    function read(response) {
+      if (!response.ok) throw new Error('Counter request failed');
+      return response.json();
+    }
+    var request;
+    if (isPost) {
+      elements[0].dataset.cloudflareCounted = 'true';
+      request = fetch(endpoint, {
+        method: 'POST', credentials: 'omit', cache: 'no-store',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: paths[0] })
+      }).then(read).then(function(data) {
+        var counts = {}; counts[data.path] = data.views; display(counts);
+      });
+    } else {
+      request = Promise.all(Array.from({ length: Math.ceil(paths.length / 50) }, function(_, index) {
+        var query = paths.slice(index * 50, index * 50 + 50).map(function(path) {
+          return 'path=' + encodeURIComponent(path);
+        }).join('&');
+        return fetch(endpoint + '?' + query, { credentials: 'omit', cache: 'no-store' })
+          .then(read).then(function(data) { display(data.counts); });
+      }));
+    }
+    request.catch(function() { console.warn('Cloudflare view count is unavailable'); });
   })();
 </script>
 

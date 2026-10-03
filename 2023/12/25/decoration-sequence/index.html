@@ -99,7 +99,7 @@
 <meta property="og:site_name" content="德普王">
 <meta property="og:description" content="我开始装修时，对装修的先后顺序不清楚，特别是完全不知道什么时候应该购买什么东西。经历这次装修，发现只要知道这个东西什么时候用，用前买好就行。比如厨房烟道止逆阀，贴砖前买好就行。很多家电可以先不买，但需要确定购买型号，如洗碗机、冰箱、油烟机、马桶、扫地机器人等。这样水电和全屋定制就可以更好设计。大型家电可以活动时购买，推迟发货时间。以下我我装修材料购买 / 施工安装的顺序。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2026-09-24T23:40:58.767Z">
+<meta property="og:updated_time" content="2026-10-03T01:26:46.753Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我的装修顺序">
 <meta name="twitter:description" content="我开始装修时，对装修的先后顺序不清楚，特别是完全不知道什么时候应该购买什么东西。经历这次装修，发现只要知道这个东西什么时候用，用前买好就行。比如厨房烟道止逆阀，贴砖前买好就行。很多家电可以先不买，但需要确定购买型号，如洗碗机、冰箱、油烟机、马桶、扫地机器人等。这样水电和全屋定制就可以更好设计。大型家电可以活动时购买，推迟发货时间。以下我我装修材料购买 / 施工安装的顺序。">
@@ -1076,7 +1076,7 @@
         .then(({ results }) => {
           if (results.length > 0) {
             var counter = results[0];
-            leancloudSelector(url).innerText = counter.time + 1;
+            
             Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
               .catch(error => {
                 console.error('Failed to save visitor count', error);
@@ -1085,7 +1085,7 @@
               Counter('post', '/classes/Counter', { title, url, time: 1 })
                 .then(response => response.json())
                 .then(() => {
-                  leancloudSelector(url).innerText = 1;
+                  
                 })
                 .catch(error => {
                   console.error('Failed to create', error);
@@ -1130,9 +1130,9 @@
           body: JSON.stringify(data)
         });
       };
-      if ($('.leancloud_visitors').length == 1) {
+      if (true && document.querySelector('.leancloud_visitors')) {
         addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
+      } else if (!true && $('.leancloud_visitors').length) {
         showTime(Counter);
       }
     }
@@ -1148,6 +1148,53 @@
           fetchData('https://' + api_server);
         });
     }
+  })();
+</script>
+
+  
+<script>
+  (function() {
+    var elements = Array.from(document.querySelectorAll('.leancloud_visitors'));
+    if (!elements.length) return;
+    var endpoint = "https://blog-views.depp.wang/views";
+    var isPost = true;
+    if (isPost && elements[0].dataset.cloudflareCounted) return;
+    var paths = elements.map(function(element) { return decodeURI(element.id); });
+    elements.forEach(function(element) {
+      element.querySelector('.leancloud-visitors-count').textContent = '—';
+    });
+    function display(counts) {
+      elements.forEach(function(element, index) {
+        var count = counts[paths[index]];
+        if (Number.isSafeInteger(count) && count >= 0) {
+          element.querySelector('.leancloud-visitors-count').textContent = count;
+        }
+      });
+    }
+    function read(response) {
+      if (!response.ok) throw new Error('Counter request failed');
+      return response.json();
+    }
+    var request;
+    if (isPost) {
+      elements[0].dataset.cloudflareCounted = 'true';
+      request = fetch(endpoint, {
+        method: 'POST', credentials: 'omit', cache: 'no-store',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: paths[0] })
+      }).then(read).then(function(data) {
+        var counts = {}; counts[data.path] = data.views; display(counts);
+      });
+    } else {
+      request = Promise.all(Array.from({ length: Math.ceil(paths.length / 50) }, function(_, index) {
+        var query = paths.slice(index * 50, index * 50 + 50).map(function(path) {
+          return 'path=' + encodeURIComponent(path);
+        }).join('&');
+        return fetch(endpoint + '?' + query, { credentials: 'omit', cache: 'no-store' })
+          .then(read).then(function(data) { display(data.counts); });
+      }));
+    }
+    request.catch(function() { console.warn('Cloudflare view count is unavailable'); });
   })();
 </script>
 

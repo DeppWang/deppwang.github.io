@@ -99,7 +99,7 @@
 <meta property="og:site_name" content="德普王">
 <meta property="og:description" content="苹果智能（Apple Intelligence） 是苹果推出的一项人工智能技术，可以在 iPhone / Mac 等各设备上通过 AI 功能辅助提升用户体验。是苹果公司在近年新设备硬件升级不大的情况下，想通过软件的方式进一步提升新设备销量的手段。AI 限制了只有 8G 及以上运行内存的手机（iPhone 15 Pro / iPhone 15 Pro Max 及最新机型）才能使用。 苹果这次对 AI">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2026-09-24T23:40:58.767Z">
+<meta property="og:updated_time" content="2026-10-03T01:26:46.753Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我为什么没有为了 AI 功能买外版 iPhone">
 <meta name="twitter:description" content="苹果智能（Apple Intelligence） 是苹果推出的一项人工智能技术，可以在 iPhone / Mac 等各设备上通过 AI 功能辅助提升用户体验。是苹果公司在近年新设备硬件升级不大的情况下，想通过软件的方式进一步提升新设备销量的手段。AI 限制了只有 8G 及以上运行内存的手机（iPhone 15 Pro / iPhone 15 Pro Max 及最新机型）才能使用。 苹果这次对 AI">
@@ -967,7 +967,7 @@
         .then(({ results }) => {
           if (results.length > 0) {
             var counter = results[0];
-            leancloudSelector(url).innerText = counter.time + 1;
+            
             Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
               .catch(error => {
                 console.error('Failed to save visitor count', error);
@@ -976,7 +976,7 @@
               Counter('post', '/classes/Counter', { title, url, time: 1 })
                 .then(response => response.json())
                 .then(() => {
-                  leancloudSelector(url).innerText = 1;
+                  
                 })
                 .catch(error => {
                   console.error('Failed to create', error);
@@ -1021,9 +1021,9 @@
           body: JSON.stringify(data)
         });
       };
-      if ($('.leancloud_visitors').length == 1) {
+      if (true && document.querySelector('.leancloud_visitors')) {
         addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
+      } else if (!true && $('.leancloud_visitors').length) {
         showTime(Counter);
       }
     }
@@ -1039,6 +1039,53 @@
           fetchData('https://' + api_server);
         });
     }
+  })();
+</script>
+
+  
+<script>
+  (function() {
+    var elements = Array.from(document.querySelectorAll('.leancloud_visitors'));
+    if (!elements.length) return;
+    var endpoint = "https://blog-views.depp.wang/views";
+    var isPost = true;
+    if (isPost && elements[0].dataset.cloudflareCounted) return;
+    var paths = elements.map(function(element) { return decodeURI(element.id); });
+    elements.forEach(function(element) {
+      element.querySelector('.leancloud-visitors-count').textContent = '—';
+    });
+    function display(counts) {
+      elements.forEach(function(element, index) {
+        var count = counts[paths[index]];
+        if (Number.isSafeInteger(count) && count >= 0) {
+          element.querySelector('.leancloud-visitors-count').textContent = count;
+        }
+      });
+    }
+    function read(response) {
+      if (!response.ok) throw new Error('Counter request failed');
+      return response.json();
+    }
+    var request;
+    if (isPost) {
+      elements[0].dataset.cloudflareCounted = 'true';
+      request = fetch(endpoint, {
+        method: 'POST', credentials: 'omit', cache: 'no-store',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: paths[0] })
+      }).then(read).then(function(data) {
+        var counts = {}; counts[data.path] = data.views; display(counts);
+      });
+    } else {
+      request = Promise.all(Array.from({ length: Math.ceil(paths.length / 50) }, function(_, index) {
+        var query = paths.slice(index * 50, index * 50 + 50).map(function(path) {
+          return 'path=' + encodeURIComponent(path);
+        }).join('&');
+        return fetch(endpoint + '?' + query, { credentials: 'omit', cache: 'no-store' })
+          .then(read).then(function(data) { display(data.counts); });
+      }));
+    }
+    request.catch(function() { console.warn('Cloudflare view count is unavailable'); });
   })();
 </script>
 

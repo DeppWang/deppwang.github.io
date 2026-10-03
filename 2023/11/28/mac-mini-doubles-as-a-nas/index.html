@@ -99,7 +99,7 @@
 <meta property="og:site_name" content="德普王">
 <meta property="og:description" content="我日常没有什么大容量储存需求，连硬盘也没有买，一些需要数据备份与远程同步的场景我使用 iCloud，200G 的空间也够用了。前些天电脑突然启动不了，因为没有使用「时间机器」备份系统，只能重装系统，虽然数据基本没有丢失，但软件安装、软件配置等也断断续续搞了几天。不想再次出现这个问题，时间机器备份得马上安排上，因为时间机器需要外置硬盘，现在也出现一些大容量存储需求，索性一步到位，整个 NAS。 NA">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2026-09-24T23:40:58.766Z">
+<meta property="og:updated_time" content="2026-10-03T01:26:46.752Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 Mac mini 兼做 NAS 主机">
 <meta name="twitter:description" content="我日常没有什么大容量储存需求，连硬盘也没有买，一些需要数据备份与远程同步的场景我使用 iCloud，200G 的空间也够用了。前些天电脑突然启动不了，因为没有使用「时间机器」备份系统，只能重装系统，虽然数据基本没有丢失，但软件安装、软件配置等也断断续续搞了几天。不想再次出现这个问题，时间机器备份得马上安排上，因为时间机器需要外置硬盘，现在也出现一些大容量存储需求，索性一步到位，整个 NAS。 NA">
@@ -1113,7 +1113,7 @@
         .then(({ results }) => {
           if (results.length > 0) {
             var counter = results[0];
-            leancloudSelector(url).innerText = counter.time + 1;
+            
             Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
               .catch(error => {
                 console.error('Failed to save visitor count', error);
@@ -1122,7 +1122,7 @@
               Counter('post', '/classes/Counter', { title, url, time: 1 })
                 .then(response => response.json())
                 .then(() => {
-                  leancloudSelector(url).innerText = 1;
+                  
                 })
                 .catch(error => {
                   console.error('Failed to create', error);
@@ -1167,9 +1167,9 @@
           body: JSON.stringify(data)
         });
       };
-      if ($('.leancloud_visitors').length == 1) {
+      if (true && document.querySelector('.leancloud_visitors')) {
         addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
+      } else if (!true && $('.leancloud_visitors').length) {
         showTime(Counter);
       }
     }
@@ -1185,6 +1185,53 @@
           fetchData('https://' + api_server);
         });
     }
+  })();
+</script>
+
+  
+<script>
+  (function() {
+    var elements = Array.from(document.querySelectorAll('.leancloud_visitors'));
+    if (!elements.length) return;
+    var endpoint = "https://blog-views.depp.wang/views";
+    var isPost = true;
+    if (isPost && elements[0].dataset.cloudflareCounted) return;
+    var paths = elements.map(function(element) { return decodeURI(element.id); });
+    elements.forEach(function(element) {
+      element.querySelector('.leancloud-visitors-count').textContent = '—';
+    });
+    function display(counts) {
+      elements.forEach(function(element, index) {
+        var count = counts[paths[index]];
+        if (Number.isSafeInteger(count) && count >= 0) {
+          element.querySelector('.leancloud-visitors-count').textContent = count;
+        }
+      });
+    }
+    function read(response) {
+      if (!response.ok) throw new Error('Counter request failed');
+      return response.json();
+    }
+    var request;
+    if (isPost) {
+      elements[0].dataset.cloudflareCounted = 'true';
+      request = fetch(endpoint, {
+        method: 'POST', credentials: 'omit', cache: 'no-store',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: paths[0] })
+      }).then(read).then(function(data) {
+        var counts = {}; counts[data.path] = data.views; display(counts);
+      });
+    } else {
+      request = Promise.all(Array.from({ length: Math.ceil(paths.length / 50) }, function(_, index) {
+        var query = paths.slice(index * 50, index * 50 + 50).map(function(path) {
+          return 'path=' + encodeURIComponent(path);
+        }).join('&');
+        return fetch(endpoint + '?' + query, { credentials: 'omit', cache: 'no-store' })
+          .then(read).then(function(data) { display(data.counts); });
+      }));
+    }
+    request.catch(function() { console.warn('Cloudflare view count is unavailable'); });
   })();
 </script>
 

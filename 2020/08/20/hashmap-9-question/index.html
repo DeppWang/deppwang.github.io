@@ -100,7 +100,7 @@
 <meta property="og:description" content="1、HashMap 的数据结构是什么？HashMap 我们知道 HashMap 的数据结构是数组+链表，所以这个问题可以理解为数组+链表有什么优点？  如果只是数组，就存在数组的缺点，如：需要更长的连续内存空间；扩容更加频繁；并且删除操作需要移动其他元素位置，等等 如果只是链表，就存在链表的缺点，如：查找复杂度 O(n) 太高，等等 而数组+链表是一个折中的方案">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://deppwang.oss-cn-beijing.aliyuncs.com/blog/2020-08-22-111236.png">
-<meta property="og:updated_time" content="2026-09-24T23:40:58.762Z">
+<meta property="og:updated_time" content="2026-10-03T01:26:46.747Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HashMap 常问的 9 个问题">
 <meta name="twitter:description" content="1、HashMap 的数据结构是什么？HashMap 我们知道 HashMap 的数据结构是数组+链表，所以这个问题可以理解为数组+链表有什么优点？  如果只是数组，就存在数组的缺点，如：需要更长的连续内存空间；扩容更加频繁；并且删除操作需要移动其他元素位置，等等 如果只是链表，就存在链表的缺点，如：查找复杂度 O(n) 太高，等等 而数组+链表是一个折中的方案">
@@ -1049,7 +1049,7 @@
         .then(({ results }) => {
           if (results.length > 0) {
             var counter = results[0];
-            leancloudSelector(url).innerText = counter.time + 1;
+            
             Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
               .catch(error => {
                 console.error('Failed to save visitor count', error);
@@ -1058,7 +1058,7 @@
               Counter('post', '/classes/Counter', { title, url, time: 1 })
                 .then(response => response.json())
                 .then(() => {
-                  leancloudSelector(url).innerText = 1;
+                  
                 })
                 .catch(error => {
                   console.error('Failed to create', error);
@@ -1103,9 +1103,9 @@
           body: JSON.stringify(data)
         });
       };
-      if ($('.leancloud_visitors').length == 1) {
+      if (true && document.querySelector('.leancloud_visitors')) {
         addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
+      } else if (!true && $('.leancloud_visitors').length) {
         showTime(Counter);
       }
     }
@@ -1121,6 +1121,53 @@
           fetchData('https://' + api_server);
         });
     }
+  })();
+</script>
+
+  
+<script>
+  (function() {
+    var elements = Array.from(document.querySelectorAll('.leancloud_visitors'));
+    if (!elements.length) return;
+    var endpoint = "https://blog-views.depp.wang/views";
+    var isPost = true;
+    if (isPost && elements[0].dataset.cloudflareCounted) return;
+    var paths = elements.map(function(element) { return decodeURI(element.id); });
+    elements.forEach(function(element) {
+      element.querySelector('.leancloud-visitors-count').textContent = '—';
+    });
+    function display(counts) {
+      elements.forEach(function(element, index) {
+        var count = counts[paths[index]];
+        if (Number.isSafeInteger(count) && count >= 0) {
+          element.querySelector('.leancloud-visitors-count').textContent = count;
+        }
+      });
+    }
+    function read(response) {
+      if (!response.ok) throw new Error('Counter request failed');
+      return response.json();
+    }
+    var request;
+    if (isPost) {
+      elements[0].dataset.cloudflareCounted = 'true';
+      request = fetch(endpoint, {
+        method: 'POST', credentials: 'omit', cache: 'no-store',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: paths[0] })
+      }).then(read).then(function(data) {
+        var counts = {}; counts[data.path] = data.views; display(counts);
+      });
+    } else {
+      request = Promise.all(Array.from({ length: Math.ceil(paths.length / 50) }, function(_, index) {
+        var query = paths.slice(index * 50, index * 50 + 50).map(function(path) {
+          return 'path=' + encodeURIComponent(path);
+        }).join('&');
+        return fetch(endpoint + '?' + query, { credentials: 'omit', cache: 'no-store' })
+          .then(read).then(function(data) { display(data.counts); });
+      }));
+    }
+    request.catch(function() { console.warn('Cloudflare view count is unavailable'); });
   })();
 </script>
 

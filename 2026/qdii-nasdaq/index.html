@@ -100,7 +100,7 @@
 <meta property="og:description" content="因为 AI，最近纳指涨了不少，国内跟踪纳指的 QDII 基金也越来越热门。我在京东金融、腾讯腾安等平台看了一圈，发现一些基金已经暂停申购，另一些单日只能买 200 元甚至更少，想买还不一定买得到。 这类基金名字里大多都有「纳斯达克 100」，但不能只看名字就直接买。虽然它们跟踪的是同一个指数，但管理费、跟踪误差、A 类与 C 类收费、是否限购都有区别。场内 ETF 还多了一个很容易踩的坑：溢价。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://hexoblog.r2.depp.wang/202606161781620827.png">
-<meta property="og:updated_time" content="2026-09-24T23:40:58.768Z">
+<meta property="og:updated_time" content="2026-10-03T01:26:46.754Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="研究了一下 QDII 纳指基金">
 <meta name="twitter:description" content="因为 AI，最近纳指涨了不少，国内跟踪纳指的 QDII 基金也越来越热门。我在京东金融、腾讯腾安等平台看了一圈，发现一些基金已经暂停申购，另一些单日只能买 200 元甚至更少，想买还不一定买得到。 这类基金名字里大多都有「纳斯达克 100」，但不能只看名字就直接买。虽然它们跟踪的是同一个指数，但管理费、跟踪误差、A 类与 C 类收费、是否限购都有区别。场内 ETF 还多了一个很容易踩的坑：溢价。">
@@ -1124,7 +1124,7 @@
         .then(({ results }) => {
           if (results.length > 0) {
             var counter = results[0];
-            leancloudSelector(url).innerText = counter.time + 1;
+            
             Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
               .catch(error => {
                 console.error('Failed to save visitor count', error);
@@ -1133,7 +1133,7 @@
               Counter('post', '/classes/Counter', { title, url, time: 1 })
                 .then(response => response.json())
                 .then(() => {
-                  leancloudSelector(url).innerText = 1;
+                  
                 })
                 .catch(error => {
                   console.error('Failed to create', error);
@@ -1178,9 +1178,9 @@
           body: JSON.stringify(data)
         });
       };
-      if ($('.leancloud_visitors').length == 1) {
+      if (true && document.querySelector('.leancloud_visitors')) {
         addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
+      } else if (!true && $('.leancloud_visitors').length) {
         showTime(Counter);
       }
     }
@@ -1196,6 +1196,53 @@
           fetchData('https://' + api_server);
         });
     }
+  })();
+</script>
+
+  
+<script>
+  (function() {
+    var elements = Array.from(document.querySelectorAll('.leancloud_visitors'));
+    if (!elements.length) return;
+    var endpoint = "https://blog-views.depp.wang/views";
+    var isPost = true;
+    if (isPost && elements[0].dataset.cloudflareCounted) return;
+    var paths = elements.map(function(element) { return decodeURI(element.id); });
+    elements.forEach(function(element) {
+      element.querySelector('.leancloud-visitors-count').textContent = '—';
+    });
+    function display(counts) {
+      elements.forEach(function(element, index) {
+        var count = counts[paths[index]];
+        if (Number.isSafeInteger(count) && count >= 0) {
+          element.querySelector('.leancloud-visitors-count').textContent = count;
+        }
+      });
+    }
+    function read(response) {
+      if (!response.ok) throw new Error('Counter request failed');
+      return response.json();
+    }
+    var request;
+    if (isPost) {
+      elements[0].dataset.cloudflareCounted = 'true';
+      request = fetch(endpoint, {
+        method: 'POST', credentials: 'omit', cache: 'no-store',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: paths[0] })
+      }).then(read).then(function(data) {
+        var counts = {}; counts[data.path] = data.views; display(counts);
+      });
+    } else {
+      request = Promise.all(Array.from({ length: Math.ceil(paths.length / 50) }, function(_, index) {
+        var query = paths.slice(index * 50, index * 50 + 50).map(function(path) {
+          return 'path=' + encodeURIComponent(path);
+        }).join('&');
+        return fetch(endpoint + '?' + query, { credentials: 'omit', cache: 'no-store' })
+          .then(read).then(function(data) { display(data.counts); });
+      }));
+    }
+    request.catch(function() { console.warn('Cloudflare view count is unavailable'); });
   })();
 </script>
 
