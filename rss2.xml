@@ -8,8 +8,26 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>每个人都需要有自己的哈姆雷特</description>
-    <pubDate>Sun, 25 Oct 2026 15:17:17 GMT</pubDate>
+    <pubDate>Mon, 26 Oct 2026 13:19:10 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>花 20 元，让实体卡手机也能用上 eSIM</title>
+      <link>https://depp.wang/2026/esim-euicc/</link>
+      <guid>https://depp.wang/2026/esim-euicc/</guid>
+      <pubDate>Mon, 26 Oct 2026 13:18:27 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;如果出国旅游想用 eSIM 流量套餐，但手机只有实体卡槽，可以试试小白卡。&lt;/p&gt;
+&lt;p&gt;它就是一张可以写入 eSIM 信息的实体卡，写好之后，像普通手机卡一样插进手机使用。小白卡和 9eSIM 这类实体卡，基本原理一样，都是把 eSIM 套餐装进卡里。卡本身不带流量，套餐需要另外购买。&lt;/p&gt;
+&lt;p&gt;拼多多搜索「eSIM 小白卡」或「eUICC 实体卡」就能找到，我当时买的价格大概 20 元。买之前确认支持 EasyEUICC，以及能保存多少个套餐。只是旅游时用，没必要追求大容量。&lt;/p&gt;
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p>如果出国旅游想用 eSIM 流量套餐，但手机只有实体卡槽，可以试试小白卡。</p><p>它就是一张可以写入 eSIM 信息的实体卡，写好之后，像普通手机卡一样插进手机使用。小白卡和 9eSIM 这类实体卡，基本原理一样，都是把 eSIM 套餐装进卡里。卡本身不带流量，套餐需要另外购买。</p><p>拼多多搜索「eSIM 小白卡」或「eUICC 实体卡」就能找到，我当时买的价格大概 20 元。买之前确认支持 EasyEUICC，以及能保存多少个套餐。只是旅游时用，没必要追求大容量。</p><a id="more"></a><p><img src="https://hexoblog.r2.depp.wang/202607181784369648.jpeg" alt=""><br><img src="https://hexoblog.r2.depp.wang/202607181784369633.jpeg" alt=""></p><p>安卓和苹果的区别，主要在怎么把套餐写进去。</p><p>安卓手机可以<a href="https://gitea.angry.im/PeterCxy/OpenEUICC/releases" target="_blank" rel="noopener">下载 EasyEUICC</a>，把小白卡插进手机，打开软件，扫描套餐商提供的二维码，就可以下载并写入。</p><p>不过，手机需要支持 OMAPI。我最开始用 OPPO Find X 写入就不行，当时发现它没有 NFC。这里容易误会：<strong>不是靠 NFC 把套餐写进卡里，真正需要的是 OMAPI 支持</strong>，不能只看有没有 NFC 来判断兼容性。<a href="https://easyeuicc.org/en/faq/" target="_blank" rel="noopener">兼容性说明</a></p><p>iPhone 则需要买一个兼容的 eSIM 读卡器，配合 <a href="https://www.9esim.com/en/software" target="_blank" rel="noopener">9eSIM iOS App</a> 使用。把小白卡放进读卡器，连接 iPhone，再通过 App 扫码写入。买的时候可以直接选「小白卡 + 读卡器」套装，我当时看比单买划算，也要注意读卡器是否适配自己的手机接口。</p><p><img src="https://hexoblog.r2.depp.wang/202607181784375755.jpeg" alt=""></p><p>我用读卡器时遇到过「下载失败」，拔出来换个面再插就好了，应该是接触不良。</p><p>写好之后，把小白卡放回手机卡槽，选择它作为上网用的卡，按套餐要求打开数据漫游，就可以使用了，读卡器不用一直插着。</p><p>如果卡里存了多个套餐，我这张卡可以在 iPhone 的「设置 → 蜂窝网络 → SIM 卡应用程序 → LPAe Menu」里切换。这个入口叫 <strong>SIM 卡应用程序</strong>，背后是卡片提供的 SIM 工具包菜单，并不是苹果自带的「eSIM 助手」。普通小白卡和 9eSIM 的常规实体卡，都可以用这种方式管理卡里的套餐，具体看卡片支持哪些功能。<a href="https://www.9esim.com/en/faq" target="_blank" rel="noopener">原理说明</a></p>]]></content:encoded>
+      
+      <comments>https://depp.wang/2026/esim-euicc/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>从 AI Passport，看一种 AI 变现的思路</title>
@@ -404,23 +422,6 @@
       <content:encoded><![CDATA[<p><img src="https://hexoblog.r2.depp.wang/202603221774193712.png" alt=""></p><p>我之前写过一篇<a href="https://depp.wang/2024/my-obsidian-experience/">如何使用 Obsidian 管理个人知识库</a>，里面提到我的文章创建与编辑都在 Obsidian 中完成，然后通过脚本自动同步到 <a href="https://depp.wang">Hexo 博客</a>。最近我又把这套流程扩展到了微信公众号——写完文章，打个标签，运行脚本，草稿就自动出现在公众号后台了，不用复制粘贴，不用手动排版。</p><a id="more"></a><h2 id="为什么要做这个"><a href="#为什么要做这个" class="headerlink" title="为什么要做这个"></a>为什么要做这个</h2><p>我的文章都是在 Obsidian 里用 Markdown 写的，之前要发公众号，得先把 Markdown 复制到 <a href="https://editor.mdnice.com/" target="_blank" rel="noopener">mdnice</a> 格式化，再复制到公众号后台，步骤有点多。</p><p>我之前发博客已经实现了自动化，就想着公众号也搞一套类似的流程。参考 <a href="https://github.com/chenyukang/markdown-to-wechat" target="_blank" rel="noopener">markdown-to-wechat</a> 写了个 <a href="https://github.com/DeppWang/obsidian_to_wechat" target="_blank" rel="noopener">obsidian-to-wechat</a> 的脚本工具。</p><h2 id="它做了什么"><a href="#它做了什么" class="headerlink" title="它做了什么"></a>它做了什么</h2><p>整个流程很简单：</p><ol><li>扫描 Obsidian 笔记目录，找到最近 3 天内修改过、且带有 <code>Obsidian-to-Wechat-Tag</code> 标签的文章</li><li>将 Markdown 转换成微信公众号兼容的排版样式，标题、代码块、链接等都会自动美化</li><li>自动下载文章中的图片，上传到微信素材库</li><li>调用微信 API，创建公众号草稿，已有草稿会自动更新，不会重复创建</li></ol><p>你只需要在公众号助手 APP 预览后点发送就行了。</p><h2 id="怎么用"><a href="#怎么用" class="headerlink" title="怎么用"></a>怎么用</h2><p>在 Obsidian 笔记的<strong>第一行</strong>添加标签 <code>Obsidian-to-Wechat-Tag</code>，表示这篇文章需要发布到公众号。然后在公众号后台获取 AppID 和 AppSecret，配置好后运行脚本就行了。具体的安装和配置步骤可以看 <a href="https://github.com/DeppWang/obsidian_to_wechat" target="_blank" rel="noopener">GitHub 仓库的 README</a>。</p><h2 id="和博客自动发布的配合"><a href="#和博客自动发布的配合" class="headerlink" title="和博客自动发布的配合"></a>和博客自动发布的配合</h2><p>我现在的写作流程是这样的：在 Obsidian 里写完一篇文章，如果想发博客，就加上 <code>Obsidian-to-HexoBlog-Tag</code> 标签；想发公众号，就加上 <code>Obsidian-to-Wechat-Tag</code> 标签；两个都想发，就两个标签都加上。两套脚本互不干扰，各自处理各自的。</p><p>这样写作的时候就只需要专注内容本身，发布渠道通过标签来控制就行了。</p><h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>公众号文章与博客内容可能有差异，比如嵌入的视频平台不同，发布前建议预览确认一下。</p><p>另外微信 API 调用需要 IP 白名单，如果你不是固定宽带 IP，可以在代理工具中设置 <code>api.weixin.qq.com</code> 走代理，这样对微信 API 来说始终是同一个 IP，再将这个 IP 加到公众号白名单就行了。</p>]]></content:encoded>
       
       <comments>https://depp.wang/2026/obsidian-to-wechat/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>作为后端软件工程师，我为什么买 M4 MacBook Air 做主力开发机器</title>
-      <link>https://depp.wang/2026/m4-macbook-air/</link>
-      <guid>https://depp.wang/2026/m4-macbook-air/</guid>
-      <pubDate>Sun, 08 Mar 2026 13:46:38 GMT</pubDate>
-      <description>
-      
-        &lt;p&gt;&lt;img src=&quot;https://hexoblog.r2.depp.wang/202603101773104966.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;做软件后端开发，MacBook 只能用 Pro，Air 胜任不了，不知道你是否还这么想，反正我原来一直是这么想的。最近准备买个 MacBook Pro 14 寸，但看后端同事买的 M2 16G+256G MacBook Air 使用都没有问题，就改变观念打算买 MacBook Air 了。其颜值与价格也有优势。买的 15 寸，&lt;a href=&quot;https://www.apple.com.cn/mac/compare/?modelList=MacBook-Air-M4-15,MacBookPro-13-M1,MacBook-Pro-14-M5&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;15 寸重量与 14 寸 MacBook Pro 差不多&lt;/a&gt;，但屏幕更大，更适合移动使用。对我来说，Air 相比 Pro 最大的劣势是在室外使用上，最大亮度只有 500nit，太阳下可能有点看不清，还可能发烫。我觉得 Pro 更适合固定外连显示器使用、偶尔移动的场景，16 寸 MacBook Pro 有点太厚重了。&lt;/p&gt;
-      
-      </description>
-      
-      <content:encoded><![CDATA[<p><img src="https://hexoblog.r2.depp.wang/202603101773104966.png" alt=""></p><p>做软件后端开发，MacBook 只能用 Pro，Air 胜任不了，不知道你是否还这么想，反正我原来一直是这么想的。最近准备买个 MacBook Pro 14 寸，但看后端同事买的 M2 16G+256G MacBook Air 使用都没有问题，就改变观念打算买 MacBook Air 了。其颜值与价格也有优势。买的 15 寸，<a href="https://www.apple.com.cn/mac/compare/?modelList=MacBook-Air-M4-15,MacBookPro-13-M1,MacBook-Pro-14-M5" target="_blank" rel="noopener">15 寸重量与 14 寸 MacBook Pro 差不多</a>，但屏幕更大，更适合移动使用。对我来说，Air 相比 Pro 最大的劣势是在室外使用上，最大亮度只有 500nit，太阳下可能有点看不清，还可能发烫。我觉得 Pro 更适合固定外连显示器使用、偶尔移动的场景，16 寸 MacBook Pro 有点太厚重了。</p><a id="more"></a><p>我买的 24G + 512G。我觉得这配置现在 Air 的性能做后端开发完全是够用的，毕竟原来公司配置的 8G + 256G 的 M1 MacBook Pro  也基本可以正常用，就是时不时得重启下电脑。另外我家里已经有了 Mac mini，高负载长时间运行的应用可以放 Mac mini 上跑，加上也配置了 <a href="https://depp.wang/2024/what-is-nas/">NAS</a>，24G + 512G 对我是够用了。感觉 512G 跟 24G 更搭，1T 得搭个 32G。</p><p>前两天 M5 MacBook Air  刚发布，其储存 512G 起步，相当于跟 M4 同配置相比，其起售价直接降了 1500，现同样配置在京东到手价格 M5 款只比 M4 款贵 300 块。但我还是选择了 M4 芯片。原因很简单，M4 芯片可以降级到 macOS Sequoia 15，而 M5 芯片是在 macOS Tahoe 26 后发布的，Apple 从硬件上限制了 M5 芯片只能安装 macOS Tahoe 26 及以后版本。</p><p>我不想使用 macOS Tahoe 26 原因也很简单，不喜欢透明玻璃 UI 用在我的生产力机器上，少了点专业感，更喜欢 macOS Sequoia 15 的扁平风格。加上其它 Mac 机器没有升级，后续如果使用「时间机器」/ 「迁移助理」迁移电脑数据时，macOS Tahoe 26 系统无法将所有数据直接全部备份迁移到使用 macOS Sequoia 15 的其它 Mac 上（15-&gt;26 可以）。也想保持 UI 统一，也避免可能升级后的隐藏问题。另外 macOS Tahoe 26 没有 Launchpad 了，改成了一个 App。。</p><p>但我当时也担心买的新 M4 MacBook Air 能不能降级，因为有教程说 Mac「不允许降级到比出厂版本更老的系统」。Apple 会在新系统正式发布后的新生产机器出厂预装最新系统，如果真是这样，那 2025/09/15 后生产的机器就都不能降级到 macOS Sequoia 15 了。我一度觉得只能去闲鱼淘别人 2025/09/15 前购买的二手了。</p><p>经过多方查询与咨询，我觉得「不允许降级到比出厂版本更老的系统」这句话有问题。我的理解是，只要 <code>softwareupdate --list-full-installers</code> 列出了 macOS Sequoia 15，就应该可以安装。为了验证，我找了一位 2026/01 购买、出厂系统就是 macOS Tahoe 26 的闲鱼卖家，让他跑了下这个命令，结果里有 macOS Sequoia 15。而我去 Apple 直营店测试 MacBook Pro M5 Pro 款，同样的命令结果就只有 macOS Tahoe 26。所以准确的说法应该是「Mac 不允许降级到比该型号硬件所支持的最早系统版本更老的版本」。</p><p>这是我新购买 M4 MacBook Air，其执行 <code>softwareupdate --list-full-installers</code> 结果（电脑生产日期是 2026）：</p><p><img src="https://hexoblog.r2.depp.wang/202603081772973543.png" alt=""></p><p>我根据<a href="https://support.apple.com/zh-cn/101578" target="_blank" rel="noopener">官方教程</a>和<a href="https://www.youtube.com/watch?v=uQ4RZHehp0k" target="_blank" rel="noopener">这个 YouTube 视频教程</a>，使用 U 盘安装器成功降级到了 macOS Sequoia 15。</p><p>但还是遇到了 2 个小插曲：</p><p>1、使用 U 盘一直卡在 Copy 阶段，应该是 U 盘的问题，换成固态硬盘后就可以了。PS：可以使用固态硬盘分区来制作启动盘，不一定要用 U 盘。</p><p><img src="https://hexoblog.r2.depp.wang/202603061772759473.png" alt=""></p><p>2、提示「该宗卷无法降级」，抹除 Macintosh HD 后就可以了。</p><p><img src="https://hexoblog.r2.depp.wang/202603071772850579.png" alt=""></p><p>我看<a href="http://cn.v2ex.com/t/1137918" target="_blank" rel="noopener"> V2EX 上说</a> macOS 使用 U 盘安装器降级后存在系统固件版本与操作系统加载程序版本不同的问题（系统设置-&gt;关于本机-&gt;系统报告-&gt;硬件概览-&gt;系统固件版本、操作系统加载程序版本），我发现我也有这样的问题：</p><ul><li>System Firmware Version:    13822.61.10</li><li>OS Loader Version:    11881.140.96</li></ul><p>可以通过 DFU 的方式降固件，但我没有做，目前使用没有发现有什么影响，也没有其那种「AlDente」失效的问题。我顺便使用了<a href="https://github.com/travisvn/stop-tahoe-update" target="_blank" rel="noopener">stop-tahoe-updatep 这个开源项目</a> 让系统设置中不再显示 macOS Tahoe 26 升级提示。</p><p>降级后唯一让我有点不爽的是，菜单栏和刘海中间有个缝隙，有点不好看，macOS Tahoe 26 没有这个问题。</p><p><img src="https://hexoblog.r2.depp.wang/202603081772970988.png" alt=""></p><p>如果你没有像我一样的使用 macOS Sequoia 15 的需求，建议你还是买  MacBook Air  M5 版本，其 GPU 还是升级了些。不着急的话可以双十一活动时买，我预估 M5 MacBook Air  15 寸京东到时 24G + 512G 到时应该 7700 左右可以买。</p><p>如果和我一样，还是想买 M4 版本，现在推荐京东购买，各个颜色都有。拼多多可以不折腾国补便宜 60，但有的颜色可能没货（拼多多买国行零售机应该问题不大）。如果不着急，可以蹲闲鱼二手捡漏。有一个闲鱼实用经验，看到合适的，先拍下，再沟通，不然容易被截胡。</p><p>我买的银色，个人认为银色最好看，就是扬声器改到铰链处了，键盘两边没有扬声器开孔，还有点看不习惯。最后，不得不说，MacBook Air 的颜值真高。</p><p><img src="https://hexoblog.r2.depp.wang/202603101773105396.png" alt=""></p>]]></content:encoded>
-      
-      <comments>https://depp.wang/2026/m4-macbook-air/#disqus_thread</comments>
     </item>
     
   </channel>
