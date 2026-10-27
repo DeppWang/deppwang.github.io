@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://depp.wang/2020/04/19/realize-a-simple-spring-ioc-container/</loc>
+    <lastmod>2026-10-27</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2026/qinggan-great-circuit/</loc>
+    <lastmod>2026-10-27</lastmod>
+  </url>  <url>
     <loc>https://depp.wang/2024/03/19/google-analytics/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
@@ -8,6 +14,9 @@
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2024/02/26/gas-water-heater/</loc>
+    <lastmod>2026-10-27</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2026/dashplayer/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2026/china-unicom-broadband/</loc>
@@ -47,12 +56,6 @@
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2024/elon-musk/</loc>
-    <lastmod>2026-10-27</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2020/04/19/realize-a-simple-spring-ioc-container/</loc>
-    <lastmod>2026-10-27</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2026/qinggan-great-circuit/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2024/ai-iphone/</loc>
@@ -115,9 +118,6 @@
     <loc>https://depp.wang/2024/02/22/dishwasher/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2023/11/28/mac-mini-doubles-as-a-nas/</loc>
-    <lastmod>2026-10-27</lastmod>
-  </url>  <url>
     <loc>https://depp.wang/2023/09/15/macbook-pro-and-clashx-pro-as-bypass-router/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
@@ -178,12 +178,6 @@
     <loc>https://depp.wang/2023/03/19/chatgpt-plus-gpt-4/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2019/01/26/springboot2-apache-shiro/</loc>
-    <lastmod>2026-10-27</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2026/the-big-short/</loc>
-    <lastmod>2026-10-27</lastmod>
-  </url>  <url>
     <loc>https://depp.wang/2024/silicon-valley/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
@@ -235,16 +229,7 @@
     <loc>https://depp.wang/2023/01/15/use-keynote-to-complete-process-control/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2020/05/05/reflection-in-spring-and-reflection-principle/</loc>
-    <lastmod>2026-10-27</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2020/06/20/a-python-script-to-edit-and-add-cnblogs-posts/</loc>
-    <lastmod>2026-10-27</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2017/06/18/7-sort-algorithms/</loc>
-    <lastmod>2026-10-27</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2017/09/13/implementing-stack-with-arrays/</loc>
+    <loc>https://depp.wang/2023/11/28/mac-mini-doubles-as-a-nas/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2021/03/03/check-python-code-before-commit/</loc>
@@ -289,25 +274,19 @@
     <loc>https://depp.wang/2020/05/18/export-youdaonote-all-notes/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2017/07/04/two-logical-question-about-hat/</loc>
+    <loc>https://depp.wang/2019/01/26/springboot2-apache-shiro/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2017/12/17/install-mysql5.6/</loc>
+    <loc>https://depp.wang/2026/the-big-short/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2017/06/24/singleton-pattern/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2020/03/20/internet-protocol-suite-introduction/</loc>
+    <loc>https://depp.wang/2017/07/04/two-logical-question-about-hat/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2022/12/08/nginx-hidden-rewrite/</loc>
-    <lastmod>2026-10-27</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2020/11/02/github-open-feign-use-summary/</loc>
-    <lastmod>2026-10-27</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2020/11/06/customize-global-exception-handler-java/</loc>
+    <loc>https://depp.wang/2017/12/17/install-mysql5.6/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2020/11/02/build-a-maven-repository/</loc>
@@ -355,25 +334,16 @@
     <loc>https://depp.wang/2026/spec-driven-development/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2020/01/11/java-operator/</loc>
+    <loc>https://depp.wang/2020/05/05/reflection-in-spring-and-reflection-principle/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2017/07/26/java-parameter-passing/</loc>
+    <loc>https://depp.wang/2020/06/20/a-python-script-to-edit-and-add-cnblogs-posts/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2020/11/07/treeset-in-java/</loc>
+    <loc>https://depp.wang/2017/06/18/7-sort-algorithms/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2020/05/06/static-block-method-and-constructor-method/</loc>
-    <lastmod>2026-10-27</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2020/04/10/singleton-pattern/</loc>
-    <lastmod>2026-10-27</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2017/08/15/hashmap-put-method-source-code/</loc>
-    <lastmod>2026-10-27</lastmod>
-  </url>  <url>
-    <loc>https://depp.wang/2018/01/07/js-how-to-use-the-Date-object-addition-and-subtraction-dates/</loc>
+    <loc>https://depp.wang/2017/09/13/implementing-stack-with-arrays/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2017/07/13/jvm-runtime-data-area/</loc>
@@ -416,6 +386,18 @@
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2019/10/30/mysql-note/</loc>
+    <lastmod>2026-10-27</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2020/03/20/internet-protocol-suite-introduction/</loc>
+    <lastmod>2026-10-27</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2022/12/08/nginx-hidden-rewrite/</loc>
+    <lastmod>2026-10-27</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2020/11/02/github-open-feign-use-summary/</loc>
+    <lastmod>2026-10-27</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2020/11/06/customize-global-exception-handler-java/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2025/claude-code/</loc>
@@ -478,7 +460,7 @@
     <loc>https://depp.wang/2020/03/12/hexo-next-all-change/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2017/06/14/hexo-statistical/</loc>
+    <loc>https://depp.wang/2017/06/15/hexo-disqus/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2020/08/20/hashmap-9-question/</loc>
@@ -487,13 +469,34 @@
     <loc>https://depp.wang/2020/10/26/java-implements-a-custom-distributed-session/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2020/11/10/jvm-startup-options-setting/</loc>
+    <loc>https://depp.wang/2020/01/11/java-operator/</loc>
+    <lastmod>2026-10-27</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2017/07/26/java-parameter-passing/</loc>
+    <lastmod>2026-10-27</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2020/11/07/treeset-in-java/</loc>
+    <lastmod>2026-10-27</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2020/05/06/static-block-method-and-constructor-method/</loc>
+    <lastmod>2026-10-27</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2020/04/10/singleton-pattern/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2020/02/17/use-github-actions-to-achieve-hexo-blog-auto-deploy/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
-    <loc>https://depp.wang/2017/06/15/hexo-disqus/</loc>
+    <loc>https://depp.wang/2020/11/10/jvm-startup-options-setting/</loc>
+    <lastmod>2026-10-27</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2017/06/14/hexo-statistical/</loc>
+    <lastmod>2026-10-27</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2017/08/15/hashmap-put-method-source-code/</loc>
+    <lastmod>2026-10-27</lastmod>
+  </url>  <url>
+    <loc>https://depp.wang/2018/01/07/js-how-to-use-the-Date-object-addition-and-subtraction-dates/</loc>
     <lastmod>2026-10-27</lastmod>
   </url>  <url>
     <loc>https://depp.wang/2017/07/24/string-initialization/</loc>
