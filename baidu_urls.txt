@@ -1,3 +1,4 @@
+https://depp.wang/2026/codex-two-features/
 https://depp.wang/2026/us-gas-prices/
 https://depp.wang/2026/dashplayer/
 https://depp.wang/2026/esim-euicc/
@@ -91,10 +92,9 @@ https://depp.wang/2020/11/17/django-getting-started-notes/
 https://depp.wang/2020/11/10/jvm-startup-options-setting/
 https://depp.wang/2020/11/07/treeset-in-java/
 https://depp.wang/2020/11/06/customize-global-exception-handler-java/
-https://depp.wang/2020/11/02/github-open-feign-use-summary/
 https://depp.wang/2020/11/02/build-a-maven-repository/
+https://depp.wang/2020/11/02/github-open-feign-use-summary/
 https://depp.wang/2020/10/30/logback-use-summary/
 https://depp.wang/2020/10/27/several-algorithms-for-api-rate-limiting/
 https://depp.wang/2020/10/26/java-implements-a-custom-distributed-session/
 https://depp.wang/2020/08/20/hashmap-9-question/
-https://depp.wang/2020/08/07/how-to-automatically-compress-screenshot-size-in-macos/
