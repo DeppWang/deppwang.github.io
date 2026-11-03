@@ -1,3 +1,4 @@
+https://depp.wang/2026/critical-thinking/
 https://depp.wang/2026/what-are-word-vectors/
 https://depp.wang/2026/codex-two-features/
 https://depp.wang/2026/us-gas-prices/
@@ -97,4 +98,3 @@ https://depp.wang/2020/11/02/github-open-feign-use-summary/
 https://depp.wang/2020/11/02/build-a-maven-repository/
 https://depp.wang/2020/10/30/logback-use-summary/
 https://depp.wang/2020/10/27/several-algorithms-for-api-rate-limiting/
-https://depp.wang/2020/10/26/java-implements-a-custom-distributed-session/
