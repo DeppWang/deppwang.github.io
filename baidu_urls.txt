@@ -1,3 +1,4 @@
+https://depp.wang/2026/little-things/
 https://depp.wang/2026/technology-and-the-future/
 https://depp.wang/2026/tiaoma/
 https://depp.wang/2026/rmb-exchange-rate/
@@ -97,4 +98,3 @@ https://depp.wang/2022/10/26/configing-command-aliases-in-bash-and-zsh/
 https://depp.wang/2022/06/10/learn-use-wubi-experience/
 https://depp.wang/2022/02/27/my-wedding-record/
 https://depp.wang/2021/03/03/check-python-code-before-commit/
-https://depp.wang/2020/11/17/django-getting-started-notes/
