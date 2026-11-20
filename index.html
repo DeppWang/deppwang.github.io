@@ -319,6 +319,165 @@
   
 
   <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://depp.wang/2026/ai-api-relay/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="deppwang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/deppwang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="德普王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2026/ai-api-relay/" itemprop="url">为什么中转站的 API 这么便宜</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2026-11-20T09:13:50+08:00">
+                2026-11-20
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2026-11-20T09:13:50+08:00">
+                2026-11-20
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2026/ai-api-relay/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2026/ai-api-relay/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2026/ai-api-relay/" class="leancloud_visitors" data-flag-title="为什么中转站的 API 这么便宜">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>有些 AI 中转站提供的 API，价格比官方 API 便宜很多。同样是使用 GPT 模型，中转站的价格为什么能低这么多？我算了一下官方订阅的额度，发现如果能把额度用完，成本确实可以很低。</p>
+<p>现在很多 Codex 中转站，都是把官方订阅额度转换成 API 来卖。官方订阅每个月付固定费用，账号在每个周期内可以使用一定的额度。中转站把这些账号接入自己的服务，让用户通过 API 调用，尽量把每个周期的额度都用完。</p>
+<p>&lt;!–more–</p>
+<p>以一个每月 200 美元的美区订阅账号为例，假设每周用量按官方 API 价格计算，相当于 1,353 美元。如果每周额度都用完，按每月 4 个周期算，一个月就相当于用掉 5,412 美元的 API 额度。</p>
+<p><img src="https://hexoblog.r2.depp.wang/202611201795135996.png" alt=""></p>
+<p>200 美元的订阅费，除以 5,412 美元的额度，约等于 3.7%。也就是说，官方 API 标价 1 美元的用量，订阅费分摊下来只需要约 0.037 美元。<strong>按 1 美元兑换 6.79 元人民币算，大约是 0.25 元，相当于花两毛多钱就用到了官方 API 标价 1 美元的用量。</strong></p>
+<p>如果某个模型的官方 API 输入价格是每百万 Token 2 美元，按照同样的比例算，订阅费分摊下来约是 0.074 美元，也就是 0.50 元人民币左右。这样看，即使中转站卖得比官方 API 便宜很多，也可能有空间覆盖成本。</p>
+<p><img src="https://hexoblog.r2.depp.wang/202611201795135920.png" alt=""></p>
+<p>我看到的一些 Codex 中转渠道，价格大约是官方 API 价格的 7%，也就是 0.7 折。按上面的汇率算，官方 API 标价 1 美元的用量，中转站大约收 0.48 元人民币。跟前面算出的 0.25 元订阅费用相比，中间还有一些空间。当然，不同中转站、不同分组的价格不一样，有的标的是站内倍率，还需要结合充值和扣费规则换算，才能知道实际相当于官方价格的多少。</p>
+<p>按这个价格算，GPT-6.2 Sol 的中转 API 甚至可能比国内的 DeepSeek V4 Pro 官方 API 还便宜。以每百万 Token 为单位，GPT-6.2 Sol 的官方 API 标价是输入 2 美元、输出 10 美元；按 7% 和上面的汇率换算，中转价格大约是输入 0.95 元、输出 4.75 元。而 <a href="https://api-docs.deepseek.com/zh-cn/quick_start/pricing/" target="_blank" rel="noopener">DeepSeek V4 Pro 官方 API</a>在空闲时段的价格是输入 4.5 元、输出 13.5 元，高峰时段还要翻倍。</p>
+<p>这里比较的是相同 Token 数量下的单价。GPT-6.2 Sol 和 DeepSeek V4 Pro 的能力表现还要看具体任务，完成同一件事消耗的 Token 也可能不同，所以不能仅凭单价判断实际任务的总费用。不过，如果中转站确实提供的是标称模型，这样的价格对比还是挺有意思的。</p>
+<p>这笔账有个前提：每周额度都能用完，而且对应模型的用量可以按同一方式换算。1,353 美元是按 API 价格估算的用量价值，具体模型的额度消耗可能不同。中转站除了订阅费，也还有账号和服务运行等成本。</p>
+<p>如果碰到额外的额度重置，或者官方有活动，一个月能用的额度更多，分摊下来的成本还可能更低。比如能用满 5 个周期，订阅费就约相当于官方 API 价格的 3%。</p>
+<p>我还看到有些 Codex 中转渠道，售价甚至低于上面算出的订阅成本。这是怎么做到的，我现在也不能确定。可能是它们通过其他地区的订阅或活动，以更低的价格获得账号，甚至有些账号的会员成本接近于零。也可能存在掺假的情况，用更便宜的模型冒充标称的模型。</p>
+<p>这些都只是可能性，不能光看价格就认定某个中转站用了哪种方式。不过，算完这笔账以后，我对中转站为什么能把 API 卖得这么便宜，有了一个更直观的理解：如果一个订阅账号的额度能被充分用起来，按每次调用分摊的订阅费用，确实可以远低于官方 API 的标价。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://depp.wang/2026/find-your-sport/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -366,7 +525,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2026-11-19T09:01:47+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2026-11-19T09:09:29+08:00">
                 2026-11-19
               </time>
             
@@ -3212,164 +3371,10 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://depp.wang/2026/1587-a-Year-of-No-Significance/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="deppwang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/deppwang.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="德普王">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2026/1587-a-Year-of-No-Significance/" itemprop="url">读《万历十五年》：人物、制度与一个王朝的问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2026-08-30T10:47:11+08:00">
-                2026-08-30
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2026-08-31T21:24:25+08:00">
-                2026-08-31
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2026/1587-a-Year-of-No-Significance/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2026/1587-a-Year-of-No-Significance/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2026/1587-a-Year-of-No-Significance/" class="leancloud_visitors" data-flag-title="读《万历十五年》：人物、制度与一个王朝的问题">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="https://hexoblog.r2.depp.wang/202608301788057490.png" alt=""></p>
-<p>我原来以为《万历十五年》是一本讲明朝某一年发生了什么事的历史书，或者更直接一点，是一本写万历皇帝的书。</p>
-<p>读下来才发现不是这样。</p>
-<p>它当然有历史事件，也写了很多真实人物，但读起来更像一篇很长的历史文章。黄仁宇不是把史料一条条摆出来，而是从万历皇帝、张居正、申时行、海瑞、戚继光和李贽几个人身上，写出他自己对明朝制度的理解。人物写得很具体，可读性也很好，但背后其实一直在讲同一个问题：明朝当时的社会已经在变化，治理国家的制度和思想却没有完全跟上。</p>
-<p>黄仁宇的经历也让我觉得挺厉害。他早年有从军经历，后来到美国研究明史。《万历十五年》的英文书稿在 1976 年就完成了，最开始还多次被出版社拒绝。最后他把这样一本本来很严肃的明史研究，写得很白话、很通俗，也没有把历史写成简单的忠奸故事。</p>
-<p>理解这本书，还要先放回明朝的社会背景里。它仍然是一个以农业为根基的国家：土地、赋税、军饷和基层治理，都绕不开农村和农民。可真正承担国家治理的，已经不是春秋战国时期那种以宗族和名门望族为中心的贵族，而是通过科举进入官场的士大夫文官。文官既是国家建立起来解决问题的人，也是国家最难处理的问题之一。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2026/1587-a-Year-of-No-Significance/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -3412,7 +3417,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">180</span>
+                <span class="site-state-item-count">181</span>
                 <span class="site-state-item-name">文章</span>
               </a>
             </div>
@@ -3426,7 +3431,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">415</span>
+                <span class="site-state-item-count">416</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
