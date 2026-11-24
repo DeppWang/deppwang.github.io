@@ -366,7 +366,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2026-11-24T08:30:27+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2026-11-24T08:46:01+08:00">
                 2026-11-24
               </time>
             
@@ -419,16 +419,26 @@
 
       
         
-          <p><img src="https://hexoblog.r2.depp.wang/202611241795478738.jpg" alt=""></p>
+          
+            <p><img src="https://hexoblog.r2.depp.wang/202611241795478738.jpg" alt=""></p>
 <p>现在很多人都在说，未来的软件会面向 Agent。我觉得这个未来其实已经来了一部分，至少对软件开发来说，我们平时使用的很多工具，现在已经可以让 Agent 去操作了。</p>
 <p>以前用 AI 写代码，可能更多是把需求告诉它，让它帮忙写一段代码。现在我可以直接让本地的 Agent 去读取项目任务、查看代码评审意见，或者查询日志，再结合项目代码处理问题。很多原来需要我打开不同网站、找到信息，再复制给 AI 的步骤，都可以交给它自己去做。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2026/software-for-agents/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+<p>比如项目管理工具 Teambition。我们平时在里面查看需求、任务状态和评论，也会收到分配给自己的任务。现在可以通过 <a href="https://github.com/teambition/skills" target="_blank" rel="noopener">Teambition 的 Skill 和 CLI</a>，让 Agent 查询项目和任务。它读到任务描述和相关信息后，就可以结合本地项目代码去分析和解决问题。</p>
+<p>Teambition 的工具支持的功能还不止查询任务，也可以创建和更新任务、发表评论、查看项目文件、管理迭代和工时等。具体能做哪些操作，还要看账号在项目里的权限。</p>
+<p>代码评审也是一样。我使用的项目里配置了<a href="https://github.com/aliyun/alibabacloud-devops-mcp-server" target="_blank" rel="noopener">阿里云云效的 MCP Server</a>，可以让 Agent 读取代码评审里的评论。评审人员提出问题后，我可以让 Agent 自己去看评论，结合代码判断问题，再做相应的修改。它也可以创建评论，但评论发出去之前，内容还是需要确认。</p>
+<p>云效的这个工具支持的范围比我原来注意到的还要广。除了代码仓库和评审，也支持流水线、项目管理、应用交付、制品和测试管理。比如查看流水线的运行状态、执行记录和日志，甚至运行流水线。我目前没有让它操作过流水线，但这个能力已经有了。</p>
+<p>日志也可以让 Agent 去查。我本机安装了阿里云日志服务的 <a href="https://skills.alibabacloud.com/skills/alibabacloud-sls-query" target="_blank" rel="noopener">SLS 查询 Skill</a>，Agent 可以通过<a href="https://help.aliyun.com/zh/cli/install-update-alibaba-cloud-cli" target="_blank" rel="noopener">阿里云 CLI</a> 查询和分析日志。排查问题时，可以让它先查日志，再结合本地代码分析。云效 MCP 也能查流水线和部署日志，但应用写到 SLS 里的业务日志，在我的环境里是通过 SLS Skill 这条路径查询的。</p>
+<p>数据库也有类似的工具。比如 <a href="https://github.com/bytebase/dbhub" target="_blank" rel="noopener">DBHub</a> 是一个数据库 MCP Server，连接数据库后，Agent 就可以根据授权读取数据库信息、执行查询。这样遇到需要结合数据分析的问题，也不用总是由我先去执行 SQL，再把结果复制给它。当然，能访问哪个库、能执行什么操作，还是取决于连接使用的账号和权限。</p>
+<p>还有 Figma。以前可能觉得它主要是设计师和前端使用的工具，后端打开看一下页面，大概了解有哪些字段和按钮就够了。但用 AI 开发以后，我觉得后端也可以把 Figma 用起来。Figma 官方提供了 <a href="https://help.figma.com/hc/en-us/articles/39216419318551-Get-started-with-the-Figma-MCP-server" target="_blank" rel="noopener">MCP Server</a>，Agent 可以读取设计稿中的布局、组件等信息，再配合需求文档，帮助它理解页面和接口需要处理的内容。</p>
+<p>如果日常用得比较多，我觉得后端同学也可以考虑购买 Figma 的付费席位。免费用户也可以使用远程 MCP，但调用额度有限；用付费席位之前，也还是需要有对应设计文件的访问权限。设计稿能提供页面信息，业务规则、状态流转和异常处理这些内容，仍然需要结合需求说明。</p>
+<p>GitHub 也可以让 Agent 操作。GitHub 自己有 <code>gh</code> 命令行工具，Agent 可以调用它查看仓库、创建 PR、读取和回复评论等。GitHub 也提供了 <a href="https://github.com/github/github-mcp-server" target="_blank" rel="noopener">MCP Server</a>。如果公司使用的是其他代码平台，也可以看看它有没有类似的接口或命令行工具。</p>
+<p>还有一种方式是 computer use，让 Agent 像人一样使用浏览器，打开网页、查看在线文档或者操作页面。有些内部系统没有现成的 MCP Server 或 CLI，但只要 Agent 能访问页面，也可以尝试通过这种方式完成部分工作。</p>
+<p>另外，像 Jira 和 Confluence 可以通过 <a href="https://developer.atlassian.com/cloud/rovo-mcp/guides/getting-started/" target="_blank" rel="noopener">Atlassian 的 MCP Server</a> 连接，让 Agent 查看任务和文档；Grafana 也提供了 MCP Server，可以查询监控指标、日志和告警。我们平时常用的软件，很多厂商已经提供了对应的 Agent 工具，只是以前不一定留意过。</p>
+<p>这里提到的 MCP、Skill、CLI 和 computer use 不是同一个东西。MCP 是 Agent 连接工具的一种方式；Skill 可以理解为告诉 Agent 如何完成某类任务的说明；CLI 是命令行工具；computer use 则是让 Agent 操作界面。它们也可以配合使用，比如我用的 SLS 查询 Skill，实际执行查询时就会调用阿里云 CLI。</p>
+<p>我觉得可以先从自己每天都会打开的工具找起：任务系统、代码仓库、日志平台、数据库、设计稿和在线文档。看看它们有没有提供 MCP、Skill 或 CLI，也可以让 Agent 帮忙查一下。没有现成工具的，有接口的话也可以封装成 CLI，让 Agent 去调用。</p>
+<p>以前处理一个问题，我可能需要自己去任务系统看需求，到日志平台查日志，打开代码仓库看评审意见，再把相关信息一项项交给 AI。现在这些信息，很多已经可以让 Agent 自己去读取。我们仍然需要确认需求和检查结果，但可以把更多时间放在判断问题和解决问题上。</p>
+
+          
         
       
     </div>
